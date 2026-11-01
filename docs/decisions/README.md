@@ -25,6 +25,7 @@ Every meaningful product or technical choice, with the options considered and wh
 | [0019](0019-personal-name-and-encouragement.md) | Ask for a name and use it for encouragement, on the device only | 2026-10-31 | Superseded by 0020 (cheer word) | Phase 1 | Product |
 | [0020](0020-name-only-encouragement.md) | Encouragement uses the name only; no cheer word | 2026-10-31 | Accepted | Phase 1 | Product |
 | [0021](0021-app-icon-serif-g-with-pen.md) | App icon: a serif lowercase g with a fountain pen on a notebook page | 2026-10-31 | Accepted | Phase 1 | Product |
+| [0022](0022-question-count-dial.md) | Drill length is a swipe dial from 5 to 40 | 2026-11-01 | Accepted | Phase 1 | Product |
 
 ## Template
 

@@ -11,6 +11,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-10-31 | A1: app shell | Install on phone | [2026-10-31-A1](2026-10-31-A1.md) |
 | 2026-10-31 | A1 + A2: shell, question bank | Phone install; 30-question sample | [2026-10-31-A1-A2](2026-10-31-A1-A2.md) |
 | 2026-10-31 | A3: quant drills | Staging on phone | [2026-10-31-A3](2026-10-31-A3.md) |
+| 2026-11-01 | Requests after A3; question-count dial | Staging on phone | [2026-11-01-requests-and-dial](2026-11-01-requests-and-dial.md) |
 
 ## Tracker
 
@@ -37,3 +38,11 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-19 | Design | Prefers the fountain-pen version | Pen version is the icon | Done | [0021](../decisions/0021-app-icon-serif-g-with-pen.md) |
 | FB-20 | Quant | Difficulty multi-select still doesn't work | Root cause: ambiguous control + stale build; toggle chips and update bar on every tab | Done | |
 | FB-21 | Process | A3 approved; update logs, commit and push | Committed, pushed, tagged v0.1.0 | Done | |
+| FB-22 | Settings | Option to reset account and progress | PRD v0.6: reset progress or everything; step 9 | Planned | |
+| FB-23 | Personal | Reminders about paused drills and practice, based on performance ("more fractions, you were weak last time") | PRD v0.6: in-app nudges Phase 2; outside-app reminders Phase 3, needs a decision | Planned | |
+| FB-24 | Personal | Cute notes from Ashwyn for the second user, only for her names | PRD v0.6: hashed name match, "Ashwyn says…"; Phase 2 | Planned | |
+| FB-25 | Home | Home seems blank; make it better | PRD v0.6: today card, last session, suggested drill; options at step 9 | Planned | |
+| FB-26 | Quant | Question count as a rotating dial, 5 to 40 in steps of 5 | Swipe dial with snap and tilt | Done | [0022](../decisions/0022-question-count-dial.md) |
+| FB-27 | Quant | Dial moves vertically when swiping up or down | Horizontal-only scrolling | Done | [0022](../decisions/0022-question-count-dial.md) |
+| FB-28 | Quant | Dial draws over the Start button | Dial isolated; Start bar on top | Done | |
+| FB-29 | Process | Dial approved; update docs, commit and push | Committed and pushed | Done | |

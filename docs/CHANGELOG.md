@@ -4,6 +4,9 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+### Changed
+- Quant setup: choose the number of questions on a swipe dial, from 5 to 40 in steps of 5 (was 10, 20 or 30).
+
 ## [0.1.0] - 2026-10-31 · Milestone A: quant drills live
 
 ### Added

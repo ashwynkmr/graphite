@@ -6,6 +6,17 @@ Running log of what's built, what's live and known issues. Newest first.
 
 `v0.1.0` (Milestone A) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Installable and offline. Vocab, Mistakes, Progress and most of Settings are placeholders until Milestones B and C.
 
+## Next up (handoff)
+
+Read this and `CLAUDE.md` first when starting a new session.
+
+- **Where we are:** Milestone A shipped as `v0.1.0` (Oct 31). Study started Nov 1; exam Nov 24.
+- **Next step:** Milestone B, step 6: collect several public high-frequency GRE word lists (words only) into `content/sources/wordlists/`, write `tools/vocab/rank-words.ts`, produce the ranked top 1,500 with tiers, and show Ashwyn the top 100 and the sources before writing any entries. **Wait for Ashwyn's go before starting.**
+- **Also planned (PRD v0.6, Nov 1):** two-level reset and a fuller Home in step 9; study nudges and notes for the second user in Phase 2; reminders outside the app in Phase 3, needing a decision first.
+- **Then:** step 7 (original entries for ranks 1–600, batches of 100, Checkpoint B1: 20 random entries) and step 8 (vocab flow, Checkpoint B2).
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-29). Next decision number: 0023.
+- **Open items:** install/offline not yet verified on a real phone against the live site; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
+
 ## Steps
 
 | Step | What | Status | Date |
@@ -17,6 +28,11 @@ Running log of what's built, what's live and known issues. Newest first.
 | 5 | Quant flow + minimal Home | Done; A3 approved; `v0.1.0` | 2026-10-31 |
 
 ## Notes
+
+### 2026-11-01: Requests after A3; question-count dial
+- Drill length on Quant setup is a swipe dial, 5 to 40 in steps of 5 ([0022](decisions/0022-question-count-dial.md)); reusable as `src/ui/Dial.tsx`. Two phone fixes before approval: horizontal-only scrolling, and the Start bar drawn above the dial.
+- PRD v0.6 records four requests for later: reset progress or everything (step 9), a fuller Home (step 9), study nudges from the user's own results (Phase 2), and notes from Ashwyn for the second user (Phase 2). Feedback FB-22 to FB-29.
+- 487 tests green.
 
 ### 2026-10-31: A2 feedback, Steps 4–5, A3 (approved, `v0.1.0`)
 - **Review gate** ([0016](decisions/0016-review-gate-staging-before-commit.md)): from here on, every checkpoint runs on an HTTPS staging tunnel (`npm run staging`) and nothing is committed until Ashwyn approves.

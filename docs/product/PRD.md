@@ -1,6 +1,6 @@
 # Graphite — Product Requirements (PRD)
 
-Oct 31, 2026 · @Ashwyn · Draft v0.5 (v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
+Nov 1, 2026 · @Ashwyn · Draft v0.6 (v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
 
 > Living document. Scope changes are recorded in the [decision log](../decisions/README.md) and [ROADMAP](ROADMAP.md); this file is updated to match and the version above bumped.
 
@@ -74,9 +74,9 @@ Phase 1 ships everything needed to study from day one, including the mistake log
 | Quant drills | All 9 topics, 3 difficulty levels, typed / MCQ / Mix answers, per-set and untimed timers, results screen, retry wrong ones | Sprint mode, Adaptive difficulty, more templates for weak topics | Quantitative comparison and data-interpretation style questions |
 | Vocab | Flashcard, MCQ and type-in modes, Leitner boxes, star, due/new/starred decks, 200 new words a day, first 600 words | All 1,500 words, Round 2, Browse and search, mnemonics for the hardest \~200 words | Audio pronunciation, verbal question types |
 | Mistake log | Auto-collect wrong quant and missed words, Drill my mistakes, auto-clear after 2 correct | Filter by topic and age | — |
-| Home and progress | Exam countdown, today's plan, streak, simple totals | Full dashboard: 14-day trends, weakest topics, words per box | Score predictor |
+| Home and progress | Exam countdown, today's plan, streak, simple totals, today card, last session, one suggested drill | Full dashboard: 14-day trends, weakest topics, words per box; in-app study nudges; personal note for the second user | Score predictor; reminders outside the app (needs a decision) |
 | Share | Share a session result (image card + text) | Share 7- or 14-day history | Compare with a friend (needs a free backend) |
-| Settings and data | Daily goals, exam date, timer and answer-mode defaults, theme, export/import, reset | Type-in hint toggle, per-topic defaults | — |
+| Settings and data | Daily goals, exam date, timer and answer-mode defaults, theme, export/import, reset progress or everything | Type-in hint toggle, per-topic defaults | — |
 | Platforms | Web app + installable app on iPhone, Android and desktop (PWA), offline | Install prompt and app icon polish | Android APK (free, sideloaded); iOS App Store not planned ($99/yr) |
 
 ### Screens and navigation
@@ -125,7 +125,7 @@ The GRE rewards smart guessing, so drills train both exact calculation and elimi
 
 *v0.5: each level moved up one step after the first content review ([0017](../decisions/0017-difficulty-up-one-level.md)).*
 
-**Drill setup.** The user picks topics (one, several, or Mixed), difficulty (Easy, Medium, Hard, Adaptive), length (10, 20, 30 questions or a 2/5/10-minute sprint), answer mode (Typed, Multiple choice, Mix) and timer mode.
+**Drill setup.** The user picks topics (one, several, or Mixed), difficulty (Easy, Medium, Hard, Adaptive), length (5 to 40 questions in steps of 5 on a swipe dial ([0022](../decisions/0022-question-count-dial.md)), or a 2/5/10-minute sprint), answer mode (Typed, Multiple choice, Mix) and timer mode.
 
 **Timer modes**
 
@@ -211,6 +211,7 @@ Five small features turn two tools into a daily habit. The mistake log matters m
 - Exam countdown to Nov 24 ("23 days to go") and today's plan: "Due words: 64 · New words: 200 · Quant: 100 questions."
 - Streak counter and today's progress against the daily goals.
 - One-tap Quick drill (20 mixed questions at the user's current level) and Continue vocab.
+- *(v0.6, owner feedback: the Milestone A Home "seems blank".)* Home should feel like a study desk you open every day, not a launcher. Phase 1 adds, below the greeting: a **today** card (progress against both daily goals as pencil-tick rows), a **last session** line (score, time, date, tap to open its results), and one **suggested drill** card from the nudge rules below. Design options are shown side by side before building (step 9).
 
 **Mistake log (Phase 1)**
 
@@ -243,6 +244,28 @@ Progress stays private on the device, but the user can choose to share it.
 - Daily goals (new words, quant questions), exam date, default timer per question, default answer mode, type-in hints on/off, light/dark theme.
 - **Export / import progress** as a JSON file. Since there is no login, this is the backup and the way to move progress from phone to laptop.
 - Reset progress. A reminder to export appears every 3 days.
+- *(v0.6)* **Reset**, two levels, at the bottom of Settings:
+  - **Reset progress:** clears drills, answers, vocab boxes, the mistake log and streaks. Keeps the name and settings.
+  - **Reset everything:** also clears the name and settings and returns to the first-run name prompt, as on a fresh install.
+  - Both offer "Export first" and ask the user to type `reset` to confirm. Nothing can be undone without an export file.
+
+**Study nudges and reminders** *(added in v0.6, owner request)*
+
+Nudges point the user at what to practise next, using their own results. They never show right/wrong feedback during a session.
+
+- **In-app nudges (Phase 2; one card on Home in Phase 1):** computed on the device from recent results, shown on Home and at the end of Results. One nudge at a time, picked by priority:
+  1. A paused drill: "You left a drill at 12 of 20. Pick it up?"
+  2. A weak topic: lowest accuracy over the last 3 sessions that included it, at least 10 answers: "Fractions was your weakest last time (58%). Do 20 more?" One tap starts that drill.
+  3. Due words: "64 words are due today."
+  4. A slow topic: average time over target: "Percents are right but slow. Try a timed set."
+  5. No study today by evening: "Nothing logged today yet. A 5-minute drill keeps the streak."
+- **Notifications outside the app (Phase 3, needs a decision):** an offline app with no server cannot schedule a notification on iPhone. Real reminders need web push, which needs a small free backend and would send nudge text off the device. Options to decide later: (a) in-app nudges only, (b) a "Add daily reminder to calendar" file made on the device (generic, not performance-based), (c) a free push backend, recorded in a decision before building.
+
+**A personal note for the second user** *(added in v0.6, owner request, Phase 2)*
+
+- If the first name entered matches one of the second user's names, Home and the nudges sometimes add a short note from Ashwyn, signed "Ashwyn says…": love and encouragement, never more than one per day, never during a session.
+- The names are matched by a hash in the code, so they do not appear in this public repo. Anyone else sees the normal app.
+- The notes are written or approved by Ashwyn before they ship.
 
 ## Rules and edge cases
 
