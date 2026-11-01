@@ -22,7 +22,6 @@ Starts only when Ashwyn says go.
 - Share 7- or 14-day history
 - Mnemonics for the hardest ~200 words; per-topic defaults; mistake-log filters
 - In-app study nudges from the user's own results (weak topic, slow topic, due words, paused drill)
-- A personal note from Ashwyn for the second user
 
 ## Phase 3: later (optional)
 
@@ -32,6 +31,7 @@ Quantitative comparison and data-interpretation questions, audio pronunciation, 
 
 | Date | Change | Why | Record |
 | --- | --- | --- | --- |
+| 2026-11-01 | Personal notes for the second user moved from Phase 2 into Phase 1 | Owner request | [0041](../decisions/0041-personal-notes-sealed-in-the-app.md) |
 | 2026-11-01 | Reminder service moved from Northflank to Cloudflare | Northflank security incident | [0038](../decisions/0038-reminder-service-on-cloudflare.md) |
 | 2026-11-01 | Usage-based push reminders added ahead of step 10; supersedes in-app only | Owner request | [0037](../decisions/0037-push-reminders-with-on-device-text.md) |
 | 2026-11-01 | Reminders outside the app removed from Phase 3; in-app only | Owner decision | [0035](../decisions/0035-in-app-reminders-only.md) |

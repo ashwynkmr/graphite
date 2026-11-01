@@ -10,12 +10,12 @@ Running log of what's built, what's live and known issues. Newest first.
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: steps 9 and 10, push reminders, stacked fractions and step 11's automated checks are live, with no release tag yet. Study started Nov 1; exam Nov 24.
-- **Next step:** Ashwyn's iPhone test of the personal notes, then ship them (decision 0041). Then Ashwyn's real-phone launch checklist, the milestone retro and `v1.0.0`. Personal-notes code is uncommitted in the working tree until that test passes.
+- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: steps 9 and 10, push reminders, stacked fractions, personal notes and step 11's automated checks are live, with no release tag yet. Study started Nov 1; exam Nov 24.
+- **Next step:** Ashwyn's real-phone launch checklist (Airplane Mode, Share, Export and Import, Report a problem), then the milestone retro and `v1.0.0`.
 - **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
-- **Also planned (PRD v0.6, Nov 1):** study nudges and notes for the second user in Phase 2. Usage-based push reminders are built ([0037](decisions/0037-push-reminders-with-on-device-text.md)).
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-88). Next decision number: 0041, reserved for personal notes.
-- **Open items:** the real share sheet on a phone; reminders on Android; Export and import on a real iPhone (FB-70); install button and iPhone install hint not yet tried; install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
+- **Also planned (PRD v0.6, Nov 1):** study nudges in Phase 2. Usage-based push reminders are built ([0037](decisions/0037-push-reminders-with-on-device-text.md)), and notes for the second user moved up and shipped ([0041](decisions/0041-personal-notes-sealed-in-the-app.md)).
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-90). Next decision number: 0042. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
+- **Open items:** the real share sheet on a phone; reminders and notes on Android, including the answer buttons; stacked fractions on a real phone; a reminder run going over Cloudflare's 10 ms limit and retrying; Export and import on a real iPhone (FB-70); install button and iPhone install hint not yet tried; install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
 
@@ -34,6 +34,11 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 11 | Launch pass: run-throughs, Report a problem, screenshots | In progress; real-phone checklist not yet reported | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Personal notes shipped
+- Notes for the second user are encrypted in the app and open only for a matching saved name ([0041](decisions/0041-personal-notes-sealed-in-the-app.md)). Feedback FB-85, FB-86, FB-89 and FB-90.
+- Ashwyn tested them on an iPhone with a 3-minute gap and asked to drop the second signature, since the title already names the sender.
+- An install of the previous live build updated in Chromium: saved data stayed, a matching name got 23 notes and 5 questions in its plan, and another name got none. Headless Chromium didn't show the pushed notifications, so the text after FB-89 hasn't been seen on a phone.
 
 ### 2026-11-01: Launch pass so far, and stacked fractions
 - A Phase 1 audit found Report a problem was never built. It's now on Results and in the Mistake log, opening a GitHub issue with the ID filled in.
