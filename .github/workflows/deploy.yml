@@ -29,6 +29,13 @@ jobs:
       - run: npm test
       - run: npm run content:validate
       - run: npm run build
+      # The reminder server deploys separately, but a red server blocks the site like anything else.
+      - run: npm ci
+        working-directory: push-server
+      - run: npm run typecheck
+        working-directory: push-server
+      - run: npm test
+        working-directory: push-server
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

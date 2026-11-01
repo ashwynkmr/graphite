@@ -7,6 +7,7 @@ import { Screen } from '../../ui/Screen';
 import { useProfile } from '../personal/ProfileContext';
 import { BackupSection } from './BackupSection';
 import { InstallSection } from './InstallSection';
+import { ReminderSection } from './ReminderSection';
 import { ResetSection } from './ResetSection';
 import styles from './SettingsScreen.module.css';
 
@@ -148,6 +149,7 @@ export function SettingsScreen() {
         </>
       )}
 
+      <ReminderSection />
       <InstallSection />
       <BackupSection onRestored={reload} />
       <ResetSection onReset={reload} />

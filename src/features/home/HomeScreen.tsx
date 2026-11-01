@@ -12,8 +12,9 @@ import type { Nudge } from '../../engine/stats/nudge';
 import type { GoalRow } from '../../engine/stats/progress';
 import { Button } from '../../ui/controls';
 import { greeting, homeLine } from '../personal/messages';
+import { nudgeText } from '../personal/nudgeText';
 import { useProfile } from '../personal/ProfileContext';
-import { duration, TOPIC_LABEL } from '../quant/display';
+import { duration } from '../quant/display';
 import { startDrill } from '../quant/startDrill';
 import { startVocab } from '../vocab/startVocab';
 import styles from './HomeScreen.module.css';
@@ -21,19 +22,6 @@ import { Tally } from './Tally';
 
 const BACKUP_REMINDER_DAYS = 3;
 const DAY_MS = 86_400_000;
-
-function nudgeText(n: Nudge): string {
-  switch (n.kind) {
-    case 'weak':
-      return `${TOPIC_LABEL[n.topic]} was your weakest last time (${Math.round(n.accuracy * 100)}%). Do 20 more?`;
-    case 'due':
-      return `${n.count} ${n.count === 1 ? 'word is' : 'words are'} due today.`;
-    case 'slow':
-      return `${TOPIC_LABEL[n.topic]}: right but slow. Try a timed set.`;
-    case 'idle':
-      return 'Nothing logged today yet. A 5-minute drill keeps the streak.';
-  }
-}
 
 function dayLabel(day: Day, today: Day): string {
   const ago = daysBetween(day, today);

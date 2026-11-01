@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { saveBackupFile } from '../../app/backup-file';
+import { turnOffReminder } from '../../app/reminders';
 import { applyTheme } from '../../app/theme';
 import { resetAll, resetProgress } from '../../data/export-import';
 import { Button } from '../../ui/controls';
@@ -45,6 +46,8 @@ export function ResetSection({ onReset }: { onReset: () => void }) {
       setStatus('Progress cleared.');
       return;
     }
+    // Stop reminders first: a fresh install shouldn't keep buzzing.
+    await turnOffReminder();
     await resetAll();
     applyTheme('system');
     onReset();

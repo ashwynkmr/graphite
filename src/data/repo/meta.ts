@@ -85,6 +85,34 @@ export async function saveProfile(profile: Profile, d: GraphiteDB = db): Promise
   await put('profile', { name: profile.name.trim() }, d);
 }
 
+export const DEFAULT_REMINDER_TIME = '19:00';
+
+/** The daily reminder's local time. Whether reminders are on is the browser's push subscription. */
+export async function getReminderTime(d: GraphiteDB = db): Promise<string> {
+  return get<string>('reminderTime', DEFAULT_REMINDER_TIME, d);
+}
+
+export async function setReminderTime(time: string, d: GraphiteDB = db): Promise<void> {
+  await put('reminderTime', time, d);
+}
+
+/** Reminders shown lately, and the paused session that has had its one nudge. Stays on the device. */
+export interface ReminderLog {
+  sentAt: number[];
+  nudgedSessionId: string | null;
+}
+
+const LOG_KEEP_MS = 2 * 24 * 60 * 60 * 1000;
+
+export async function getReminderLog(d: GraphiteDB = db): Promise<ReminderLog> {
+  return get<ReminderLog>('reminderLog', { sentAt: [], nudgedSessionId: null }, d);
+}
+
+export async function logReminderSent(at: number, pausedSessionId: string | null, d: GraphiteDB = db): Promise<void> {
+  const log = await getReminderLog(d);
+  await put('reminderLog', { sentAt: [...log.sentAt.filter((t) => at - t < LOG_KEEP_MS), at], nudgedSessionId: pausedSessionId ?? log.nudgedSessionId }, d);
+}
+
 export async function getLastExportAt(d: GraphiteDB = db): Promise<number | null> {
   return get<number | null>('lastExportAt', null, d);
 }
