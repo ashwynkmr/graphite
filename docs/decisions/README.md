@@ -1,0 +1,33 @@
+# Decision log
+
+Every meaningful product or technical choice, with the options considered and what was given up. Records are never edited after the fact; a changed decision gets a new record and the old one is marked **Superseded**.
+
+| # | Decision | Date | Status | Phase | Type |
+| --- | --- | --- | --- | --- | --- |
+| [0001](0001-mental-math-drills-not-full-gre-quant.md) | Narrow quant to mental-math drills, not full GRE problems | 2026-10-31 | Accepted | Planning | Product |
+| [0002](0002-generated-question-bank.md) | Generate the question bank from code templates instead of copying questions | 2026-10-31 | Accepted | Planning | Content |
+| [0003](0003-1500-question-bank.md) | 1,500-question bank with a 7-day no-repeat rule, not 1,000 | 2026-10-31 | Accepted | Planning | Content |
+| [0004](0004-word-list-sourced-content-original.md) | Word list from public frequency lists; all meanings and sentences original | 2026-10-31 | Accepted | Planning | Content |
+| [0005](0005-1500-words-200-a-day.md) | Vocab deck of 1,500 words, 200 new a day, then Round 2 | 2026-10-31 | Accepted | Planning | Scope |
+| [0006](0006-typed-and-multiple-choice-mix.md) | Mix of typed and multiple-choice answers | 2026-10-31 | Accepted | Planning | Product |
+| [0007](0007-results-only-at-end.md) | Results only at the end of a session | 2026-10-31 | Accepted | Planning | Product |
+| [0008](0008-no-login-local-progress.md) | No login; progress stays on each device, with Share and Export | 2026-10-31 | Accepted | Planning | Product |
+| [0009](0009-pwa-on-github-pages.md) | PWA on free GitHub Pages instead of app-store apps | 2026-10-31 | Accepted | Planning | Technical |
+| [0010](0010-phased-release-mistake-log-in-phase-1.md) | Phased release, with the mistake log in Phase 1 | 2026-10-31 | Accepted | Planning | Scope |
+| [0011](0011-launch-with-600-words.md) | Launch with 600 words, add the rest in batches | 2026-10-31 | Accepted | Planning | Scope |
+| [0012](0012-name-graphite.md) | Name: Graphite | 2026-10-31 | Accepted | Planning | Product |
+| [0013](0013-static-react-dexie-hash-routing-ci.md) | Static React + TypeScript app, IndexedDB via Dexie, hash routing, CI-gated deploys | 2026-10-31 | Accepted | Planning | Technical |
+| [0014](0014-quant-drill-before-handwritten-problems.md) | Ship a usable quant drill before the hand-written word problems | 2026-10-31 | Accepted | Phase 1 | Scope |
+
+## Template
+
+```
+# NNNN. Title in plain words
+Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Product / Technical / Scope / Content)
+
+## Context              what problem or constraint forced a choice
+## Options              2–4 real options considered, one line each
+## Decision             what we chose
+## Trade-offs           what we gave up and why that's acceptable
+## Signals to revisit   what evidence would make us change this
+```
