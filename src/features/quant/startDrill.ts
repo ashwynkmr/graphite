@@ -1,10 +1,12 @@
 import { loadBank } from '../../content/bank';
 import type { QuantSettings, SessionRow } from '../../data/db';
-import { normalizeQuant, updateSettings } from '../../data/repo/meta';
+import { getSettings, normalizeQuant, updateSettings } from '../../data/repo/meta';
+import { quantMistakes } from '../../data/repo/mistakes';
 import { createQuantSession, lastSeenMap } from '../../data/repo/quant-sessions';
 import { toDay } from '../../engine/dates';
 import { TOPICS } from '../../engine/generators/types';
-import { buildQuantItems, rebuildItems, type PlannedItem } from '../../engine/sessions/quant-builder';
+import { buildMistakeItems, buildQuantItems, rebuildItems, type PlannedItem } from '../../engine/sessions/quant-builder';
+import { resolveQuestion } from '../../engine/sessions/questions';
 
 function freshSeed(): number {
   return Math.floor(Math.random() * 2 ** 31);
@@ -38,4 +40,13 @@ export async function startRetry(from: SessionRow, items: PlannedItem[]): Promis
     origin: { kind: 'retry', of: from.id },
     seed,
   });
+}
+
+/** Drill my mistakes: the oldest logged questions, up to the usual drill length. Null when none can be served. */
+export async function startMistakeDrill(): Promise<SessionRow | null> {
+  const [bank, mistakes, all] = await Promise.all([loadBank(), quantMistakes(), getSettings()]);
+  const seed = freshSeed();
+  const items = buildMistakeItems({ mistakes, resolve: (ref) => resolveQuestion(ref, bank.byId), length: all.quant.length, seed });
+  if (!items.length) return null;
+  return createQuantSession({ settings: { ...all.quant, answerMode: 'mix', length: items.length }, items, origin: { kind: 'mistakes' }, seed });
 }

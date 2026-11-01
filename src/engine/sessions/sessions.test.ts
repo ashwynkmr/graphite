@@ -3,7 +3,7 @@ import bankJson from '../../../content/questions.json';
 import { addDays } from '../dates';
 import { elapsed, itemMs, nextItem, pause, remaining, resume, startClock } from './clock';
 import { mistakeChange } from './mistakes';
-import { buildQuantItems, NO_REPEAT_DAYS, rebuildItems, type QuantBuildInput } from './quant-builder';
+import { buildMistakeItems, buildQuantItems, NO_REPEAT_DAYS, rebuildItems, type QuantBuildInput } from './quant-builder';
 import { parseRefId, refId, resolveQuestion, type BankQuestion } from './questions';
 
 const bank = bankJson as unknown as BankQuestion[];
@@ -129,5 +129,35 @@ describe('mistake log', () => {
     expect(mistakeChange(0, true)).toEqual({ kind: 'put', correctStreak: 1 });
     expect(mistakeChange(1, true)).toEqual({ kind: 'remove' });
     expect(mistakeChange(1, false)).toEqual({ kind: 'put', correctStreak: 0 });
+  });
+});
+
+describe('buildMistakeItems', () => {
+  const ids = bank.slice(0, 5).map((q) => q.id);
+  const resolve = (ref: Parameters<typeof resolveQuestion>[0]) => resolveQuestion(ref, bankById);
+
+  it('takes the oldest first, up to the length', () => {
+    const mistakes = ids.map((refId, i) => ({ refId, addedAt: 100 - i }));
+    const items = buildMistakeItems({ mistakes, resolve, length: 3, seed: 1 });
+    expect(items.map((i) => refId(i.ref))).toEqual([ids[4], ids[3], ids[2]]);
+  });
+
+  it('rebuilds live-generated questions from their stored seed', () => {
+    const live = buildQuantItems(input({ lastSeen: new Map(bank.map((q) => [q.id, TODAY])), length: 1 }))[0]!;
+    expect(live.ref.kind).toBe('gen');
+    const items = buildMistakeItems({ mistakes: [{ refId: refId(live.ref), addedAt: 1 }], resolve, length: 5, seed: 1 });
+    expect(items[0]!.ref).toEqual(live.ref);
+  });
+
+  it('leaves out a question that no longer exists', () => {
+    const items = buildMistakeItems({ mistakes: [{ refId: 'gone-m-0001', addedAt: 1 }, { refId: ids[0]!, addedAt: 2 }], resolve, length: 5, seed: 1 });
+    expect(items.map((i) => refId(i.ref))).toEqual([ids[0]]);
+  });
+
+  it('serves multiple-choice items with all their choices', () => {
+    const withChoices = bank.filter((q) => q.choices).slice(0, 20);
+    const items = buildMistakeItems({ mistakes: withChoices.map((q, i) => ({ refId: q.id, addedAt: i })), resolve, length: 20, seed: 7 });
+    expect(items.some((i) => i.mode === 'mcq')).toBe(true);
+    for (const item of items) if (item.mode === 'mcq') expect(item.choices).toHaveLength(5);
   });
 });

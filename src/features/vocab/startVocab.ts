@@ -1,6 +1,7 @@
 import { loadWords } from '../../content/words';
 import type { VocabSessionRow, VocabSettings } from '../../data/db';
 import { getSettings, updateSettings } from '../../data/repo/meta';
+import { wordMistakes } from '../../data/repo/mistakes';
 import { createVocabSession, loadWordStates } from '../../data/repo/vocab';
 import { toDay } from '../../engine/dates';
 import { mulberry32 } from '../../engine/rng';
@@ -49,5 +50,15 @@ export async function redoVocab(wordIds: readonly string[], base: VocabSettings)
   const seed = freshSeed();
   const settings: VocabSettings = { ...base, modes: ['flashcard'] };
   const ids = mulberry32(seed).shuffle([...wordIds]);
+  return createVocabSession({ settings, items: planVocabItems(ids, settings.modes, book.byId, seed), seed });
+}
+
+/** Drill my mistakes: the oldest logged words, up to the usual session length, in the usual practice types. */
+export async function startMistakeVocab(): Promise<VocabSessionRow | null> {
+  const [book, mistakes, all] = await Promise.all([loadWords(), wordMistakes(), getSettings()]);
+  const ids = [...mistakes].sort((a, b) => a.addedAt - b.addedAt).map((m) => m.refId).filter((id) => book.byId.has(id)).slice(0, all.vocab.length);
+  if (!ids.length) return null;
+  const seed = freshSeed();
+  const settings: VocabSettings = { ...all.vocab, length: ids.length };
   return createVocabSession({ settings, items: planVocabItems(ids, settings.modes, book.byId, seed), seed });
 }

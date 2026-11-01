@@ -1,0 +1,18 @@
+.tally {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-half);
+}
+
+.gate {
+  width: 24px;
+  height: 16px;
+  fill: none;
+  stroke: var(--rule-strong);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.on {
+  stroke: var(--ink);
+}

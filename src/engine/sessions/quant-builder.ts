@@ -8,7 +8,7 @@ import { finalize } from '../generators/finalize';
 import { TEMPLATES } from '../generators/index';
 import type { Difficulty, Topic } from '../generators/types';
 import { mulberry32, type Rng } from '../rng';
-import type { BankQuestion, PlayableQuestion, QuestionRef } from './questions';
+import { parseRefId, type BankQuestion, type PlayableQuestion, type QuestionRef } from './questions';
 
 export const NO_REPEAT_DAYS = 7;
 export const LIVE_GENERATION_THRESHOLD = 0.1;
@@ -125,4 +125,26 @@ export function buildQuantItems(input: QuantBuildInput): PlannedItem[] {
 export function rebuildItems(items: readonly PlannedItem[], seed: number): PlannedItem[] {
   const rng = mulberry32(seed);
   return items.map((it) => (it.choices ? { ...it, choices: rng.shuffle(it.choices) } : { ...it }));
+}
+
+/**
+ * Drill my mistakes: oldest log items first, up to `length`. Mix answer modes. A logged question
+ * that no longer exists (removed from the bank) is left out.
+ */
+export function buildMistakeItems(args: {
+  mistakes: readonly { refId: string; addedAt: number }[];
+  resolve: (ref: QuestionRef) => Pick<PlayableQuestion, 'choices' | 'mcqOnly'> | null;
+  length: number;
+  seed: number;
+}): PlannedItem[] {
+  const rng = mulberry32(args.seed);
+  const items: PlannedItem[] = [];
+  for (const m of [...args.mistakes].sort((a, b) => a.addedAt - b.addedAt)) {
+    if (items.length >= args.length) break;
+    const ref = parseRefId(m.refId);
+    const q = args.resolve(ref);
+    const plan = q && planMode(q, 'mix', rng);
+    if (plan) items.push({ ref, ...plan });
+  }
+  return items;
 }

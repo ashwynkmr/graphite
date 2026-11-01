@@ -1,7 +1,7 @@
 .home {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
 .header {
@@ -63,56 +63,115 @@
   gap: var(--space-1);
 }
 
-.countdown {
-  display: flex;
-  align-items: baseline;
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-1);
-  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-5);
-  background: var(--paper-raised) var(--ruled-lines);
-  background-position: 0 12px;
-  border: var(--border);
-  border-radius: var(--radius);
-  position: relative;
 }
 
-/* Notebook margin rule */
-.countdown::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: var(--space-3);
-  width: 1px;
-  background: var(--ink);
-  opacity: 0.3;
+.card {
+  padding: var(--space-2);
+  background: var(--paper-raised);
+  border: var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-serif);
+  color: var(--graphite-soft);
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.big {
+  display: block;
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--graphite);
 }
 
 .days {
-  font-family: var(--font-serif);
-  font-size: var(--text-hero);
-  line-height: 1;
   color: var(--ink);
 }
 
-.daysLabel {
-  font-family: var(--font-serif);
-  font-size: var(--text-lg);
-  color: var(--graphite-soft);
-}
-
-.quick {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-1);
 }
 
-.quickMeta {
+/* Two buttons on a 360 px phone: keep the labels on one line. */
+.actions button {
+  padding: 0 var(--space-1);
+}
+
+.today {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+}
+
+.todayTitle {
+  font-size: var(--text-lg);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 84px auto 1fr;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 32px;
   font-size: var(--text-sm);
+}
+
+.row b {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.nudge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background: var(--paper-raised);
+  border: var(--border);
+  border-radius: var(--radius);
+}
+
+.nudge button {
+  flex-shrink: 0;
+  padding: 0 var(--space-2);
+}
+
+.nudgeText {
+  flex: 1;
+  font-family: var(--font-serif);
+  line-height: 1.3;
+}
+
+.last {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 var(--space-1);
+  min-height: var(--tap);
+  border-top: var(--border);
+  font-size: var(--text-sm);
+  color: var(--graphite);
+  text-decoration: none;
+}
+
+.lastLabel {
   color: var(--graphite-soft);
 }
 
-.custom {
+.chevron {
+  margin-left: auto;
+  color: var(--graphite-soft);
+}
+
+.backup {
   min-height: var(--tap);
   display: inline-flex;
   align-items: center;

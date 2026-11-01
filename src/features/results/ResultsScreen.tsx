@@ -110,7 +110,7 @@ export function ResultsScreen() {
         <Link to="/" className={styles.back}>
           Done
         </Link>
-        <span className={styles.kind}>{session.origin.kind === 'retry' ? 'Retry' : 'Quant drill'}</span>
+        <span className={styles.kind}>{session.origin.kind === 'retry' ? 'Retry' : session.origin.kind === 'mistakes' ? 'My mistakes' : 'Quant drill'}</span>
       </header>
 
       <section className={styles.hero}>

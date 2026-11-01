@@ -32,27 +32,53 @@ export function backupFileName(now = new Date()): string {
   return `graphite-backup-${toDay(now)}.json`;
 }
 
-export type ImportResult = { ok: true; rows: number } | { ok: false; error: string };
+/** Why a file can't be restored. The screen words it, with the app's name as the wordmark. */
+export type ImportError = 'not-a-backup' | 'newer-version';
+
+export type BackupCheck = { ok: true; backup: Backup } | { ok: false; error: ImportError };
+
+/** Checks a parsed file without touching local data, so the screen can ask before replacing anything. */
+export function checkBackup(raw: unknown): BackupCheck {
+  const parsed = BackupSchema.safeParse(raw);
+  if (!parsed.success) return { ok: false, error: 'not-a-backup' };
+  if (parsed.data.schemaVersion > SCHEMA_VERSION) return { ok: false, error: 'newer-version' };
+  return { ok: true, backup: parsed.data as Backup };
+}
+
+export type ImportResult = { ok: true; rows: number } | { ok: false; error: ImportError };
 
 /** Validates the file, then replaces every table in one transaction (all or nothing). */
 export async function importAll(raw: unknown, d: GraphiteDB = db): Promise<ImportResult> {
-  const parsed = BackupSchema.safeParse(raw);
-  if (!parsed.success) return { ok: false, error: 'This file is not a Graphite backup.' };
-  const backup = parsed.data;
-  if (backup.schemaVersion > SCHEMA_VERSION) return { ok: false, error: 'This backup is from a newer version of Graphite. Update the app first.' };
+  const check = checkBackup(raw);
+  if (!check.ok) return check;
+  const { backup } = check;
   let rows = 0;
-  await d.transaction('rw', TABLES.map((t) => d.table(t)), async () => {
-    for (const t of TABLES) {
-      await d.table(t).clear();
-      const items = backup.tables[t]!;
-      if (items.length) await d.table(t).bulkAdd(items);
-      rows += items.length;
-    }
-  });
+  try {
+    await d.transaction('rw', TABLES.map((t) => d.table(t)), async () => {
+      for (const t of TABLES) {
+        await d.table(t).clear();
+        const items = backup.tables[t]!;
+        if (items.length) await d.table(t).bulkAdd(items);
+        rows += items.length;
+      }
+    });
+  } catch {
+    // Well-formed outside but with rows the tables refuse; the transaction rolled back, so nothing changed.
+    return { ok: false, error: 'not-a-backup' };
+  }
   return { ok: true, rows };
 }
 
-/** Wipes everything (Settings → Reset). */
+const PROGRESS_TABLES = TABLES.filter((t) => t !== 'meta');
+
+/** Settings → Reset progress: clears all study data, stars included. Keeps the name and settings. */
+export async function resetProgress(d: GraphiteDB = db): Promise<void> {
+  await d.transaction('rw', PROGRESS_TABLES.map((t) => d.table(t)), async () => {
+    for (const t of PROGRESS_TABLES) await d.table(t).clear();
+  });
+}
+
+/** Settings → Reset everything: as on a fresh install. */
 export async function resetAll(d: GraphiteDB = db): Promise<void> {
   await d.transaction('rw', TABLES.map((t) => d.table(t)), async () => {
     for (const t of TABLES) await d.table(t).clear();

@@ -1,7 +1,7 @@
 import 'fake-indexeddb/auto';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { GraphiteDB, TABLES } from './db';
-import { exportAll, importAll, resetAll } from './export-import';
+import { checkBackup, exportAll, importAll, resetAll, resetProgress } from './export-import';
 import { getProfile, getSettings, saveProfile, updateSettings } from './repo/meta';
 
 let n = 0;
@@ -57,9 +57,37 @@ describe('export and import', () => {
 
   it('rejects files that are not Graphite backups and leaves data alone', async () => {
     await seed(b);
-    expect(await importAll({ hello: 'world' }, b)).toEqual({ ok: false, error: 'This file is not a Graphite backup.' });
-    expect(await importAll({ app: 'graphite', schemaVersion: 99, exportedAt: 1, tables: Object.fromEntries(TABLES.map((t) => [t, []])) }, b)).toMatchObject({ ok: false });
+    expect(await importAll({ hello: 'world' }, b)).toEqual({ ok: false, error: 'not-a-backup' });
+    expect(await importAll({ app: 'graphite', schemaVersion: 99, exportedAt: 1, tables: Object.fromEntries(TABLES.map((t) => [t, []])) }, b)).toEqual({ ok: false, error: 'newer-version' });
     expect(await b.quantAttempts.count()).toBe(2);
+  });
+
+  it('keeps local data when rows in a well-formed file are refused', async () => {
+    await seed(b);
+    const tables = Object.fromEntries(TABLES.map((t) => [t, [] as unknown[]]));
+    tables.meta = [{ key: 'a', value: 1 }, { key: 'a', value: 2 }];
+    expect(await importAll({ app: 'graphite', schemaVersion: 1, exportedAt: 1, tables }, b)).toEqual({ ok: false, error: 'not-a-backup' });
+    expect(await b.quantAttempts.count()).toBe(2);
+    expect(await getProfile(b)).toEqual({ name: 'Ashwyn' });
+  });
+
+  it('checks a file without changing anything', async () => {
+    await seed(a);
+    await seed(b);
+    const before = await b.quantAttempts.count();
+    expect(checkBackup(JSON.parse(JSON.stringify(await exportAll(a)))).ok).toBe(true);
+    expect(checkBackup('nonsense')).toEqual({ ok: false, error: 'not-a-backup' });
+    expect(await b.quantAttempts.count()).toBe(before);
+  });
+
+  it('reset progress clears study data and keeps the name and settings', async () => {
+    await seed(a);
+    await a.meta.put({ key: 'lastExportAt', value: 5 });
+    await resetProgress(a);
+    for (const t of TABLES) if (t !== 'meta') expect(await a.table(t).count(), t).toBe(0);
+    expect(await getProfile(a)).toEqual({ name: 'Ashwyn' });
+    expect((await getSettings(a)).theme).toBe('dark');
+    expect(await a.meta.get('lastExportAt')).toEqual({ key: 'lastExportAt', value: 5 });
   });
 
   it('reset clears everything', async () => {

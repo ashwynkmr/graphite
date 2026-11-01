@@ -5,9 +5,11 @@ interface ProfileState {
   profile: Profile | null;
   loaded: boolean;
   save: (p: Profile) => Promise<void>;
+  /** Reads the profile again, after a restore or a reset changed it underneath. */
+  reload: () => Promise<void>;
 }
 
-const Ctx = createContext<ProfileState>({ profile: null, loaded: false, save: async () => {} });
+const Ctx = createContext<ProfileState>({ profile: null, loaded: false, save: async () => {}, reload: async () => {} });
 
 /** Loads the on-device profile once and keeps it available to every screen. */
 export function ProfileProvider({ children }: { children: ReactNode }) {
@@ -26,7 +28,11 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     setProfile(await getProfile());
   }, []);
 
-  return <Ctx.Provider value={{ profile, loaded, save }}>{children}</Ctx.Provider>;
+  const reload = useCallback(async () => {
+    setProfile(await getProfile());
+  }, []);
+
+  return <Ctx.Provider value={{ profile, loaded, save, reload }}>{children}</Ctx.Provider>;
 }
 
 export function useProfile(): ProfileState {
