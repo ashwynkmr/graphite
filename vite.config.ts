@@ -4,6 +4,8 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   base: '/graphite/',
+  // Staging (0016) serves the production build through a Cloudflare quick tunnel.
+  preview: { allowedHosts: ['.trycloudflare.com'] },
   plugins: [
     react(),
     VitePWA({
