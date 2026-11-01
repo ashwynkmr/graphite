@@ -10,12 +10,12 @@ Running log of what's built, what's live and known issues. Newest first.
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: step 9 is live, with no release tag yet. Study started Nov 1; exam Nov 24.
-- **Next step:** step 10 (about 300 hand-written problems) on Ashwyn's go, then step 11 (launch pass), then `v1.0.0`.
+- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: step 9 is live, with no release tag yet. Push reminders passed on a real iPhone against a temporary server. Study started Nov 1; exam Nov 24.
+- **Next step:** deploy `push-server/` on Northflank (steps in its README), add `.env.production`, then step 10 (about 300 hand-written problems) on Ashwyn's go, step 11 (launch pass) and `v1.0.0`.
 - **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
-- **Also planned (PRD v0.6, Nov 1):** study nudges and notes for the second user in Phase 2. Reminders stay inside the app ([0035](decisions/0035-in-app-reminders-only.md)).
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-77). Next decision number: 0037.
-- **Open items:** the real share sheet on a phone; whether to revisit true notifications (FB-77); Export and import on a real iPhone (FB-70); install button and iPhone install hint not yet tried; install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
+- **Also planned (PRD v0.6, Nov 1):** study nudges and notes for the second user in Phase 2. Usage-based push reminders are built ([0037](decisions/0037-push-reminders-with-on-device-text.md)).
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-80). Next decision number: 0038.
+- **Open items:** the real share sheet on a phone; the reminder server on Northflank and reminders on Android; Export and import on a real iPhone (FB-70); install button and iPhone install hint not yet tried; install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
 
@@ -32,6 +32,12 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 9 | Mistake log, Home, Progress, Settings, Share card | Done; C1 and C2 approved | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Checkpoint C3, push reminders
+- Opt-in reminders that follow how the user studies, timed and written on the phone ([0037](decisions/0037-push-reminders-with-on-device-text.md)). The server in `push-server/` receives a push address and wake-up times only. Feedback FB-78 to FB-80.
+- Moved to a custom service worker; a browser test ran the update from the live build, then offline use.
+- Testing caught a paused session being nudged repeatedly and a daily limit that ignored reminders already sent.
+- Confirmed on a real iPhone: delivery, the on-device message, and opening the app from the notification. 621 app tests and 22 server tests green.
 
 ### 2026-11-01: Checkpoint C2, Share card and reminders
 - Share on both results screens: a 1080 × 1350 image drawn on the device and a text summary, with copy-and-save where sharing isn't offered ([0036](decisions/0036-share-card-drawn-up-front.md)). Testing also caught an empty "0 of 0" card after a vocab session with no answers.

@@ -17,8 +17,8 @@ Graphite is a free, offline-first GRE prep PWA (mental-math drills + GRE vocab) 
 - **Original vocab content only.** Only the word list may come from outside sources. Meanings, sentences, synonyms and mnemonics are written fresh, never copied from Barron's, Magoosh, Manhattan, ETS, dictionaries or anywhere else.
 - `src/engine/` stays pure: no React, Dexie or DOM imports. Every change there ships with unit tests.
 - Run `npm test` and `npm run content:validate` before every commit. Never commit content that fails validation; never push red.
-- **Offline-first:** after the first visit every Phase 1 feature works with no network. No runtime network calls, analytics, trackers or third-party scripts.
-- Progress lives only in IndexedDB on the device. Nothing leaves it except via Share or Export.
+- **Offline-first:** after the first visit every Phase 1 feature works with no network. No runtime network calls, analytics, trackers or third-party scripts. One exception ([0037](docs/decisions/0037-push-reminders-with-on-device-text.md)): opt-in reminders send a push address and wake-up times to `push-server/`, and studying must never depend on them.
+- Progress lives only in IndexedDB on the device. Nothing leaves it except via Share or Export; reminders never send results.
 - **Mobile-first:** check every screen at 375 px wide first. Tap targets ≥ 48 px. Thumb-reachable keypad. Respect iPhone safe areas.
 - Use only tokens from `src/styles/tokens.css`. No emoji, no gamified clutter, no sounds.
 - Keep total download under 3 MB.
@@ -31,7 +31,8 @@ Minimal, elegant, study-desk: warm paper background, graphite text, one ink-blue
 
 - `npm run dev` / `npm run build` / `npm run preview`
 - `npm run typecheck` · `npm run lint` · `npm test` · `npm run content:validate`
-- CI (`.github/workflows/deploy.yml`) runs typecheck → lint → test → content:validate → build → deploy on every push to `main`.
+- CI (`.github/workflows/deploy.yml`) runs typecheck → lint → test → content:validate → build → server checks → deploy on every push to `main`.
+- `push-server/` is the reminder server, with its own `package.json`. It deploys separately: see its README.
 
 ## Documentation rules (this repo is also a PM case study)
 

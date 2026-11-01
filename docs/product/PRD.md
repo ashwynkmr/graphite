@@ -1,6 +1,6 @@
 # Graphite — Product Requirements (PRD)
 
-Nov 1, 2026 · @Ashwyn · Draft v0.9 (v0.9: reminders stay inside the app, [0035](../decisions/0035-in-app-reminders-only.md); v0.8: Home layout and suggestion rules as built, [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md), [0033](../decisions/0033-suggestion-rules-reach-back-and-thresholds.md), mistake drills and reset scope, [0034](../decisions/0034-mistake-drills-and-reset-scope.md); v0.7: Type-in removed, Sentence Equivalence added, [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md); v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
+Nov 1, 2026 · @Ashwyn · Draft v0.10 (v0.10: opt-in usage-based push reminders, [0037](../decisions/0037-push-reminders-with-on-device-text.md); v0.9: reminders stay inside the app, since superseded; v0.8: Home layout and suggestion rules as built, [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md), [0033](../decisions/0033-suggestion-rules-reach-back-and-thresholds.md), mistake drills and reset scope, [0034](../decisions/0034-mistake-drills-and-reset-scope.md); v0.7: Type-in removed, Sentence Equivalence added, [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md); v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
 
 > Living document. Scope changes are recorded in the [decision log](../decisions/README.md) and [ROADMAP](ROADMAP.md); this file is updated to match and the version above bumped.
 
@@ -259,7 +259,7 @@ Nudges point the user at what to practise next, using their own results. They ne
   3. Due words: "64 words are due today."
   4. A slow topic: at least half its correct answers flagged slow: "Percents: right but slow. Try a timed set."
   5. No study today by evening: "Nothing logged today yet. A 5-minute drill keeps the streak."
-- **Notifications outside the app: not planned** ([0035](../decisions/0035-in-app-reminders-only.md)). Real reminders need web push, which needs a small backend and would send study data off the device.
+- **Push reminders (opt-in, [0037](../decisions/0037-push-reminders-with-on-device-text.md)):** the phone decides when to be woken from how the user is studying: at the usual study time if nothing is done yet, quiet once studied, one nudge 2 hours after pausing a session, a 9:30 pm warning when a streak of 2+ days would end, every third day after more than 3 days away, at most 2 a day and none after the exam. A small server receives only a push address and those times, sends an empty wake-up, and the phone writes the message from its own data.
 
 **A personal note for the second user** *(added in v0.6, owner request, Phase 2)*
 
@@ -400,9 +400,9 @@ One codebase, served free from GitHub Pages at `ashwynkmr.github.io/graphite`, i
 | Screen sizes | 360 px phone to 1440 px desktop; keypad reachable with one thumb on phones |
 | Accessibility | Text contrast at least 4.5:1 in both themes; respects system font size; all actions reachable by keyboard; MCQ options and timer read correctly by screen readers |
 | Reliability | Progress saved after every answer; no data loss on reload, app switch or phone lock |
-| Privacy | No accounts, no analytics, no tracking, no ads; nothing leaves the device unless the user shares or exports it |
+| Privacy | No accounts, no analytics, no tracking, no ads; results leave the device only if the user shares or exports them. Opt-in reminders send a push address and wake-up times only |
 | Content integrity | 100% of template answers computed by code; automated checks on every content change before deploy |
-| Cost | $0 to run: no servers, no paid services |
+| Cost | $0 to run: no paid services; the optional reminder server targets a free hosting plan |
 
 ## Success metrics
 

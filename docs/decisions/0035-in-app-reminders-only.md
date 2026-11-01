@@ -1,5 +1,5 @@
 # 0035. Reminders stay inside the app
-2026-11-01 · Accepted · Phase 3 · Product
+2026-11-01 · **Superseded by [0037](0037-push-reminders-with-on-device-text.md)** · Phase 3 · Product
 
 ## Context
 Ashwyn asked for reminders about paused drills and practice based on performance (FB-23). PRD v0.6 left reminders outside the app as a Phase 3 decision. Graphite has no server, and a web app can't reliably schedule a notification on its own. Real reminders need web push, which needs a backend. The exam is 23 days away.

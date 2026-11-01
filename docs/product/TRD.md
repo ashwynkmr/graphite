@@ -331,6 +331,16 @@ The whole app, fonts and both content files are precached on the first visit, so
 - **Storage persistence:** call `navigator.storage.persist()` after the first finished session so the browser is less likely to clear data. Show the result in Settings.
 - **Export reminder:** if the last export is more than 3 days old, show a small reminder on Home.
 
+## Reminders
+
+Added by [0037](../decisions/0037-push-reminders-with-on-device-text.md). Opt-in; everything else works without it.
+
+- **Service worker:** `src/sw.ts` with `injectManifest`, replacing `generateSW`. Caching and the update flow are unchanged.
+- **Timing:** `engine/scheduling/reminder-plan.ts` turns study state into wake-up times. A plan replaces the last one on each move between screens, when the app is hidden, and after each wake-up.
+- **Message:** the push handler reads IndexedDB and writes the text on the phone.
+- **Server:** `push-server/`, Fastify, `web-push` and Postgres. `PUT` and `DELETE /subscription` store a push address and wake-up times. A check each minute sends what's due. Endpoints are limited to the browsers' push services, so the server can't be aimed elsewhere.
+- **Configuration:** `VITE_PUSH_SERVER_URL` and `VITE_PUSH_PUBLIC_KEY`. Without them the Settings section stays hidden.
+
 ## Sharing
 
 Share cards are drawn on a canvas in the browser and handed to the system share sheet. No server, no upload until the user picks a destination.

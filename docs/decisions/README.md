@@ -38,8 +38,9 @@ Every meaningful product or technical choice, with the options considered and wh
 | [0032](0032-home-desk-layout-tally-and-nudge-card.md) | Home is a desk with tally marks and one suggestion card | 2026-11-01 | Accepted | Phase 1 | Design |
 | [0033](0033-suggestion-rules-reach-back-and-thresholds.md) | Suggestion rules reach back for answers and use a 90% bar | 2026-11-01 | Accepted | Phase 1 | Product |
 | [0034](0034-mistake-drills-and-reset-scope.md) | Mistake drills split by kind; reset progress clears stars | 2026-11-01 | Accepted | Phase 1 | Product |
-| [0035](0035-in-app-reminders-only.md) | Reminders stay inside the app | 2026-11-01 | Accepted | Phase 3 | Product |
+| [0035](0035-in-app-reminders-only.md) | Reminders stay inside the app | 2026-11-01 | Superseded by [0037](0037-push-reminders-with-on-device-text.md) | Phase 3 | Product |
 | [0036](0036-share-card-drawn-up-front.md) | The share image is drawn up front, always in the light theme | 2026-11-01 | Accepted | Phase 1 | Technical |
+| [0037](0037-push-reminders-with-on-device-text.md) | Push reminders, timed and written on the phone | 2026-11-01 | Accepted | Phase 1 | Product |
 
 ## Template
 

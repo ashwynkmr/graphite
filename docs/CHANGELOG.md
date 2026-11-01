@@ -10,6 +10,7 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 - Progress: current and best streak, plus totals for quant, vocab and study days.
 - Settings: daily goals, exam date, drill defaults, theme, install, export and import.
 - Share a session from the results screen: an image card and a short text summary through your phone's share sheet, or copied and saved on a laptop.
+- Optional reminders that follow how you study, sent as phone notifications. They appear in Settings once the reminder server is deployed.
 - Reset progress or Reset everything, each offering an export first and asking you to type `reset`.
 
 ### Changed
