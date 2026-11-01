@@ -1,0 +1,267 @@
+.body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) 0;
+}
+
+/* Card back body: every line sits on the 28px ruled lines. */
+.backBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.backBody > * {
+  line-height: 28px;
+}
+
+.backBody .example {
+  margin-top: 28px;
+  line-height: 28px;
+}
+
+.word {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.pos {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--graphite-soft);
+}
+
+.tap {
+  margin-top: var(--space-3);
+  line-height: 1;
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}
+
+.backWord {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+}
+
+.posInline {
+  font-style: italic;
+  font-size: var(--text-md);
+  color: var(--graphite-soft);
+}
+
+.meaning {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+}
+
+.example {
+  font-family: var(--font-serif);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--graphite-soft);
+}
+
+.synonyms {
+  font-size: var(--text-sm);
+  color: var(--graphite-soft);
+}
+
+.quizCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ask {
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--graphite-soft);
+}
+
+.prompt {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  line-height: 1.4;
+}
+
+.quizCard .example {
+  margin-top: var(--space-1);
+}
+
+.star {
+  display: grid;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+  border: none;
+  background: none;
+  color: var(--graphite-soft);
+  cursor: pointer;
+}
+
+.starOn {
+  color: var(--ink);
+}
+
+.starIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.marks {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: var(--space-1);
+}
+
+.mark {
+  min-height: 52px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  color: var(--graphite);
+  font-size: var(--text-md);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.know {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.mark:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.typeForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* 16px or larger, so iPhone doesn't zoom into the field. */
+.input {
+  min-height: 56px;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  color: var(--graphite);
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+}
+
+.input:focus {
+  outline: 2px solid var(--ink);
+  outline-offset: -1px;
+}
+
+.typeActions {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-1);
+}
+
+.headerSpacer {
+  width: var(--tap);
+}
+
+.quizCard {
+  padding-right: var(--space-6);
+}
+
+.quizStar {
+  position: absolute;
+  top: var(--space-half);
+  right: var(--space-half);
+}
+
+/* How to swipe, under the card. */
+.guide {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-md);
+  color: var(--graphite-soft);
+}
+
+/* The same three marks as the swipe, as small round buttons: a shortcut, not the main control. */
+.markRow {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.markBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-half);
+  min-width: var(--tap);
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.markCircle {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 5px;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, currentColor 55%, transparent);
+  background: color-mix(in srgb, currentColor 7%, var(--paper-raised));
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.markBtn:active .markCircle {
+  transform: scale(0.94);
+}
+
+.markCircle svg {
+  stroke-width: 3;
+}
+
+.markLabel {
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}
+
+.mark_review {
+  color: var(--bad);
+}
+
+.mark_know {
+  color: var(--good);
+}
+
+/* Unsure is the smaller middle button, in ink. */
+.mark_unsure {
+  color: var(--ink);
+}
+
+.mark_unsure .markCircle {
+  width: 44px;
+  height: 44px;
+  margin: 4px 0;
+  padding: 4px;
+}
+
+.formNote {
+  font-size: var(--text-xs);
+  color: var(--graphite-soft);
+}

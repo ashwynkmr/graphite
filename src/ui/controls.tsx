@@ -66,18 +66,21 @@ export function ToggleGroup<T extends string | number>({
   options,
   value,
   onChange,
+  columns,
 }: {
   label: string;
   options: { value: T; label: string }[];
   value: readonly T[];
   onChange: (v: T[]) => void;
+  /** Columns in the grid; defaults to one row. */
+  columns?: number;
 }) {
   const toggle = (v: T) => {
     const next = value.includes(v) ? value.filter((x) => x !== v) : [...value, v];
     if (next.length) onChange(options.map((o) => o.value).filter((o) => next.includes(o)));
   };
   return (
-    <div className={styles.toggleGroup} role="group" aria-label={label} style={{ gridTemplateColumns: `repeat(${options.length}, 1fr)` }}>
+    <div className={styles.toggleGroup} role="group" aria-label={label} style={{ gridTemplateColumns: `repeat(${columns ?? options.length}, 1fr)` }}>
       {options.map((o) => {
         const on = value.includes(o.value);
         return (

@@ -48,3 +48,25 @@ export function resultsLine(p: Profile | null, correct: number, total: number, s
   const options = bands[band]!;
   return options[seed % options.length]!;
 }
+
+/**
+ * Vocab results. `total` counts quiz cards only; with none (a flashcards-only session) the line is
+ * about the next showing, since self-marked cards aren't a score.
+ */
+export function vocabResultsLine(p: Profile | null, correct: number, total: number, seed: number): string {
+  const n = name(p);
+  if (total === 0) {
+    const lines = [`${n}, every card you marked honestly is a card scheduled right.`, `Done, ${n}. The ones you weren’t sure of come back tomorrow.`, `That’s a stack, ${n}. Words stick on the second and third look.`];
+    return lines[seed % lines.length]!;
+  }
+  const acc = total ? correct / total : 0;
+  const bands: string[][] = [
+    [`${correct} of ${total}, ${n}. These words are yours.`, `Sharp, ${n}. Time for words further down the list.`],
+    [`Solid, ${n}. Read the misses below once more and they’ll stick.`, `${correct} of ${total}, ${n}. A few more looks and they’re yours.`],
+    [`Good start, ${n}. The misses come back tomorrow, and you’ll know them better.`, `${n}, every word you read below is one less surprise on test day.`],
+    [`New words are meant to be hard, ${n}. Read the list below and go again tomorrow.`, `Tough set, ${n}. That’s exactly what the review is for.`],
+  ];
+  const band = acc >= 0.9 ? 0 : acc >= 0.7 ? 1 : acc >= 0.5 ? 2 : 3;
+  const options = bands[band]!;
+  return options[seed % options.length]!;
+}

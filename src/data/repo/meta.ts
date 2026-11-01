@@ -1,13 +1,15 @@
 // Settings, profile and bookkeeping, stored as key/value rows in `meta`.
 import { DEFAULT_EXAM_DAY, type Day } from '../../engine/dates';
 import type { Difficulty } from '../../engine/generators/types';
-import { db, type GraphiteDB, type QuantSettings } from '../db';
+import { db, type GraphiteDB, type QuantSettings, type VocabSettings } from '../db';
 
 export interface Settings {
   examDay: Day;
   goals: { newWords: number; quantQuestions: number };
   /** Last-used quant setup, remembered between drills. */
   quant: QuantSettings;
+  /** Last-used vocab setup. */
+  vocab: VocabSettings;
   theme: 'system' | 'light' | 'dark';
 }
 
@@ -25,10 +27,22 @@ export const DEFAULT_QUANT: QuantSettings = {
   secondsPerQuestion: 45,
 };
 
+export const DEFAULT_VOCAB: VocabSettings = { modes: ['flashcard'], deck: 'today', length: 50 };
+
+/** Fills defaults, and upgrades settings saved before practice types became a multi-select. */
+export function normalizeVocab(stored: Partial<VocabSettings> | undefined): VocabSettings {
+  const vocab = { ...DEFAULT_VOCAB, ...stored };
+  const legacy = (stored as { mode?: VocabSettings['modes'][number] } | undefined)?.mode;
+  if (legacy && !stored?.modes?.length) vocab.modes = [legacy];
+  delete (vocab as { mode?: unknown }).mode;
+  return vocab;
+}
+
 export const DEFAULT_SETTINGS: Settings = {
   examDay: DEFAULT_EXAM_DAY,
   goals: { newWords: 200, quantQuestions: 100 },
   quant: DEFAULT_QUANT,
+  vocab: DEFAULT_VOCAB,
   theme: 'system',
 };
 
@@ -52,7 +66,7 @@ export function normalizeQuant(stored: Partial<QuantSettings> | undefined): Quan
 
 export async function getSettings(d: GraphiteDB = db): Promise<Settings> {
   const stored = await get<Partial<Settings>>('settings', {}, d);
-  return { ...DEFAULT_SETTINGS, ...stored, quant: normalizeQuant(stored.quant), goals: { ...DEFAULT_SETTINGS.goals, ...stored.goals } };
+  return { ...DEFAULT_SETTINGS, ...stored, quant: normalizeQuant(stored.quant), vocab: normalizeVocab(stored.vocab), goals: { ...DEFAULT_SETTINGS.goals, ...stored.goals } };
 }
 
 export async function updateSettings(patch: Partial<Settings>, d: GraphiteDB = db): Promise<Settings> {

@@ -6,7 +6,7 @@ import { mistakeChange } from '../../engine/sessions/mistakes';
 import type { PlannedItem } from '../../engine/sessions/quant-builder';
 import { refId, type PlayableQuestion } from '../../engine/sessions/questions';
 import { flagsFor, statusOf } from '../../engine/stats/quant-results';
-import { db, type GraphiteDB, type QuantAttemptRow, type QuantSettings, type SessionRow } from '../db';
+import { db, type AnySession, type GraphiteDB, type QuantAttemptRow, type QuantSettings, type SessionRow } from '../db';
 
 export const STALE_AFTER_MS = 24 * 60 * 60 * 1000;
 
@@ -38,14 +38,15 @@ export async function createQuantSession(
   return session;
 }
 
-export function getSession(id: string, d: GraphiteDB = db): Promise<SessionRow | undefined> {
-  return d.sessions.get(id);
+export async function getSession(id: string, d: GraphiteDB = db): Promise<SessionRow | undefined> {
+  const s = await d.sessions.get(id);
+  return s?.type === 'quant' ? s : undefined;
 }
 
-/** The session to offer on Home, if any. Sessions older than 24 hours are abandoned first. */
-export async function getResumable(now = Date.now(), d: GraphiteDB = db): Promise<SessionRow | null> {
+/** The session (quant or vocab) to offer on Home, if any. Sessions older than 24 hours are abandoned first. */
+export async function getResumable(now = Date.now(), d: GraphiteDB = db): Promise<AnySession | null> {
   const active = await d.sessions.where('status').equals('active').toArray();
-  let newest: SessionRow | null = null;
+  let newest: AnySession | null = null;
   for (const s of active) {
     if (now - s.startedAt > STALE_AFTER_MS) await d.sessions.update(s.id, { status: 'abandoned' });
     else if (!newest || s.startedAt > newest.startedAt) newest = s;
@@ -153,6 +154,7 @@ export async function lastSeenMap(d: GraphiteDB = db): Promise<Map<string, strin
   return new Map(rows.map((r) => [r.questionId, r.lastSeenDay]));
 }
 
-export function finishedSessions(d: GraphiteDB = db): Promise<SessionRow[]> {
-  return d.sessions.where('status').equals('finished').toArray();
+export async function finishedSessions(d: GraphiteDB = db): Promise<SessionRow[]> {
+  const rows = await d.sessions.where('status').equals('finished').toArray();
+  return rows.filter((s): s is SessionRow => s.type === 'quant');
 }

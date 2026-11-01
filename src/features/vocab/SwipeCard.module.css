@@ -1,0 +1,174 @@
+.wrap {
+  position: relative;
+  width: 100%;
+}
+
+.card {
+  position: relative;
+  /* Perspective for the flip lives here, so the swipe marks (siblings) stay on top of the card. */
+  perspective: 1200px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+  transition: transform 180ms var(--ease-out);
+  will-change: transform;
+}
+
+/* Follow the finger exactly while dragging. */
+.dragging {
+  transition: none;
+  cursor: grabbing;
+}
+
+/* Both faces share one grid cell, so the card is as tall as its longer side. */
+.inner {
+  display: grid;
+  transition: transform var(--dur-flip) var(--ease-out);
+  transform-style: preserve-3d;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.face {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  padding: var(--space-3) var(--space-6) var(--space-3) var(--space-5);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  position: relative;
+}
+
+/* Front: a white index card with warm ruled lines and a margin rule. */
+.front {
+  justify-content: center;
+  background-color: var(--paper-raised);
+  background-image: var(--ruled-lines);
+  background-position: 0 var(--space-3);
+  border: var(--border);
+}
+
+.front::before,
+.back::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--space-3);
+  width: 1px;
+  background: var(--ink);
+  opacity: 0.3;
+}
+
+/* Back: the cool complement to the warm front, ink-blue paper with ink-tinted rules. */
+.back {
+  transform: rotateY(180deg);
+  background-color: var(--ink-soft);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 27px,
+    color-mix(in srgb, var(--ink) 16%, transparent) 27px,
+    color-mix(in srgb, var(--ink) 16%, transparent) 28px
+  );
+  background-position: 0 var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--ink) 30%, transparent);
+}
+
+.back::before {
+  opacity: 0.45;
+}
+
+/* Swipe marks: faded, Tinder-style, pinned to the screen side the card is heading for (they don't
+   move with the card). Colour shows the user's own mark, not whether the answer was right. */
+.stamp {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms linear;
+  z-index: 2;
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* All three marks are the same faded circle; colour tells them apart (Unsure stays neutral ink). */
+.review,
+.know,
+.unsure {
+  width: 72px;
+  height: 72px;
+  margin-top: -36px;
+  border-radius: 50%;
+  border: 3px solid currentColor;
+}
+
+.review {
+  left: 0;
+  color: var(--bad);
+  background: color-mix(in srgb, var(--bad) 10%, var(--paper-raised));
+}
+
+.know {
+  right: 0;
+  color: var(--good);
+  background: color-mix(in srgb, var(--good) 10%, var(--paper-raised));
+}
+
+/* The card moves up for Unsure, so its mark appears in the space it leaves below. */
+.unsure {
+  top: auto;
+  bottom: var(--space-1);
+  left: 50%;
+  margin: 0 0 0 -36px;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 10%, var(--paper-raised));
+}
+
+/* First card of a session sways right, then left, to show it can be swiped. */
+.nudge {
+  animation: nudge 1.6s var(--ease-out) 0.6s 1;
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    transform: none;
+  }
+  25% {
+    transform: translateX(26px) rotate(2deg);
+  }
+  60% {
+    transform: translateX(-26px) rotate(-2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nudge {
+    animation: none;
+  }
+}
+
+/* The star sits on the card, outside the flip, so it's there on both sides. */
+.corner {
+  position: absolute;
+  top: var(--space-half);
+  right: var(--space-half);
+  z-index: 3;
+}

@@ -46,9 +46,9 @@ export function HomeScreen() {
       {resumable && (
         <div className={styles.resume}>
           <div>
-            <p className={styles.resumeTitle}>Drill in progress</p>
+            <p className={styles.resumeTitle}>{resumable.type === 'vocab' ? 'Vocab session in progress' : 'Drill in progress'}</p>
             <p className={styles.resumeMeta}>
-              {resumable.cursor} of {resumable.items.length} answered · clock paused
+              {resumable.cursor} of {resumable.items.length} {resumable.type === 'vocab' ? 'cards done' : 'answered · clock paused'}
             </p>
           </div>
           <div className={styles.resumeActions}>
@@ -61,7 +61,7 @@ export function HomeScreen() {
             >
               Discard
             </Button>
-            <Button onClick={() => navigate(`/quant/session/${resumable.id}`)}>Resume</Button>
+            <Button onClick={() => navigate(`/${resumable.type}/session/${resumable.id}`)}>Resume</Button>
           </div>
         </div>
       )}

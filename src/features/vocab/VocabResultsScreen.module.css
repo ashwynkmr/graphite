@@ -1,0 +1,29 @@
+.marks {
+  margin-top: var(--space-1);
+}
+
+.word {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+}
+
+.pos {
+  font-style: italic;
+  font-size: var(--text-sm);
+  color: var(--graphite-soft);
+}
+
+/* Unsure is neither right nor wrong, so it stays neutral. */
+.unsure {
+  color: var(--graphite-soft);
+}
+
+/* Labels when a mixed session shows both flashcard marks and a quiz score. */
+.part {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}

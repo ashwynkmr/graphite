@@ -6,6 +6,7 @@ import type { Difficulty, Topic } from '../engine/generators/types';
 import type { Box, Grade } from '../engine/scheduling/leitner';
 import type { Clock } from '../engine/sessions/clock';
 import type { PlannedItem } from '../engine/sessions/quant-builder';
+import type { VocabDeck, VocabItem, VocabMode } from '../engine/sessions/vocab-builder';
 
 export const SCHEMA_VERSION = 1;
 
@@ -31,9 +32,10 @@ export interface ItemAnswer {
   ms: number;
 }
 
+/** A quant drill. (Vocab sessions share the table; see VocabSessionRow.) */
 export interface SessionRow {
   id: string;
-  type: 'quant' | 'vocab';
+  type: 'quant';
   status: 'active' | 'finished' | 'abandoned';
   day: Day;
   startedAt: number;
@@ -51,6 +53,33 @@ export interface SessionRow {
   endedBy?: 'completed' | 'timeout' | 'ended-early';
   score?: { correct: number; total: number };
 }
+
+export interface VocabSettings {
+  /** One or more practice types, mixed card by card. */
+  modes: VocabMode[];
+  deck: VocabDeck;
+  length: number;
+}
+
+/** A vocab session. Untimed; the clock only records time per card. */
+export interface VocabSessionRow {
+  id: string;
+  type: 'vocab';
+  status: 'active' | 'finished' | 'abandoned';
+  day: Day;
+  startedAt: number;
+  finishedAt?: number;
+  seed: number;
+  settings: VocabSettings;
+  items: VocabItem[];
+  answers: ItemAnswer[];
+  cursor: number;
+  timer: Clock;
+  endedBy?: 'completed' | 'ended-early';
+  score?: { correct: number; total: number };
+}
+
+export type AnySession = SessionRow | VocabSessionRow;
 
 export interface QuantAttemptRow {
   id?: number;
@@ -110,7 +139,7 @@ export interface MetaRow {
 }
 
 export class GraphiteDB extends Dexie {
-  sessions!: EntityTable<SessionRow, 'id'>;
+  sessions!: EntityTable<AnySession, 'id'>;
   quantAttempts!: EntityTable<QuantAttemptRow, 'id'>;
   wordStates!: EntityTable<WordStateRow, 'wordId'>;
   wordAttempts!: EntityTable<WordAttemptRow, 'id'>;

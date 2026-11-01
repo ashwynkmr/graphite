@@ -9,10 +9,12 @@ interface ChoiceListProps {
   onSelect: (v: string) => void;
   onSubmit: () => void;
   onSkip: () => void;
+  /** Sentence-length options (vocab meanings): smaller type that wraps. */
+  long?: boolean;
 }
 
 /** Five options, A–E. Keys 1–5 or A–E select; Enter submits. Selection is neutral: no right or wrong shown. */
-export function ChoiceList({ choices, selected, onSelect, onSubmit, onSkip }: ChoiceListProps) {
+export function ChoiceList({ choices, selected, onSelect, onSubmit, onSkip, long }: ChoiceListProps) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
@@ -39,7 +41,7 @@ export function ChoiceList({ choices, selected, onSelect, onSubmit, onSkip }: Ch
               onClick={() => onSelect(c.value)}
             >
               <span className={styles.letter}>{LETTERS[i]}</span>
-              <span className={styles.text}>{c.label}</span>
+              <span className={long ? `${styles.text} ${styles.long}` : styles.text}>{c.label}</span>
             </button>
           </li>
         ))}

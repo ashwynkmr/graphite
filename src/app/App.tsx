@@ -5,6 +5,8 @@ import { QuantSetupScreen } from '../features/quant/QuantSetupScreen';
 import { DrillScreen } from '../features/quant/DrillScreen';
 import { ResultsScreen } from '../features/results/ResultsScreen';
 import { VocabSetupScreen } from '../features/vocab/VocabSetupScreen';
+import { VocabSessionScreen } from '../features/vocab/VocabSessionScreen';
+import { VocabResultsScreen } from '../features/vocab/VocabResultsScreen';
 import { MistakesScreen } from '../features/mistakes/MistakesScreen';
 import { ProgressScreen } from '../features/progress/ProgressScreen';
 import { SettingsScreen } from '../features/settings/SettingsScreen';
@@ -28,6 +30,8 @@ function Routed() {
       {/* Full-screen: no tab bar */}
       <Route path="quant/session/:id" element={<DrillScreen />} />
       <Route path="results/:id" element={<ResultsScreen />} />
+      <Route path="vocab/session/:id" element={<VocabSessionScreen />} />
+      <Route path="vocab/results/:id" element={<VocabResultsScreen />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
