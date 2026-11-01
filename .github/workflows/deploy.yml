@@ -29,7 +29,7 @@ jobs:
       - run: npm test
       - run: npm run content:validate
       - run: npm run build
-      # The reminder server deploys separately, but a red server blocks the site like anything else.
+      # The reminder service deploys separately, but failing checks block the site like anything else.
       - run: npm ci
         working-directory: push-server
       - run: npm run typecheck

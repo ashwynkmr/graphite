@@ -1,0 +1,19 @@
+# Graphite's reminder service on Cloudflare Workers (decision 0038).
+name = "graphite-push"
+main = "src/worker.ts"
+compatibility_date = "2026-10-01"
+
+[vars]
+VAPID_PUBLIC_KEY = "BLeA_hJ3PJagZ-8nOidnqmUVdiGpIrXrwo2ZrNh_xjdptGJzsETojsW3M58KQwX_ZG5V3UB708GSkQwGOgog95Y"
+# The live app, and staging tunnels so a checkpoint can be tried on a phone before it goes live.
+ALLOWED_ORIGINS = "https://ashwynkmr.github.io,*.trycloudflare.com"
+VAPID_SUBJECT = "https://github.com/ashwynkmr/graphite"
+
+# Checks every minute for wake-ups that have come due.
+[triggers]
+crons = ["* * * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "graphite-push"
+database_id = "d63a5a4a-0985-44b4-92a3-06d57f936e3f"

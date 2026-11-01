@@ -1,5 +1,4 @@
-import type pg from 'pg';
-import type { SubscriptionInput } from './validate.js';
+import type { SubscriptionInput } from './validate';
 
 export type SubscriptionRow = SubscriptionInput;
 
@@ -39,46 +38,45 @@ export class MemoryStore implements Store {
   }
 }
 
-/** Prefixed table, so it can share a database with another app on the same free plan. */
-export class PgStore implements Store {
-  constructor(private pool: Pick<pg.Pool, 'query'>) {}
+/** Cloudflare's database. One statement for the cap, so two phones signing up together can't both pass. */
+export class D1Store implements Store {
+  constructor(private db: D1Database) {}
 
   async init() {
-    await this.pool.query(`
-      CREATE TABLE IF NOT EXISTS graphite_push_subscriptions (
+    await this.db.prepare(
+      `CREATE TABLE IF NOT EXISTS subscriptions (
         endpoint TEXT PRIMARY KEY,
         p256dh TEXT NOT NULL,
         auth TEXT NOT NULL,
-        wake_times JSONB NOT NULL
-      )`);
+        wake_times TEXT NOT NULL
+      )`,
+    ).run();
   }
 
   async upsert(input: SubscriptionInput, max: number) {
-    // One statement, so two phones signing up together can't both pass the cap check.
-    const result = await this.pool.query(
-      `INSERT INTO graphite_push_subscriptions (endpoint, p256dh, auth, wake_times)
-       SELECT $1::text, $2::text, $3::text, $4::jsonb
-       WHERE EXISTS (SELECT 1 FROM graphite_push_subscriptions WHERE endpoint = $1::text)
-          OR (SELECT COUNT(*) FROM graphite_push_subscriptions) < $5::int
+    const result = await this.db.prepare(
+      `INSERT INTO subscriptions (endpoint, p256dh, auth, wake_times)
+       SELECT ?1, ?2, ?3, ?4
+       WHERE EXISTS (SELECT 1 FROM subscriptions WHERE endpoint = ?1)
+          OR (SELECT COUNT(*) FROM subscriptions) < ?5
        ON CONFLICT (endpoint) DO UPDATE SET
-         p256dh = EXCLUDED.p256dh,
-         auth = EXCLUDED.auth,
-         wake_times = EXCLUDED.wake_times`,
-      [input.endpoint, input.p256dh, input.auth, JSON.stringify(input.wakeTimes), max],
-    );
-    return (result.rowCount ?? 0) > 0;
+         p256dh = excluded.p256dh,
+         auth = excluded.auth,
+         wake_times = excluded.wake_times`,
+    ).bind(input.endpoint, input.p256dh, input.auth, JSON.stringify(input.wakeTimes), max).run();
+    return result.meta.changes > 0;
   }
 
   async remove(endpoint: string) {
-    await this.pool.query('DELETE FROM graphite_push_subscriptions WHERE endpoint = $1', [endpoint]);
+    await this.db.prepare('DELETE FROM subscriptions WHERE endpoint = ?1').bind(endpoint).run();
   }
 
   async all() {
-    const result = await this.pool.query<{ endpoint: string; p256dh: string; auth: string; wake_times: number[] }>('SELECT * FROM graphite_push_subscriptions');
-    return result.rows.map((r) => ({ endpoint: r.endpoint, p256dh: r.p256dh, auth: r.auth, wakeTimes: r.wake_times }));
+    const { results } = await this.db.prepare('SELECT * FROM subscriptions').all<{ endpoint: string; p256dh: string; auth: string; wake_times: string }>();
+    return results.map((r) => ({ endpoint: r.endpoint, p256dh: r.p256dh, auth: r.auth, wakeTimes: JSON.parse(r.wake_times) as number[] }));
   }
 
   async setWakeTimes(endpoint: string, wakeTimes: number[]) {
-    await this.pool.query('UPDATE graphite_push_subscriptions SET wake_times = $2::jsonb WHERE endpoint = $1', [endpoint, JSON.stringify(wakeTimes)]);
+    await this.db.prepare('UPDATE subscriptions SET wake_times = ?2 WHERE endpoint = ?1').bind(endpoint, JSON.stringify(wakeTimes)).run();
   }
 }

@@ -1,5 +1,5 @@
-import { splitDue } from './schedule.js';
-import type { Store, SubscriptionRow } from './store.js';
+import { splitDue } from './schedule';
+import type { Store, SubscriptionRow } from './store';
 
 export type Send = (sub: SubscriptionRow) => Promise<void>;
 
