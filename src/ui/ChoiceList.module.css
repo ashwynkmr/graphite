@@ -28,6 +28,10 @@
   cursor: pointer;
 }
 
+.compact {
+  min-height: var(--tap);
+}
+
 .on {
   border-color: var(--ink);
   background: var(--ink-soft);
@@ -44,6 +48,10 @@
   font-weight: 600;
   color: var(--graphite-soft);
   flex-shrink: 0;
+}
+
+.square {
+  border-radius: var(--space-half);
 }
 
 .on .letter {

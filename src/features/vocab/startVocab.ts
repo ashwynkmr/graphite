@@ -4,7 +4,7 @@ import { getSettings, updateSettings } from '../../data/repo/meta';
 import { createVocabSession, loadWordStates } from '../../data/repo/vocab';
 import { toDay } from '../../engine/dates';
 import { mulberry32 } from '../../engine/rng';
-import { buildVocabQueue, deckCounts, introducedOn, planVocabItems, type DeckCounts } from '../../engine/sessions/vocab-builder';
+import { buildPracticeQueue, choosableModes, deckCounts, introducedOn, planVocabItems, type DeckCounts } from '../../engine/sessions/vocab-builder';
 
 function freshSeed(): number {
   return Math.floor(Math.random() * 2 ** 31);
@@ -27,11 +27,12 @@ export async function vocabOverview(): Promise<VocabOverview> {
 }
 
 /** Builds a session from the chosen deck and saves it. Returns null when the deck is empty. */
-export async function startVocab(settings: VocabSettings): Promise<VocabSessionRow | null> {
+export async function startVocab(chosen: VocabSettings): Promise<VocabSessionRow | null> {
+  const settings: VocabSettings = { ...chosen, modes: choosableModes(chosen.modes) };
   const [book, states, all] = await Promise.all([loadWords(), loadWordStates(), getSettings()]);
   const today = toDay(new Date());
   const newLeft = Math.max(0, all.goals.newWords - introducedOn(states, today));
-  const ids = buildVocabQueue({ words: book.words, states, deck: settings.deck, length: settings.length, today, newLeft });
+  const ids = buildPracticeQueue({ words: book.words, states, deck: settings.deck, length: settings.length, today, newLeft }, settings.modes);
   await updateSettings({ vocab: settings });
   if (!ids.length) return null;
   const seed = freshSeed();

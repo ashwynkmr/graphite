@@ -1,5 +1,6 @@
 // Settings, profile and bookkeeping, stored as key/value rows in `meta`.
 import { DEFAULT_EXAM_DAY, type Day } from '../../engine/dates';
+import { choosableModes } from '../../engine/sessions/vocab-builder';
 import type { Difficulty } from '../../engine/generators/types';
 import { db, type GraphiteDB, type QuantSettings, type VocabSettings } from '../db';
 
@@ -29,12 +30,13 @@ export const DEFAULT_QUANT: QuantSettings = {
 
 export const DEFAULT_VOCAB: VocabSettings = { modes: ['flashcard'], deck: 'today', length: 50 };
 
-/** Fills defaults, and upgrades settings saved before practice types became a multi-select. */
+/** Fills defaults, and upgrades settings saved before practice types became a multi-select or type-in went. */
 export function normalizeVocab(stored: Partial<VocabSettings> | undefined): VocabSettings {
   const vocab = { ...DEFAULT_VOCAB, ...stored };
   const legacy = (stored as { mode?: VocabSettings['modes'][number] } | undefined)?.mode;
   if (legacy && !stored?.modes?.length) vocab.modes = [legacy];
   delete (vocab as { mode?: unknown }).mode;
+  vocab.modes = choosableModes(vocab.modes);
   return vocab;
 }
 

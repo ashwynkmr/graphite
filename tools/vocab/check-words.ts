@@ -58,5 +58,18 @@ export function checkWords(words: readonly Word[], ranked: readonly RankedRef[])
     }
   });
 
+  // Run after the loop: a partner may rank below its word. Whether it fits the sentence is hand-checked.
+  for (const w of words) {
+    if (!w.equivalent) continue;
+    const other = byId.get(w.equivalent);
+    if (w.equivalent === w.id) fail(w.id, 'equivalent is the headword');
+    else if (!other) fail(w.id, `equivalent "${w.equivalent}" is not in the deck`);
+    else {
+      if (other.pos !== w.pos) fail(w.id, `equivalent "${w.equivalent}" is a ${other.pos}, not a ${w.pos}`);
+      if (!w.synonyms.includes(other.id) && !other.synonyms.includes(w.id)) fail(w.id, `equivalent "${w.equivalent}" is not a listed synonym either way`);
+      if (w.confusables.includes(other.id)) fail(w.id, `"${w.equivalent}" is both the equivalent and a confusable`);
+    }
+  }
+
   return errors;
 }

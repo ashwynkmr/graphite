@@ -5,8 +5,10 @@ import { loadWords } from '../../content/words';
 import type { VocabSessionRow } from '../../data/db';
 import { finishVocabSession, getVocabSession, loadWordStates, recordVocabAnswer, saveVocabClock, setStarred } from '../../data/repo/vocab';
 import { pause, resume } from '../../engine/sessions/clock';
-import { blankOut, inflected, type VocabItem } from '../../engine/sessions/vocab-builder';
+import { blankOut, blankOutEquiv, equivAnswer, inflected, type VocabItem } from '../../engine/sessions/vocab-builder';
 import { ChoiceList } from '../../ui/ChoiceList';
+import { EndConfirm } from '../../ui/EndConfirm';
+import { PairChoiceList } from '../../ui/PairChoiceList';
 import drill from '../quant/DrillScreen.module.css';
 import { POS_SHORT, sentence } from './display';
 import { MarkIcon, SwipeCard, type SwipeCardHandle, type SwipeMark } from './SwipeCard';
@@ -89,6 +91,15 @@ function QuizPrompt({ item, word }: { item: VocabItem; word: Word }) {
       </>
     );
   }
+  if (item.kind === 'equiv') {
+    return (
+      <>
+        <p className={styles.ask}>Which two mean the same?</p>
+        <p className={styles.prompt}>{blankOutEquiv(word)}</p>
+        {inflected(word) && <p className={styles.formNote}>Options are in their base form.</p>}
+      </>
+    );
+  }
   return (
     <>
       <p className={styles.ask}>Type the word ({word.pos})</p>
@@ -107,6 +118,7 @@ export function VocabSessionScreen() {
   const [flipped, setFlipped] = useState(false);
   const [choice, setChoice] = useState<string | null>(null);
   const [typed, setTyped] = useState('');
+  const [confirmingEnd, setConfirmingEnd] = useState(false);
   const busy = useRef(false);
   const card = useRef<SwipeCardHandle>(null);
   const sessionRef = useRef<VocabSessionRow | null>(null);
@@ -167,6 +179,7 @@ export function VocabSessionScreen() {
       setFlipped(false);
       setChoice(null);
       setTyped('');
+      setConfirmingEnd(false);
       if (next.cursor >= next.items.length) {
         await finish(next, 'completed');
         return;
@@ -180,7 +193,7 @@ export function VocabSessionScreen() {
   // Flashcard keys: Space or Enter flips; arrows swipe (left Review, up Unsure, right Know it).
   const item = session?.items[session.cursor];
   useEffect(() => {
-    if (item?.kind !== 'flashcard') return;
+    if (item?.kind !== 'flashcard' || confirmingEnd) return;
     const keys: Record<string, SwipeMark> = { ArrowLeft: 'review', ArrowUp: 'unsure', ArrowRight: 'know' };
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
@@ -191,12 +204,11 @@ export function VocabSessionScreen() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [item, flipped, submit]);
+  }, [item, flipped, submit, confirmingEnd]);
 
   const endEarly = async () => {
     const s = sessionRef.current;
     if (!s || busy.current) return;
-    if (!window.confirm('End this session now? Cards you haven’t reached stay as they were.')) return;
     busy.current = true;
     await finish(s, 'ended-early');
   };
@@ -234,10 +246,12 @@ export function VocabSessionScreen() {
             <div className={drill.fill} style={{ width: `${(session.cursor / session.items.length) * 100}%` }} />
           </div>
         </div>
-        <span className={styles.headerSpacer} aria-hidden="true" />
+        <button type="button" className={drill.headerBtn} onClick={() => setConfirmingEnd(true)} aria-label="End session">
+          End
+        </button>
       </header>
 
-      <main className={styles.body}>
+      <main className={item.kind === 'equiv' ? `${styles.body} ${styles.bodyTight}` : styles.body}>
         {item.kind === 'flashcard' ? (
           <SwipeCard
             key={session.cursor}
@@ -261,6 +275,10 @@ export function VocabSessionScreen() {
       </main>
 
       <footer className={drill.footer}>
+        {confirmingEnd ? (
+          <EndConfirm message="End this session? Cards you haven’t reached stay as they were." endLabel="End session" onKeep={() => setConfirmingEnd(false)} onEnd={endEarly} />
+        ) : (
+          <>
         {item.kind === 'flashcard' && (
           <>
             <p className={styles.guide}>Swipe the card, or tap a mark</p>
@@ -289,6 +307,10 @@ export function VocabSessionScreen() {
           />
         )}
 
+        {item.kind === 'equiv' && (
+          <PairChoiceList key={session.cursor} choices={item.choices!} onSubmit={(a, b) => submit(equivAnswer(a, b))} onSkip={() => submit(null)} />
+        )}
+
         {item.kind === 'typein' && (
           <form className={styles.typeForm} onSubmit={onType}>
             <input
@@ -315,10 +337,8 @@ export function VocabSessionScreen() {
             </div>
           </form>
         )}
-
-        <button type="button" className={drill.end} onClick={endEarly}>
-          End session
-        </button>
+          </>
+        )}
       </footer>
     </div>
   );

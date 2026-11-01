@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAsync } from '../../app/useAsync';
 import type { VocabSettings } from '../../data/db';
 import { DEFAULT_VOCAB, getSettings } from '../../data/repo/meta';
-import { VOCAB_MODES, type VocabDeck, type VocabMode } from '../../engine/sessions/vocab-builder';
+import { VOCAB_MODES, type PracticeMode, type VocabDeck } from '../../engine/sessions/vocab-builder';
 import { Button, Field, Segmented, ToggleGroup } from '../../ui/controls';
 import { Dial } from '../../ui/Dial';
 import { Screen } from '../../ui/Screen';
@@ -13,13 +13,13 @@ import styles from './VocabSetupScreen.module.css';
 /** Session sizes on the dial: 25 to 400 in steps of 25. */
 const LENGTHS = Array.from({ length: 16 }, (_, i) => (i + 1) * 25);
 
-const MODE_LABEL: Record<VocabMode, string> = { flashcard: 'Flashcards', mcq: 'Choices', blank: 'Fill the blank', typein: 'Type-in' };
+const MODE_LABEL: Record<PracticeMode, string> = { flashcard: 'Flashcards', mcq: 'Choices', blank: 'Fill the blank', equiv: 'Sentence equivalence' };
 
-const MODE_HINT: Record<VocabMode, string> = {
+const MODE_HINT: Record<PracticeMode, string> = {
   flashcard: 'Swipe right if you knew it, left to review',
   mcq: 'Pick the meaning or the word from five',
   blank: 'Pick the word that fits the sentence',
-  typein: 'Type the word from its meaning',
+  equiv: 'Pick the two words that mean the same here',
 };
 
 export function VocabSetupScreen() {
@@ -54,7 +54,7 @@ export function VocabSetupScreen() {
   return (
     <Screen title="Vocabulary" eyebrow="GRE words">
       <div className={styles.form}>
-        <Field label="Practice" hint={s.modes.length === 1 ? MODE_HINT[s.modes[0]!] : 'Mixed card by card'}>
+        <Field label="Practice" hint={s.modes.length === 1 ? MODE_HINT[s.modes[0] as PracticeMode] : 'Mixed card by card'}>
           <ToggleGroup label="Practice" columns={2} value={s.modes} onChange={(modes) => set({ modes })} options={VOCAB_MODES.map((m) => ({ value: m, label: MODE_LABEL[m] }))} />
         </Field>
 

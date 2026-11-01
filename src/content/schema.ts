@@ -39,6 +39,8 @@ export const WordSchema = z
     example: z.string().min(1),
     exampleForm: z.string().min(1),
     synonyms: z.array(z.string().min(1)).min(2).max(3),
+    /** A deck word that gives `example` the same meaning, for sentence equivalence. Hand-checked per sentence. */
+    equivalent: z.string().min(1).optional(),
     variants: z.array(z.string().min(1)).optional(),
     mnemonic: z.string().min(1).optional(),
     tier: z.union([z.literal(1), z.literal(2), z.literal(3)]),

@@ -5,6 +5,11 @@
   padding: var(--space-3) 0;
 }
 
+/* Six options need the room. */
+.bodyTight {
+  padding: var(--space-half) 0;
+}
+
 /* Card back body: every line sits on the 28px ruled lines. */
 .backBody {
   display: flex;
@@ -171,9 +176,6 @@
   gap: var(--space-1);
 }
 
-.headerSpacer {
-  width: var(--tap);
-}
 
 .quizCard {
   padding-right: var(--space-6);

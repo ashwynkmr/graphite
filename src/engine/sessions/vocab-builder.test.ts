@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import type { Word } from '../../content/schema';
 import { newSchedule, type WordSchedule } from '../scheduling/leitner';
 import { scoreVocab } from '../stats/vocab-results';
-import { blankOut, buildVocabQueue, CHOICES, deckCounts, distractors, gradeVocab, inflected, introducedOn, planVocabItems } from './vocab-builder';
+import wordsJson from '../../../content/words.json';
+import { blankOutEquiv, buildPracticeQueue, choosableModes, equivAnswer, equivChoices, VOCAB_MODES, blankOut, buildVocabQueue, CHOICES, deckCounts, distractors, gradeVocab, inflected, introducedOn, planVocabItems } from './vocab-builder';
 
 const TODAY = '2026-11-02';
 
@@ -111,6 +112,67 @@ describe('multiple choice', () => {
   it('flashcard and type-in cards carry no choices', () => {
     expect(planVocabItems(['wa'], ['flashcard'], pool, 1)).toEqual([{ wordId: 'wa', kind: 'flashcard' }]);
     expect(planVocabItems(['wa'], ['typein'], pool, 1)).toEqual([{ wordId: 'wa', kind: 'typein' }]);
+  });
+
+  it('no longer offers type-in, and drops it from saved choices', () => {
+    expect(VOCAB_MODES).toEqual(['flashcard', 'mcq', 'blank', 'equiv']);
+    expect(choosableModes(['mcq', 'typein', 'blank'])).toEqual(['mcq', 'blank']);
+    expect(choosableModes(['typein'])).toEqual(['flashcard']);
+    expect(choosableModes([])).toEqual(['flashcard']);
+  });
+
+  describe('sentence equivalence', () => {
+    const deck = wordsJson as Word[];
+    const byId = new Map(deck.map((w) => [w.id, w]));
+    const synonyms = (a: Word, b: Word) => a.synonyms.includes(b.id) || b.synonyms.includes(a.id);
+    const paired = deck.filter((w) => w.equivalent);
+
+    it('builds six distinct options with exactly one right pair, for every pair in the deck', () => {
+      expect(paired.length).toBeGreaterThan(600);
+      for (const w of paired) {
+        const partner = byId.get(w.equivalent!)!;
+        const choices = equivChoices(w, partner, byId, w.rank);
+        expect(new Set(choices).size).toBe(6);
+        expect(choices).toEqual(expect.arrayContaining([w.id, partner.id]));
+        const options = choices.map((c) => byId.get(c)!);
+        expect(options.every((o) => o.pos === w.pos)).toBe(true);
+        const links = options.flatMap((a, i) => options.slice(i + 1).filter((b) => synonyms(a, b)));
+        expect(links.length, w.id).toBeLessThanOrEqual(1);
+      }
+    });
+
+    it('accepts only the exact pair, in either order', () => {
+      const w = paired[0]!;
+      const item = planVocabItems([w.id], ['equiv'], byId, 3)[0]!;
+      expect(item.kind).toBe('equiv');
+      const wrong = item.choices!.find((c) => c !== w.id && c !== w.equivalent)!;
+      expect(gradeVocab(item, w, equivAnswer(w.id, w.equivalent!))).toBe('correct');
+      expect(gradeVocab(item, w, equivAnswer(w.equivalent!, w.id))).toBe('correct');
+      expect(gradeVocab(item, w, equivAnswer(w.id, wrong))).toBe('wrong');
+      expect(gradeVocab(item, w, w.id)).toBe('wrong');
+      expect(gradeVocab(item, w, null)).toBe('wrong');
+    });
+
+    it('asks a word with no partner another chosen way', () => {
+      const lone = deck.find((w) => !w.equivalent)!;
+      expect(planVocabItems([lone.id], ['equiv'], byId, 1)[0]!.kind).toBe('blank');
+      expect(planVocabItems([lone.id], ['equiv', 'flashcard'], byId, 1)[0]!.kind).toMatch(/blank|flashcard/);
+    });
+
+    it('takes paired words first in an equivalence-only session, keeping its size', () => {
+      const args = { words: deck, states: new Map(), deck: 'new' as const, length: 50, today: '2026-11-01' as never, newLeft: 200 };
+      const only = buildPracticeQueue(args, ['equiv']);
+      expect(only).toHaveLength(50);
+      expect(only.every((id) => byId.get(id)!.equivalent)).toBe(true);
+      expect(buildPracticeQueue(args, ['equiv', 'flashcard'])).toEqual(buildVocabQueue(args));
+    });
+
+    it('never lets the article give an option away', () => {
+      const w = { ...paired[0]!, example: 'It was an odd idea.', exampleForm: 'odd' };
+      expect(blankOutEquiv(w)).toBe('It was a(n) _____ idea.');
+      expect(blankOutEquiv({ ...w, example: 'An odd idea.' })).toBe('A(n) _____ idea.');
+      expect(blankOutEquiv({ ...w, example: 'Quite odd ideas.' })).toBe('Quite _____ ideas.');
+    });
   });
 
   it('spreads the chosen practice types evenly over the session', () => {

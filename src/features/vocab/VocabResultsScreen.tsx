@@ -16,7 +16,7 @@ import { sentence } from './display';
 import { redoVocab, startVocab } from './startVocab';
 import styles from './VocabResultsScreen.module.css';
 
-const MODE_LABEL: Record<VocabMode, string> = { flashcard: 'Flashcards', mcq: 'Multiple choice', blank: 'Fill the blank', typein: 'Type-in' };
+const MODE_LABEL: Record<VocabMode, string> = { flashcard: 'Flashcards', mcq: 'Multiple choice', blank: 'Fill the blank', equiv: 'Sentence equivalence', typein: 'Type-in' };
 
 /** Practice types of a session; sessions saved before the multi-select stored a single `mode`. */
 function modesOf(s: VocabSessionRow): VocabMode[] {
@@ -195,6 +195,7 @@ export function VocabResultsScreen() {
               {g.items.map((it) => {
                 const w = words.get(it.wordId)!;
                 const showYours = !it.flashcard && !isPassing(it.grade);
+                const partner = session.items[it.index]!.partner;
                 return (
                   <li key={it.index} className={r.item}>
                     <Mark grade={it.grade} />
@@ -203,7 +204,8 @@ export function VocabResultsScreen() {
                         {w.word} <span className={styles.pos}>{w.pos}</span>
                       </p>
                       <p className={r.note}>{sentence(w.meaning)}</p>
-                      {showYours && <p className={r.ans}>{it.answer === null ? 'Skipped' : <span className={r.yours}>{it.answer}</span>}</p>}
+                      {partner && <p className={r.note}>Pairs with {partner} in that sentence.</p>}
+                      {showYours && <p className={r.ans}>{it.answer === null ? 'Skipped' : <span className={r.yours}>{it.answer.split('|').join(', ')}</span>}</p>}
                       {it.grade === 'slip' && <p className={r.ans}>Typed “{it.answer}”, a spelling slip</p>}
                     </div>
                   </li>

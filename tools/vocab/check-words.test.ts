@@ -39,6 +39,11 @@ describe('checkWords', () => {
     expect(check({})).toEqual([]);
   });
 
+  it('checks the sentence-equivalence partner', () => {
+    expect(check({ equivalent: 'enervate' })).toEqual(['enervate: equivalent is the headword']);
+    expect(check({ equivalent: 'lucid' })).toEqual(['enervate: equivalent "lucid" is not in the deck']);
+  });
+
   it('catches the headword inside the meaning', () => {
     expect(check({ meaning: 'to make enervated' })).toEqual(['enervate: meaning uses the headword']);
   });

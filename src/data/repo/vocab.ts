@@ -56,6 +56,7 @@ export async function saveVocabClock(session: VocabSessionRow, d: GraphiteDB = d
 const ATTEMPT_MODE: Record<VocabItem['kind'], WordAttemptRow['mode']> = {
   flashcard: 'flashcard',
   typein: 'typein',
+  equiv: 'mcq',
   meaning: 'mcq',
   word: 'mcq',
   blank: 'mcq',
