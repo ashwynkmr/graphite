@@ -190,7 +190,7 @@ Content is produced by scripts and Claude, checked by scripts, and committed as 
 **Vocab: ranking the 1,500 words**
 
 1. Collect public high-frequency GRE word lists (Barron's, Magoosh, Manhattan, ETS practice material, community lists) as plain word lists in `content/sources/wordlists/`, one word per line. Only the words are kept, never definitions.
-2. `rank-words.ts` normalizes each word (lowercase, base form) and scores it: +1 for each list containing it, plus a small bonus for appearing near the top of ranked lists.
+2. `rank-words.ts` normalizes each word (lowercase, base form) and scores it: +1 for each list containing it, plus a small bonus for appearing near the top of ranked lists. *As built ([0023](../decisions/0023-word-ranking-core-and-broad-lists.md)): +1 per focused GRE list, +0.1 per broad list (3,000–5,000 words), at least one focused list required, ties in a fixed hash order; inflections merged via `content/sources/wordlists/aliases.txt`. Output: `content/ranked-words.json`.*
 3. Take the top 1,500 by score. Rank 1–500 = Tier 1, 501–1,000 = Tier 2, 1,001–1,500 = Tier 3.
 
 **Vocab: writing entries**

@@ -9,7 +9,7 @@ Built in three milestones so studying can start before all of Phase 1 is done ([
 | Milestone | Steps | Target | Status |
 | --- | --- | --- | --- |
 | **A. Quant drills live** (`v0.1.0`) | 1 Scaffold + deploy · 2 Engine · 3 Generators + ~1,200-question bank · 4 Data layer · 5 Quant flow + minimal Home | Nov 1 | **Shipped Oct 31** as `v0.1.0` ([retro](../retros/milestone-a-retro.md)) |
-| **B. Vocab live** (`v0.2.0`) | 6 Ranked word list · 7 Entries for ranks 1–600 · 8 Vocab flow | Nov 1–2 | Not started |
+| **B. Vocab live** (`v0.2.0`) | 6 Ranked word list · 7 Entries for ranks 1–600 · 8 Vocab flow | Nov 1–2 | In progress: step 6 done (Nov 1) |
 | **C. Rest of Phase 1** (`v1.0.0`) | 9 Mistake log, full Home (today card, last session, suggested drill), Progress, Settings with two-level reset, Share · 10 ~300 hand-written problems (bank → ~1,500) · 11 Launch pass | Nov 2 | Not started |
 
 ## Phase 2: first week (by Nov 7)

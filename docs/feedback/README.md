@@ -12,6 +12,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-10-31 | A1 + A2: shell, question bank | Phone install; 30-question sample | [2026-10-31-A1-A2](2026-10-31-A1-A2.md) |
 | 2026-10-31 | A3: quant drills | Staging on phone | [2026-10-31-A3](2026-10-31-A3.md) |
 | 2026-11-01 | Requests after A3; question-count dial | Staging on phone | [2026-11-01-requests-and-dial](2026-11-01-requests-and-dial.md) |
+| 2026-11-01 | Step 6: ranked word list | Sources and top 100, in chat | [2026-11-01-step6-word-list](2026-11-01-step6-word-list.md) |
 
 ## Tracker
 
@@ -46,3 +47,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-27 | Quant | Dial moves vertically when swiping up or down | Horizontal-only scrolling | Done | [0022](../decisions/0022-question-count-dial.md) |
 | FB-28 | Quant | Dial draws over the Start button | Dial isolated; Start bar on top | Done | |
 | FB-29 | Process | Dial approved; update docs, commit and push | Committed and pushed | Done | |
+| FB-30 | Vocab | Top 100: use your own judgement | Kept as ranked; adjust via aliases if a word feels off | Done | [0023](../decisions/0023-word-ranking-core-and-broad-lists.md) |
+| FB-31 | Vocab | Should the deck be 1,500 words? | Kept at 1,500; launch with ranks 1–600 | No change | |
+| FB-32 | Vocab | Keep inflected adjectives as separate words | Seven forms kept separate | Done | [0023](../decisions/0023-word-ranking-core-and-broad-lists.md) |
+| FB-33 | Content | Commit the raw lists as recommended | Committed with origins credited | Done | [0023](../decisions/0023-word-ranking-core-and-broad-lists.md) |

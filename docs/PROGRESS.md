@@ -11,10 +11,10 @@ Running log of what's built, what's live and known issues. Newest first.
 Read this and `CLAUDE.md` first when starting a new session.
 
 - **Where we are:** Milestone A shipped as `v0.1.0` (Oct 31). Study started Nov 1; exam Nov 24.
-- **Next step:** Milestone B, step 6: collect several public high-frequency GRE word lists (words only) into `content/sources/wordlists/`, write `tools/vocab/rank-words.ts`, produce the ranked top 1,500 with tiers, and show Ashwyn the top 100 and the sources before writing any entries. **Wait for Ashwyn's go before starting.**
+- **Next step:** Milestone B, step 7: write original entries for ranks 1–600 of `content/ranked-words.json` in batches of 100 (TRD brief: meaning ≤ 90 chars, one example sentence, 2–3 synonyms, 3 confusables), plus `tools/vocab/validate-words.ts`. Checkpoint B1: 20 random entries. **Wait for Ashwyn's go before starting.**
 - **Also planned (PRD v0.6, Nov 1):** two-level reset and a fuller Home in step 9; study nudges and notes for the second user in Phase 2; reminders outside the app in Phase 3, needing a decision first.
-- **Then:** step 7 (original entries for ranks 1–600, batches of 100, Checkpoint B1: 20 random entries) and step 8 (vocab flow, Checkpoint B2).
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-29). Next decision number: 0023.
+- **Then:** step 8 (vocab flow, Checkpoint B2).
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-33). Next decision number: 0024.
 - **Open items:** install/offline not yet verified on a real phone against the live site; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -26,8 +26,15 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 3 | Generators and question bank | Done; A2 reviewed; difficulty raised after feedback | 2026-10-31 |
 | 4 | Data layer | Done; A3 approved | 2026-10-31 |
 | 5 | Quant flow + minimal Home | Done; A3 approved; `v0.1.0` | 2026-10-31 |
+| 6 | Ranked word list | Done; approved in chat | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Step 6, ranked word list
+- 12 public lists (words only) in `content/sources/wordlists/`, origins in `sources.json`. `npm run content:rank-words` writes `content/ranked-words.json`: 1,500 words, tiers of 500 ([0023](decisions/0023-word-ranking-core-and-broad-lists.md)).
+- Seven focused GRE lists score 1 each; five broad lists add 0.1 each as a tie-breaker. 1,112 of the 1,500 are on two or more focused lists; the cut-off score is 1.3.
+- Inflections merge via `aliases.txt`; seven adjective forms stay separate (FB-32). Testing caught a bug where unreadable entries were dropped silently instead of reported.
+- 501 tests green.
 
 ### 2026-11-01: Requests after A3; question-count dial
 - Drill length on Quant setup is a swipe dial, 5 to 40 in steps of 5 ([0022](decisions/0022-question-count-dial.md)); reusable as `src/ui/Dial.tsx`. Two phone fixes before approval: horizontal-only scrolling, and the Start bar drawn above the dial.
