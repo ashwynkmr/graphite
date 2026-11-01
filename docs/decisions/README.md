@@ -35,6 +35,9 @@ Every meaningful product or technical choice, with the options considered and wh
 | [0029](0029-sentence-equivalence-hand-checked-pairs.md) | Sentence Equivalence from hand-checked word pairs | 2026-11-01 | Accepted | Phase 1 | Content |
 | [0030](0030-full-screen-update-page.md) | A full-screen update page, held during sessions | 2026-11-01 | Accepted | Phase 1 | Product |
 | [0031](0031-wordmark-small-g-caps.md) | The name on screen is a large small g, then capitals | 2026-11-01 | Accepted | Phase 1 | Design |
+| [0032](0032-home-desk-layout-tally-and-nudge-card.md) | Home is a desk with tally marks and one suggestion card | 2026-11-01 | Accepted | Phase 1 | Design |
+| [0033](0033-suggestion-rules-reach-back-and-thresholds.md) | Suggestion rules reach back for answers and use a 90% bar | 2026-11-01 | Accepted | Phase 1 | Product |
+| [0034](0034-mistake-drills-and-reset-scope.md) | Mistake drills split by kind; reset progress clears stars | 2026-11-01 | Accepted | Phase 1 | Product |
 
 ## Template
 

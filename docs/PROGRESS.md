@@ -4,18 +4,18 @@ Running log of what's built, what's live and known issues. Newest first.
 
 ## Live now
 
-`v0.2.0` (Milestone B) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. Installable and offline. Mistakes, Progress and most of Settings are placeholders until Milestone C. Since the release: the name appears on screen as gRAPHITE.
+`v0.2.0` (Milestone B) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. Installable and offline. Since the release: the name appears on screen as gRAPHITE, and step 9 is live except Share: a fuller Home, the mistake log with Drill my mistakes, Progress totals, and Settings with goals, theme, backup and two-level reset.
 
 ## Next up (handoff)
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1), plus the gRAPHITE wordmark. Study started Nov 1; exam Nov 24.
-- **Next step:** step 9 (Milestone C: mistake log screen, progress, two-level reset, fuller Home), on Ashwyn's go. When backup import errors reach the screen, show the name with `Wordmark` (FB-65).
+- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: step 9 is live except the Share card, with no release tag yet. Study started Nov 1; exam Nov 24.
+- **Next step:** the Share card checkpoint (session image and text, FB-67), on Ashwyn's go. Then step 10 (about 300 hand-written problems) and step 11 (launch pass), then `v1.0.0`.
 - **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
 - **Also planned (PRD v0.6, Nov 1):** study nudges and notes for the second user in Phase 2; reminders outside the app in Phase 3, needing a decision first.
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-65). Next decision number: 0032.
-- **Open items:** install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-72). Next decision number: 0035.
+- **Open items:** Export and import on a real iPhone (FB-70); install button and iPhone install hint not yet tried; install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
 
@@ -29,8 +29,15 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 6 | Ranked word list | Done; approved in chat | 2026-11-01 |
 | 7 | Word entries | Done: all 1,500 (plan was 600) | 2026-11-01 |
 | 8 | Vocab flow | Done; B2 approved; `v0.2.0` | 2026-11-01 |
+| 9 | Mistake log, Home, Progress, Settings; Share card still to come | C1 approved; Share next | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Checkpoint C1, step 9 without Share
+- Home built from a mix of two options: desk layout and tally marks, plus a suggestion card ([0032](decisions/0032-home-desk-layout-tally-and-nudge-card.md)). Mistake log with Drill my mistakes, Progress totals, full Settings, backup and two-level reset ([0034](decisions/0034-mistake-drills-and-reset-scope.md)). Feedback FB-66 to FB-72.
+- Testing the built app caught that the suggestion card could never appear after mixed Quick drills, since 3 drills give a topic about 7 answers and the rule asked for 10 ([0033](decisions/0033-suggestion-rules-reach-back-and-thresholds.md)). It also caught the wordmark turning italic in an italic sentence.
+- The theme setting existed but nothing applied it until now.
+- 578 tests green; offline download about 1.56 MB. Export on a real iPhone is untested.
 
 ### 2026-11-01: The gRAPHITE wordmark
 - The name is now a `Wordmark` component on the setup label, update label and update sentence ([0031](decisions/0031-wordmark-small-g-caps.md)). Feedback FB-61 to FB-65.
@@ -107,5 +114,4 @@ Read this and `CLAUDE.md` first when starting a new session.
 
 ## Known issues
 - Install and offline over the staging tunnel weren't tested on a real phone during A3; the live site is checked after deploy.
-- The mistake log fills from drills, but its screen arrives in step 9 (Milestone C).
 - README screenshots will be captured with Playwright in the launch pass (step 11).

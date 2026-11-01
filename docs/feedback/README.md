@@ -16,6 +16,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-11-01 | First 100 entries and vocab screens | Staging on phone, three rounds | [2026-11-01-vocab-screens](2026-11-01-vocab-screens.md) |
 | 2026-11-01 | Writing the rest of the deck | In chat | [2026-11-01-all-words](2026-11-01-all-words.md) |
 | 2026-11-01 | The app name on screen | Staging, then in chat | [2026-11-01-wordmark](2026-11-01-wordmark.md) |
+| 2026-11-01 | C1: mistake log, progress, settings, Home | Staging review of step 9 without Share | [2026-11-01-C1](2026-11-01-C1.md) |
 
 ## Tracker
 
@@ -42,10 +43,10 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-19 | Design | Prefers the fountain-pen version | Pen version is the icon | Done | [0021](../decisions/0021-app-icon-serif-g-with-pen.md) |
 | FB-20 | Quant | Difficulty multi-select still doesn't work | Root cause: ambiguous control + stale build; toggle chips and update bar on every tab | Done | |
 | FB-21 | Process | A3 approved; update logs, commit and push | Committed, pushed, tagged v0.1.0 | Done | |
-| FB-22 | Settings | Option to reset account and progress | PRD v0.6: reset progress or everything; step 9 | Planned | |
+| FB-22 | Settings | Option to reset account and progress | Reset progress and Reset everything in Settings | Done | [0034](../decisions/0034-mistake-drills-and-reset-scope.md) |
 | FB-23 | Personal | Reminders about paused drills and practice, based on performance ("more fractions, you were weak last time") | PRD v0.6: in-app nudges Phase 2; outside-app reminders Phase 3, needs a decision | Planned | |
 | FB-24 | Personal | Cute notes from Ashwyn for the second user, only for her names | PRD v0.6: hashed name match, "Ashwyn says…"; Phase 2 | Planned | |
-| FB-25 | Home | Home seems blank; make it better | PRD v0.6: today card, last session, suggested drill; options at step 9 | Planned | |
+| FB-25 | Home | Home seems blank; make it better | Streak, today's tally, suggestion, last session | Done | [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md) |
 | FB-26 | Quant | Question count as a rotating dial, 5 to 40 in steps of 5 | Swipe dial with snap and tilt | Done | [0022](../decisions/0022-question-count-dial.md) |
 | FB-27 | Quant | Dial moves vertically when swiping up or down | Horizontal-only scrolling | Done | [0022](../decisions/0022-question-count-dial.md) |
 | FB-28 | Quant | Dial draws over the Start button | Dial isolated; Start bar on top | Done | |
@@ -85,4 +86,11 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-62 | Design | Wordmark bolder and a bit bigger | Weight 500, full graphite, 28 px g | Done | [0031](../decisions/0031-wordmark-small-g-caps.md) |
 | FB-63 | Design | Only the g small, the rest all caps, in the sentence too | gRAPHITE everywhere | Done | [0031](../decisions/0031-wordmark-small-g-caps.md) |
 | FB-64 | Design | Name under the icon is fine | Stays "Graphite" | No change | |
-| FB-65 | Design | Use the wordmark in backup errors | When they reach the screen in step 9 | Planned | [0031](../decisions/0031-wordmark-small-g-caps.md) |
+| FB-65 | Design | Use the wordmark in backup errors | Import errors use `Wordmark` | Done | [0031](../decisions/0031-wordmark-small-g-caps.md) |
+| FB-66 | Home | Mix of A and C: C's design and counting graphic, A's weakest-topic card | Built that mix | Done | [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md) |
+| FB-67 | Process | Share card now or separately: "You pick" | Its own checkpoint next, so the main screens were reviewed sooner | Planned | |
+| FB-68 | Home | Built Home "is good" | Kept | No change | |
+| FB-69 | Mistakes | Detail on each mistake card "is fine" | Kept | No change | [0034](../decisions/0034-mistake-drills-and-reset-scope.md) |
+| FB-70 | Settings | Export and import on iPhone not checked; "okay for now" | Still to test on a real iPhone | Open | [0034](../decisions/0034-mistake-drills-and-reset-scope.md) |
+| FB-71 | Progress | Totals are enough until Phase 2 trends | Kept | No change | |
+| FB-72 | Process | Checkpoint: "I think its pushable" | Logged, committed and pushed | Done | |

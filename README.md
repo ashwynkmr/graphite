@@ -29,10 +29,12 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | Get faster at calculation | Timed mental-math drills: 1,200 code-generated questions across 9 topics; pick topics and any mix of Easy/Medium/Hard (Hard = top of GRE mental math) | Live |
 | Train smart guessing, not just calculation | Typed answers and five-option multiple choice; at least two wrong options per question come from real mistakes (wrong base, adding instead of chaining, ×10 slips) | Live |
 | Practise under test conditions | No right/wrong feedback until the session ends; timed sets; the clock pauses when the phone locks | Live |
-| Learn from mistakes | Results review every question with a one-line shortcut; Retry wrong ones; misses are logged for "Drill my mistakes" | Live (mistake screen: Milestone C) |
+| Learn from mistakes | Results review every question with a one-line shortcut; Retry wrong ones; every miss collects in a mistake log with "Drill my mistakes" | Live |
 | Stay motivated for three weeks | Asks for your name once; greets you and cheers you on by name on Home and Results, never mid-drill | Live |
 | Learn 1,500 words in three weeks | Swipe flashcards, multiple choice, fill the blank and Sentence Equivalence, mixed in any combination, with Leitner spaced repetition and 200 new words a day | Live |
 | Practise the exam's two-answer vocab question | Sentence Equivalence from 661 word pairs, each hand-checked in its sentence | Live |
+| Know what to do today | Home shows the countdown, streak, today's goals as tally marks and one suggestion from your own results; Progress keeps the totals | Live |
+| Keep progress safe | Export and import a backup file; reset progress or everything | Live |
 | Study anywhere | Installable app that works offline; progress stays on the device | Live |
 
 ## Key decisions and trade-offs

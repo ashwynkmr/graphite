@@ -4,6 +4,13 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+### Added
+- Home shows your streak, today's progress as tally marks, one suggestion from your own results, your last session and a backup reminder, with Quick drill and Continue vocab side by side.
+- Mistake log: every wrong or skipped question and missed word, with Drill my mistakes for quant and for words.
+- Progress: current and best streak, plus totals for quant, vocab and study days.
+- Settings: daily goals, exam date, drill defaults, theme, install, export and import.
+- Reset progress or Reset everything, each offering an export first and asking you to type `reset`.
+
 ### Changed
 - The app's name now appears on screen as gRAPHITE: a large lowercase g followed by small capitals.
 

@@ -1,6 +1,6 @@
 # Graphite — Product Requirements (PRD)
 
-Nov 1, 2026 · @Ashwyn · Draft v0.7 (v0.7: Type-in removed, Sentence Equivalence added, [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md); v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
+Nov 1, 2026 · @Ashwyn · Draft v0.8 (v0.8: Home layout and suggestion rules as built, [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md), [0033](../decisions/0033-suggestion-rules-reach-back-and-thresholds.md), mistake drills and reset scope, [0034](../decisions/0034-mistake-drills-and-reset-scope.md); v0.7: Type-in removed, Sentence Equivalence added, [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md); v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
 
 > Living document. Scope changes are recorded in the [decision log](../decisions/README.md) and [ROADMAP](ROADMAP.md); this file is updated to match and the version above bumped.
 
@@ -211,13 +211,13 @@ Five small features turn two tools into a daily habit. The mistake log matters m
 - Exam countdown to Nov 24 ("23 days to go") and today's plan: "Due words: 64 · New words: 200 · Quant: 100 questions."
 - Streak counter and today's progress against the daily goals.
 - One-tap Quick drill (20 mixed questions at the user's current level) and Continue vocab.
-- *(v0.6, owner feedback: the Milestone A Home "seems blank".)* Home should feel like a study desk you open every day, not a launcher. Phase 1 adds, below the greeting: a **today** card (progress against both daily goals as pencil-tick rows), a **last session** line (score, time, date, tap to open its results), and one **suggested drill** card from the nudge rules below. Design options are shown side by side before building (step 9).
+- *(v0.6, owner feedback: the Milestone A Home "seems blank".)* Home should feel like a study desk you open every day, not a launcher. Phase 1 adds, below the greeting: a **today** card (progress against both daily goals as pencil-tick rows), a **last session** line (score, time, date, tap to open its results), and one **suggested drill** card from the nudge rules below. Built as a desk layout with tally marks ([0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md)).
 
 **Mistake log (Phase 1)**
 
 - Every wrong or skipped quant question is saved with the user's answer, the correct answer and time taken.
 - Every word marked Review or missed in a quiz is listed here too.
-- A "Drill my mistakes" button builds a drill from the log. A question leaves the log after it is answered correctly twice in a row.
+- A "Drill my mistakes" button builds a drill from the log, one for quant and one for words. A question leaves the log after it is answered correctly twice in a row.
 
 **Progress dashboard (streak and totals in Phase 1; trends in Phase 2)**
 
@@ -245,7 +245,7 @@ Progress stays private on the device, but the user can choose to share it.
 - **Export / import progress** as a JSON file. Since there is no login, this is the backup and the way to move progress from phone to laptop.
 - Reset progress. A reminder to export appears every 3 days.
 - *(v0.6)* **Reset**, two levels, at the bottom of Settings:
-  - **Reset progress:** clears drills, answers, vocab boxes, the mistake log and streaks. Keeps the name and settings.
+  - **Reset progress:** clears drills, answers, vocab boxes, stars, the mistake log and streaks. Keeps the name and settings.
   - **Reset everything:** also clears the name and settings and returns to the first-run name prompt, as on a fresh install.
   - Both offer "Export first" and ask the user to type `reset` to confirm. Nothing can be undone without an export file.
 
@@ -255,9 +255,9 @@ Nudges point the user at what to practise next, using their own results. They ne
 
 - **In-app nudges (Phase 2; one card on Home in Phase 1):** computed on the device from recent results, shown on Home and at the end of Results. One nudge at a time, picked by priority:
   1. A paused drill: "You left a drill at 12 of 20. Pick it up?"
-  2. A weak topic: lowest accuracy over the last 3 sessions that included it, at least 10 answers: "Fractions was your weakest last time (58%). Do 20 more?" One tap starts that drill.
+  2. A weak topic: lowest accuracy, under 90%, over the last 3 drills that included it, reaching further back until it has at least 10 answers: "Fractions was your weakest last time (58%). Do 20 more?" One tap starts that drill.
   3. Due words: "64 words are due today."
-  4. A slow topic: average time over target: "Percents are right but slow. Try a timed set."
+  4. A slow topic: at least half its correct answers flagged slow: "Percents: right but slow. Try a timed set."
   5. No study today by evening: "Nothing logged today yet. A 5-minute drill keeps the streak."
 - **Notifications outside the app (Phase 3, needs a decision):** an offline app with no server cannot schedule a notification on iPhone. Real reminders need web push, which needs a small free backend and would send nudge text off the device. Options to decide later: (a) in-app nudges only, (b) a "Add daily reminder to calendar" file made on the device (generic, not performance-based), (c) a free push backend, recorded in a decision before building.
 
