@@ -1,0 +1,142 @@
+.button {
+  min-height: var(--tap);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: var(--text-md);
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.primary {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.secondary {
+  background: var(--paper-raised);
+  border-color: var(--rule-strong);
+  color: var(--graphite);
+}
+
+.quiet {
+  background: none;
+  color: var(--graphite-soft);
+}
+
+.block {
+  width: 100%;
+}
+
+.chip {
+  min-height: 40px;
+  padding: 0 var(--space-2);
+  border-radius: 999px;
+  border: 1px solid var(--rule-strong);
+  background: var(--paper-raised);
+  color: var(--graphite);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.chipOn {
+  background: var(--ink-soft);
+  border-color: var(--ink);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.segmented {
+  display: flex;
+  padding: var(--space-half);
+  gap: var(--space-half);
+  background: var(--paper-sunk);
+  border-radius: var(--radius);
+}
+
+.segment {
+  flex: 1;
+  min-height: 40px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--graphite-soft);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.segmentOn {
+  background: var(--paper-raised);
+  color: var(--graphite);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.fieldHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.fieldLabel {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--graphite-soft);
+  font-weight: 600;
+}
+
+.fieldHint {
+  font-size: var(--text-xs);
+  color: var(--graphite-soft);
+}
+
+.toggleGroup {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-half);
+  min-height: var(--tap);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  color: var(--graphite-soft);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.toggleOn {
+  border-color: var(--ink);
+  background: var(--ink-soft);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.check {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}

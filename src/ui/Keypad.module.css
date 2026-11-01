@@ -1,0 +1,62 @@
+.pad {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-1);
+}
+
+.wide {
+  grid-column: span 3;
+}
+
+.key {
+  min-height: 52px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  box-shadow: inset 0 -1px 0 var(--rule-strong);
+  color: var(--graphite);
+  font-size: var(--text-xl);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.key:active {
+  background: var(--paper-sunk);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-1);
+}
+
+.skip,
+.submit {
+  min-height: 52px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-md);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.skip {
+  border: 1px solid var(--rule-strong);
+  background: none;
+  color: var(--graphite-soft);
+}
+
+.submit {
+  border: none;
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.submit:disabled {
+  opacity: 0.4;
+}

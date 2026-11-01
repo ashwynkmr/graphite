@@ -1,3 +1,27 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.greeting {
+  font-size: var(--text-xl);
+}
+
+.line {
+  margin-top: var(--space-1);
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--graphite-soft);
+}
+
 .iconLink {
   display: grid;
   place-items: center;
@@ -6,6 +30,7 @@
   margin: calc(var(--space-1) * -1) calc(var(--space-1) * -1) 0 0;
   color: var(--graphite-soft);
   border-radius: var(--radius-sm);
+  flex-shrink: 0;
 }
 
 .iconLink svg {
@@ -13,15 +38,53 @@
   height: 22px;
 }
 
+.resume {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--ink-soft);
+}
+
+.resumeTitle {
+  font-weight: 600;
+}
+
+.resumeMeta {
+  font-size: var(--text-sm);
+  color: var(--graphite-soft);
+}
+
+.resumeActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-1);
+}
+
 .countdown {
   display: flex;
   align-items: baseline;
   gap: var(--space-1);
-  padding: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-5);
   background: var(--paper-raised) var(--ruled-lines);
   background-position: 0 12px;
   border: var(--border);
   border-radius: var(--radius);
+  position: relative;
+}
+
+/* Notebook margin rule */
+.countdown::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--space-3);
+  width: 1px;
+  background: var(--ink);
+  opacity: 0.3;
 }
 
 .days {
@@ -37,23 +100,21 @@
   color: var(--graphite-soft);
 }
 
-.banner {
+.quick {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  padding: 0 0 0 var(--space-2);
-  background: var(--ink-soft);
-  border-radius: var(--radius-sm);
-  font-size: var(--text-sm);
+  gap: var(--space-1);
 }
 
-.bannerAction {
+.quickMeta {
+  font-size: var(--text-sm);
+  color: var(--graphite-soft);
+}
+
+.custom {
   min-height: var(--tap);
-  padding: 0 var(--space-2);
-  background: none;
-  border: none;
-  color: var(--ink);
-  font-weight: 600;
-  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--text-sm);
 }

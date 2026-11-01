@@ -1,0 +1,21 @@
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  padding: 0 0 0 var(--space-2);
+  background: var(--ink-soft);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}
+
+.action {
+  min-height: var(--tap);
+  padding: 0 var(--space-2);
+  background: none;
+  border: none;
+  color: var(--ink);
+  font-weight: 600;
+  cursor: pointer;
+}

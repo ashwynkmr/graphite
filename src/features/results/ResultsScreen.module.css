@@ -1,0 +1,251 @@
+.page {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: calc(var(--safe-top) + var(--space-1)) var(--space-2) calc(var(--safe-bottom) + var(--space-6));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.loading {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--graphite-soft);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: var(--tap);
+}
+
+.back {
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.kind {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--graphite-soft);
+}
+
+.hero {
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-5);
+  background: var(--paper-raised) var(--ruled-lines);
+  background-position: 0 18px;
+  border: var(--border);
+  border-radius: var(--radius);
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--space-3);
+  width: 1px;
+  background: var(--ink);
+  opacity: 0.3;
+}
+
+.line {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-style: italic;
+  color: var(--graphite);
+}
+
+.score {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  margin: var(--space-2) 0;
+}
+
+.big {
+  font-family: var(--font-serif);
+  font-size: var(--text-hero);
+  line-height: 1;
+  color: var(--ink);
+}
+
+.of {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  color: var(--graphite-soft);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.stats dt {
+  font-size: var(--text-xs);
+  color: var(--graphite-soft);
+}
+
+.stats dd {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.flags {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--graphite-soft);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.h3 {
+  font-size: var(--text-lg);
+}
+
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 9rem 1fr 3rem;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.row > span:last-child {
+  text-align: right;
+}
+
+.rowBar {
+  height: 6px;
+  background: var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.rowBar > span {
+  display: block;
+  height: 100%;
+  background: var(--good);
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.reviewHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle {
+  min-height: 40px;
+  border: none;
+  background: none;
+  color: var(--ink);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: var(--space-1);
+  padding: var(--space-2) 0;
+  border-top: var(--border);
+}
+
+.mark {
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+}
+
+.good {
+  color: var(--good);
+}
+
+.bad {
+  color: var(--bad);
+}
+
+.itemBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  min-width: 0;
+}
+
+.q {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+}
+
+.num {
+  color: var(--graphite-soft);
+}
+
+.ans {
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.yours {
+  color: var(--bad);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.time {
+  margin-left: var(--space-1);
+  color: var(--graphite-soft);
+}
+
+/* Margin-note style for the shortcut */
+.note {
+  padding-left: var(--space-1);
+  border-left: 2px solid var(--rule-strong);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-sm);
+  color: var(--graphite-soft);
+}
