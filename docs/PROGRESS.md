@@ -12,11 +12,19 @@ https://ashwynkmr.github.io/graphite/ shows the app shell: five tabs plus Settin
 | --- | --- | --- | --- |
 | 1 | Scaffold and deploy an empty shell | Done; A1 passed (installed on phone) | 2026-10-31 |
 | 2 | Engine foundations | Done | 2026-10-31 |
-| 3 | Generators and question bank | Not started | |
+| 3 | Generators and question bank | Done, awaiting Checkpoint A2 | 2026-10-31 |
 | 4 | Data layer | Not started | |
 | 5 | Quant flow + minimal Home | Not started | |
 
 ## Notes
+
+### 2026-10-31: Step 3
+- 73 templates across 9 topics (`src/engine/generators/topics/`), against the TRD's "about 80". Each topic has 7–9 templates covering all three difficulties; more can be added for weak topics in Phase 2.
+- `finalize.ts` applies the mental-math guard (≤ 4 significant digits at Easy/Medium, ≤ 5 at Hard; no repeating decimal without a rounding rule) and builds 5 choices: named-mistake distractors first, then near values, all at the answer's precision so no option gives itself away.
+- Property test: every template × difficulty × 200 seeds checks the schema, the guard, 5 distinct choices with exactly one correct, and determinism.
+- `content/questions.json`: 1,200 questions (40–55 per topic × difficulty), all with choices (the TRD floor is 70%). `validate-bank.ts` rebuilds every question from its stored seed and fails CI on any difference.
+- The TRD question schema gained a `format` field (number or fraction), and the hand-written `calc` expression lives in `source`.
+- Reviewing printed samples caught content issues the tests couldn't: a non-integer distractor ("1013"), an explanation that used a reduced denominator (3/500 instead of 6/1000), unrealistic word-problem sizes ("a team played 1,600 games") and a few awkward phrasings. All fixed before generating the bank.
 
 ### 2026-10-31: Step 2
 - `src/engine/matching/rational.ts`: exact BigInt rationals with parse, arithmetic, integer powers, half-away-from-zero rounding, terminating-decimal checks and significant digits (for the step 3 mental-math guard).

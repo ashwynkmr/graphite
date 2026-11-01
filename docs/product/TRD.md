@@ -107,6 +107,7 @@ interface Question {
   kind: 'calc' | 'word';   // pure calculation or short word problem
   prompt: string;          // plain text; may include × ÷ √
   answer: string;          // canonical exact value: '45', '3/8', '-2.5'
+  format: 'number' | 'fraction'; // how the answer and choices are written (added in build step 3)
   rounding?: 'whole' | 'tenth' | 'hundredth';
   unit?: { prefix?: string; suffix?: string };   // '$', '%', 'mph'
   choices?: string[];      // exactly 5 incl. answer; present if MCQ-capable
@@ -114,7 +115,7 @@ interface Question {
   targetSec: number;       // expected solve time
   explain: string;         // one-line shortcut
   source: { type: 'template'; templateId: string; seed: number }
-        | { type: 'handwritten' };
+        | { type: 'handwritten'; calc: string };   // calc re-checked by the evaluator
 }
 ```
 
