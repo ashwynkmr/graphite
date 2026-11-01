@@ -10,11 +10,11 @@ Running log of what's built, what's live and known issues. Newest first.
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: step 9 and push reminders are live, with no release tag yet. Study started Nov 1; exam Nov 24.
-- **Next step:** step 10 (about 300 hand-written problems) on Ashwyn's go, then step 11 (launch pass), then `v1.0.0`.
+- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: steps 9 and 10 and push reminders are live, with no release tag yet. Study started Nov 1; exam Nov 24.
+- **Next step:** step 11 (launch pass: smoke tests, offline and install checks on real phones, README screenshots), on Ashwyn's go, then `v1.0.0`.
 - **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
 - **Also planned (PRD v0.6, Nov 1):** study nudges and notes for the second user in Phase 2. Usage-based push reminders are built ([0037](decisions/0037-push-reminders-with-on-device-text.md)).
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-82). Next decision number: 0039.
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-84). Next decision number: 0040.
 - **Open items:** the real share sheet on a phone; reminders on Android; Export and import on a real iPhone (FB-70); install button and iPhone install hint not yet tried; install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -30,8 +30,14 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 7 | Word entries | Done: all 1,500 (plan was 600) | 2026-11-01 |
 | 8 | Vocab flow | Done; B2 approved; `v0.2.0` | 2026-11-01 |
 | 9 | Mistake log, Home, Progress, Settings, Share card | Done; C1 and C2 approved | 2026-11-01 |
+| 10 | 300 hand-written problems; bank at 1,500 | Done; C4 approved | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Checkpoint C4, step 10
+- 300 word problems in `content/handwritten.json`, with each answer and wrong option worked out from a formula ([0039](decisions/0039-handwritten-problems-from-formulas.md)). The bank is now 1,500, and the original 1,200 are unchanged. Feedback FB-83 and FB-84.
+- The validator now checks each formula's numbers against its question and each shortcut against its answer. That caught a formula giving 35 instead of 31. Reading all 300 caught problems no check could, such as drafting left in prompts and Easy problems that were too gentle.
+- 660 tests green; offline download about 1.68 MB.
 
 ### 2026-11-01: Checkpoint C3, push reminders
 - Opt-in reminders that follow how the user studies, timed and written on the phone ([0037](decisions/0037-push-reminders-with-on-device-text.md)). The server in `push-server/` receives a push address and wake-up times only. Feedback FB-78 to FB-80.

@@ -178,7 +178,7 @@ interface Draft {
 
 1. For each template and difficulty, draw seeds 1, 2, 3… until the quota is met (about 1,200 questions across \~80 templates, weighted by topic).
 2. Drop near-duplicates (same template with the same numbers in a different order).
-3. Merge \~300 hand-written word problems from `handwritten.json`, with answers checked by a small evaluator.
+3. Merge 300 hand-written word problems from `handwritten.json`. Each answer and wrong option is worked out from a formula by `engine/matching/calc.ts` ([0039](../decisions/0039-handwritten-problems-from-formulas.md)).
 4. Assign IDs `<templateId>-<e|m|h>-<nnnn>` and write `questions.json` sorted by ID, so diffs stay readable.
 
 **Live generation in the app:** when a user has seen 90% of the bank for a topic and difficulty, the session builder calls the same templates with seeds from 100,000 upward and stores generated questions' seeds with the attempt, so mistakes can be replayed exactly.
@@ -211,7 +211,7 @@ Content is produced by scripts and Claude, checked by scripts, and committed as 
 - Schema valid; IDs unique; quotas met per topic and difficulty (at least 40 per topic-difficulty pair).
 - Re-run every template from its stored seed and confirm the same answer (catches template edits that silently change answers).
 - For MCQ questions: exactly 5 distinct choices and exactly one equal to the answer after rounding.
-- Every hand-written answer re-computed by an expression evaluator from a hidden `calc` field.
+- Every hand-written problem rebuilt from its formula. The formula's numbers must appear in the question (small common numbers exempt), and the shortcut must reach the same answer.
 
 **Fixing content later:** edit the JSON (or the template) on GitHub → CI validates → deploy. The "Report a problem" link opens a prefilled GitHub issue with the question or word ID.
 

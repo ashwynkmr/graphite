@@ -11,6 +11,7 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 - Settings: daily goals, exam date, drill defaults, theme, install, export and import.
 - Share a session from the results screen: an image card and a short text summary through your phone's share sheet, or copied and saved on a laptop.
 - Optional reminders that follow how you study, sent as phone notifications. Turn them on in Settings.
+- 300 new word problems across all nine topics, written fresh and worked out by code, taking the bank to 1,500 questions.
 - Reset progress or Reset everything, each offering an export first and asking you to type `reset`.
 
 ### Changed

@@ -19,6 +19,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-11-01 | C1: mistake log, progress, settings, Home | Staging review of step 9 without Share | [2026-11-01-C1](2026-11-01-C1.md) |
 | 2026-11-01 | C2: Share card and reminders | Staging, then in chat | [2026-11-01-C2](2026-11-01-C2.md) |
 | 2026-11-01 | C3: push reminders | Staging with a temporary server, on iPhone | [2026-11-01-C3](2026-11-01-C3.md) |
+| 2026-11-01 | C4: hand-written word problems | Staging | [2026-11-01-C4](2026-11-01-C4.md) |
 
 ## Tracker
 
@@ -106,3 +107,5 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-80 | Reminders | iPhone: message came, tapping worked | Confirmed on a real phone | Done | |
 | FB-81 | Process | Keep building notifications the same way; use easy terms, as a beginner | Same behaviour, moved to Cloudflare; plain language from here on | Done | [0038](../decisions/0038-reminder-service-on-cloudflare.md) |
 | FB-82 | Reminders | Live service on iPhone: "It arrived, push it" | Committed and pushed | Done | [0038](../decisions/0038-reminder-service-on-cloudflare.md) |
+| FB-83 | Content | Start step 10 | 300 word problems; bank at 1,500 | Done | [0039](../decisions/0039-handwritten-problems-from-formulas.md) |
+| FB-84 | Process | "Good, push it" | Committed and pushed | Done | |

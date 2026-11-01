@@ -26,7 +26,7 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 
 | Need | Feature | Status |
 | --- | --- | --- |
-| Get faster at calculation | Timed mental-math drills: 1,200 code-generated questions across 9 topics; pick topics and any mix of Easy/Medium/Hard (Hard = top of GRE mental math) | Live |
+| Get faster at calculation | Timed mental-math drills: 1,500 questions across 9 topics, 1,200 generated and 300 hand-written, with every answer worked out by code; pick topics and any mix of Easy/Medium/Hard (Hard = top of GRE mental math) | Live |
 | Train smart guessing, not just calculation | Typed answers and five-option multiple choice; at least two wrong options per question come from real mistakes (wrong base, adding instead of chaining, ×10 slips) | Live |
 | Practise under test conditions | No right/wrong feedback until the session ends; timed sets; the clock pauses when the phone locks | Live |
 | Learn from mistakes | Results review every question with a one-line shortcut; Retry wrong ones; every miss collects in a mistake log with "Drill my mistakes" | Live |
@@ -48,7 +48,7 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | Results only at the end | Mirrors the real test; the review screen and mistake log close the learning loop | [0007](docs/decisions/0007-results-only-at-end.md) |
 | No login; progress stays on the device | Zero setup and nothing to host; the cost is no sync between devices | [0008](docs/decisions/0008-no-login-local-progress.md) |
 | PWA on GitHub Pages, not app stores | Hard $0 constraint; the cost is a less discoverable install on iOS | [0009](docs/decisions/0009-pwa-on-github-pages.md) |
-| Ship drills before all content is done | Nov 1 start date; the bank grows from ~1,200 to ~1,500 after launch | [0014](docs/decisions/0014-quant-drill-before-handwritten-problems.md) |
+| Ship drills before all content is done | Nov 1 start date; the bank grew from 1,200 to 1,500 after launch | [0014](docs/decisions/0014-quant-drill-before-handwritten-problems.md) |
 | Approve every checkpoint on staging before anything is committed | Feedback lands before changes go public; costs a slower path to live | [0016](docs/decisions/0016-review-gate-staging-before-commit.md) |
 | Raise every difficulty one level, with Hard at the GRE's ceiling | The first sample's Easy questions weren't worth study time | [0017](docs/decisions/0017-difficulty-up-one-level.md) |
 | Hand-check Sentence Equivalence pairs instead of generating them | A listed synonym doesn't always fit a given sentence; the cost is 661 pairs rather than all 1,500 words | [0029](docs/decisions/0029-sentence-equivalence-hand-checked-pairs.md) |
