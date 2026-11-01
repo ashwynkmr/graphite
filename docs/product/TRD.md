@@ -338,8 +338,8 @@ Added by [0037](../decisions/0037-push-reminders-with-on-device-text.md). Opt-in
 - **Service worker:** `src/sw.ts` with `injectManifest`, replacing `generateSW`. Caching and the update flow are unchanged.
 - **Timing:** `engine/scheduling/reminder-plan.ts` turns study state into wake-up times. A plan replaces the last one on each move between screens, when the app is hidden, and after each wake-up.
 - **Message:** the push handler reads IndexedDB and writes the text on the phone.
-- **Server:** `push-server/`, Fastify, `web-push` and Postgres. `PUT` and `DELETE /subscription` store a push address and wake-up times. A check each minute sends what's due. Endpoints are limited to the browsers' push services, so the server can't be aimed elsewhere.
-- **Configuration:** `VITE_PUSH_SERVER_URL` and `VITE_PUSH_PUBLIC_KEY`. Without them the Settings section stays hidden.
+- **Service:** `push-server/`, on Cloudflare Workers with a D1 database ([0038](../decisions/0038-reminder-service-on-cloudflare.md)). `PUT` and `DELETE /subscription` store a push address and wake-up times. A scheduled check each minute sends what's due. Endpoints are limited to the browsers' push services, so it can't be aimed elsewhere.
+- **Configuration:** `VITE_PUSH_SERVER_URL` and `VITE_PUSH_PUBLIC_KEY`, committed in `.env.production` because neither is secret. Without them the Settings section stays hidden. The private key is stored only in Cloudflare.
 
 ## Sharing
 

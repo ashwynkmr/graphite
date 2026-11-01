@@ -4,18 +4,18 @@ Running log of what's built, what's live and known issues. Newest first.
 
 ## Live now
 
-`v0.2.0` (Milestone B) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. Installable and offline. Since the release: the name appears on screen as gRAPHITE, and step 9 is live: a fuller Home, a Share button on results, the mistake log with Drill my mistakes, Progress totals, and Settings with goals, theme, backup and two-level reset.
+`v0.2.0` (Milestone B) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. Installable and offline. Since the release: the name appears on screen as gRAPHITE, optional reminders are live, and step 9 is live: a fuller Home, a Share button on results, the mistake log with Drill my mistakes, Progress totals, and Settings with goals, theme, backup and two-level reset.
 
 ## Next up (handoff)
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: step 9 is live, with no release tag yet. Push reminders passed on a real iPhone against a temporary server. Study started Nov 1; exam Nov 24.
-- **Next step:** deploy `push-server/` on Northflank (steps in its README), add `.env.production`, then step 10 (about 300 hand-written problems) on Ashwyn's go, step 11 (launch pass) and `v1.0.0`.
+- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: step 9 and push reminders are live, with no release tag yet. Study started Nov 1; exam Nov 24.
+- **Next step:** step 10 (about 300 hand-written problems) on Ashwyn's go, then step 11 (launch pass), then `v1.0.0`.
 - **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
 - **Also planned (PRD v0.6, Nov 1):** study nudges and notes for the second user in Phase 2. Usage-based push reminders are built ([0037](decisions/0037-push-reminders-with-on-device-text.md)).
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-80). Next decision number: 0038.
-- **Open items:** the real share sheet on a phone; the reminder server on Northflank and reminders on Android; Export and import on a real iPhone (FB-70); install button and iPhone install hint not yet tried; install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-82). Next decision number: 0039.
+- **Open items:** the real share sheet on a phone; reminders on Android; Export and import on a real iPhone (FB-70); install button and iPhone install hint not yet tried; install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
 
@@ -37,7 +37,8 @@ Read this and `CLAUDE.md` first when starting a new session.
 - Opt-in reminders that follow how the user studies, timed and written on the phone ([0037](decisions/0037-push-reminders-with-on-device-text.md)). The server in `push-server/` receives a push address and wake-up times only. Feedback FB-78 to FB-80.
 - Moved to a custom service worker; a browser test ran the update from the live build, then offline use.
 - Testing caught a paused session being nudged repeatedly and a daily limit that ignored reminders already sent.
-- Confirmed on a real iPhone: delivery, the on-device message, and opening the app from the notification. 621 app tests and 22 server tests green.
+- Confirmed on a real iPhone: delivery, the on-device message, and opening the app from the notification, first against a temporary server and then the live service. 621 app tests and 26 service tests green.
+- A security incident at Northflank moved the service to Cloudflare Workers before deployment ([0038](decisions/0038-reminder-service-on-cloudflare.md)). Measured 2 to 6 ms per scheduled run against a 10 ms limit.
 
 ### 2026-11-01: Checkpoint C2, Share card and reminders
 - Share on both results screens: a 1080 × 1350 image drawn on the device and a text summary, with copy-and-save where sharing isn't offered ([0036](decisions/0036-share-card-drawn-up-front.md)). Testing also caught an empty "0 of 0" card after a vocab session with no answers.

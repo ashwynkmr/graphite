@@ -40,7 +40,8 @@ Every meaningful product or technical choice, with the options considered and wh
 | [0034](0034-mistake-drills-and-reset-scope.md) | Mistake drills split by kind; reset progress clears stars | 2026-11-01 | Accepted | Phase 1 | Product |
 | [0035](0035-in-app-reminders-only.md) | Reminders stay inside the app | 2026-11-01 | Superseded by [0037](0037-push-reminders-with-on-device-text.md) | Phase 3 | Product |
 | [0036](0036-share-card-drawn-up-front.md) | The share image is drawn up front, always in the light theme | 2026-11-01 | Accepted | Phase 1 | Technical |
-| [0037](0037-push-reminders-with-on-device-text.md) | Push reminders, timed and written on the phone | 2026-11-01 | Accepted | Phase 1 | Product |
+| [0037](0037-push-reminders-with-on-device-text.md) | Push reminders, timed and written on the phone | 2026-11-01 | Accepted; hosting replaced by [0038](0038-reminder-service-on-cloudflare.md) | Phase 1 | Product |
+| [0038](0038-reminder-service-on-cloudflare.md) | The reminder service runs on Cloudflare Workers | 2026-11-01 | Accepted | Phase 1 | Technical |
 
 ## Template
 

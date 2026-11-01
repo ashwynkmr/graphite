@@ -104,3 +104,5 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-78 | Reminders | "Build push next" | Server, service worker and Settings section | Done | [0037](../decisions/0037-push-reminders-with-on-device-text.md) |
 | FB-79 | Reminders | Notifications should be usage based, not just a preset reminder | Phone picks the times from how the user studies | Done | [0037](../decisions/0037-push-reminders-with-on-device-text.md) |
 | FB-80 | Reminders | iPhone: message came, tapping worked | Confirmed on a real phone | Done | |
+| FB-81 | Process | Keep building notifications the same way; use easy terms, as a beginner | Same behaviour, moved to Cloudflare; plain language from here on | Done | [0038](../decisions/0038-reminder-service-on-cloudflare.md) |
+| FB-82 | Reminders | Live service on iPhone: "It arrived, push it" | Committed and pushed | Done | [0038](../decisions/0038-reminder-service-on-cloudflare.md) |

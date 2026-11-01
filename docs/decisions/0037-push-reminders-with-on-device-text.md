@@ -1,5 +1,5 @@
 # 0037. Push reminders, timed and written on the phone
-2026-11-01 · Accepted · Phase 1 · Product
+2026-11-01 · Accepted; hosting replaced by [0038](0038-reminder-service-on-cloudflare.md) · Phase 1 · Product
 
 Supersedes [0035](0035-in-app-reminders-only.md).
 
