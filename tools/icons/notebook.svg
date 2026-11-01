@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Option B, "Notebook G": a graphite G on a ruled notebook page -->
+  <rect width="512" height="512" fill="#f6f1e7"/>
+  <g stroke="#9fb1cf" stroke-opacity="0.55" stroke-width="4">
+    <path d="M0 128H512M0 192H512M0 256H512M0 320H512M0 384H512M0 448H512"/>
+  </g>
+  <!-- margin line -->
+  <path d="M112 0V512" stroke="#2c4a7c" stroke-width="5" stroke-opacity="0.8"/>
+  <!-- the G: ring, crossbar and spur -->
+  <path d="M396 270A124 124 0 1 1 352 175" fill="none" stroke="#2a2a2d" stroke-width="40" stroke-linecap="round"/>
+  <path d="M318 270H396V330" fill="none" stroke="#2a2a2d" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

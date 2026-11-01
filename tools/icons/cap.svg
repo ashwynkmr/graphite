@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Option C, "Graduate G": a paper G wearing a small mortarboard on graphite -->
+  <rect width="512" height="512" fill="#2a2a2d"/>
+  <path d="M384 292A122 122 0 1 1 341 199" fill="none" stroke="#f6f1e7" stroke-width="42" stroke-linecap="round"/>
+  <path d="M296 292H384" stroke="#f6f1e7" stroke-width="42" stroke-linecap="round"/>
+  <!-- mortarboard, tilted onto the G -->
+  <g transform="translate(22 -34) rotate(-10 236 152)">
+    <path d="M236 104L340 140L236 176L132 140Z" fill="#94acd9"/>
+    <path d="M180 156V190C200 206 272 206 292 190V156L236 176Z" fill="#6f8bbd"/>
+    <path d="M300 146V200" stroke="#c9a24a" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="300" cy="206" r="9" fill="#c9a24a"/>
+  </g>
+</svg>

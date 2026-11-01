@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Hybrid (FB-16): a pencil drawing the G on a ruled spiral-notebook page; amber pencil against ink blue -->
+  <rect width="512" height="512" fill="#2c4a7c"/>
+  <!-- page shadow, then the page -->
+  <rect x="112" y="80" width="336" height="368" rx="18" fill="#1f365d"/>
+  <rect x="104" y="72" width="336" height="368" rx="18" fill="#f6f1e7"/>
+  <!-- ruled lines and margin -->
+  <g stroke="#9fb1cf" stroke-opacity="0.6" stroke-width="3">
+    <path d="M148 150H420M148 194H420M148 238H420M148 282H420M148 326H420M148 370H420M148 414H420"/>
+  </g>
+  <path d="M172 72V440" stroke="#e0a24a" stroke-width="3" stroke-opacity="0.75"/>
+  <!-- spiral binding: punched holes with wire coils over the edge -->
+  <g>
+    <circle cx="128" cy="112" r="8" fill="#2c4a7c"/>
+    <circle cx="128" cy="164" r="8" fill="#2c4a7c"/>
+    <circle cx="128" cy="216" r="8" fill="#2c4a7c"/>
+    <circle cx="128" cy="268" r="8" fill="#2c4a7c"/>
+    <circle cx="128" cy="320" r="8" fill="#2c4a7c"/>
+    <circle cx="128" cy="372" r="8" fill="#2c4a7c"/>
+  </g>
+  <g fill="none" stroke="#d3d8e0" stroke-width="7" stroke-linecap="round">
+    <path d="M128 112C112 100 92 102 86 112C92 122 112 124 128 112"/>
+    <path d="M128 164C112 152 92 154 86 164C92 174 112 176 128 164"/>
+    <path d="M128 216C112 204 92 206 86 216C92 226 112 228 128 216"/>
+    <path d="M128 268C112 256 92 258 86 268C92 278 112 280 128 268"/>
+    <path d="M128 320C112 308 92 310 86 320C92 330 112 332 128 320"/>
+    <path d="M128 372C112 360 92 362 86 372C92 382 112 384 128 372"/>
+  </g>
+  <!-- the G ring in graphite, open at the upper right -->
+  <path d="M396 262A96 96 0 1 1 361.7 188.5" fill="none" stroke="#2a2a2d" stroke-width="34" stroke-linecap="round"/>
+  <!-- crossbar: an amber pencil pointing in -->
+  <rect x="318" y="245" width="80" height="34" rx="3" fill="#e9b949"/>
+  <path d="M318 256H398" stroke="#d29f2c" stroke-width="2"/>
+  <path d="M318 268H398" stroke="#d29f2c" stroke-width="2"/>
+  <rect x="308" y="245" width="10" height="34" fill="#b9c0ca"/>
+  <path d="M308 245V279L270 262Z" fill="#f0d9b0"/>
+  <path d="M282 256.6V267.4L270 262Z" fill="#2a2a2d"/>
+</svg>
