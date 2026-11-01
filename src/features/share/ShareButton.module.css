@@ -1,0 +1,6 @@
+.status {
+  font-family: var(--font-serif);
+  font-style: italic;
+  text-align: center;
+  color: var(--graphite-soft);
+}

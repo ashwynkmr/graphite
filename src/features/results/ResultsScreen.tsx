@@ -11,6 +11,8 @@ import { resultsLine } from '../personal/messages';
 import { useProfile } from '../personal/ProfileContext';
 import { DIFFICULTY_LABEL, duration, showValue, TOPIC_LABEL } from '../quant/display';
 import { startDrill, startRetry } from '../quant/startDrill';
+import { ShareButton } from '../share/ShareButton';
+import { quantShare } from '../share/summary';
 import styles from './ResultsScreen.module.css';
 
 function pctText(t: Tally): string {
@@ -104,13 +106,15 @@ export function ResultsScreen() {
     navigate(`/quant/session/${s.id}`);
   };
 
+  const kind = session.origin.kind === 'retry' ? 'Retry' : session.origin.kind === 'mistakes' ? 'My mistakes' : 'Quant drill';
+
   return (
     <main className={styles.page}>
       <header className={styles.top}>
         <Link to="/" className={styles.back}>
           Done
         </Link>
-        <span className={styles.kind}>{session.origin.kind === 'retry' ? 'Retry' : session.origin.kind === 'mistakes' ? 'My mistakes' : 'Quant drill'}</span>
+        <span className={styles.kind}>{kind}</span>
       </header>
 
       <section className={styles.hero}>
@@ -149,6 +153,7 @@ export function ResultsScreen() {
         <Button block variant="secondary" onClick={again}>
           New drill, same settings
         </Button>
+        <ShareButton card={quantShare(kind, results)} day={session.day} />
       </div>
 
       <Breakdown title="By topic" rows={(Object.entries(results.byTopic) as [Topic, Tally][]).map(([k, t]) => [TOPIC_LABEL[k], t])} />

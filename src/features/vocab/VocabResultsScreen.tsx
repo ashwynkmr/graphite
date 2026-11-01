@@ -12,6 +12,8 @@ import { vocabResultsLine } from '../personal/messages';
 import { useProfile } from '../personal/ProfileContext';
 import { duration } from '../quant/display';
 import r from '../results/ResultsScreen.module.css';
+import { ShareButton } from '../share/ShareButton';
+import { vocabShare } from '../share/summary';
 import { sentence } from './display';
 import { redoVocab, startVocab } from './startVocab';
 import styles from './VocabResultsScreen.module.css';
@@ -113,13 +115,15 @@ export function VocabResultsScreen() {
     else navigate('/vocab');
   };
 
+  const kind = modes.length > 1 ? 'Mixed practice' : MODE_LABEL[modes[0]!];
+
   return (
     <main className={r.page}>
       <header className={r.top}>
         <Link to="/" className={r.back}>
           Done
         </Link>
-        <span className={r.kind}>{modes.length > 1 ? 'Mixed practice' : MODE_LABEL[modes[0]!]}</span>
+        <span className={r.kind}>{kind}</span>
       </header>
 
       <section className={r.hero}>
@@ -180,6 +184,7 @@ export function VocabResultsScreen() {
         <Button block variant={toReview > 0 ? 'quiet' : 'secondary'} onClick={() => navigate('/vocab')}>
           Change settings
         </Button>
+        {results.total + results.flashcards > 0 && <ShareButton card={vocabShare(kind, results)} day={session.day} />}
       </div>
 
       <section className={r.review}>
