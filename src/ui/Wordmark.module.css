@@ -1,0 +1,24 @@
+/*
+ * Resets text-transform and letter-spacing so an uppercase label can't turn the g into a capital.
+ * line-height 0 keeps the serif and the larger g from pushing the line apart in running text.
+ */
+.wordmark {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  font-weight: 500;
+  line-height: 0;
+  color: var(--graphite);
+  text-transform: none;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+.g {
+  font-size: var(--text-xl);
+}
+
+.rest {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}

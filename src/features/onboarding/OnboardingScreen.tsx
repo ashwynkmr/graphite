@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button } from '../../ui/controls';
+import { Wordmark } from '../../ui/Wordmark';
 import { useProfile } from '../personal/ProfileContext';
 import styles from './OnboardingScreen.module.css';
 
@@ -12,7 +13,9 @@ export function OnboardingScreen() {
   return (
     <main className={styles.page}>
       <div className={styles.card}>
-        <p className={styles.eyebrow}>Graphite</p>
+        <p className={styles.eyebrow}>
+          <Wordmark />
+        </p>
         <h1 className={styles.title}>Hello. What should we call you?</h1>
         <form
           className={styles.form}
