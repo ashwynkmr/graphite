@@ -18,6 +18,7 @@ Every meaningful product or technical choice, with the options considered and wh
 | [0012](0012-name-graphite.md) | Name: Graphite | 2026-10-31 | Accepted | Planning | Product |
 | [0013](0013-static-react-dexie-hash-routing-ci.md) | Static React + TypeScript app, IndexedDB via Dexie, hash routing, CI-gated deploys | 2026-10-31 | Accepted | Planning | Technical |
 | [0014](0014-quant-drill-before-handwritten-problems.md) | Ship a usable quant drill before the hand-written word problems | 2026-10-31 | Accepted | Phase 1 | Scope |
+| [0015](0015-leitner-edge-cases.md) | Leitner edge cases: same-session repeats only for misses | 2026-10-31 | Accepted | Phase 1 | Product |
 
 ## Template
 

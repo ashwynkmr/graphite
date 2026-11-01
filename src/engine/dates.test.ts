@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { daysBetween, daysToExam, toDay } from './dates';
+import { addDays, daysBetween, daysToExam, toDay } from './dates';
 
 describe('toDay', () => {
   it('formats a local date with zero padding', () => {
@@ -24,5 +24,18 @@ describe('daysToExam', () => {
     expect(daysToExam('2026-11-01', '2026-11-24')).toBe(23);
     expect(daysToExam('2026-11-24', '2026-11-24')).toBe(0);
     expect(daysToExam('2026-11-25', '2026-11-24')).toBeNull();
+  });
+});
+
+describe('addDays', () => {
+  it.each([
+    ['2026-11-03', 1, '2026-11-04'],
+    ['2026-11-28', 7, '2026-12-05'],
+    ['2026-12-31', 1, '2027-01-01'],
+    ['2026-11-01', -1, '2026-10-31'],
+    ['2026-10-31', 2, '2026-11-02'], // across a DST change in many timezones
+    ['2028-02-28', 1, '2028-02-29'],
+  ] as const)('%s + %i = %s', (day, n, out) => {
+    expect(addDays(day, n)).toBe(out);
   });
 });

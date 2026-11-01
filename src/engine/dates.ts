@@ -27,3 +27,9 @@ export function daysToExam(today: Day, examDay: Day): number | null {
 }
 
 export const DEFAULT_EXAM_DAY: Day = '2026-11-24';
+
+/** The calendar day `n` days after `day` (n may be negative). */
+export function addDays(day: Day, n: number): Day {
+  const [y, m, d] = day.split('-').map(Number);
+  return toDay(new Date(y!, m! - 1, d! + n));
+}
