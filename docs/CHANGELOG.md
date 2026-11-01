@@ -4,6 +4,9 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+### Changed
+- The app's name now appears on screen as gRAPHITE: a large lowercase g followed by small capitals.
+
 ## [0.2.0] - 2026-11-01 · Milestone B: vocab live
 
 ### Added

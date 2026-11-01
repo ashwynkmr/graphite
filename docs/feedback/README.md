@@ -15,6 +15,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-11-01 | Step 6: ranked word list | Sources and top 100, in chat | [2026-11-01-step6-word-list](2026-11-01-step6-word-list.md) |
 | 2026-11-01 | First 100 entries and vocab screens | Staging on phone, three rounds | [2026-11-01-vocab-screens](2026-11-01-vocab-screens.md) |
 | 2026-11-01 | Writing the rest of the deck | In chat | [2026-11-01-all-words](2026-11-01-all-words.md) |
+| 2026-11-01 | The app name on screen | Staging, then in chat | [2026-11-01-wordmark](2026-11-01-wordmark.md) |
 
 ## Tracker
 
@@ -80,3 +81,8 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-58 | Design | Option marker should be a square, not a circle | Square markers on Sentence Equivalence | Done | |
 | FB-59 | Vocab | Full deck flow holds up on the phone | Answered yes | No change | |
 | FB-60 | Process | Fix confirmed on the phone; B2 approved | Logged and released as `v0.2.0` | Done | |
+| FB-61 | Design | The name's G should be a small g, larger than the rest | `Wordmark` on all three on-screen uses | Done | [0031](../decisions/0031-wordmark-small-g-caps.md) |
+| FB-62 | Design | Wordmark bolder and a bit bigger | Weight 500, full graphite, 28 px g | Done | [0031](../decisions/0031-wordmark-small-g-caps.md) |
+| FB-63 | Design | Only the g small, the rest all caps, in the sentence too | gRAPHITE everywhere | Done | [0031](../decisions/0031-wordmark-small-g-caps.md) |
+| FB-64 | Design | Name under the icon is fine | Stays "Graphite" | No change | |
+| FB-65 | Design | Use the wordmark in backup errors | When they reach the screen in step 9 | Planned | [0031](../decisions/0031-wordmark-small-g-caps.md) |

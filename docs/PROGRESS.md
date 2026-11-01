@@ -4,18 +4,18 @@ Running log of what's built, what's live and known issues. Newest first.
 
 ## Live now
 
-`v0.2.0` (Milestone B) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. Installable and offline. Mistakes, Progress and most of Settings are placeholders until Milestone C.
+`v0.2.0` (Milestone B) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. Installable and offline. Mistakes, Progress and most of Settings are placeholders until Milestone C. Since the release: the name appears on screen as gRAPHITE.
 
 ## Next up (handoff)
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Study started Nov 1; exam Nov 24.
-- **Next step:** step 9 (Milestone C: mistake log screen, progress, two-level reset, fuller Home), on Ashwyn's go.
+- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1), plus the gRAPHITE wordmark. Study started Nov 1; exam Nov 24.
+- **Next step:** step 9 (Milestone C: mistake log screen, progress, two-level reset, fuller Home), on Ashwyn's go. When backup import errors reach the screen, show the name with `Wordmark` (FB-65).
 - **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
 - **Also planned (PRD v0.6, Nov 1):** study nudges and notes for the second user in Phase 2; reminders outside the app in Phase 3, needing a decision first.
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-60). Next decision number: 0031.
-- **Open items:** install/offline not yet verified on a real phone against the live site; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-65). Next decision number: 0032.
+- **Open items:** install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
 
@@ -31,6 +31,11 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 8 | Vocab flow | Done; B2 approved; `v0.2.0` | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: The gRAPHITE wordmark
+- The name is now a `Wordmark` component on the setup label, update label and update sentence ([0031](decisions/0031-wordmark-small-g-caps.md)). Feedback FB-61 to FB-65.
+- Testing caught the serif pushing the first line of the update sentence 2 px apart, and showed that an update page is drawn by the outgoing build, so a reviewer sees old styling on the first one.
+- A byte change to the built `dist/sw.js` triggers a real update page on staging without touching source.
 
 ### 2026-11-01: Checkpoint B2 and `v0.2.0`
 - Type-in removed ([0028](decisions/0028-remove-type-in-practice.md)); Sentence Equivalence added from 661 of 764 candidate pairs, each read in its sentence ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)); full-screen update page, held during sessions ([0030](decisions/0030-full-screen-update-page.md)). Feedback FB-52 to FB-60.

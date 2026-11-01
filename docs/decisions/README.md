@@ -34,6 +34,7 @@ Every meaningful product or technical choice, with the options considered and wh
 | [0028](0028-remove-type-in-practice.md) | Remove Type-in from vocab practice | 2026-11-01 | Accepted | Phase 1 | Product |
 | [0029](0029-sentence-equivalence-hand-checked-pairs.md) | Sentence Equivalence from hand-checked word pairs | 2026-11-01 | Accepted | Phase 1 | Content |
 | [0030](0030-full-screen-update-page.md) | A full-screen update page, held during sessions | 2026-11-01 | Accepted | Phase 1 | Product |
+| [0031](0031-wordmark-small-g-caps.md) | The name on screen is a large small g, then capitals | 2026-11-01 | Accepted | Phase 1 | Design |
 
 ## Template
 
