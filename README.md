@@ -35,6 +35,7 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | Practise the exam's two-answer vocab question | Sentence Equivalence from 661 word pairs, each hand-checked in its sentence | Live |
 | Know what to do today | Home shows the countdown, streak, today's goals as tally marks and one suggestion from your own results; Progress keeps the totals | Live |
 | Keep progress safe | Export and import a backup file; reset progress or everything | Live |
+| Share a result | An image card and text summary sent through the phone's share sheet; nothing leaves the device until you choose | Live |
 | Study anywhere | Installable app that works offline; progress stays on the device | Live |
 
 ## Key decisions and trade-offs

@@ -1,6 +1,6 @@
 # Graphite — Product Requirements (PRD)
 
-Nov 1, 2026 · @Ashwyn · Draft v0.8 (v0.8: Home layout and suggestion rules as built, [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md), [0033](../decisions/0033-suggestion-rules-reach-back-and-thresholds.md), mistake drills and reset scope, [0034](../decisions/0034-mistake-drills-and-reset-scope.md); v0.7: Type-in removed, Sentence Equivalence added, [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md); v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
+Nov 1, 2026 · @Ashwyn · Draft v0.9 (v0.9: reminders stay inside the app, [0035](../decisions/0035-in-app-reminders-only.md); v0.8: Home layout and suggestion rules as built, [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md), [0033](../decisions/0033-suggestion-rules-reach-back-and-thresholds.md), mistake drills and reset scope, [0034](../decisions/0034-mistake-drills-and-reset-scope.md); v0.7: Type-in removed, Sentence Equivalence added, [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md); v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
 
 > Living document. Scope changes are recorded in the [decision log](../decisions/README.md) and [ROADMAP](ROADMAP.md); this file is updated to match and the version above bumped.
 
@@ -74,7 +74,7 @@ Phase 1 ships everything needed to study from day one, including the mistake log
 | Quant drills | All 9 topics, 3 difficulty levels, typed / MCQ / Mix answers, per-set and untimed timers, results screen, retry wrong ones | Sprint mode, Adaptive difficulty, more templates for weak topics | Quantitative comparison and data-interpretation style questions |
 | Vocab | Flashcard, MCQ, fill-the-blank and Sentence Equivalence modes, Leitner boxes, star, due/new/starred decks, 200 new words a day, first 600 words | All 1,500 words, Round 2, Browse and search, mnemonics for the hardest \~200 words | Audio pronunciation, verbal question types |
 | Mistake log | Auto-collect wrong quant and missed words, Drill my mistakes, auto-clear after 2 correct | Filter by topic and age | — |
-| Home and progress | Exam countdown, today's plan, streak, simple totals, today card, last session, one suggested drill | Full dashboard: 14-day trends, weakest topics, words per box; in-app study nudges; personal note for the second user | Score predictor; reminders outside the app (needs a decision) |
+| Home and progress | Exam countdown, today's plan, streak, simple totals, today card, last session, one suggested drill | Full dashboard: 14-day trends, weakest topics, words per box; in-app study nudges; personal note for the second user | Score predictor |
 | Share | Share a session result (image card + text) | Share 7- or 14-day history | Compare with a friend (needs a free backend) |
 | Settings and data | Daily goals, exam date, timer and answer-mode defaults, theme, export/import, reset progress or everything | Per-topic defaults | — |
 | Platforms | Web app + installable app on iPhone, Android and desktop (PWA), offline | Install prompt and app icon polish | Android APK (free, sideloaded); iOS App Store not planned ($99/yr) |
@@ -259,7 +259,7 @@ Nudges point the user at what to practise next, using their own results. They ne
   3. Due words: "64 words are due today."
   4. A slow topic: at least half its correct answers flagged slow: "Percents: right but slow. Try a timed set."
   5. No study today by evening: "Nothing logged today yet. A 5-minute drill keeps the streak."
-- **Notifications outside the app (Phase 3, needs a decision):** an offline app with no server cannot schedule a notification on iPhone. Real reminders need web push, which needs a small free backend and would send nudge text off the device. Options to decide later: (a) in-app nudges only, (b) a "Add daily reminder to calendar" file made on the device (generic, not performance-based), (c) a free push backend, recorded in a decision before building.
+- **Notifications outside the app: not planned** ([0035](../decisions/0035-in-app-reminders-only.md)). Real reminders need web push, which needs a small backend and would send study data off the device.
 
 **A personal note for the second user** *(added in v0.6, owner request, Phase 2)*
 

@@ -10,7 +10,7 @@ Built in three milestones so studying can start before all of Phase 1 is done ([
 | --- | --- | --- | --- |
 | **A. Quant drills live** (`v0.1.0`) | 1 Scaffold + deploy · 2 Engine · 3 Generators + ~1,200-question bank · 4 Data layer · 5 Quant flow + minimal Home | Nov 1 | **Shipped Oct 31** as `v0.1.0` ([retro](../retros/milestone-a-retro.md)) |
 | **B. Vocab live** (`v0.2.0`) | 6 Ranked word list · 7 Word entries (all 1,500; plan was 600) · 8 Vocab flow | Nov 1–2 | **Shipped Nov 1** as `v0.2.0` ([retro](../retros/milestone-b-retro.md)) |
-| **C. Rest of Phase 1** (`v1.0.0`) | 9 Mistake log, full Home (today card, last session, suggested drill), Progress, Settings with two-level reset, Share · 10 ~300 hand-written problems (bank → ~1,500) · 11 Launch pass | Nov 2 | In progress: step 9 live except Share, which is next |
+| **C. Rest of Phase 1** (`v1.0.0`) | 9 Mistake log, full Home (today card, last session, suggested drill), Progress, Settings with two-level reset, Share · 10 ~300 hand-written problems (bank → ~1,500) · 11 Launch pass | Nov 2 | In progress: step 9 live; step 10 next |
 
 ## Phase 2: first week (by Nov 7)
 
@@ -26,12 +26,13 @@ Starts only when Ashwyn says go.
 
 ## Phase 3: later (optional)
 
-Reminders outside the app (calendar file or push; needs a decision), quantitative comparison and data-interpretation questions, audio pronunciation, score predictor, compare with a friend (needs a free backend), Android APK.
+Quantitative comparison and data-interpretation questions, audio pronunciation, score predictor, compare with a friend (needs a free backend), Android APK.
 
 ## What moved
 
 | Date | Change | Why | Record |
 | --- | --- | --- | --- |
+| 2026-11-01 | Reminders outside the app removed from Phase 3; in-app only | Owner decision | [0035](../decisions/0035-in-app-reminders-only.md) |
 | 2026-11-01 | Share card split from the rest of step 9, as its own checkpoint | Get the main screens reviewed sooner | [FB-67](../feedback/README.md) |
 | 2026-11-01 | Type-in removed; Sentence Equivalence added to Practice | Owner review at B2 | [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md) |
 | 2026-11-01 | Update bar replaced by a full-screen page, held during sessions | Owner review at B2 | [0030](../decisions/0030-full-screen-update-page.md) |

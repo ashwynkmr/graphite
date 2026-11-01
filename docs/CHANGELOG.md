@@ -9,6 +9,7 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 - Mistake log: every wrong or skipped question and missed word, with Drill my mistakes for quant and for words.
 - Progress: current and best streak, plus totals for quant, vocab and study days.
 - Settings: daily goals, exam date, drill defaults, theme, install, export and import.
+- Share a session from the results screen: an image card and a short text summary through your phone's share sheet, or copied and saved on a laptop.
 - Reset progress or Reset everything, each offering an export first and asking you to type `reset`.
 
 ### Changed
