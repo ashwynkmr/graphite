@@ -9,22 +9,28 @@ const t = (x: Omit<Template, 'topic' | 'kind'> & { kind?: Template['kind'] }): T
   ...x,
 });
 
+/** × k = × m ÷ q, for the friendly multipliers. */
+const FRIENDLY: Record<number, [number, number]> = { 25: [100, 4], 125: [1000, 8], 75: [300, 4], 375: [3000, 8] };
+
+/** Units digit of n³ → units digit of n (it's one-to-one). */
+const CUBE_ROOT_UNITS: Record<number, number> = { 0: 0, 1: 1, 8: 2, 7: 3, 4: 4, 5: 5, 6: 6, 3: 7, 2: 8, 9: 9 };
+
 export const arithmetic: Template[] = [
   t({
     id: 'ar-mul',
     difficulties: [1, 2, 3],
     generate(rng, d) {
-      const a = by(d, rng.int(12, 99), rng.int(102, 999), rng.int(13, 99));
-      const b = by(d, rng.int(3, 9), rng.int(3, 9), rng.int(13, 99));
+      const a = by(d, rng.int(102, 999), rng.int(13, 99), rng.int(101, 999));
+      const b = by(d, rng.int(3, 9), rng.int(13, 99), rng.int(12, 39));
       if (a % 10 === 0 || b % 10 === 0) return null;
       const ans = R(a * b);
       let explain: string;
-      if (d === 3) {
-        const bt = b - (b % 10);
-        explain = `${a} × ${b} = ${a} × ${bt} + ${a} × ${b % 10} = ${num(a * bt)} + ${num(a * (b % 10))} = ${num(ans)}`;
-      } else {
+      if (d === 1) {
         const at = a - (a % 10);
         explain = `${a} × ${b} = ${num(at)} × ${b} + ${a % 10} × ${b} = ${num(at * b)} + ${(a % 10) * b} = ${num(ans)}`;
+      } else {
+        const bt = b - (b % 10);
+        explain = `${a} × ${b} = ${a} × ${bt} + ${a} × ${b % 10} = ${num(a * bt)} + ${num(a * (b % 10))} = ${num(ans)}`;
       }
       return {
         prompt: `${num(a)} × ${num(b)} = ?`,
@@ -39,8 +45,8 @@ export const arithmetic: Template[] = [
     id: 'ar-mul-near-round',
     difficulties: [1, 2, 3],
     generate(rng, d) {
-      const a = rng.pick(by(d, [19, 21, 29, 31, 39, 41, 49, 51, 59, 61], [98, 99, 101, 102, 198, 199, 201, 299], [49, 51, 99, 101, 199, 201, 98, 102]));
-      const b = by(d, rng.int(3, 9), rng.int(3, 9), rng.int(12, 48));
+      const a = rng.pick(by(d, [98, 99, 101, 102, 198, 199, 201, 299], [49, 51, 99, 101, 199, 201, 98, 102], [999, 1001, 499, 501, 298, 302, 397, 403, 598, 602]));
+      const b = by(d, rng.int(3, 9), rng.int(12, 48), rng.int(12, 48));
       if (b % 10 === 0) return null;
       const base = a < 100 ? Math.round(a / 10) * 10 : Math.round(a / 100) * 100;
       const diff = a - base;
@@ -50,7 +56,7 @@ export const arithmetic: Template[] = [
         prompt: `${num(a)} × ${num(b)} = ?`,
         answer: ans,
         distractors: [R(base * b), R(base * b + diff), R(base * b - diff * b), ans.add(R(10)), ans.sub(R(10))],
-        explain: `${a} × ${b} = ${num(base)} × ${b} ${sign} ${Math.abs(diff)} × ${b} = ${num(base * b)} ${sign} ${Math.abs(diff * b)} = ${num(ans)}`,
+        explain: `${num(a)} × ${b} = ${num(base)} × ${b} ${sign} ${Math.abs(diff)} × ${b} = ${num(base * b)} ${sign} ${Math.abs(diff * b)} = ${num(ans)}`,
       };
     },
   }),
@@ -59,22 +65,21 @@ export const arithmetic: Template[] = [
     id: 'ar-mul-friendly',
     difficulties: [1, 2, 3],
     generate(rng, d) {
-      // ×5 = ×10 ÷ 2, ×25 = ×100 ÷ 4, ×125 = ×1000 ÷ 8
-      const k = by(d, rng.pick([5, 50]), 25, rng.pick([125, 25]));
-      const n = by(d, rng.int(7, 49) * 2, rng.int(3, 24) * 4, k === 125 ? rng.int(2, 12) * 8 : rng.int(13, 39));
-      if (n % 10 === 0) return null;
+      const k = by(d, 25, rng.pick([125, 25]), rng.pick([125, 75, 375]));
+      const n = by(
+        d,
+        rng.int(3, 24) * 4,
+        k === 125 ? rng.int(2, 12) * 8 : rng.int(13, 39),
+        k === 125 ? rng.int(13, 79) : k === 75 ? rng.int(3, 24) * 4 : rng.int(2, 8) * 8,
+      );
+      if (n % 10 === 0 || (d === 3 && k === 125 && n % 8 === 0)) return null;
+      const [m, q] = FRIENDLY[k]!;
       const ans = R(n * k);
-      const how =
-        k === 5 || k === 50
-          ? `× ${k} = × ${k * 2} ÷ 2: ${n} × ${k * 2} ÷ 2 = ${num(n * k * 2)} ÷ 2 = ${num(ans)}`
-          : k === 25
-            ? `× 25 = × 100 ÷ 4: ${num(n * 100)} ÷ 4 = ${num(ans)}`
-            : `× 125 = × 1000 ÷ 8: ${num(n * 1000)} ÷ 8 = ${num(ans)}`;
       return {
         prompt: `${num(n)} × ${k} = ?`,
         answer: ans,
-        distractors: [ans.mul(R(10)), ans.div(R(10)), ans.add(R(k)), ans.sub(R(k)), R(n * (k * 2))],
-        explain: how,
+        distractors: [ans.mul(R(10)), ans.div(R(10)), ans.add(R(k)), ans.sub(R(k)), R(n * m).div(R(q * 2))],
+        explain: `× ${k} = × ${num(m)} ÷ ${q}: ${num(n * m)} ÷ ${q} = ${num(ans)}`,
       };
     },
   }),
@@ -83,20 +88,20 @@ export const arithmetic: Template[] = [
     id: 'ar-div',
     difficulties: [1, 2, 3],
     generate(rng, d) {
-      const b = by(d, rng.int(3, 9), rng.int(3, 9), rng.int(12, 48));
-      const q = by(d, rng.int(4, 12), rng.int(13, 99), rng.int(12, 60));
-      if (b % 10 === 0) return null;
+      const b = by(d, rng.int(3, 9), rng.int(12, 48), rng.int(12, 48));
+      const q = by(d, rng.int(13, 99), rng.int(12, 60), rng.int(61, 250));
+      if (b % 10 === 0 || q % 10 === 0) return null;
       const a = b * q;
-      const chunk = Math.floor(a / (b * 10)) * b * 10;
-      const explain =
-        chunk > 0 && chunk < a
-          ? `${num(a)} ÷ ${b} = ${num(chunk)} ÷ ${b} + ${num(a - chunk)} ÷ ${b} = ${num(chunk / b)} + ${num((a - chunk) / b)} = ${q}`
-          : `${b} × ${q} = ${num(a)}, so ${num(a)} ÷ ${b} = ${q}`;
+      const scale = a >= b * 100 ? 100 : 10;
+      const chunk = Math.floor(a / (b * scale)) * b * scale;
       return {
         prompt: `${num(a)} ÷ ${b} = ?`,
         answer: R(q),
         distractors: [R(q + 1), R(q - 1), R(q * 10), R(q + 10), R(q - 10)],
-        explain,
+        explain:
+          chunk > 0 && chunk < a
+            ? `${num(a)} ÷ ${b} = ${num(chunk)} ÷ ${b} + ${num(a - chunk)} ÷ ${b} = ${num(chunk / b)} + ${num((a - chunk) / b)} = ${q}`
+            : `${b} × ${q} = ${num(a)}`,
       };
     },
   }),
@@ -105,7 +110,7 @@ export const arithmetic: Template[] = [
     id: 'ar-square',
     difficulties: [1, 2, 3],
     generate(rng, d) {
-      const n = by(d, rng.pick([11, 12, 13, 14, 15, 16, 17, 18, 19, 25]), rng.int(21, 39), rng.int(41, 99));
+      const n = by(d, rng.int(21, 39), rng.int(41, 99), rng.pick([91, 92, 93, 94, 95, 96, 97, 98, 99, 101, 102, 103, 104, 106, 107, 108, 109, 111, 112, 113, 115, 125, 135, 145]));
       if (n % 10 === 0) return null;
       const ans = R(n * n);
       let explain: string;
@@ -116,12 +121,12 @@ export const arithmetic: Template[] = [
         const base = Math.round(n / 10) * 10;
         const k = n - base;
         const s = k < 0 ? '−' : '+';
-        explain = `(${base} ${s} ${Math.abs(k)})² = ${num(base * base)} ${s} ${Math.abs(2 * base * k)} + ${k * k} = ${num(ans)}`;
+        explain = `(${base} ${s} ${Math.abs(k)})² = ${num(base * base)} ${s} ${num(Math.abs(2 * base * k))} + ${k * k} = ${num(ans)}`;
       }
       return {
         prompt: `${n}² = ?`,
         answer: ans,
-        distractors: [R(n * (n + 1)), R((n - 1) * (n - 1)), R((n + 1) * (n + 1)), ans.add(R(10)), R(n * 2)],
+        distractors: [R(n * (n + 1)), R((n - 1) * (n - 1)), R((n + 1) * (n + 1)), ans.add(R(10)), ans.sub(R(100))],
         explain,
       };
     },
@@ -131,7 +136,7 @@ export const arithmetic: Template[] = [
     id: 'ar-sqrt',
     difficulties: [1, 2, 3],
     generate(rng, d) {
-      if (d === 3) {
+      if (d === 2) {
         // √ of a decimal square: √2.25 = 1.5, √0.0049 = 0.07
         const tenths = rng.chance(0.5);
         const r = tenths ? R(rng.int(11, 25), 10) : R(rng.int(2, 9), 100);
@@ -145,13 +150,19 @@ export const arithmetic: Template[] = [
           explain: `${sqStr} = ${num(sq.mul(R(tenths ? 100 : 10000)))} ÷ ${tenths ? '100' : '10,000'}, so the root is ${num(r.mul(R(tenths ? 10 : 100)))} ÷ ${tenths ? 10 : 100} = ${num(r)}`,
         };
       }
-      const r = by(d, rng.int(4, 15), rng.int(16, 30), 0);
+      const r = d === 1 ? rng.int(16, 30) : rng.int(31, 99);
+      if (d === 3 && r % 10 === 0) return null;
       const sq = r * r;
+      const lo = Math.floor(r / 10) * 10;
+      const twin = lo + (10 - (r % 10)); // same last digit when squared: 52² and 58² both end in 4
       return {
         prompt: `√${num(sq)} = ?`,
         answer: R(r),
-        distractors: [R(r - 1), R(r + 1), R(r + 2), R(r - 2)],
-        explain: `${r} × ${r} = ${num(sq)}`,
+        distractors: [R(twin), R(r - 1), R(r + 1), R(r + 2), R(r - 2)],
+        explain:
+          d === 1
+            ? `${r} × ${r} = ${num(sq)}`
+            : `${lo}² = ${num(lo * lo)} and ${lo + 10}² = ${num((lo + 10) ** 2)}; a square ending in ${sq % 10} has a root ending in ${r % 10} or ${(10 - (r % 10)) % 10}; ${r}² = ${num(sq)}`,
       };
     },
   }),
@@ -161,21 +172,24 @@ export const arithmetic: Template[] = [
     difficulties: [1, 2, 3],
     generate(rng, d) {
       if (d === 1) {
-        const n = rng.int(2, 6);
-        return {
-          prompt: `${n}³ = ?`,
-          answer: R(n ** 3),
-          distractors: [R(n * n), R(3 * n), R((n + 1) ** 3), R((n - 1) ** 3)],
-          explain: `${n} × ${n} × ${n} = ${n * n} × ${n} = ${n ** 3}`,
-        };
-      }
-      if (d === 2) {
         const n = rng.int(7, 12);
         return {
           prompt: `∛${num(n ** 3)} = ?`,
           answer: R(n),
           distractors: [R(n + 1), R(n - 1), R(n + 2), R(n * 3)],
           explain: `${n} × ${n} × ${n} = ${num(n ** 3)}`,
+        };
+      }
+      if (d === 3) {
+        const n = rng.int(13, 30);
+        if (n % 10 === 0) return null;
+        const c = n ** 3;
+        const lo = Math.floor(n / 10) * 10;
+        return {
+          prompt: `∛${num(c)} = ?`,
+          answer: R(n),
+          distractors: [R(lo + (10 - (n % 10))), R(n + 1), R(n - 1), R(n + 10)],
+          explain: `${lo}³ = ${num(lo ** 3)} < ${num(c)} < ${num((lo + 10) ** 3)} = ${lo + 10}³; it ends in ${c % 10}, so the root ends in ${CUBE_ROOT_UNITS[c % 10]}: ${n}`,
         };
       }
       if (rng.chance(0.5)) {
@@ -185,8 +199,8 @@ export const arithmetic: Template[] = [
         return {
           prompt: `(${num(r)})³ = ?`,
           answer: ans,
-          distractors: [ans.mul(R(10)), ans.div(R(10)), r.mul(R(3)), r.pow(2)],
-          explain: `${k}³ = ${k ** 3}, and three decimal places per factor of 0.1 gives ${num(ans)}`,
+          distractors: [ans.mul(R(10)), ans.div(R(10)), r.pow(2).div(R(10)), R(k * 3, 1000)],
+          explain: `${k}³ = ${k ** 3}, and each factor of 0.1 adds a decimal place: ${num(ans)}`,
         };
       }
       const n = rng.int(3, 9);
@@ -205,19 +219,6 @@ export const arithmetic: Template[] = [
     difficulties: [1, 2, 3],
     generate(rng, d) {
       if (d === 1) {
-        const a = rng.int(21, 89);
-        const b = rng.int(11, 79);
-        const c = rng.int(11, 69);
-        const ans = a + b - c;
-        if (ans <= 0) return null;
-        return {
-          prompt: `${a} + ${b} − ${c} = ?`,
-          answer: R(ans),
-          distractors: [R(ans + 10), R(ans - 10), R(a + b + c), R(ans + 2)],
-          explain: `${a} + ${b} = ${a + b}; ${a + b} − ${c} = ${ans}`,
-        };
-      }
-      if (d === 2) {
         const top = rng.pick([1000, 2000, 500]);
         const x = rng.int(top / 10 + 1, top - 11);
         if (x % 100 === 0) return null;
@@ -230,16 +231,30 @@ export const arithmetic: Template[] = [
           explain: `Count up: ${num(x)} + ${up - x} = ${num(up)}, then ${num(up)} + ${num(top - up)} = ${num(top)}; ${up - x} + ${num(top - up)} = ${num(ans)}`,
         };
       }
-      const a = rng.int(3000, 9800);
-      const b = rng.int(1100, a - 200);
-      if (b % 100 === 0) return null;
-      const ans = a - b;
-      const bUp = Math.ceil(b / 100) * 100;
+      if (d === 2) {
+        const a = rng.int(3000, 9800);
+        const b = rng.int(1100, a - 200);
+        if (b % 100 === 0) return null;
+        const ans = a - b;
+        const bUp = Math.ceil(b / 100) * 100;
+        return {
+          prompt: `${num(a)} − ${num(b)} = ?`,
+          answer: R(ans),
+          distractors: [R(ans + 10), R(ans - 10), R(ans + 100), R(ans - 100), R(ans + 1000)],
+          explain: `${num(a)} − ${num(bUp)} = ${num(a - bUp)}, then add back ${bUp - b}: ${num(ans)}`,
+        };
+      }
+      // Decimals with mixed places: 87.45 − 23.98 + 6.5
+      const a = R(rng.int(3001, 9999), 100);
+      const b = R(rng.int(1001, 2999), 100);
+      const c = R(rng.int(11, 99), 10);
+      const ans = a.sub(b).add(c);
+      const bUp = b.round('whole').cmp(b) >= 0 ? b.round('whole') : b.round('whole').add(R(1));
       return {
-        prompt: `${num(a)} − ${num(b)} = ?`,
-        answer: R(ans),
-        distractors: [R(ans + 10), R(ans - 10), R(ans + 100), R(ans - 100), R(ans + 1000)],
-        explain: `${num(a)} − ${num(bUp)} = ${num(a - bUp)}, then add back ${bUp - b}: ${num(ans)}`,
+        prompt: `${num(a)} − ${num(b)} + ${num(c)} = ?`,
+        answer: ans,
+        distractors: [a.sub(b).add(c.div(R(10))), a.sub(b).sub(c), ans.add(R(1)), ans.sub(R('0.1')), ans.add(R('0.1'))],
+        explain: `${num(a)} − ${num(bUp)} = ${num(a.sub(bUp))}; add back ${num(bUp.sub(b))} → ${num(a.sub(b))}; + ${num(c)} = ${num(ans)}`,
       };
     },
   }),
@@ -249,18 +264,6 @@ export const arithmetic: Template[] = [
     difficulties: [1, 2, 3],
     generate(rng, d) {
       if (d === 1) {
-        const a = rng.int(2, 20);
-        const b = rng.int(2, 9);
-        const c = rng.int(2, 9);
-        const ans = a + b * c;
-        return {
-          prompt: `${a} + ${b} × ${c} = ?`,
-          answer: R(ans),
-          distractors: [R((a + b) * c), R(a + b + c), R(ans + 1), R(a * b + c)],
-          explain: `Multiply first: ${b} × ${c} = ${b * c}; then ${a} + ${b * c} = ${ans}`,
-        };
-      }
-      if (d === 2) {
         const b = rng.int(2, 9);
         const k = rng.int(2, 9);
         const c = rng.int(2, 6);
@@ -268,23 +271,43 @@ export const arithmetic: Template[] = [
         const a = b * k;
         const ans = k * c - e;
         if (ans <= 0) return null;
-        const wrong = (b * c) % 1 === 0 && a % (b * c) === 0 ? R(a / (b * c) - e) : R(ans + c);
+        const wrong = a % (b * c) === 0 ? R(a / (b * c) - e) : R(ans + c);
         return {
           prompt: `${a} ÷ ${b} × ${c} − ${e} = ?`,
           answer: R(ans),
-          distractors: [wrong, R(k * (c - e)), R(ans + e + e), R(ans - 1), R(k * c + e)],
+          distractors: [wrong, R(k * (c - e)), R(ans + 2 * e), R(ans - 1), R(k * c + e)],
           explain: `Left to right: ${a} ÷ ${b} = ${k}; ${k} × ${c} = ${k * c}; ${k * c} − ${e} = ${ans}`,
         };
       }
-      const a = rng.int(2, 9);
-      const b = rng.int(2, 9);
-      const c = rng.int(2, 9);
-      const ans = a * a + b * c;
+      if (d === 2) {
+        const a = rng.int(2, 9);
+        const b = rng.int(2, 9);
+        const c = rng.int(2, 9);
+        const ans = a * a + b * c;
+        return {
+          prompt: `(−${a})² − ${b} × (−${c}) = ?`,
+          answer: R(ans),
+          distractors: [R(a * a - b * c), R(-(a * a) + b * c), R(-(a * a) - b * c), R((a * a - b) * c)],
+          explain: `(−${a})² = ${a * a}; ${b} × (−${c}) = −${b * c}; ${a * a} − (−${b * c}) = ${ans}`,
+        };
+      }
+      // a − b × (c − e)² ÷ f
+      const c = rng.int(1, 9);
+      const e = rng.int(1, 9);
+      if (c === e) return null;
+      const k = c - e;
+      const sq = k * k;
+      const b = rng.int(2, 6);
+      const fs = [2, 3, 4, 5, 6, 8, 9].filter((f) => (b * sq) % f === 0 && f !== sq);
+      if (!fs.length) return null;
+      const f = rng.pick(fs);
+      const a = rng.int(10, 60);
+      const ans = R(a - (b * sq) / f);
       return {
-        prompt: `(−${a})² − ${b} × (−${c}) = ?`,
-        answer: R(ans),
-        distractors: [R(a * a - b * c), R(-(a * a) + b * c), R(-(a * a) - b * c), R((a * a - b) * c)],
-        explain: `(−${a})² = ${a * a}; ${b} × (−${c}) = −${b * c}; ${a * a} − (−${b * c}) = ${ans}`,
+        prompt: `${a} − ${b} × (${c} − ${e})² ÷ ${f} = ?`,
+        answer: ans,
+        distractors: [R((a - b) * sq).div(R(f)), R(a + (b * sq) / f), R(a).sub(R(b * Math.abs(k), f)), ans.add(R(f))],
+        explain: `Brackets first: (${c} − ${e})² = ${sq}; ${b} × ${sq} ÷ ${f} = ${(b * sq) / f}; ${a} − ${(b * sq) / f} = ${num(ans)}`,
       };
     },
   }),

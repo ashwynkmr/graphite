@@ -60,3 +60,13 @@ export function plural(n: Rational | number, one: string, many: string): string 
   const v = n instanceof Rational ? n : R(n);
   return v.equals(R(1)) ? one : many;
 }
+
+/** 'a' or 'an' for the word that follows, including numbers read aloud: an 8, an 18%, an 11-ounce. */
+export function an(next: string): string {
+  return /^(?:[aeiou]|8|1[18](?!\d))/i.test(next) ? 'an' : 'a';
+}
+
+/** Same, capitalised for the start of a sentence. */
+export function An(next: string): string {
+  return an(next) === 'an' ? 'An' : 'A';
+}
