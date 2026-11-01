@@ -67,3 +67,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-45 | Process | Don't show sample entries for each word batch | Validator plus staging only | Done | [0026](../decisions/0026-write-all-1500-entries-before-launch.md) |
 | FB-46 | Vocab | Is every practice type available for each word? | Yes; answered in chat | No change | |
 | FB-47 | Vocab | Write all the words | All 1,500 entries written | Done | [0026](../decisions/0026-write-all-1500-entries-before-launch.md) |
+| FB-48 | Vocab | Session size grows when cards are marked wrong | No requeue; fixed size | Done | [0027](../decisions/0027-fixed-session-size-missed-words-first.md) |
+| FB-49 | Vocab | Results: wrong answers first, then right | Grouped Missed, Unsure, Got right | Done | [0027](../decisions/0027-fixed-session-size-missed-words-first.md) |
+| FB-50 | Vocab | Redo the wrong words as flashcards until all are right | Redo button on results, repeats until none missed | Done | [0027](../decisions/0027-fixed-session-size-missed-words-first.md) |
+| FB-51 | Vocab | Shorter redo button text; then commit and push | "Redo these N words"; pushed | Done | |

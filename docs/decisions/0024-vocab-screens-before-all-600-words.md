@@ -1,5 +1,5 @@
 # 0024. Build the vocab screens with 100 words, before writing 600
-2026-11-01 · Accepted · Phase 1 · Scope
+2026-11-01 · Accepted; requeue rule superseded by [0027](0027-fixed-session-size-missed-words-first.md) · Phase 1 · Scope
 
 ## Context
 The plan (TRD build order, step 7 then 8) was to write entries for ranks 1–600 and only then build the vocab screens. After approving the first 100 entries, Ashwyn asked to see them in the app first, "so we get closer to an MVP".

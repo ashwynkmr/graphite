@@ -4,7 +4,7 @@ Running log of what's built, what's live and known issues. Newest first.
 
 ## Live now
 
-`v0.1.0` (Milestone A) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, type-in). Installable and offline. Mistakes, Progress and most of Settings are placeholders until Milestone C.
+`v0.1.0` (Milestone A) plus unreleased Milestone B work at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, type-in). Installable and offline. Mistakes, Progress and most of Settings are placeholders until Milestone C.
 
 ## Next up (handoff)
 
@@ -15,7 +15,7 @@ Read this and `CLAUDE.md` first when starting a new session.
 - **Vocab screens (step 8) are built and approved** with ranks 1–100 ([0024](decisions/0024-vocab-screens-before-all-600-words.md), [0025](decisions/0025-swipe-flashcards-and-mixed-practice.md)).
 - **Also planned (PRD v0.6, Nov 1):** two-level reset and a fuller Home in step 9; study nudges and notes for the second user in Phase 2; reminders outside the app in Phase 3, needing a decision first.
 - **Then:** step 9 (Milestone C: mistake log screen, progress, two-level reset, fuller Home).
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-47). Next decision number: 0027.
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-51). Next decision number: 0028.
 - **Open items:** install/offline not yet verified on a real phone against the live site; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -37,6 +37,7 @@ Read this and `CLAUDE.md` first when starting a new session.
 - Ranks 101–1,500 written in batches of 100 after Ashwyn asked to skip sample reviews (FB-45, FB-47; [0026](decisions/0026-write-all-1500-entries-before-launch.md)). Every batch passed `validate-words.ts` before its commit.
 - Once all entries existed, the part-of-speech check covered every look-alike. Adverbs are exempt because the deck has only three.
 - A final audit reworded two duplicate meanings (aberrant/anomalous, penury/indigence).
+- Full-deck review on staging: sessions no longer grow when cards are marked Review, results list Missed, Unsure, then Got right, and a redo button repeats missed words as flashcards until all are right ([0027](decisions/0027-fixed-session-size-missed-words-first.md), FB-48 to FB-50).
 - 534 tests green.
 
 ### 2026-11-01: First 100 entries and the vocab screens
