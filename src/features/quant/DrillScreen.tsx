@@ -6,6 +6,7 @@ import { finishSession, getSession, recordAnswer, saveClock } from '../../data/r
 import { pause, remaining, resume } from '../../engine/sessions/clock';
 import { resolveQuestion, type PlayableQuestion } from '../../engine/sessions/questions';
 import { ChoiceList } from '../../ui/ChoiceList';
+import { EndConfirm } from '../../ui/EndConfirm';
 import { Keypad } from '../../ui/Keypad';
 import { clock, showValue } from './display';
 import styles from './DrillScreen.module.css';
@@ -19,6 +20,7 @@ export function DrillScreen() {
   const [input, setInput] = useState('');
   const [choice, setChoice] = useState<string | null>(null);
   const [now, setNow] = useState(() => Date.now());
+  const [confirmingEnd, setConfirmingEnd] = useState(false);
   const busy = useRef(false);
   const sessionRef = useRef<SessionRow | null>(null);
   sessionRef.current = session;
@@ -104,7 +106,6 @@ export function DrillScreen() {
   const endEarly = async () => {
     const s = sessionRef.current;
     if (!s || busy.current) return;
-    if (!window.confirm('End this drill now? Unanswered questions count as not reached.')) return;
     busy.current = true;
     await finish(s, 'ended-early');
   };
@@ -150,6 +151,10 @@ export function DrillScreen() {
       </main>
 
       <footer className={styles.footer}>
+        {confirmingEnd ? (
+          <EndConfirm message="End this drill? Unanswered questions count as not reached." endLabel="End drill" onKeep={() => setConfirmingEnd(false)} onEnd={endEarly} />
+        ) : (
+          <>
         {item.mode === 'typed' ? (
           <Keypad value={input} onChange={setInput} onSubmit={() => input && input !== '-' && submit(input)} onSkip={() => submit(null)} />
         ) : (
@@ -161,9 +166,11 @@ export function DrillScreen() {
             onSkip={() => submit(null)}
           />
         )}
-        <button type="button" className={styles.end} onClick={endEarly}>
-          End drill
-        </button>
+            <button type="button" className={styles.end} onClick={() => setConfirmingEnd(true)}>
+              End drill
+            </button>
+          </>
+        )}
       </footer>
     </div>
   );
