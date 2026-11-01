@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run --passWithNoTests",
-    "test:e2e": "playwright test",
+    "test:e2e": "npm run build && playwright test",
     "content:rank-words": "vite-node tools/vocab/rank-words.ts",
     "content:build-bank": "vite-node tools/quant/build-bank.ts",
     "content:validate": "vite-node tools/quant/validate-bank.ts && vite-node tools/vocab/validate-words.ts",
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
+    "@playwright/test": "^1.64.1",
     "@resvg/resvg-js": "^2.6.2",
     "@types/node": "^26.6.6",
     "@types/react": "^18.3.31",

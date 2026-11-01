@@ -8,6 +8,7 @@ import { resolveQuestion, type PlayableQuestion } from '../../engine/sessions/qu
 import { ChoiceList } from '../../ui/ChoiceList';
 import { EndConfirm } from '../../ui/EndConfirm';
 import { Keypad } from '../../ui/Keypad';
+import { MathText } from '../../ui/MathText';
 import { clock, showValue } from './display';
 import styles from './DrillScreen.module.css';
 
@@ -138,7 +139,9 @@ export function DrillScreen() {
 
       <main className={styles.body}>
         <div className={styles.card}>
-          <p className={styles.prompt}>{q.prompt}</p>
+          <p className={styles.prompt}>
+            <MathText text={q.prompt} />
+          </p>
           {item.mode === 'typed' && (
             <div className={styles.answerLine} aria-live="polite">
               {q.unit?.prefix && <span className={styles.unit}>{q.unit.prefix}</span>}

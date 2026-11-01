@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { MathText } from './MathText';
 import styles from './ChoiceList.module.css';
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E'];
@@ -41,7 +42,7 @@ export function ChoiceList({ choices, selected, onSelect, onSubmit, onSkip, long
               onClick={() => onSelect(c.value)}
             >
               <span className={styles.letter}>{LETTERS[i]}</span>
-              <span className={long ? `${styles.text} ${styles.long}` : styles.text}>{c.label}</span>
+              <span className={long ? `${styles.text} ${styles.long}` : styles.text}>{long ? c.label : <MathText text={c.label} />}</span>
             </button>
           </li>
         ))}

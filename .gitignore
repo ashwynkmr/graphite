@@ -9,3 +9,4 @@ test-results
 .env
 .dev.vars
 .wrangler
+private/

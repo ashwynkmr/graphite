@@ -1,0 +1,7 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  font-size: var(--text-sm);
+  color: var(--graphite-soft);
+}

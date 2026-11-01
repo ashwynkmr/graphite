@@ -8,6 +8,8 @@ import { loadMistakeLog } from '../../data/repo/mistakes';
 import { CLEAR_AFTER } from '../../engine/sessions/mistakes';
 import { parseRefId, resolveQuestion } from '../../engine/sessions/questions';
 import { Button, Segmented } from '../../ui/controls';
+import { MathText } from '../../ui/MathText';
+import { ReportProblem } from '../../ui/ReportProblem';
 import { Screen } from '../../ui/Screen';
 import { duration, showValue, TOPIC_LABEL } from '../quant/display';
 import { startMistakeDrill } from '../quant/startDrill';
@@ -101,15 +103,19 @@ export function MistakesScreen() {
                 <span>{TOPIC_LABEL[question.topic]}</span>
                 <Streak count={row.correctStreak} />
               </p>
-              <p className={styles.prompt}>{question.prompt}</p>
+              <p className={styles.prompt}>
+                <MathText text={question.prompt} />
+              </p>
               <dl className={`${styles.answers} tabular`}>
                 <div>
                   <dt>You</dt>
-                  <dd>{!miss || miss.flags.includes('not-reached') ? 'Not reached' : miss.answer === null ? 'Skipped' : showValue(question, miss.answer)}</dd>
+                  <dd>{!miss || miss.flags.includes('not-reached') ? 'Not reached' : miss.answer === null ? 'Skipped' : <MathText text={showValue(question, miss.answer)} />}</dd>
                 </div>
                 <div>
                   <dt>Answer</dt>
-                  <dd>{showValue(question, question.answer)}</dd>
+                  <dd>
+                    <MathText text={showValue(question, question.answer)} />
+                  </dd>
                 </div>
                 {miss && miss.ms > 0 && (
                   <div>
@@ -118,7 +124,10 @@ export function MistakesScreen() {
                   </div>
                 )}
               </dl>
-              <p className={styles.explain}>{question.explain}</p>
+              <p className={styles.explain}>
+                <MathText text={question.explain} />
+              </p>
+              <ReportProblem id={row.refId} />
             </li>
           ))}
         </ul>
@@ -136,6 +145,7 @@ export function MistakesScreen() {
                 {word.word} <span className={styles.pos}>{POS_SHORT[word.pos]}</span>
               </p>
               <p className={styles.explain}>{sentence(word.meaning)}</p>
+              <ReportProblem id={row.refId} />
             </li>
           ))}
         </ul>

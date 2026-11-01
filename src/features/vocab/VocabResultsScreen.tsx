@@ -8,6 +8,7 @@ import { isPassing } from '../../engine/scheduling/leitner';
 import { gradeVocab, type VocabMode } from '../../engine/sessions/vocab-builder';
 import { scoreVocab, type VocabResults, type VocabScoredItem } from '../../engine/stats/vocab-results';
 import { Button } from '../../ui/controls';
+import { ReportProblem } from '../../ui/ReportProblem';
 import { vocabResultsLine } from '../personal/messages';
 import { useProfile } from '../personal/ProfileContext';
 import { duration } from '../quant/display';
@@ -212,6 +213,7 @@ export function VocabResultsScreen() {
                       {partner && <p className={r.note}>Pairs with {partner} in that sentence.</p>}
                       {showYours && <p className={r.ans}>{it.answer === null ? 'Skipped' : <span className={r.yours}>{it.answer.split('|').join(', ')}</span>}</p>}
                       {it.grade === 'slip' && <p className={r.ans}>Typed “{it.answer}”, a spelling slip</p>}
+                      <ReportProblem id={w.id} />
                     </div>
                   </li>
                 );

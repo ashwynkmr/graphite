@@ -1,0 +1,36 @@
+/* A mixed number never breaks across lines. */
+.number {
+  white-space: nowrap;
+}
+
+.whole {
+  margin-right: 0.12em;
+}
+
+.fraction {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  /* Stays readable beside small text. */
+  font-size: max(0.72em, var(--text-xs));
+  line-height: 1.1;
+  /* A ruled card sets this, so a fraction can't push its text off the lines. */
+  margin-block: var(--math-trim, 0);
+  margin-inline: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+.top {
+  padding: 0 0.2em 0.04em;
+  border-bottom: 0.08em solid currentColor;
+}
+
+.bottom {
+  padding: 0.04em 0.2em 0;
+}
+
+.power {
+  font-size: 0.68em;
+  line-height: 0;
+}

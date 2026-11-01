@@ -7,6 +7,8 @@ import type { Difficulty, Topic } from '../../engine/generators/types';
 import { resolveQuestion } from '../../engine/sessions/questions';
 import { scoreQuant, type QuantResults, type ScoredItem, type Tally } from '../../engine/stats/quant-results';
 import { Button } from '../../ui/controls';
+import { MathText } from '../../ui/MathText';
+import { ReportProblem } from '../../ui/ReportProblem';
 import { resultsLine } from '../personal/messages';
 import { useProfile } from '../personal/ProfileContext';
 import { DIFFICULTY_LABEL, duration, showValue, TOPIC_LABEL } from '../quant/display';
@@ -178,18 +180,18 @@ export function ResultsScreen() {
               <Mark status={it.status} />
               <div className={styles.itemBody}>
                 <p className={styles.q}>
-                  <span className={styles.num}>{it.index + 1}.</span> {it.question.prompt}
+                  <span className={styles.num}>{it.index + 1}.</span> <MathText text={it.question.prompt} />
                 </p>
                 <p className={styles.ans}>
                   {it.status === 'correct' ? (
                     <>
-                      <strong>{showValue(it.question, it.question.answer)}</strong>
+                      <strong><MathText text={showValue(it.question, it.question.answer)} /></strong>
                     </>
                   ) : (
                     <>
-                      <span className={styles.yours}>{it.status === 'not-reached' ? 'Not reached' : it.status === 'skipped' ? 'Skipped' : showValue(it.question, it.answer)}</span>
+                      <span className={styles.yours}>{it.status === 'not-reached' ? 'Not reached' : it.status === 'skipped' ? 'Skipped' : <MathText text={showValue(it.question, it.answer)} />}</span>
                       <span aria-hidden="true"> → </span>
-                      <strong>{showValue(it.question, it.question.answer)}</strong>
+                      <strong><MathText text={showValue(it.question, it.question.answer)} /></strong>
                     </>
                   )}
                   <span className={styles.time}>
@@ -198,7 +200,10 @@ export function ResultsScreen() {
                     {it.flags.includes('careless') && ' · careless?'}
                   </span>
                 </p>
-                <p className={styles.note}>{it.question.explain}</p>
+                <p className={styles.note}>
+                  <MathText text={it.question.explain} />
+                </p>
+                <ReportProblem id={it.question.id} />
               </div>
             </li>
           ))}

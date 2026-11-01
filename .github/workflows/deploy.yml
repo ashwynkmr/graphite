@@ -29,6 +29,8 @@ jobs:
       - run: npm test
       - run: npm run content:validate
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
       # The reminder service deploys separately, but failing checks block the site like anything else.
       - run: npm ci
         working-directory: push-server
