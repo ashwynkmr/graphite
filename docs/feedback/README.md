@@ -4,4 +4,4 @@ Ashwyn tests at each checkpoint and answers 3–5 short questions. Each round re
 
 | Date | Checkpoint | Tested | Key changes |
 | --- | --- | --- | --- |
-| | | No rounds yet | |
+| [2026-10-31](2026-10-31-A1.md) | A1: app shell | Install on phone | None needed; install worked |
