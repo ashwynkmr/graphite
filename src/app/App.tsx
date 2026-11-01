@@ -1,5 +1,8 @@
-import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
+import type { ReactNode } from 'react';
+import { HashRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Layout } from './Layout';
+import { UpdateScreen } from './UpdateScreen';
+import { useUpdatePrompt } from './useUpdatePrompt';
 import { HomeScreen } from '../features/home/HomeScreen';
 import { QuantSetupScreen } from '../features/quant/QuantSetupScreen';
 import { DrillScreen } from '../features/quant/DrillScreen';
@@ -37,12 +40,22 @@ function Routed() {
   );
 }
 
+/** Shows the update screen as soon as a new build is ready, or when an active session ends. */
+function UpdateGate({ children }: { children: ReactNode }) {
+  const { needRefresh, reload } = useUpdatePrompt();
+  const inSession = useLocation().pathname.includes('/session/');
+  if (needRefresh && !inSession) return <UpdateScreen onUpdate={reload} />;
+  return children;
+}
+
 export function App() {
   return (
     <HashRouter>
-      <ProfileProvider>
-        <Routed />
-      </ProfileProvider>
+      <UpdateGate>
+        <ProfileProvider>
+          <Routed />
+        </ProfileProvider>
+      </UpdateGate>
     </HashRouter>
   );
 }
