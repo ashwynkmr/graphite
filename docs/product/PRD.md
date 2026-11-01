@@ -1,6 +1,6 @@
 # Graphite — Product Requirements (PRD)
 
-Oct 31, 2026 · @Ashwyn · Draft v0.4
+Oct 31, 2026 · @Ashwyn · Draft v0.5 (v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
 
 > Living document. Scope changes are recorded in the [decision log](../decisions/README.md) and [ROADMAP](ROADMAP.md); this file is updated to match and the version above bumped.
 
@@ -119,9 +119,11 @@ The GRE rewards smart guessing, so drills train both exact calculation and elimi
 
 **Difficulty: three levels, defined by the numbers, not the concept**
 
-- **Easy:** friendly numbers (20% of 80, 3/4 of 120).
-- **Medium:** one awkward step (17.5% of 240, 7/12 of 156).
-- **Hard:** two steps or uglier numbers (a 20% rise then a 15% fall; average speed over two legs).
+- **Easy:** one awkward step (15% of 248, 7/12 of 156).
+- **Medium:** two steps or uglier numbers (17.5% of 240; a 20% rise then a 15% fall; average speed over two legs).
+- **Hard:** the top of GRE mental math, hard but not unreasonable (chained changes on awkward percents, mixed-number fractions, fractional and negative exponents).
+
+*v0.5: each level moved up one step after the first content review ([0017](../decisions/0017-difficulty-up-one-level.md)).*
 
 **Drill setup.** The user picks topics (one, several, or Mixed), difficulty (Easy, Medium, Hard, Adaptive), length (10, 20, 30 questions or a 2/5/10-minute sprint), answer mode (Typed, Multiple choice, Mix) and timer mode.
 
@@ -198,6 +200,11 @@ At 200 new words a day, the whole 1,500-word deck is seen within 8 days. Once ev
 ## Supporting features
 
 Five small features turn two tools into a daily habit. The mistake log matters most.
+
+**Name and encouragement** *(added in v0.5, [0019](../decisions/0019-personal-name-and-encouragement.md), [0020](../decisions/0020-name-only-encouragement.md))*
+
+- On first open, the app asks for a first name, remembered on the device. All encouragement uses the name ([0020](../decisions/0020-name-only-encouragement.md)).
+- Home greets the user by name with a short original motivational line; Results adds encouragement sized to the score. Never during a session.
 
 **Home screen**
 

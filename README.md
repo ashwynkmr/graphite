@@ -1,3 +1,5 @@
+<img src="public/icon-192.png" width="96" alt="Graphite icon: a serif lowercase g with a fountain pen on a notebook page" align="right">
+
 # Graphite
 
 **Fast mental-math drills and high-frequency GRE vocabulary, in a free app that works offline on your phone.**
@@ -6,7 +8,7 @@
 
 > **Try it:** open the link on your phone. On iPhone: Share → Add to Home Screen. On Android or desktop Chrome/Edge: Install app. No sign-up.
 >
-> *Status: being built. The app shell is live; quant drills are next (target Nov 1, 2026). Screenshots will be added once the screens exist.*
+> *Status: **`v0.1.0` live (Oct 31, 2026): quant drills.** Vocab and the rest of Phase 1 are next. Screenshots come with the launch pass (Playwright captures them).*
 
 ## The problem
 
@@ -22,16 +24,15 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 
 ## What I built and why
 
-*Planned for Phase 1; this section is updated as features ship.*
-
-| Need | Feature |
-| --- | --- |
-| Get faster at calculation | Timed mental-math drills across 9 topics and 3 difficulty levels |
-| Train smart guessing, not just calculation | A mix of typed answers and five-option multiple choice whose wrong options come from common mistakes |
-| Practise under test conditions | No right/wrong feedback until the session ends |
-| Learn from mistakes | Every miss goes to a mistake log; "Drill my mistakes" turns it into practice |
-| Learn 1,500 words in three weeks | Flashcards, multiple choice and type-in with Leitner spaced repetition, 200 new words a day |
-| Study anywhere | Installable app that works offline; progress stays on the device |
+| Need | Feature | Status |
+| --- | --- | --- |
+| Get faster at calculation | Timed mental-math drills: 1,200 code-generated questions across 9 topics; pick topics and any mix of Easy/Medium/Hard (Hard = top of GRE mental math) | Live |
+| Train smart guessing, not just calculation | Typed answers and five-option multiple choice; at least two wrong options per question come from real mistakes (wrong base, adding instead of chaining, ×10 slips) | Live |
+| Practise under test conditions | No right/wrong feedback until the session ends; timed sets; the clock pauses when the phone locks | Live |
+| Learn from mistakes | Results review every question with a one-line shortcut; Retry wrong ones; misses are logged for "Drill my mistakes" | Live (mistake screen: Milestone C) |
+| Stay motivated for three weeks | Asks for your name once; greets you and cheers you on by name on Home and Results, never mid-drill | Live |
+| Learn 1,500 words in three weeks | Flashcards, multiple choice and type-in with Leitner spaced repetition, 200 new words a day | Milestone B |
+| Study anywhere | Installable app that works offline; progress stays on the device | Live |
 
 ## Key decisions and trade-offs
 
@@ -43,8 +44,10 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | No login; progress stays on the device | Zero setup and nothing to host; the cost is no sync between devices | [0008](docs/decisions/0008-no-login-local-progress.md) |
 | PWA on GitHub Pages, not app stores | Hard $0 constraint; the cost is a less discoverable install on iOS | [0009](docs/decisions/0009-pwa-on-github-pages.md) |
 | Ship drills before all content is done | Nov 1 start date; the bank grows from ~1,200 to ~1,500 after launch | [0014](docs/decisions/0014-quant-drill-before-handwritten-problems.md) |
+| Approve every checkpoint on staging before anything is committed | Feedback lands before changes go public; costs a slower path to live | [0016](docs/decisions/0016-review-gate-staging-before-commit.md) |
+| Raise every difficulty one level, with Hard at the GRE's ceiling | The first sample's Easy questions weren't worth study time | [0017](docs/decisions/0017-difficulty-up-one-level.md) |
 
-All 14 records: [docs/decisions](docs/decisions/README.md).
+All 21 records: [docs/decisions](docs/decisions/README.md).
 
 ## How the plan changed
 
@@ -55,10 +58,20 @@ All 14 records: [docs/decisions](docs/decisions/README.md).
 | Planning, Oct 31 | Question bank of 1,000 → 1,500, plus a 7-day no-repeat rule | [0003](docs/decisions/0003-1500-question-bank.md) |
 | Planning, Oct 31 | Vocab deck of 1,000 at 50 words a day → 1,500 at 200 a day | [0005](docs/decisions/0005-1500-words-200-a-day.md) |
 | Build, Oct 31 | Hand-written word problems moved after the quant flow so drills go live on day one | [0014](docs/decisions/0014-quant-drill-before-handwritten-problems.md) |
+| Build, Oct 31 | Ship each step straight to live → approve each checkpoint on staging first | [0016](docs/decisions/0016-review-gate-staging-before-commit.md) |
+| Build, Oct 31 | Easy/Medium/Hard all moved up one level; a new Hard tier written for all 73 templates | [0017](docs/decisions/0017-difficulty-up-one-level.md) |
+| Build, Oct 31 | Name + optional cheer word → name only | [0019](docs/decisions/0019-personal-name-and-encouragement.md) → [0020](docs/decisions/0020-name-only-encouragement.md) |
+| Build, Oct 31 | Icon: geometric G → three options → hybrid → cursive pencil → serif g with fountain pen | [0021](docs/decisions/0021-app-icon-serif-g-with-pen.md) |
 
 ## Feedback that shaped the product
 
-None recorded yet. Feedback is collected at every build checkpoint and logged in [docs/feedback](docs/feedback/README.md).
+Every checkpoint ends with Ashwyn testing and answering a few questions; each item gets an ID and is tracked to the change it caused ([docs/feedback](docs/feedback/README.md)).
+
+- **"Easy should actually be medium… the ceiling should be the GRE's hardest" (FB-07)** → all 73 templates rewritten one level up, with a new Hard tier ([0017](docs/decisions/0017-difficulty-up-one-level.md)).
+- **"Not all wrong options should be a giveaway" (FB-08)** → every multiple-choice question keeps at least two options from named mistakes; absurd options are dropped ([0018](docs/decisions/0018-distractors-real-mistakes.md)).
+- **Ask for my name and personalise the motivation (FB-11, FB-14)** → a one-field first-run screen and name-based lines on Home and Results; an optional cheer word was tried, then removed at Ashwyn's request ([0020](docs/decisions/0020-name-only-encouragement.md)).
+- **Pick topics, and mix difficulties (FB-10, FB-15)** → a topic picker with "Mixed: give me anything" and multi-select difficulty.
+- **"The multi-select still doesn't work" (FB-20)** → testing through the staging URL showed the logic was fine; the cause was an ambiguous control plus a stale cached build. Fixed with check-mark toggles and an update bar on every tab.
 
 ## Metrics and outcomes
 
@@ -76,7 +89,7 @@ These are the PRD's targets for Nov 24, 2026. **No results yet**; actuals will b
 
 ## Roadmap and what's next
 
-Phase 1 ships in three milestones: **A** quant drills (Nov 1), **B** vocab (Nov 1–2), **C** mistake log, progress, settings, share and the launch pass (Nov 2). Phase 2 (by Nov 7) adds all 1,500 words, Round 2, adaptive difficulty and a trends dashboard. Details: [ROADMAP](docs/product/ROADMAP.md) · build log: [PROGRESS](docs/PROGRESS.md).
+Phase 1 ships in three milestones: **A** quant drills (**shipped Oct 31, `v0.1.0`**, [retro](docs/retros/milestone-a-retro.md)), **B** vocab (Nov 1–2), **C** mistake log, progress, settings, share and the launch pass (Nov 2). Phase 2 (by Nov 7) adds all 1,500 words, Round 2, adaptive difficulty and a trends dashboard. Details: [ROADMAP](docs/product/ROADMAP.md) · build log: [PROGRESS](docs/PROGRESS.md).
 
 ## Tech overview
 
@@ -84,4 +97,4 @@ A static, offline-first PWA: Vite + React 18 + TypeScript (strict), served from 
 
 ## How this was built
 
-AI-assisted: the code and content were written with Claude Code. Ashwyn was product owner, setting direction, priorities and scope, making the trade-off calls recorded in the decision log, and testing and accepting each checkpoint.
+AI-assisted: the code and content were written with Claude Code. Ashwyn was product owner: setting direction, priorities and scope, making the trade-off calls recorded in the decision log, and testing each checkpoint on a staging site before approving it for release.

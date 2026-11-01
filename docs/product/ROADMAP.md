@@ -8,7 +8,7 @@ Built in three milestones so studying can start before all of Phase 1 is done ([
 
 | Milestone | Steps | Target | Status |
 | --- | --- | --- | --- |
-| **A. Quant drills live** (`v0.1.0`) | 1 Scaffold + deploy · 2 Engine · 3 Generators + ~1,200-question bank · 4 Data layer · 5 Quant flow + minimal Home | Nov 1 | In progress (step 1) |
+| **A. Quant drills live** (`v0.1.0`) | 1 Scaffold + deploy · 2 Engine · 3 Generators + ~1,200-question bank · 4 Data layer · 5 Quant flow + minimal Home | Nov 1 | **Shipped Oct 31** as `v0.1.0` ([retro](../retros/milestone-a-retro.md)) |
 | **B. Vocab live** (`v0.2.0`) | 6 Ranked word list · 7 Entries for ranks 1–600 · 8 Vocab flow | Nov 1–2 | Not started |
 | **C. Rest of Phase 1** (`v1.0.0`) | 9 Mistake log, full Home, Progress, Settings, Share · 10 ~300 hand-written problems (bank → ~1,500) · 11 Launch pass | Nov 2 | Not started |
 
@@ -32,3 +32,8 @@ Quantitative comparison and data-interpretation questions, audio pronunciation, 
 | Date | Change | Why | Record |
 | --- | --- | --- | --- |
 | 2026-10-31 | Hand-written word problems moved from build step 4 (TRD) to step 10, after the quant flow | Get a usable drill live on Nov 1 | [0014](../decisions/0014-quant-drill-before-handwritten-problems.md) |
+| 2026-10-31 | Name prompt and personal encouragement added to Phase 1 (not in the original PRD) | Owner request after A2 | [0019](../decisions/0019-personal-name-and-encouragement.md) |
+| 2026-10-31 | Every difficulty raised one level before launch | Owner review of A2 sample | [0017](../decisions/0017-difficulty-up-one-level.md) |
+| 2026-10-31 | Review gate: every checkpoint approved on staging before commit | Owner request after A2 | [0016](../decisions/0016-review-gate-staging-before-commit.md) |
+| 2026-10-31 | Difficulty became a multi-select (mix levels in one drill) | Owner request at A3 | [feedback FB-15](../feedback/2026-10-31-A3.md) |
+| 2026-10-31 | Cheer word dropped; encouragement by name only | Owner request at A3 | [0020](../decisions/0020-name-only-encouragement.md) |

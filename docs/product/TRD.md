@@ -324,7 +324,7 @@ One engine (`session-machine.ts`) runs both quant and vocab sessions. It holds t
 The whole app, fonts and both content files are precached on the first visit, so every Phase 1 feature works with no network afterwards.
 
 - **Service worker:** vite-plugin-pwa in `generateSW` mode. Precache the app shell, fonts, icons, `questions.json` and `words.json` (content is imported as JSON modules so it is versioned with each build).
-- **Updates:** `registerType: 'prompt'`. When a new version is ready, a quiet "Update available · Reload" bar appears on Home only, never mid-session.
+- **Updates:** `registerType: 'prompt'`. When a new version is ready, a quiet "Update available · Reload" bar appears on every tab screen, never mid-session. *(Was Home only; widened after A3 testing, when a phone that opened straight to the Quant tab kept running an old build.)*
 - **Manifest:** name "Graphite", `start_url` and `scope` `/graphite/`, `display: standalone`, theme and background colors from the paper palette, icons at 192, 512 and 512 maskable.
 - **iOS:** `apple-touch-icon` (180 px), `apple-mobile-web-app-capable`, status bar style, and safe-area padding for the notch and home bar.
 - **Install prompt:** on Android and desktop, capture `beforeinstallprompt` and show an Install button in Settings and once on Home. On iOS, show a one-time "Share → Add to Home Screen" hint.
