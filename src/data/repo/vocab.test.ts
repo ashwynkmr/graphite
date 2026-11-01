@@ -38,17 +38,12 @@ describe('vocab sessions on disk', () => {
     expect((await d.wordAttempts.toArray()).map((a) => a.ms)).toEqual([1000, 1000, 1000]);
   });
 
-  it('brings a Review flashcard back once at the end, and not twice', async () => {
+  it('keeps a flashcard session at the size chosen, even when cards are marked Review', async () => {
     let s = await session('flashcard', ['audacious', 'malleable']);
     s = await recordVocabAnswer(s, byId.get('audacious')!, 'review', NOW, d);
-    expect(s.items.map((i) => [i.wordId, Boolean(i.requeued)])).toEqual([
-      ['audacious', false],
-      ['malleable', false],
-      ['audacious', true],
-    ]);
-    s = await recordVocabAnswer(s, byId.get('malleable')!, 'know', NOW, d);
-    s = await recordVocabAnswer(s, byId.get('audacious')!, 'review', NOW, d);
-    expect(s.items).toHaveLength(3);
+    s = await recordVocabAnswer(s, byId.get('malleable')!, 'review', NOW, d);
+    expect(s.items.map((i) => i.wordId)).toEqual(['audacious', 'malleable']);
+    expect(s.cursor).toBe(2);
   });
 
   it('never requeues a missed quiz word, so nothing hints it was wrong', async () => {

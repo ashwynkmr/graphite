@@ -13,7 +13,7 @@ import { useProfile } from '../personal/ProfileContext';
 import { duration } from '../quant/display';
 import r from '../results/ResultsScreen.module.css';
 import { sentence } from './display';
-import { startVocab } from './startVocab';
+import { redoVocab, startVocab } from './startVocab';
 import styles from './VocabResultsScreen.module.css';
 
 const MODE_LABEL: Record<VocabMode, string> = { flashcard: 'Flashcards', mcq: 'Multiple choice', blank: 'Fill the blank', typein: 'Type-in' };
@@ -43,6 +43,19 @@ function Mark({ grade }: { grade: VocabScoredItem['grade'] }) {
       <path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
     </svg>
   );
+}
+
+type Group = 'missed' | 'unsure' | 'right';
+
+const GROUPS: { id: Group; label: string }[] = [
+  { id: 'missed', label: 'Missed' },
+  { id: 'unsure', label: 'Unsure' },
+  { id: 'right', label: 'Got right' },
+];
+
+function groupOf(grade: VocabScoredItem['grade']): Group {
+  if (isPassing(grade)) return 'right';
+  return grade === 'unsure' ? 'unsure' : 'missed';
 }
 
 export function VocabResultsScreen() {
@@ -78,8 +91,20 @@ export function VocabResultsScreen() {
   // One row per word: its last showing (a requeued flashcard's second mark is the one that counts).
   const lastByWord = new Map<string, VocabScoredItem>();
   for (const it of results.items) lastByWord.set(it.wordId, it);
-  const rows = [...lastByWord.values()].sort((a, b) => Number(isPassing(a.grade)) - Number(isPassing(b.grade)) || a.index - b.index);
+  const rows = [...lastByWord.values()].sort((a, b) => a.index - b.index);
   const toReview = rows.filter((it) => !isPassing(it.grade)).length;
+  // Missed words first, for a second look while they're fresh; then unsure; then the ones you knew.
+  const groups = GROUPS.map((g) => ({ ...g, items: rows.filter((it) => groupOf(it.grade) === g.id) })).filter((g) => g.items.length);
+
+  const redo = async () => {
+    setStarting(true);
+    const s = await redoVocab(
+      rows.filter((it) => !isPassing(it.grade)).map((it) => it.wordId),
+      session.settings,
+    );
+    if (s) navigate(`/vocab/session/${s.id}`);
+    else setStarting(false);
+  };
 
   const again = async () => {
     setStarting(true);
@@ -144,10 +169,15 @@ export function VocabResultsScreen() {
       </section>
 
       <div className={r.actions}>
-        <Button block onClick={again} disabled={starting}>
+        {toReview > 0 && (
+          <Button block onClick={redo} disabled={starting}>
+            {toReview === 1 ? 'Redo this word' : `Redo these ${toReview} words`}
+          </Button>
+        )}
+        <Button block variant={toReview > 0 ? 'secondary' : undefined} onClick={again} disabled={starting}>
           {starting ? 'Shuffling…' : 'Another session, same settings'}
         </Button>
-        <Button block variant="secondary" onClick={() => navigate('/vocab')}>
+        <Button block variant={toReview > 0 ? 'quiet' : 'secondary'} onClick={() => navigate('/vocab')}>
           Change settings
         </Button>
       </div>
@@ -156,25 +186,32 @@ export function VocabResultsScreen() {
         <div className={r.reviewHead}>
           <h3 className={r.h3}>Words</h3>
         </div>
-        <ol className={r.list}>
-          {rows.map((it) => {
-            const w = words.get(it.wordId)!;
-            const showYours = !it.flashcard && !isPassing(it.grade);
-            return (
-              <li key={it.index} className={r.item}>
-                <Mark grade={it.grade} />
-                <div className={r.itemBody}>
-                  <p className={styles.word}>
-                    {w.word} <span className={styles.pos}>{w.pos}</span>
-                  </p>
-                  <p className={r.note}>{sentence(w.meaning)}</p>
-                  {showYours && <p className={r.ans}>{it.answer === null ? 'Skipped' : <span className={r.yours}>{it.answer}</span>}</p>}
-                  {it.grade === 'slip' && <p className={r.ans}>Typed “{it.answer}”, a spelling slip</p>}
-                </div>
-              </li>
-            );
-          })}
-        </ol>
+        {groups.map((g) => (
+          <div key={g.id}>
+            <p className={styles.part}>
+              {g.label} · {g.items.length}
+            </p>
+            <ol className={r.list}>
+              {g.items.map((it) => {
+                const w = words.get(it.wordId)!;
+                const showYours = !it.flashcard && !isPassing(it.grade);
+                return (
+                  <li key={it.index} className={r.item}>
+                    <Mark grade={it.grade} />
+                    <div className={r.itemBody}>
+                      <p className={styles.word}>
+                        {w.word} <span className={styles.pos}>{w.pos}</span>
+                      </p>
+                      <p className={r.note}>{sentence(w.meaning)}</p>
+                      {showYours && <p className={r.ans}>{it.answer === null ? 'Skipped' : <span className={r.yours}>{it.answer}</span>}</p>}
+                      {it.grade === 'slip' && <p className={r.ans}>Typed “{it.answer}”, a spelling slip</p>}
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        ))}
       </section>
     </main>
   );

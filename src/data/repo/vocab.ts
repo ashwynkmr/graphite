@@ -63,9 +63,8 @@ const ATTEMPT_MODE: Record<VocabItem['kind'], WordAttemptRow['mode']> = {
 
 /**
  * Records the answer to the current card (null = skip) and moves on. Updates the word's box,
- * logs the attempt, and adds or clears the word in the mistake log. A flashcard marked Review
- * comes back once at the end of the session; a missed quiz word does not, since seeing it again
- * would give away that it was wrong (no feedback during a session).
+ * logs the attempt, and adds or clears the word in the mistake log. Nothing is requeued, so a
+ * session is exactly the size the user chose; missed words come back on the Leitner schedule.
  */
 export async function recordVocabAnswer(
   session: VocabSessionRow,
@@ -79,10 +78,8 @@ export async function recordVocabAnswer(
   const ms = itemMs(session.timer, now);
   const grade = gradeVocab(item, word, value);
   const answer = value && value.trim() ? value.trim() : null;
-  const requeue = item.kind === 'flashcard' && grade === 'review' && !item.requeued;
   const next: VocabSessionRow = {
     ...session,
-    items: requeue ? [...session.items, { ...item, requeued: true }] : session.items,
     answers: [...session.answers, { value: answer, ms }],
     cursor: index + 1,
     timer: nextItem(session.timer, now),

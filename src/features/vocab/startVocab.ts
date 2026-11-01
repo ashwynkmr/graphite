@@ -3,6 +3,7 @@ import type { VocabSessionRow, VocabSettings } from '../../data/db';
 import { getSettings, updateSettings } from '../../data/repo/meta';
 import { createVocabSession, loadWordStates } from '../../data/repo/vocab';
 import { toDay } from '../../engine/dates';
+import { mulberry32 } from '../../engine/rng';
 import { buildVocabQueue, deckCounts, introducedOn, planVocabItems, type DeckCounts } from '../../engine/sessions/vocab-builder';
 
 function freshSeed(): number {
@@ -34,5 +35,18 @@ export async function startVocab(settings: VocabSettings): Promise<VocabSessionR
   await updateSettings({ vocab: settings });
   if (!ids.length) return null;
   const seed = freshSeed();
+  return createVocabSession({ settings, items: planVocabItems(ids, settings.modes, book.byId, seed), seed });
+}
+
+/**
+ * A flashcard round of just the given words (the ones missed or unsure last time), in a fresh
+ * order. The user's saved settings are left alone, so "Another session" still means the usual one.
+ */
+export async function redoVocab(wordIds: readonly string[], base: VocabSettings): Promise<VocabSessionRow | null> {
+  if (!wordIds.length) return null;
+  const book = await loadWords();
+  const seed = freshSeed();
+  const settings: VocabSettings = { ...base, modes: ['flashcard'] };
+  const ids = mulberry32(seed).shuffle([...wordIds]);
   return createVocabSession({ settings, items: planVocabItems(ids, settings.modes, book.byId, seed), seed });
 }
