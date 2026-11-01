@@ -13,7 +13,7 @@
     "test:e2e": "playwright test",
     "content:rank-words": "vite-node tools/vocab/rank-words.ts",
     "content:build-bank": "vite-node tools/quant/build-bank.ts",
-    "content:validate": "vite-node tools/quant/validate-bank.ts",
+    "content:validate": "vite-node tools/quant/validate-bank.ts && vite-node tools/vocab/validate-words.ts",
     "icons": "node tools/make-icons.mjs",
     "content:sample": "vite-node tools/quant/sample-bank.ts",
     "staging": "npm run build && (vite preview --port 4173 --strictPort & cloudflared tunnel --url http://localhost:4173; kill %1)"

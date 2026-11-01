@@ -27,3 +27,26 @@ export const QuestionSchema = z
 export type Question = z.infer<typeof QuestionSchema>;
 
 export const QuestionBankSchema = z.array(QuestionSchema);
+
+export const POS = ['noun', 'verb', 'adjective', 'adverb'] as const;
+
+export const WordSchema = z
+  .object({
+    id: z.string().regex(/^[a-z][a-z' -]*[a-z]$/),
+    word: z.string().min(2),
+    pos: z.enum(POS),
+    meaning: z.string().min(1).max(90),
+    example: z.string().min(1),
+    exampleForm: z.string().min(1),
+    synonyms: z.array(z.string().min(1)).min(2).max(3),
+    variants: z.array(z.string().min(1)).optional(),
+    mnemonic: z.string().min(1).optional(),
+    tier: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+    rank: z.number().int().min(1).max(1500),
+    confusables: z.array(z.string().min(1)).length(3),
+  })
+  .strict();
+
+export type Word = z.infer<typeof WordSchema>;
+
+export const WordListSchema = z.array(WordSchema);
