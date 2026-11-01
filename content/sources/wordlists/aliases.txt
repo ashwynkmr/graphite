@@ -1,0 +1,39 @@
+# How raw list entries map to one headword. Read by tools/vocab/rank-words.ts.
+#   variant -> headword    count the variant as the headword
+#   variant -> -           drop the entry (not a word)
+# Inflected forms that are distinct GRE adjectives stay separate on purpose:
+# affected, arresting, contrived, daunting, discerning, disinterested, harrowing.
+
+e.g. -> -
+decourous -> decorous
+
+# Plurals and inflections of a listed base word
+antedated -> antedate
+aspersions -> aspersion
+behooves -> behoove
+bemused -> bemuse
+blighted -> blight
+circumscribed -> circumscribe
+cosseted -> cosset
+debased -> debase
+derived -> derive
+desiccated -> desiccate
+discomfiting -> discomfit
+dispersed -> disperse
+edifying -> edify
+embroiled -> embroil
+enervated -> enervate
+estranged -> estrange
+exasperated -> exasperate
+fawning -> fawn
+flummoxed -> flummox
+inured -> inure
+machinations -> machination
+nonplused -> nonplus
+polarized -> polarize
+steeped -> steep
+stinting -> stint
+tempered -> temper
+truncated -> truncate
+venerated -> venerate
+warranted -> warrant

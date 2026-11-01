@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "test": "vitest run --passWithNoTests",
     "test:e2e": "playwright test",
-    "content:rank-words": "echo 'not yet implemented (step 6)'",
+    "content:rank-words": "vite-node tools/vocab/rank-words.ts",
     "content:build-bank": "vite-node tools/quant/build-bank.ts",
     "content:validate": "vite-node tools/quant/validate-bank.ts",
     "icons": "node tools/make-icons.mjs",

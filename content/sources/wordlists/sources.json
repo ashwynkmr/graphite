@@ -1,0 +1,19 @@
+{
+  "retrieved": "2026-11-01",
+  "via": "https://github.com/Xatta-Trone/gre-words-collection (commit 6488a7d), word-list/*.csv",
+  "note": "Words only. No definitions, sentences or other text from any source are kept. Magoosh Basic/Common/Advanced are left out because together they are the Magoosh 1,000 list, which would count Magoosh three times.",
+  "lists": [
+    { "id": "gregmat-960", "name": "GregMat word list", "weight": "core", "origin": "https://docs.google.com/spreadsheets/d/1jRATLVV34vATsL4Y67fZZXQc7qZPYc0c0Yk7Bykh4fw" },
+    { "id": "magoosh-1000", "name": "Magoosh 1,000 GRE words", "weight": "core", "origin": "https://s3.amazonaws.com/magoosh.resources/magoosh-gre-1000-words_oct01.pdf" },
+    { "id": "manhattan-prep-1000", "name": "Manhattan Prep 1,000 GRE words", "weight": "core", "origin": "https://quizlet.com/755640375/manhattan-prep-1000-gre-words-definitions-flash-cards/" },
+    { "id": "powerscore-repeat-offenders", "name": "PowerScore Repeat Offenders", "weight": "core", "origin": "https://www.powerscore.com/gre/help/content/Repeat-Offenders-Vocabulary.pdf" },
+    { "id": "greenlight-500", "name": "Greenlight Test Prep basic 500", "weight": "core", "origin": "https://quizlet.com/18795939/gre-basic-flash-cards/" },
+    { "id": "prepscholar-357", "name": "PrepScholar GRE vocabulary list", "weight": "core", "origin": "https://www.prepscholar.com/gre/blog/gre-vocabulary-list-words/" },
+    { "id": "barrons-333", "name": "Barron's 333 high-frequency words (274 in this copy)", "weight": "core", "origin": "https://github.com/tasfik007/Barron-s-333-words-and-their-mnemonics" },
+    { "id": "vocabulary-com-top-1000", "name": "Vocabulary.com Top 1000", "weight": "broad", "origin": "https://www.vocabulary.com/lists/52473" },
+    { "id": "gre-3000", "name": "GRE 3000+", "weight": "broad", "origin": "unattributed community list" },
+    { "id": "barrons-3500", "name": "Barron's GRE word list (about 4,700)", "weight": "broad", "origin": "https://www.pdfdrive.com/gre-word-list-3500-e187704112.html" },
+    { "id": "gre-5000-combined", "name": "GRE combined list of 5,000 words", "weight": "broad", "origin": "https://pdfcoffee.com/5000-gre-word-list-pdf-free.html" },
+    { "id": "vocabulary-com-5000", "name": "Vocabulary.com 5,000 GRE words", "weight": "broad", "origin": "https://www.vocabulary.com/lists/128536" }
+  ]
+}
