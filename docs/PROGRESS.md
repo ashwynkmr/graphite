@@ -4,18 +4,18 @@ Running log of what's built, what's live and known issues. Newest first.
 
 ## Live now
 
-`v0.2.0` (Milestone B) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. Installable and offline. Since the release: the name appears on screen as gRAPHITE, optional reminders are live, and step 9 is live: a fuller Home, a Share button on results, the mistake log with Drill my mistakes, Progress totals, and Settings with goals, theme, backup and two-level reset.
+`v1.0.0` (Phase 1 complete) at https://ashwynkmr.github.io/graphite/: name prompt, a full Home, and quant drills from 1,500 questions with topic and difficulty pickers; results with review, Retry wrong ones and Report a problem. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. The mistake log with Drill my mistakes, Progress totals, Share, and Settings with goals, theme, backup and two-level reset. Optional reminders and personal notes for the second user. Installable and offline.
 
 ## Next up (handoff)
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: steps 9 and 10, push reminders, stacked fractions, personal notes and step 11's automated checks are live, with no release tag yet. Study started Nov 1; exam Nov 24.
-- **Next step:** Ashwyn's real-phone launch checklist (Airplane Mode, Share, Export and Import, Report a problem), then the milestone retro and `v1.0.0`.
+- **Where we are:** Phase 1 is complete and shipped as `v1.0.0` (Nov 1). Study started Nov 1; exam Nov 24.
+- **Next step:** none planned. Phase 2 starts only when Ashwyn says go.
 - **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
 - **Also planned (PRD v0.6, Nov 1):** study nudges in Phase 2. Usage-based push reminders are built ([0037](decisions/0037-push-reminders-with-on-device-text.md)), and notes for the second user moved up and shipped ([0041](decisions/0041-personal-notes-sealed-in-the-app.md)).
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-90). Next decision number: 0042. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
-- **Open items:** the real share sheet on a phone; reminders and notes on Android, including the answer buttons; stacked fractions on a real phone; a reminder run going over Cloudflare's 10 ms limit and retrying; Export and import on a real iPhone (FB-70); install button and iPhone install hint not yet tried; install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-93). Next decision number: 0042. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
+- **Open items:** reminders and notes on Android, including the answer buttons; a reminder run going over Cloudflare's 10 ms limit and retrying; the Android install button not yet tried; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
 
@@ -31,9 +31,13 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 8 | Vocab flow | Done; B2 approved; `v0.2.0` | 2026-11-01 |
 | 9 | Mistake log, Home, Progress, Settings, Share card | Done; C1 and C2 approved | 2026-11-01 |
 | 10 | 300 hand-written problems; bank at 1,500 | Done; C4 approved | 2026-11-01 |
-| 11 | Launch pass: run-throughs, Report a problem, screenshots | In progress; real-phone checklist not yet reported | 2026-11-01 |
+| 11 | Launch pass: run-throughs, Report a problem, screenshots | Done; real-phone checklist passed; `v1.0.0` | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Phase 1 complete, `v1.0.0`
+- Ashwyn reported the real-phone launch checklist with "Tests are passing", as one result rather than item by item. Feedback FB-91 to FB-93.
+- Ashwyn asked for answers inside the nightly notification. iPhones don't offer that to web apps, so it stays as it is. Android should show the buttons; not yet tested.
 
 ### 2026-11-01: Personal notes shipped
 - Notes for the second user are encrypted in the app and open only for a matching saved name ([0041](decisions/0041-personal-notes-sealed-in-the-app.md)). Feedback FB-85, FB-86, FB-89 and FB-90.

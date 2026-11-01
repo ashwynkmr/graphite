@@ -21,6 +21,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-11-01 | C3: push reminders | Staging with a temporary server, on iPhone | [2026-11-01-C3](2026-11-01-C3.md) |
 | 2026-11-01 | C4: hand-written word problems | Staging | [2026-11-01-C4](2026-11-01-C4.md) |
 | 2026-11-01 | C5: launch pass, fractions, personal notes | Staging and in chat | [2026-11-01-C5](2026-11-01-C5.md) |
+| 2026-11-01 | C6: Phase 1 launch | On iPhone and in chat | [2026-11-01-C6](2026-11-01-C6.md) |
 
 ## Tracker
 
@@ -49,7 +50,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-21 | Process | A3 approved; update logs, commit and push | Committed, pushed, tagged v0.1.0 | Done | |
 | FB-22 | Settings | Option to reset account and progress | Reset progress and Reset everything in Settings | Done | [0034](../decisions/0034-mistake-drills-and-reset-scope.md) |
 | FB-23 | Personal | Reminders about paused drills and practice, based on performance ("more fractions, you were weak last time") | Home suggestion and usage-based push reminders; end-of-Results nudges Phase 2 | Planned | [0037](../decisions/0037-push-reminders-with-on-device-text.md) |
-| FB-24 | Personal | Cute notes from Ashwyn for the second user, only for her names | PRD v0.6: hashed name match, "Ashwyn says…"; Phase 2 | Planned | |
+| FB-24 | Personal | Cute notes from Ashwyn for the second user, only for her names | Shipped in Phase 1 | Done | [0041](../decisions/0041-personal-notes-sealed-in-the-app.md) |
 | FB-25 | Home | Home seems blank; make it better | Streak, today's tally, suggestion, last session | Done | [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md) |
 | FB-26 | Quant | Question count as a rotating dial, 5 to 40 in steps of 5 | Swipe dial with snap and tilt | Done | [0022](../decisions/0022-question-count-dial.md) |
 | FB-27 | Quant | Dial moves vertically when swiping up or down | Horizontal-only scrolling | Done | [0022](../decisions/0022-question-count-dial.md) |
@@ -95,7 +96,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-67 | Process | Share card now or separately: "You pick" | Its own checkpoint, so the main screens were reviewed sooner | Done | |
 | FB-68 | Home | Built Home "is good" | Kept | No change | |
 | FB-69 | Mistakes | Detail on each mistake card "is fine" | Kept | No change | [0034](../decisions/0034-mistake-drills-and-reset-scope.md) |
-| FB-70 | Settings | Export and import on iPhone not checked; "okay for now" | Still to test on a real iPhone | Open | [0034](../decisions/0034-mistake-drills-and-reset-scope.md) |
+| FB-70 | Settings | Export and import on iPhone not checked; "okay for now" | Reported passing with the launch checklist (FB-91) | Done | [0034](../decisions/0034-mistake-drills-and-reset-scope.md) |
 | FB-71 | Progress | Totals are enough until Phase 2 trends | Kept | No change | |
 | FB-72 | Process | Checkpoint: "I think its pushable" | Logged, committed and pushed | Done | |
 | FB-73 | Share | Make the Share card | Share on both results screens | Done | [0036](../decisions/0036-share-card-drawn-up-front.md) |
@@ -116,3 +117,6 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-88 | Process | "Build and commit and push and update all docs" | Fractions and step 11 so far pushed; notes held | Done | |
 | FB-89 | Personal | The title already names Ashwyn; no second signature at the end | Sign-off removed from both notifications | Done | [0041](../decisions/0041-personal-notes-sealed-in-the-app.md) |
 | FB-90 | Process | "Rest is okay, you can check, commit and push" | Checked, committed and pushed | Done | |
+| FB-91 | Process | "Tests are passing": the real-phone launch checklist | Step 11 closed | Done | |
+| FB-92 | Reminders | Answer the nightly question inside the notification, without opening the app | Not possible on iPhones for web apps; rewording offered, and Ashwyn kept it as is | No change | [0041](../decisions/0041-personal-notes-sealed-in-the-app.md) |
+| FB-93 | Process | "Finish, commit and push phase 1" | Retro, docs and `v1.0.0` | Done | [Retro](../retros/milestone-c-retro.md) |

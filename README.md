@@ -8,7 +8,7 @@
 
 > **Try it:** open the link on your phone. On iPhone: Share → Add to Home Screen. On Android or desktop Chrome/Edge: Install app. No sign-up.
 >
-> *Status: **live, with the last launch checks under way (Nov 1, 2026).** Quant drills, all 1,500 vocab words, the mistake log, progress, optional reminders and backup all work today. `v1.0.0` follows real-phone checks.*
+> *Status: **Phase 1 complete, `v1.0.0` (Nov 1, 2026).** Quant drills, all 1,500 vocab words, the mistake log, progress, optional reminders and backup all work today. Real study results aren't in yet.*
 
 <p>
   <img src="docs/assets/screens/home.png" width="180" alt="Home screen with the exam countdown, streak and today's progress as tally marks">
@@ -46,6 +46,7 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | Keep progress safe | Export and import a backup file; reset progress or everything | Live |
 | Share a result | An image card and text summary sent through the phone's share sheet; nothing leaves the device until you choose | Live |
 | Get nudged at the right moment | Optional phone notifications timed by how you study; the phone writes each message, and results stay on it | Live |
+| Keep a study partner going | Personal notes from Ashwyn, encrypted in the app and opened only by a matching saved name, with one question each night about whether to keep them coming | Live |
 | Study anywhere | Installable app that works offline; progress stays on the device | Live |
 
 ## Key decisions and trade-offs
@@ -62,7 +63,7 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | Raise every difficulty one level, with Hard at the GRE's ceiling | The first sample's Easy questions weren't worth study time | [0017](docs/decisions/0017-difficulty-up-one-level.md) |
 | Hand-check Sentence Equivalence pairs instead of generating them | A listed synonym doesn't always fit a given sentence; the cost is 661 pairs rather than all 1,500 words | [0029](docs/decisions/0029-sentence-equivalence-hand-checked-pairs.md) |
 
-All 40 records: [docs/decisions](docs/decisions/README.md).
+All 41 records: [docs/decisions](docs/decisions/README.md).
 
 ## How the plan changed
 
@@ -79,6 +80,8 @@ All 40 records: [docs/decisions](docs/decisions/README.md).
 | Build, Oct 31 | Icon: geometric G → three options → hybrid → cursive pencil → serif g with fountain pen | [0021](docs/decisions/0021-app-icon-serif-g-with-pen.md) |
 | Build, Nov 1 | Launch with 600 words → all 1,500 written before launch | [0011](docs/decisions/0011-launch-with-600-words.md) → [0026](docs/decisions/0026-write-all-1500-entries-before-launch.md) |
 | Review, Nov 1 | Type-in removed; Sentence Equivalence added | [0028](docs/decisions/0028-remove-type-in-practice.md), [0029](docs/decisions/0029-sentence-equivalence-hand-checked-pairs.md) |
+| Build, Nov 1 | In-app reminders only → optional push reminders; the service moved from Northflank to Cloudflare | [0037](docs/decisions/0037-push-reminders-with-on-device-text.md), [0038](docs/decisions/0038-reminder-service-on-cloudflare.md) |
+| Build, Nov 1 | Personal notes moved from Phase 2 into Phase 1 | [0041](docs/decisions/0041-personal-notes-sealed-in-the-app.md) |
 
 ## Feedback that shaped the product
 
@@ -106,11 +109,11 @@ These are the PRD's targets for Nov 24, 2026. **No results yet**; actuals will b
 
 ## Roadmap and what's next
 
-Phase 1 ships in three milestones: **A** quant drills (**shipped Oct 31, `v0.1.0`**, [retro](docs/retros/milestone-a-retro.md)), **B** vocab (Nov 1–2), **C** mistake log, progress, settings, share and the launch pass (Nov 2). Phase 2 (by Nov 7) adds all 1,500 words, Round 2, adaptive difficulty and a trends dashboard. Details: [ROADMAP](docs/product/ROADMAP.md) · build log: [PROGRESS](docs/PROGRESS.md).
+Phase 1 shipped in three milestones: **A** quant drills (Oct 31, `v0.1.0`, [retro](docs/retros/milestone-a-retro.md)), **B** vocab (Nov 1, `v0.2.0`, [retro](docs/retros/milestone-b-retro.md)), **C** mistake log, progress, settings, share and the launch pass (Nov 1, `v1.0.0`, [retro](docs/retros/milestone-c-retro.md)). Phase 2 would add Sprint mode, adaptive difficulty, Round 2 and a trends dashboard, and starts only when Ashwyn says go. Details: [ROADMAP](docs/product/ROADMAP.md) · build log: [PROGRESS](docs/PROGRESS.md).
 
 ## Tech overview
 
-A static, offline-first PWA: Vite + React 18 + TypeScript (strict), served from GitHub Pages with hash routing. All progress lives in the browser's IndexedDB via Dexie. Quant content is generated at build time from seeded code templates, and every answer is computed and re-verified in CI. Scoring, scheduling and generation live in a pure, unit-tested `src/engine/`. GitHub Actions runs typecheck → lint → tests → content validation → build → deploy on every push. Full detail: [TRD](docs/product/TRD.md) · [PRD](docs/product/PRD.md).
+A static, offline-first PWA: Vite + React 18 + TypeScript (strict), served from GitHub Pages with hash routing. All progress lives in the browser's IndexedDB via Dexie. Quant content is generated at build time from seeded code templates, and every answer is computed and re-verified in CI. Scoring, scheduling and generation live in a pure, unit-tested `src/engine/`. GitHub Actions runs typecheck → lint → tests → content validation → build → browser run-throughs → service checks → deploy on every push. Full detail: [TRD](docs/product/TRD.md) · [PRD](docs/product/PRD.md).
 
 ## How this was built
 

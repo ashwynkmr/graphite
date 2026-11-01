@@ -4,6 +4,8 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-01 · Milestone C: Phase 1 complete
+
 ### Added
 - Home shows your streak, today's progress as tally marks, one suggestion from your own results, your last session and a backup reminder, with Quick drill and Continue vocab side by side.
 - Mistake log: every wrong or skipped question and missed word, with Drill my mistakes for quant and for words.
