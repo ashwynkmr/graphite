@@ -4,6 +4,13 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+### Added
+- Vocab practice with the first 100 of 1,500 GRE words, each with an original meaning, example sentence, synonyms and look-alike words.
+- Choose Today (due plus new words), New or Starred, and 25 to 400 cards on a dial.
+- Mix practice types in one session: flashcards, multiple choice, fill the blank and type-in.
+- Flashcards: tap to flip, then swipe right (Know it), left (Review) or up (Unsure), or tap the round marks; star a word from the card's corner.
+- Vocab results with a score for quiz cards, a tally of flashcard marks and every word reviewed; words come back on a Leitner schedule.
+
 ### Changed
 - Quant setup: choose the number of questions on a swipe dial, from 5 to 40 in steps of 5 (was 10, 20 or 30).
 

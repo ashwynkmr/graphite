@@ -13,6 +13,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-10-31 | A3: quant drills | Staging on phone | [2026-10-31-A3](2026-10-31-A3.md) |
 | 2026-11-01 | Requests after A3; question-count dial | Staging on phone | [2026-11-01-requests-and-dial](2026-11-01-requests-and-dial.md) |
 | 2026-11-01 | Step 6: ranked word list | Sources and top 100, in chat | [2026-11-01-step6-word-list](2026-11-01-step6-word-list.md) |
+| 2026-11-01 | First 100 entries and vocab screens | Staging on phone, three rounds | [2026-11-01-vocab-screens](2026-11-01-vocab-screens.md) |
 
 ## Tracker
 
@@ -51,3 +52,14 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-31 | Vocab | Should the deck be 1,500 words? | Kept at 1,500; launch with ranks 1–600 | No change | |
 | FB-32 | Vocab | Keep inflected adjectives as separate words | Seven forms kept separate | Done | [0023](../decisions/0023-word-ranking-core-and-broad-lists.md) |
 | FB-33 | Content | Commit the raw lists as recommended | Committed with origins credited | Done | [0023](../decisions/0023-word-ranking-core-and-broad-lists.md) |
+| FB-34 | Vocab | See the entry style before writing batches | Sample of five entries in chat | Done |  |
+| FB-35 | Vocab | Entry style approved | Ranks 1–100 written | Done |  |
+| FB-36 | Vocab | Screens before the rest of the words, to reach an MVP sooner | Vocab screens built with 100 words | Done | [0024](../decisions/0024-vocab-screens-before-all-600-words.md) |
+| FB-37 | Vocab | Card count as a dial, 25 to 400 in steps of 25 | Reused the quant dial | Done | [0025](../decisions/0025-swipe-flashcards-and-mixed-practice.md) |
+| FB-38 | Vocab | Mark flashcards by swiping: left wrong, right right, up unsure | Swipe marking with faded marks | Done | [0025](../decisions/0025-swipe-flashcards-and-mixed-practice.md) |
+| FB-39 | Vocab | Star at the card's top-right | Star on every card | Done |  |
+| FB-40 | Design | Card back must look different from the front | Ink-blue tinted back | Done |  |
+| FB-41 | Vocab | Practice types multi-select, to mix e.g. fill-the-blank and flashcards | Multi-select; types dealt evenly | Done | [0025](../decisions/0025-swipe-flashcards-and-mixed-practice.md) |
+| FB-42 | Vocab | Show swipe guidance; buttons hide the swiping; make buttons elegant | One-time sway, guide line, round icon marks | Done |  |
+| FB-43 | Vocab | Unsure needs an icon like wrong and right | Circled question mark in ink | Done |  |
+| FB-44 | Process | Vocab screens approved; log, commit, push | Committed and pushed | Done |  |
