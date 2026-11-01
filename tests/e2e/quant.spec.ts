@@ -60,6 +60,8 @@ test('a reload mid-drill keeps every answer and offers to resume', async ({ page
   await page.getByRole('button', { name: 'Quick drill' }).click();
   await expect(page).toHaveURL(/quant\/session/);
   for (let i = 0; i < 3; i++) await answerQuant(page, true);
+  // The next question appears only once the answer is saved.
+  await expect(page.locator('body')).toContainText('4 / 20');
 
   await page.reload();
   await page.goto('./#/');
