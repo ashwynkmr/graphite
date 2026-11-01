@@ -43,6 +43,7 @@ Every meaningful product or technical choice, with the options considered and wh
 | [0037](0037-push-reminders-with-on-device-text.md) | Push reminders, timed and written on the phone | 2026-11-01 | Accepted; hosting replaced by [0038](0038-reminder-service-on-cloudflare.md) | Phase 1 | Product |
 | [0038](0038-reminder-service-on-cloudflare.md) | The reminder service runs on Cloudflare Workers | 2026-11-01 | Accepted | Phase 1 | Technical |
 | [0039](0039-handwritten-problems-from-formulas.md) | Hand-written problems are worked out from formulas | 2026-11-01 | Accepted | Phase 1 | Content |
+| [0040](0040-stacked-fractions.md) | Fractions are stacked and powers are raised, on screen only | 2026-11-01 | Accepted | Phase 1 | Design |
 
 ## Template
 

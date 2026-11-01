@@ -10,12 +10,12 @@ Running log of what's built, what's live and known issues. Newest first.
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: steps 9 and 10 and push reminders are live, with no release tag yet. Study started Nov 1; exam Nov 24.
-- **Next step:** step 11 (launch pass: smoke tests, offline and install checks on real phones, README screenshots), on Ashwyn's go, then `v1.0.0`.
+- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Milestone C is in progress: steps 9 and 10, push reminders, stacked fractions and step 11's automated checks are live, with no release tag yet. Study started Nov 1; exam Nov 24.
+- **Next step:** Ashwyn's iPhone test of the personal notes, then ship them (decision 0041). Then Ashwyn's real-phone launch checklist, the milestone retro and `v1.0.0`. Personal-notes code is uncommitted in the working tree until that test passes.
 - **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
 - **Also planned (PRD v0.6, Nov 1):** study nudges and notes for the second user in Phase 2. Usage-based push reminders are built ([0037](decisions/0037-push-reminders-with-on-device-text.md)).
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-84). Next decision number: 0040.
-- **Open items:** the real share sheet on a phone; reminders on Android; Export and import on a real iPhone (FB-70); install button and iPhone install hint not yet tried; install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-88). Next decision number: 0041, reserved for personal notes.
+- **Open items:** the real share sheet on a phone; reminders on Android; Export and import on a real iPhone (FB-70); install button and iPhone install hint not yet tried; install/offline not yet verified on a real phone against the live site; final wordmark not yet seen on a real phone; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
 
@@ -31,8 +31,15 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 8 | Vocab flow | Done; B2 approved; `v0.2.0` | 2026-11-01 |
 | 9 | Mistake log, Home, Progress, Settings, Share card | Done; C1 and C2 approved | 2026-11-01 |
 | 10 | 300 hand-written problems; bank at 1,500 | Done; C4 approved | 2026-11-01 |
+| 11 | Launch pass: run-throughs, Report a problem, screenshots | In progress; real-phone checklist not yet reported | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Launch pass so far, and stacked fractions
+- A Phase 1 audit found Report a problem was never built. It's now on Results and in the Mistake log, opening a GitHub issue with the ID filled in.
+- 12 browser run-throughs run before every deploy: scoring, no mid-session verdicts, clearing mistakes, resuming, offline, no outside requests, backup, resets, fit at 375 px and fractions. They confirmed mistakes clear after two correct answers in a row, which had only been unit-tested.
+- Fractions are stacked and powers raised, on screen only ([0040](decisions/0040-stacked-fractions.md)). Feedback FB-85 to FB-88.
+- Flashcard marks still use red and green during a session, against the rule that keeps those colours to results. They've been there since B2 and label the user's own choice. Left as is, and told to Ashwyn.
 
 ### 2026-11-01: Checkpoint C4, step 10
 - 300 word problems in `content/handwritten.json`, with each answer and wrong option worked out from a formula ([0039](decisions/0039-handwritten-problems-from-formulas.md)). The bank is now 1,500, and the original 1,200 are unchanged. Feedback FB-83 and FB-84.
@@ -132,4 +139,3 @@ Read this and `CLAUDE.md` first when starting a new session.
 
 ## Known issues
 - Install and offline over the staging tunnel weren't tested on a real phone during A3; the live site is checked after deploy.
-- README screenshots will be captured with Playwright in the launch pass (step 11).

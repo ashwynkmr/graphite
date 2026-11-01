@@ -372,6 +372,8 @@ Five tabs, one task per screen, built from a small set of shared components and 
 
 **Shared components:** `Keypad` (0–9, `.`, `−`, `/`, backspace, Submit; physical keyboard mapped), `ChoiceList` (A–E, keys 1–5 and A–E), `Flashcard` (tap or Space to flip; swipe left/right or keys 1/2/3 to mark), `TypeInField`, `SessionHeader` (progress "7 / 20" and timer), `ResultSummary`, `TopicBreakdown`, `ShareButton`, `Banner`, `Toast`.
 
+**Fractions and powers:** `MathText` draws stacked fractions and raised powers from the bank's plain text at display time ([0040](../decisions/0040-stacked-fractions.md)). The stored text never changes.
+
 **Design tokens (`tokens.css`)**
 
 - Colors as CSS variables with light and dark sets: `--paper` warm off-white, `--graphite` text, `--graphite-soft` secondary text, `--rule` faint lines, `--ink` single blue accent, `--good` and `--bad` used only on results screens.
@@ -399,7 +401,7 @@ Every push to `main` is checked and, if green, published to `ashwynkmr.github.io
 2. Setup Node 20 with npm cache; `npm ci`.
 3. `npm run typecheck` → `npm run lint` → `npm test` (Vitest).
 4. `npm run content:validate` (both validators).
-5. `npm run build`, then Playwright smoke tests against `vite preview`.
+5. `npm run build`, then Playwright run-throughs in `tests/e2e/` against `vite preview`, then the reminder service's checks.
 6. Upload `dist/` with `actions/upload-pages-artifact` and publish with `actions/deploy-pages`.
 
 **Scripts in `package.json`:** `dev`, `build`, `preview`, `typecheck`, `lint`, `test`, `test:e2e`, `content:rank-words`, `content:build-bank`, `content:validate`.

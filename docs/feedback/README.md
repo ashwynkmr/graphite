@@ -20,6 +20,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-11-01 | C2: Share card and reminders | Staging, then in chat | [2026-11-01-C2](2026-11-01-C2.md) |
 | 2026-11-01 | C3: push reminders | Staging with a temporary server, on iPhone | [2026-11-01-C3](2026-11-01-C3.md) |
 | 2026-11-01 | C4: hand-written word problems | Staging | [2026-11-01-C4](2026-11-01-C4.md) |
+| 2026-11-01 | C5: launch pass, fractions, personal notes | Staging and in chat | [2026-11-01-C5](2026-11-01-C5.md) |
 
 ## Tracker
 
@@ -109,3 +110,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-82 | Reminders | Live service on iPhone: "It arrived, push it" | Committed and pushed | Done | [0038](../decisions/0038-reminder-service-on-cloudflare.md) |
 | FB-83 | Content | Start step 10 | 300 word problems; bank at 1,500 | Done | [0039](../decisions/0039-handwritten-problems-from-formulas.md) |
 | FB-84 | Process | "Good, push it" | Committed and pushed | Done | |
+| FB-85 | Personal | Notes from Ashwyn to the second user every 2 hours, regardless of usage | Built; held until the iPhone test is reported | Built | |
+| FB-86 | Personal | No off option; ask once each night; no mid-drill notifications; signed from Ashwyn | Built; held until the iPhone test is reported | Built | |
+| FB-87 | Design | Mixed fractions read badly: 1 1/4 looks like 11/4 | Stacked fractions and raised powers | Done | [0040](../decisions/0040-stacked-fractions.md) |
+| FB-88 | Process | "Build and commit and push and update all docs" | Fractions and step 11 so far pushed; notes held | Done | |

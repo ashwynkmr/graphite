@@ -1,6 +1,6 @@
 # Graphite — Product Requirements (PRD)
 
-Nov 1, 2026 · @Ashwyn · Draft v0.11 (v0.11: reminder service on Cloudflare, [0038](../decisions/0038-reminder-service-on-cloudflare.md); v0.10: opt-in usage-based push reminders, [0037](../decisions/0037-push-reminders-with-on-device-text.md); v0.9: reminders stay inside the app, since superseded; v0.8: Home layout and suggestion rules as built, [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md), [0033](../decisions/0033-suggestion-rules-reach-back-and-thresholds.md), mistake drills and reset scope, [0034](../decisions/0034-mistake-drills-and-reset-scope.md); v0.7: Type-in removed, Sentence Equivalence added, [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md); v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
+Nov 1, 2026 · @Ashwyn · Draft v0.12 (v0.12: stacked fractions, [0040](../decisions/0040-stacked-fractions.md); v0.11: reminder service on Cloudflare, [0038](../decisions/0038-reminder-service-on-cloudflare.md); v0.10: opt-in usage-based push reminders, [0037](../decisions/0037-push-reminders-with-on-device-text.md); v0.9: reminders stay inside the app, since superseded; v0.8: Home layout and suggestion rules as built, [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md), [0033](../decisions/0033-suggestion-rules-reach-back-and-thresholds.md), mistake drills and reset scope, [0034](../decisions/0034-mistake-drills-and-reset-scope.md); v0.7: Type-in removed, Sentence Equivalence added, [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md); v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
 
 > Living document. Scope changes are recorded in the [decision log](../decisions/README.md) and [ROADMAP](ROADMAP.md); this file is updated to match and the version above bumped.
 
@@ -321,6 +321,7 @@ Minimal and elegant, with quiet cues from a study desk: it should feel like a we
 - **Study cues, used sparingly:** a faint ruled-line or grid texture on cards, an index-card shape for flashcards, a pencil-mark tick for correct answers and a margin-note style for explanations.
 - **Motion:** short, soft card flips and page turns; nothing bouncy. No sounds by default.
 - **Layout:** big tap targets and a thumb-reachable keypad on mobile; generous white space; one task per screen.
+- **Fractions and powers:** fractions are stacked and powers raised on screen, as in a textbook.
 
 ## Content strategy
 

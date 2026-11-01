@@ -30,8 +30,8 @@ Minimal, elegant, study-desk: warm paper background, graphite text, one ink-blue
 ## Commands
 
 - `npm run dev` / `npm run build` / `npm run preview`
-- `npm run typecheck` · `npm run lint` · `npm test` · `npm run content:validate`
-- CI (`.github/workflows/deploy.yml`) runs typecheck → lint → test → content:validate → build → server checks → deploy on every push to `main`.
+- `npm run typecheck` · `npm run lint` · `npm test` · `npm run content:validate` · `npm run test:e2e`
+- CI (`.github/workflows/deploy.yml`) runs typecheck → lint → test → content:validate → build → browser run-throughs → service checks → deploy on every push to `main`.
 - `push-server/` is the reminder service on Cloudflare Workers, with its own `package.json`. It deploys separately from the site (`npx wrangler deploy` in that folder): see its README.
 
 ## Documentation rules (this repo is also a PM case study)

@@ -8,7 +8,16 @@
 
 > **Try it:** open the link on your phone. On iPhone: Share → Add to Home Screen. On Android or desktop Chrome/Edge: Install app. No sign-up.
 >
-> *Status: **`v0.2.0` live (Nov 1, 2026): quant drills and all 1,500 vocab words.** The mistake log screen, progress and the rest of Phase 1 are next. Screenshots come with the launch pass (Playwright captures them).*
+> *Status: **live, with the last launch checks under way (Nov 1, 2026).** Quant drills, all 1,500 vocab words, the mistake log, progress, optional reminders and backup all work today. `v1.0.0` follows real-phone checks.*
+
+<p>
+  <img src="docs/assets/screens/home.png" width="180" alt="Home screen with the exam countdown, streak and today's progress as tally marks">
+  <img src="docs/assets/screens/drill.png" width="180" alt="A timed drill question with answer choices">
+  <img src="docs/assets/screens/flashcard.png" width="180" alt="A vocabulary flashcard showing a word's meaning and example">
+  <img src="docs/assets/screens/results.png" width="180" alt="Results with score, accuracy and time">
+</p>
+
+*Screens from an automated test run, so the numbers aren't real study results.*
 
 ## The problem
 
@@ -29,7 +38,7 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | Get faster at calculation | Timed mental-math drills: 1,500 questions across 9 topics, 1,200 generated and 300 hand-written, with every answer worked out by code; pick topics and any mix of Easy/Medium/Hard (Hard = top of GRE mental math) | Live |
 | Train smart guessing, not just calculation | Typed answers and five-option multiple choice; at least two wrong options per question come from real mistakes (wrong base, adding instead of chaining, ×10 slips) | Live |
 | Practise under test conditions | No right/wrong feedback until the session ends; timed sets; the clock pauses when the phone locks | Live |
-| Learn from mistakes | Results review every question with a one-line shortcut; Retry wrong ones; every miss collects in a mistake log with "Drill my mistakes" | Live |
+| Learn from mistakes | Results review every question with a one-line shortcut and a Report a problem link; Retry wrong ones; every miss collects in a mistake log with "Drill my mistakes" | Live |
 | Stay motivated for three weeks | Asks for your name once; greets you and cheers you on by name on Home and Results, never mid-drill | Live |
 | Learn 1,500 words in three weeks | Swipe flashcards, multiple choice, fill the blank and Sentence Equivalence, mixed in any combination, with Leitner spaced repetition and 200 new words a day | Live |
 | Practise the exam's two-answer vocab question | Sentence Equivalence from 661 word pairs, each hand-checked in its sentence | Live |
@@ -53,7 +62,7 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | Raise every difficulty one level, with Hard at the GRE's ceiling | The first sample's Easy questions weren't worth study time | [0017](docs/decisions/0017-difficulty-up-one-level.md) |
 | Hand-check Sentence Equivalence pairs instead of generating them | A listed synonym doesn't always fit a given sentence; the cost is 661 pairs rather than all 1,500 words | [0029](docs/decisions/0029-sentence-equivalence-hand-checked-pairs.md) |
 
-All 30 records: [docs/decisions](docs/decisions/README.md).
+All 40 records: [docs/decisions](docs/decisions/README.md).
 
 ## How the plan changed
 
