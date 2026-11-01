@@ -4,10 +4,14 @@ import type { QuantSettings } from '../../data/db';
 import { DEFAULT_QUANT, getSettings } from '../../data/repo/meta';
 import { TOPICS, type Topic } from '../../engine/generators/types';
 import { Button, Chip, Field, Segmented, ToggleGroup } from '../../ui/controls';
+import { Dial } from '../../ui/Dial';
 import { Screen } from '../../ui/Screen';
 import { difficultiesLabel, DIFFICULTY_LABEL, TOPIC_LABEL } from './display';
 import { startDrill } from './startDrill';
 import styles from './QuantSetupScreen.module.css';
+
+/** Drill lengths on the dial: 5 to 40 in steps of 5. */
+const LENGTHS = [5, 10, 15, 20, 25, 30, 35, 40] as const;
 
 export function QuantSetupScreen() {
   const navigate = useNavigate();
@@ -59,8 +63,8 @@ export function QuantSetupScreen() {
           />
         </Field>
 
-        <Field label="Questions">
-          <Segmented label="Questions" value={s.length} onChange={(length) => set({ length })} options={[10, 20, 30].map((n) => ({ value: n, label: String(n) }))} />
+        <Field label="Questions" hint="Swipe to choose">
+          <Dial label="Questions" values={LENGTHS} value={s.length} onChange={(length) => set({ length })} />
         </Field>
 
         <Field label="Answer mode">

@@ -1,0 +1,97 @@
+.dial {
+  position: relative;
+  /* Keep the dial's layers (fades, needle, 3D-turned values) inside its own stack, under sticky bars. */
+  isolation: isolate;
+  background: var(--paper-sunk);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* Fade both ends so the dial reads as a drum turning away. */
+.dial::before,
+.dial::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 25%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dial::before {
+  left: 0;
+  background: linear-gradient(to right, var(--paper-sunk), transparent);
+}
+
+.dial::after {
+  right: 0;
+  background: linear-gradient(to left, var(--paper-sunk), transparent);
+}
+
+.track {
+  display: flex;
+  /* Horizontal only: the turned values must not make the strip scroll or bounce vertically on iPhone. */
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior: contain;
+  touch-action: pan-x pan-y;
+  padding-inline: calc(50% - 30px);
+  perspective: 420px;
+  scrollbar-width: none;
+  border-radius: var(--radius);
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.track:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+}
+
+/* One value: number on top, five ticks below (one per question; the middle one is the value). */
+.item {
+  position: relative;
+  flex: 0 0 60px;
+  height: 72px;
+  scroll-snap-align: center;
+  border: none;
+  padding: 0 0 26px;
+  background:
+    linear-gradient(var(--rule-strong), var(--rule-strong)) 29.5px calc(100% - 10px) / 1px 16px no-repeat,
+    repeating-linear-gradient(to right, transparent 0 5.5px, var(--rule-strong) 5.5px 6.5px, transparent 6.5px 12px) 0 calc(100% - 10px) / 100% 8px no-repeat;
+  color: var(--graphite-soft);
+  cursor: pointer;
+  backface-visibility: hidden;
+}
+
+.num {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  line-height: 1;
+}
+
+.itemOn {
+  color: var(--ink);
+}
+
+.itemOn .num {
+  font-weight: 500;
+}
+
+/* The centre mark: an ink needle under the chosen value. */
+.mark {
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  width: 2px;
+  height: 24px;
+  margin-left: -1px;
+  border-radius: 1px;
+  background: var(--ink);
+  pointer-events: none;
+  z-index: 2;
+}
