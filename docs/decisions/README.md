@@ -29,6 +29,7 @@ Every meaningful product or technical choice, with the options considered and wh
 | [0023](0023-word-ranking-core-and-broad-lists.md) | Rank words by agreement across focused GRE lists | 2026-11-01 | Accepted | Phase 1 | Content |
 | [0024](0024-vocab-screens-before-all-600-words.md) | Build the vocab screens with 100 words, before writing 600 | 2026-11-01 | Accepted | Phase 1 | Scope |
 | [0025](0025-swipe-flashcards-and-mixed-practice.md) | Flashcards are marked by swiping; practice types can be mixed | 2026-11-01 | Accepted | Phase 1 | Product |
+| [0026](0026-write-all-1500-entries-before-launch.md) | Write all 1,500 entries before launch, without sample reviews | 2026-11-01 | Accepted | Phase 1 | Content |
 
 ## Template
 

@@ -75,7 +75,13 @@ export function VocabSetupScreen() {
           <Dial label="Cards" values={LENGTHS} value={s.length} onChange={(length) => set({ length })} />
         </Field>
 
-        {overview && <p className={styles.note}>{overview.written} of 1,500 words are written so far, most frequent first. More arrive in batches.</p>}
+        {overview && (
+          <p className={styles.note}>
+            {overview.written >= 1500
+              ? 'All 1,500 words, most frequent first. New words arrive in that order.'
+              : `${overview.written} of 1,500 words are written so far, most frequent first. More arrive in batches.`}
+          </p>
+        )}
       </div>
 
       <div className={styles.startBar}>

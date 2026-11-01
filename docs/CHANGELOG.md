@@ -5,7 +5,7 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 ## [Unreleased]
 
 ### Added
-- Vocab practice with the first 100 of 1,500 GRE words, each with an original meaning, example sentence, synonyms and look-alike words.
+- Vocab practice with all 1,500 GRE words, each with an original meaning, example sentence, synonyms and look-alike words.
 - Choose Today (due plus new words), New or Starred, and 25 to 400 cards on a dial.
 - Mix practice types in one session: flashcards, multiple choice, fill the blank and type-in.
 - Flashcards: tap to flip, then swipe right (Know it), left (Review) or up (Unsure), or tap the round marks; star a word from the card's corner.

@@ -4,18 +4,18 @@ Running log of what's built, what's live and known issues. Newest first.
 
 ## Live now
 
-`v0.1.0` (Milestone A) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with the first 100 words (swipe flashcards, multiple choice, fill the blank, type-in) after this push. Installable and offline. Mistakes, Progress and most of Settings are placeholders until Milestone C.
+`v0.1.0` (Milestone A) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, type-in). Installable and offline. Mistakes, Progress and most of Settings are placeholders until Milestone C.
 
 ## Next up (handoff)
 
 Read this and `CLAUDE.md` first when starting a new session.
 
 - **Where we are:** Milestone A shipped as `v0.1.0` (Oct 31). Study started Nov 1; exam Nov 24.
-- **Next step:** Milestone B, step 7 continues: ranks 101–600 of `content/ranked-words.json` into `content/words.json`, in batches of 100, in the approved style (meaning ≤ 90 chars, one example sentence, 2–3 synonyms, 3 confusables in the deck with the same part of speech). `npm run content:validate` checks each batch. Checkpoint B1: 20 random entries.
+- **Next step:** Checkpoint B2 on the full deck, then release `v0.2.0` (CHANGELOG, retro, tag, GitHub Release). All 1,500 entries are written ([0026](decisions/0026-write-all-1500-entries-before-launch.md)).
 - **Vocab screens (step 8) are built and approved** with ranks 1–100 ([0024](decisions/0024-vocab-screens-before-all-600-words.md), [0025](decisions/0025-swipe-flashcards-and-mixed-practice.md)).
 - **Also planned (PRD v0.6, Nov 1):** two-level reset and a fuller Home in step 9; study nudges and notes for the second user in Phase 2; reminders outside the app in Phase 3, needing a decision first.
-- **Then:** Checkpoint B2 on the full 600, release `v0.2.0`.
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-44). Next decision number: 0026.
+- **Then:** step 9 (Milestone C: mistake log screen, progress, two-level reset, fuller Home).
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-47). Next decision number: 0027.
 - **Open items:** install/offline not yet verified on a real phone against the live site; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -28,10 +28,16 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 4 | Data layer | Done; A3 approved | 2026-10-31 |
 | 5 | Quant flow + minimal Home | Done; A3 approved; `v0.1.0` | 2026-10-31 |
 | 6 | Ranked word list | Done; approved in chat | 2026-11-01 |
-| 7 | Word entries, ranks 1–600 | In progress: 100 of 600 | 2026-11-01 |
+| 7 | Word entries | Done: all 1,500 (plan was 600) | 2026-11-01 |
 | 8 | Vocab flow | Done; approved on staging | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: All 1,500 word entries
+- Ranks 101–1,500 written in batches of 100 after Ashwyn asked to skip sample reviews (FB-45, FB-47; [0026](decisions/0026-write-all-1500-entries-before-launch.md)). Every batch passed `validate-words.ts` before its commit.
+- Once all entries existed, the part-of-speech check covered every look-alike. Adverbs are exempt because the deck has only three.
+- A final audit reworded two duplicate meanings (aberrant/anomalous, penury/indigence).
+- 534 tests green.
 
 ### 2026-11-01: First 100 entries and the vocab screens
 - `content/words.json`: ranks 1–100, written fresh. `tools/vocab/check-words.ts` checks rank order, no stem of the word in its meaning, the example contains `exampleForm`, and confusables that are in the deck, share the part of speech and aren't synonyms.

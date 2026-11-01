@@ -14,6 +14,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-11-01 | Requests after A3; question-count dial | Staging on phone | [2026-11-01-requests-and-dial](2026-11-01-requests-and-dial.md) |
 | 2026-11-01 | Step 6: ranked word list | Sources and top 100, in chat | [2026-11-01-step6-word-list](2026-11-01-step6-word-list.md) |
 | 2026-11-01 | First 100 entries and vocab screens | Staging on phone, three rounds | [2026-11-01-vocab-screens](2026-11-01-vocab-screens.md) |
+| 2026-11-01 | Writing the rest of the deck | In chat | [2026-11-01-all-words](2026-11-01-all-words.md) |
 
 ## Tracker
 
@@ -63,3 +64,6 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-42 | Vocab | Show swipe guidance; buttons hide the swiping; make buttons elegant | One-time sway, guide line, round icon marks | Done |  |
 | FB-43 | Vocab | Unsure needs an icon like wrong and right | Circled question mark in ink | Done |  |
 | FB-44 | Process | Vocab screens approved; log, commit, push | Committed and pushed | Done |  |
+| FB-45 | Process | Don't show sample entries for each word batch | Validator plus staging only | Done | [0026](../decisions/0026-write-all-1500-entries-before-launch.md) |
+| FB-46 | Vocab | Is every practice type available for each word? | Yes; answered in chat | No change | |
+| FB-47 | Vocab | Write all the words | All 1,500 entries written | Done | [0026](../decisions/0026-write-all-1500-entries-before-launch.md) |

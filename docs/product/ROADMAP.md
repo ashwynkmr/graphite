@@ -9,7 +9,7 @@ Built in three milestones so studying can start before all of Phase 1 is done ([
 | Milestone | Steps | Target | Status |
 | --- | --- | --- | --- |
 | **A. Quant drills live** (`v0.1.0`) | 1 Scaffold + deploy · 2 Engine · 3 Generators + ~1,200-question bank · 4 Data layer · 5 Quant flow + minimal Home | Nov 1 | **Shipped Oct 31** as `v0.1.0` ([retro](../retros/milestone-a-retro.md)) |
-| **B. Vocab live** (`v0.2.0`) | 6 Ranked word list · 7 Entries for ranks 1–600 · 8 Vocab flow | Nov 1–2 | In progress: steps 6 and 8 done, step 7 at 100 of 600 entries (Nov 1) |
+| **B. Vocab live** (`v0.2.0`) | 6 Ranked word list · 7 Entries for ranks 1–600 · 8 Vocab flow | Nov 1–2 | In progress: steps 6–8 done; all 1,500 entries written (Nov 1) |
 | **C. Rest of Phase 1** (`v1.0.0`) | 9 Mistake log, full Home (today card, last session, suggested drill), Progress, Settings with two-level reset, Share · 10 ~300 hand-written problems (bank → ~1,500) · 11 Launch pass | Nov 2 | Not started |
 
 ## Phase 2: first week (by Nov 7)
@@ -33,6 +33,7 @@ Reminders outside the app (calendar file or push; needs a decision), quantitativ
 
 | Date | Change | Why | Record |
 | --- | --- | --- | --- |
+| 2026-11-01 | All 1,500 entries written for launch (plan was 600), validated per batch without sample reviews | Owner request | [0026](../decisions/0026-write-all-1500-entries-before-launch.md) |
 | 2026-11-01 | Vocab screens (step 8) built with 100 entries, before the other 500 | Owner request: closer to an MVP | [0024](../decisions/0024-vocab-screens-before-all-600-words.md) |
 | 2026-11-01 | Flashcards marked by swiping; practice types can be mixed; card count is a 25–400 dial | Owner review on staging | [0025](../decisions/0025-swipe-flashcards-and-mixed-practice.md) |
 | 2026-11-01 | Drill length became a 5–40 dial (was 10/20/30) | Owner request, Nov 1 | [0022](../decisions/0022-question-count-dial.md) |
