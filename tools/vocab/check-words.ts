@@ -49,7 +49,8 @@ export function checkWords(words: readonly Word[], ranked: readonly RankedRef[])
       else {
         // Checked once the confusable has its own entry; by the last batch every one does.
         const other = byId.get(c);
-        if (other && other.pos !== w.pos) fail(w.id, `confusable "${c}" is a ${other.pos}, not a ${w.pos}`);
+        // Adverbs are exempt: the deck has only three, too few to fill three look-alikes each.
+        if (other && other.pos !== w.pos && w.pos !== 'adverb') fail(w.id, `confusable "${c}" is a ${other.pos}, not a ${w.pos}`);
         // A look-alike that lists this word as its synonym would be a second right answer.
         if (other?.synonyms.some((s) => s.toLowerCase() === w.id)) fail(w.id, `confusable "${c}" lists "${w.id}" as a synonym`);
       }

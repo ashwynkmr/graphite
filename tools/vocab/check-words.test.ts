@@ -68,6 +68,12 @@ describe('checkWords', () => {
     expect(errs).toContain('enervate: confusable "venerate" is a adjective, not a verb');
   });
 
+  it('lets an adverb borrow look-alikes from other parts of speech', () => {
+    const adverb: Word = { ...enervate, pos: 'adverb', confusables: ['venerate', 'exacerbate', 'mitigate'] };
+    const venerate: Word = { ...enervate, id: 'venerate', word: 'venerate', pos: 'adjective', rank: 2, meaning: 'to respect deeply', example: 'They venerate her.', exampleForm: 'venerate', confusables: ['lucid', 'opaque', 'mitigate'] };
+    expect(checkWords([adverb, venerate], ranked).filter((e) => e.includes(' is a '))).toEqual([]);
+  });
+
   it('rejects a confusable that lists the word as its synonym', () => {
     const venerate: Word = { ...enervate, id: 'venerate', word: 'venerate', rank: 2, meaning: 'to respect deeply', example: 'They venerate her.', exampleForm: 'venerate', synonyms: ['revere', 'enervate'], confusables: ['lucid', 'opaque', 'mitigate'] };
     expect(checkWords([enervate, venerate], ranked)).toContain('enervate: confusable "venerate" lists "enervate" as a synonym');
