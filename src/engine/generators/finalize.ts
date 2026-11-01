@@ -2,7 +2,7 @@
 // fixes the answer string, and builds five choices from named mistakes plus near values.
 
 import { R, Rational, type Rounding } from '../matching/rational';
-import { mulberry32 } from '../rng';
+import { mulberry32, type Rng } from '../rng';
 import type { Difficulty, Draft, GeneratedQuestion, Template } from './types';
 
 export const BASE_TARGET_SEC: Record<Difficulty, number> = { 1: 35, 2: 50, 3: 70 };
@@ -31,6 +31,11 @@ export function finalize(template: Template, d: Difficulty, seed: number): Final
   const rng = mulberry32(seed);
   const draft = template.generate(rng, d);
   if (!draft) return { ok: false, reason: 'template-null' };
+  return finishDraft(draft, template, d, rng);
+}
+
+/** The shared last stretch, for template draws and hand-written problems alike. */
+export function finishDraft(draft: Draft, origin: Pick<Template, 'topic' | 'kind'>, d: Difficulty, rng: Rng): FinalizeResult {
   if (!draft.prompt || !draft.explain) return { ok: false, reason: 'bad-draft' };
 
   const format = draft.format ?? 'number';
@@ -54,13 +59,13 @@ export function finalize(template: Template, d: Difficulty, seed: number): Final
   }
 
   const question: GeneratedQuestion = {
-    topic: template.topic,
+    topic: origin.topic,
     difficulty: d,
-    kind: template.kind,
+    kind: origin.kind,
     prompt: draft.prompt,
     answer,
     format,
-    targetSec: draft.targetSec ?? BASE_TARGET_SEC[d] + (template.kind === 'word' ? WORD_EXTRA_SEC : 0),
+    targetSec: draft.targetSec ?? BASE_TARGET_SEC[d] + (origin.kind === 'word' ? WORD_EXTRA_SEC : 0),
     explain: draft.explain,
   };
   if (draft.rounding) question.rounding = draft.rounding;

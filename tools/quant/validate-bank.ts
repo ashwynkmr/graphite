@@ -6,10 +6,11 @@
 //  - at least 70% of questions carry choices (so Mix mode has enough MCQs)
 import { QuestionBankSchema, type Question } from '../../src/content/schema';
 import { finalize } from '../../src/engine/generators/finalize';
+import { buildHandwritten, problemIssues } from '../../src/engine/generators/handwritten';
 import { TEMPLATE_BY_ID } from '../../src/engine/generators/index';
 import { DIFFICULTIES, TOPICS } from '../../src/engine/generators/types';
 import { Rational } from '../../src/engine/matching/rational';
-import { MIN_PER_PAIR, readBank } from './bank-io';
+import { DIFF_LETTER, MIN_PER_PAIR, readBank, readHandwritten } from './bank-io';
 
 const errors: string[] = [];
 
@@ -22,6 +23,21 @@ function stable(x: unknown): string {
   );
 }
 const fail = (id: string, msg: string) => errors.push(`${id}: ${msg}`);
+
+const handwritten = readHandwritten();
+const handwrittenById = new Map(handwritten.map((p) => [p.id, p]));
+const bankIds = new Set((readBank() as { id: string }[]).map((q) => q.id));
+if (handwrittenById.size !== handwritten.length) fail('handwritten', 'duplicate ids');
+const promptsSeen = new Set<string>();
+for (const p of handwritten) {
+  if (!bankIds.has(p.id)) fail(p.id, 'in handwritten.json but not in the bank (rebuild it, or it was rejected)');
+  if (promptsSeen.has(p.prompt)) fail(p.id, 'duplicate prompt');
+  promptsSeen.add(p.prompt);
+  if (!p.id.startsWith(`hw-${p.topic}-${DIFF_LETTER[p.difficulty]}-`)) fail(p.id, 'id does not match topic and difficulty');
+  for (const issue of problemIssues(p)) fail(p.id, issue);
+  const res = buildHandwritten(p);
+  if (res.ok && !res.question.choices) fail(p.id, 'has no multiple-choice options');
+}
 
 const parsed = QuestionBankSchema.safeParse(readBank());
 if (!parsed.success) {
@@ -74,7 +90,17 @@ for (const q of bank) {
       }
     }
   } else {
-    fail(q.id, 'hand-written questions are not supported yet (step 10)');
+    const problem = handwrittenById.get(q.id);
+    if (!problem) {
+      fail(q.id, 'no matching entry in handwritten.json');
+    } else {
+      const res = buildHandwritten(problem);
+      if (!res.ok) fail(q.id, `problem no longer builds (${res.reason})`);
+      else {
+        const { id: _id, source: _source, ...stored } = q;
+        if (stable(res.question) !== stable(stored) || q.source.calc !== problem.calc) fail(q.id, 'differs from handwritten.json (rebuild the bank)');
+      }
+    }
   }
 
   // Choices

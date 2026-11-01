@@ -2,11 +2,13 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { Question } from '../../src/content/schema';
+import type { HandwrittenProblem } from '../../src/engine/generators/handwritten';
 import type { Difficulty, Topic } from '../../src/engine/generators/types';
 
 export const BANK_PATH = resolve(import.meta.dirname, '../../content/questions.json');
+export const HANDWRITTEN_PATH = resolve(import.meta.dirname, '../../content/handwritten.json');
 
-/** Generated questions per topic and difficulty (about 1,200 in all; hand-written problems come later). */
+/** Generated questions per topic and difficulty (about 1,200 in all; hand-written problems add to these). */
 export const QUOTA: Record<Topic, number> = {
   arithmetic: 45,
   fractions: 45,
@@ -23,6 +25,10 @@ export const QUOTA: Record<Topic, number> = {
 export const MIN_PER_PAIR = 40;
 
 export const DIFF_LETTER: Record<Difficulty, string> = { 1: 'e', 2: 'm', 3: 'h' };
+
+export function readHandwritten(): HandwrittenProblem[] {
+  return JSON.parse(readFileSync(HANDWRITTEN_PATH, 'utf8')) as HandwrittenProblem[];
+}
 
 export function readBank(): unknown {
   return JSON.parse(readFileSync(BANK_PATH, 'utf8'));

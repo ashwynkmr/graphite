@@ -3,9 +3,10 @@
 // quota; seeds 1, 2, 3… are drawn until the share is met. Near-duplicates are dropped.
 import type { Question } from '../../src/content/schema';
 import { finalize } from '../../src/engine/generators/finalize';
+import { buildHandwritten } from '../../src/engine/generators/handwritten';
 import { TEMPLATES } from '../../src/engine/generators/index';
 import { DIFFICULTIES, TOPICS } from '../../src/engine/generators/types';
-import { DIFF_LETTER, QUOTA, writeBank } from './bank-io';
+import { DIFF_LETTER, QUOTA, readHandwritten, writeBank } from './bank-io';
 
 const MAX_SEED = 20_000;
 
@@ -52,6 +53,16 @@ for (const topic of TOPICS) {
       if (made < share) shortfalls.push(`${template.id} d${d}: ${made}/${share}`);
     });
   }
+}
+
+// Hand-written problems, each worked out from its formula.
+for (const problem of readHandwritten()) {
+  const res = buildHandwritten(problem);
+  if (!res.ok) {
+    shortfalls.push(`${problem.id}: ${res.reason}`);
+    continue;
+  }
+  bank.push({ id: problem.id, ...res.question, source: { type: 'handwritten', calc: problem.calc } });
 }
 
 bank.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
