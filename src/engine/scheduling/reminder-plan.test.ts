@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { planWakeTimes, type PlanInput } from './reminder-plan';
+import { mergePlan, MAX_PLANNED, noteIndex, planNoteTimes, planWakeTimes, quietFor, SESSION_QUIET_MS, wakeKind, type PlanInput } from './reminder-plan';
 
 const local = (d: number, h: number, m = 0) => new Date(2026, 10, d, h, m).getTime();
 const base: PlanInput = { now: local(10, 9), reminderTime: '19:00', examDay: '2026-11-24', lastStudiedDay: '2026-11-09', streak: 0, hasPausedSession: false };
@@ -93,5 +93,74 @@ describe('planWakeTimes', () => {
     const times = plan({ streak: 3, hasPausedSession: true });
     expect([...times].sort((a, b) => a - b)).toEqual(times);
     expect(times.every((t) => t > base.now)).toBe(true);
+  });
+});
+
+describe('personal notes', () => {
+  const none = { notes: [], asks: [] };
+
+  it('fall every 2 hours through the waking day, ending with the question', () => {
+    const { notes, asks } = planNoteTimes(local(10, 8));
+    expect(on(notes, 10)).toEqual([9, 11, 13, 15, 17, 19].map((h) => local(10, h)));
+    expect(on(asks, 10)).toEqual([local(10, 21)]);
+  });
+
+  it('skip times already past', () => {
+    const { notes, asks } = planNoteTimes(local(10, 20));
+    expect(on(notes, 10)).toEqual([]);
+    expect(on(asks, 10)).toEqual([local(10, 21)]);
+  });
+
+  it('in a review build, keep the same slots when re-planned', () => {
+    const every = 60_000;
+    const first = planNoteTimes(9 * every, every);
+    const second = planNoteTimes(10 * every, every);
+    expect(first.asks).toContain(12 * every);
+    expect(second.asks).toContain(12 * every);
+    expect(second.notes).toContain(11 * every);
+  });
+
+  it('come regardless of study, unless one would land on a study reminder', () => {
+    const plan = mergePlan([local(10, 19, 10)], { notes: [local(10, 17), local(10, 19)], asks: [local(10, 21)] }, true);
+    expect(plan).toEqual([
+      { at: local(10, 17), kind: 'note' },
+      { at: local(10, 19, 10), kind: 'study' },
+      { at: local(10, 21), kind: 'ask' },
+    ]);
+  });
+
+  it('stop after a no, leaving only the one nightly question', () => {
+    const plan = mergePlan([], planNoteTimes(local(10, 8)), false);
+    expect(plan.every((w) => w.kind === 'ask')).toBe(true);
+    expect(on(plan.map((w) => w.at), 10)).toEqual([local(10, 21)]);
+    expect(on(plan.map((w) => w.at), 11)).toEqual([local(11, 21)]);
+  });
+
+  it('keep the plan within what the service accepts, soonest first', () => {
+    const plan = mergePlan([], planNoteTimes(local(10, 8)), true);
+    expect(plan).toHaveLength(MAX_PLANNED);
+    expect(plan[0]!.at).toBe(local(10, 9));
+  });
+
+  it('identifies what a wake-up was for, even if delayed', () => {
+    const plan = mergePlan([local(10, 19, 10)], { ...none, notes: [local(10, 17)], asks: [local(10, 21)] }, true);
+    expect(wakeKind(plan, local(10, 17))).toBe('note');
+    expect(wakeKind(plan, local(10, 17, 20))).toBe('note');
+    expect(wakeKind(plan, local(10, 19, 12))).toBe('study');
+    expect(wakeKind(plan, local(10, 21))).toBe('ask');
+    expect(wakeKind(plan, local(10, 12))).toBe('study');
+    expect(wakeKind([], local(10, 12))).toBe('study');
+  });
+
+  it('hold everything back while a session is on screen', () => {
+    const plan = mergePlan([local(10, 9, 15)], { notes: [local(10, 11)], asks: [] }, true);
+    expect(quietFor(plan, local(10, 9), SESSION_QUIET_MS)).toEqual([{ at: local(10, 11), kind: 'note' }]);
+  });
+
+  it('show every note once before any repeats', () => {
+    const shown = Array.from({ length: 100 }, (_, i) => noteIndex(i, 100));
+    expect(new Set(shown).size).toBe(100);
+    expect(noteIndex(100, 100)).toBeGreaterThanOrEqual(0);
+    expect(Array.from({ length: 100 }, (_, i) => noteIndex(i + 100, 100))).not.toEqual(shown);
   });
 });

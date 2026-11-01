@@ -1,7 +1,7 @@
 import { useEffect, type ReactNode } from 'react';
 import { HashRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Layout } from './Layout';
-import { syncReminder } from './reminders';
+import { setInSession, syncReminder } from './reminders';
 import { UpdateScreen } from './UpdateScreen';
 import { useUpdatePrompt } from './useUpdatePrompt';
 import { HomeScreen } from '../features/home/HomeScreen';
@@ -15,6 +15,7 @@ import { MistakesScreen } from '../features/mistakes/MistakesScreen';
 import { ProgressScreen } from '../features/progress/ProgressScreen';
 import { SettingsScreen } from '../features/settings/SettingsScreen';
 import { OnboardingScreen } from '../features/onboarding/OnboardingScreen';
+import { NotesCheckScreen } from '../features/personal/NotesCheckScreen';
 import { ProfileProvider, useProfile } from '../features/personal/ProfileContext';
 
 function Routed() {
@@ -32,6 +33,7 @@ function Routed() {
         <Route path="settings" element={<SettingsScreen />} />
       </Route>
       {/* Full-screen: no tab bar */}
+      <Route path="notes-check" element={<NotesCheckScreen />} />
       <Route path="quant/session/:id" element={<DrillScreen />} />
       <Route path="results/:id" element={<ResultsScreen />} />
       <Route path="vocab/session/:id" element={<VocabSessionScreen />} />
@@ -41,12 +43,20 @@ function Routed() {
   );
 }
 
+const SESSION_RENEW_MS = 10 * 60 * 1000;
+
 /** Finishing or leaving a session changes what's worth a reminder, so each move between screens replans. */
 function ReminderSync() {
   const { pathname } = useLocation();
+  const inSession = pathname.includes('/session/');
   useEffect(() => {
+    setInSession(inSession);
     void syncReminder();
-  }, [pathname]);
+    if (!inSession) return;
+    // A long session outlasts one quiet window, so it keeps asking for more.
+    const timer = setInterval(() => void syncReminder(), SESSION_RENEW_MS);
+    return () => clearInterval(timer);
+  }, [pathname, inSession]);
   return null;
 }
 

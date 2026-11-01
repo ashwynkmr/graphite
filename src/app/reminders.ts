@@ -1,7 +1,7 @@
 // Reminders, and the app's only runtime network call. Opt-in. The phone decides when to be woken,
 // from how the user is studying, and tells the server only those times (0037). Studying never depends on it.
-import { getReminderTime, setReminderTime } from '../data/repo/meta';
-import { currentWakeTimes } from '../data/repo/reminder-plan';
+import { getReminderTime, setNotesOn, setReminderTime } from '../data/repo/meta';
+import { currentWakeTimes, notesForProfile } from '../data/repo/reminder-plan';
 import { deleteSubscription, pushServerConfigured, sendPlan } from './push-api';
 
 const PUBLIC_KEY = import.meta.env.VITE_PUSH_PUBLIC_KEY as string | undefined;
@@ -83,13 +83,19 @@ export async function turnOffReminder(): Promise<void> {
 }
 
 let lastSent = '';
+let inSession = false;
+
+/** Told by the screen, so nothing is planned to arrive during a session. */
+export function setInSession(active: boolean): void {
+  inSession = active;
+}
 
 /** Sends a new plan if studying has changed it. Silent, and does nothing unless reminders are on. */
 export async function syncReminder(keepalive = false): Promise<void> {
   try {
     const subscription = await currentSubscription();
     if (!subscription) return;
-    const wakeTimes = await currentWakeTimes();
+    const wakeTimes = await currentWakeTimes(inSession);
     const key = JSON.stringify([subscription.endpoint, wakeTimes]);
     if (key === lastSent) return;
     if (await sendPlan(subscription, wakeTimes, keepalive)) lastSent = key;
@@ -98,10 +104,28 @@ export async function syncReminder(keepalive = false): Promise<void> {
   }
 }
 
+export async function noteState(): Promise<{ eligible: boolean }> {
+  return { eligible: (await notesForProfile()) !== null };
+}
+
+export async function changeNotes(on: boolean): Promise<void> {
+  await setNotesOn(on);
+  await syncReminder();
+}
+
 /** Leaving the app is the moment a session gets paused or a plan goes stale. */
 export function watchForReplan(): void {
   void syncReminder();
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') void syncReminder(true);
+    // A hidden session is a paused one, so its quiet ends. Coming back restores it.
+    if (document.visibilityState === 'hidden') {
+      const was = inSession;
+      inSession = false;
+      void syncReminder(true).finally(() => {
+        inSession = was;
+      });
+    } else {
+      void syncReminder();
+    }
   });
 }

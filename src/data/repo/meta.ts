@@ -1,5 +1,6 @@
 // Settings, profile and bookkeeping, stored as key/value rows in `meta`.
 import { DEFAULT_EXAM_DAY, type Day } from '../../engine/dates';
+import type { PlannedWake } from '../../engine/scheduling/reminder-plan';
 import { choosableModes } from '../../engine/sessions/vocab-builder';
 import type { Difficulty } from '../../engine/generators/types';
 import { db, type GraphiteDB, type QuantSettings, type VocabSettings } from '../db';
@@ -94,6 +95,30 @@ export async function getReminderTime(d: GraphiteDB = db): Promise<string> {
 
 export async function setReminderTime(time: string, d: GraphiteDB = db): Promise<void> {
   await put('reminderTime', time, d);
+}
+
+/** Whether a user the personal notes open for wants them. On by default; theirs to turn off. */
+export async function getNotesOn(d: GraphiteDB = db): Promise<boolean> {
+  return get<boolean>('notesOn', true, d);
+}
+
+export async function setNotesOn(on: boolean, d: GraphiteDB = db): Promise<void> {
+  await put('notesOn', on, d);
+}
+
+/** How many personal notes have been shown, so none repeats until all have appeared. */
+export async function nextNoteCount(d: GraphiteDB = db): Promise<number> {
+  const count = await get<number>('noteCount', 0, d);
+  await put('noteCount', count + 1, d);
+  return count;
+}
+
+export async function getReminderPlan(d: GraphiteDB = db): Promise<PlannedWake[]> {
+  return get<PlannedWake[]>('reminderPlan', [], d);
+}
+
+export async function setReminderPlan(plan: PlannedWake[], d: GraphiteDB = db): Promise<void> {
+  await put('reminderPlan', plan, d);
 }
 
 /** Reminders shown lately, and the paused session that has had its one nudge. Stays on the device. */

@@ -2,6 +2,7 @@
 // server only ever receives the resulting times (0037). A new plan replaces the old one each time
 // the app is used, so these rules describe what happens if the user does nothing further.
 import { addDays, daysBetween, toDay, type Day } from '../dates';
+import { mulberry32 } from '../rng';
 
 /** How far ahead a plan reaches. Each wake-up makes a new plan, so this only limits a dead phone. */
 export const PLAN_DAYS = 7;
@@ -87,4 +88,75 @@ export function planWakeTimes(input: PlanInput): number[] {
     kept.push(when);
   }
   return kept.sort((a, b) => a - b);
+}
+
+/** Personal notes (0041): every 2 hours through the waking day, whatever the user has studied. */
+export const NOTE_TIMES = ['09:00', '11:00', '13:00', '15:00', '17:00', '19:00', '21:00'];
+/** A note this near a study reminder would arrive on top of it, so the study reminder wins. */
+const NOTE_CLEAR_MS = 30 * 60 * 1000;
+/** The most wake-ups the reminder service accepts at once. Each wake-up makes a new plan. */
+export const MAX_PLANNED = 32;
+
+export interface PlannedWake {
+  at: number;
+  /** A study reminder, a personal note, or the nightly question about the notes. */
+  kind: 'study' | 'note' | 'ask';
+}
+
+/** While a session is on screen, nothing is planned this soon. Re-planned well before it runs out. */
+export const SESSION_QUIET_MS = 20 * 60 * 1000;
+
+interface NotePlan {
+  notes: number[];
+  asks: number[];
+}
+
+/** The day's last slot asks whether the notes are still welcome; the others are notes. */
+export function planNoteTimes(now: number, everyMs?: number): NotePlan {
+  const plan: NotePlan = { notes: [], asks: [] };
+  // A review build compresses the day, with every third wake-up as the question.
+  if (everyMs) {
+    // On a fixed grid, so re-planning after a wake-up doesn't restart the count.
+    const slot = Math.floor(now / everyMs);
+    for (let i = 1; i <= 9; i++) ((slot + i) % 3 === 0 ? plan.asks : plan.notes).push((slot + i) * everyMs);
+    return plan;
+  }
+  const today = toDay(new Date(now));
+  for (let i = 0; i < PLAN_DAYS; i++) {
+    NOTE_TIMES.forEach((time, slot) => {
+      const when = at(addDays(today, i), time);
+      if (when > now) (slot === NOTE_TIMES.length - 1 ? plan.asks : plan.notes).push(when);
+    });
+  }
+  return plan;
+}
+
+export function mergePlan(study: readonly number[], { notes, asks }: NotePlan, notesWanted: boolean): PlannedWake[] {
+  const clear = notesWanted ? notes.filter((n) => !study.some((s) => Math.abs(s - n) < NOTE_CLEAR_MS)) : [];
+  return [...study.map((at) => ({ at, kind: 'study' as const })), ...clear.map((at) => ({ at, kind: 'note' as const })), ...asks.map((at) => ({ at, kind: 'ask' as const }))]
+    .sort((a, b) => a.at - b.at)
+    .slice(0, MAX_PLANNED);
+}
+
+/** Holds everything back for now, so nothing arrives mid-session. */
+export function quietFor(plan: readonly PlannedWake[], now: number, ms: number): PlannedWake[] {
+  return plan.filter((wake) => wake.at > now + ms);
+}
+
+/** What the wake-up arriving now was planned for. A delayed push still matches; anything unknown counts as study. */
+export function wakeKind(plan: readonly PlannedWake[], now: number): PlannedWake['kind'] {
+  const LATE_MS = 35 * 60 * 1000;
+  const EARLY_MS = 60 * 1000;
+  let best: PlannedWake | null = null;
+  for (const wake of plan) {
+    if (wake.at <= now + EARLY_MS && now - wake.at <= LATE_MS && (!best || wake.at > best.at)) best = wake;
+  }
+  return best?.kind ?? 'study';
+}
+
+/** Which note to show for the nth time: every note once, in a fresh order, before any repeats. */
+export function noteIndex(count: number, total: number): number {
+  const round = Math.floor(count / total);
+  const order = mulberry32(round + 1).shuffle(Array.from({ length: total }, (_, i) => i));
+  return order[count % total]!;
 }
