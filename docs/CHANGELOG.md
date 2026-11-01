@@ -4,16 +4,24 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-01 · Milestone B: vocab live
+
 ### Added
 - Vocab practice with all 1,500 GRE words, each with an original meaning, example sentence, synonyms and look-alike words.
 - Choose Today (due plus new words), New or Starred, and 25 to 400 cards on a dial.
-- Mix practice types in one session: flashcards, multiple choice, fill the blank and type-in.
+- Mix practice types in one session: flashcards, multiple choice, fill the blank and Sentence Equivalence.
+- Sentence Equivalence: pick the two of six words that give a sentence the same meaning, from 661 hand-checked pairs.
 - Flashcards: tap to flip, then swipe right (Know it), left (Review) or up (Unsure), or tap the round marks; star a word from the card's corner.
 - Vocab results with a score for quiz cards, a tally of flashcard marks, and words grouped as Missed, Unsure and Got right; words come back on a Leitner schedule.
 - Redo the missed words as flashcards from the results screen, round after round, until every word is right.
 
 ### Changed
 - Quant setup: choose the number of questions on a swipe dial, from 5 to 40 in steps of 5 (was 10, 20 or 30).
+- New versions now show a full-screen update page instead of a small bar. It waits until any active session ends or is paused.
+- Ending a session or drill early now asks on the page, and End moved to the top right in vocab sessions.
+
+### Removed
+- Type-in practice. Sessions started before this release still open.
 
 ## [0.1.0] - 2026-10-31 · Milestone A: quant drills live
 

@@ -1,6 +1,6 @@
 # Graphite — Product Requirements (PRD)
 
-Nov 1, 2026 · @Ashwyn · Draft v0.6 (v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
+Nov 1, 2026 · @Ashwyn · Draft v0.7 (v0.7: Type-in removed, Sentence Equivalence added, [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md); v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
 
 > Living document. Scope changes are recorded in the [decision log](../decisions/README.md) and [ROADMAP](ROADMAP.md); this file is updated to match and the version above bumped.
 
@@ -13,7 +13,7 @@ Graphite is a free, installable web app for two jobs: fast mental-math drills an
 **Goals**
 
 - Build mental calculation speed and accuracy with timed, scored drills.
-- Learn the 1,500 most frequent GRE words through flashcards, multiple choice and type-in practice.
+- Learn the 1,500 most frequent GRE words through flashcards, multiple choice, fill the blank and Sentence Equivalence practice.
 - Feel fresh for 3+ weeks of daily use: 1,500+ quant questions with no obvious repeats, ready before Nov 24.
 - Cost $0 to build, host and share.
 
@@ -52,7 +52,7 @@ Each story is written from the learner's side and tagged with its release phase.
 | US-04 | Answer by typing or by picking from five options | Keypad accepts digits, decimal point, minus and fraction slash; equivalent forms marked correct; MCQ shows A–E | 1 |
 | US-05 | See my score and analysis only when the session ends | No right/wrong shown mid-session; results show score, accuracy, time, topic and difficulty breakdown, slow/careless flags, per-question review with explanation | 1 |
 | US-06 | Retry only what I got wrong | Retry wrong ones starts a new session with exactly the wrong and skipped questions | 1 |
-| US-07 | Learn 200 new words a day in the mode I choose | Vocab setup offers Flashcards, Multiple choice, Type-in; daily new-word cap defaults to 200 | 1 |
+| US-07 | Learn 200 new words a day in the mode I choose | Vocab setup offers Flashcards, Choices, Fill the blank, Sentence equivalence; daily new-word cap defaults to 200 | 1 |
 | US-08 | Mark words I struggle with so they come back | Know it / Unsure / Review on flashcards; star any word; due words surface by Leitner schedule | 1 |
 | US-09 | Have every mistake collected in one place | Wrong quant answers and missed words appear in the mistake log automatically; Drill my mistakes builds a session from it; an item leaves after 2 correct answers in a row | 1 |
 | US-10 | Know how many days are left and what to do today | Home shows days to Nov 24 and today's plan (due words, new words, quant target) with progress | 1 |
@@ -72,11 +72,11 @@ Phase 1 ships everything needed to study from day one, including the mistake log
 | Area | Phase 1: launch (target Nov 1–2) | Phase 2: first week (by Nov 7) | Phase 3: later (optional) |
 | --- | --- | --- | --- |
 | Quant drills | All 9 topics, 3 difficulty levels, typed / MCQ / Mix answers, per-set and untimed timers, results screen, retry wrong ones | Sprint mode, Adaptive difficulty, more templates for weak topics | Quantitative comparison and data-interpretation style questions |
-| Vocab | Flashcard, MCQ and type-in modes, Leitner boxes, star, due/new/starred decks, 200 new words a day, first 600 words | All 1,500 words, Round 2, Browse and search, mnemonics for the hardest \~200 words | Audio pronunciation, verbal question types |
+| Vocab | Flashcard, MCQ, fill-the-blank and Sentence Equivalence modes, Leitner boxes, star, due/new/starred decks, 200 new words a day, first 600 words | All 1,500 words, Round 2, Browse and search, mnemonics for the hardest \~200 words | Audio pronunciation, verbal question types |
 | Mistake log | Auto-collect wrong quant and missed words, Drill my mistakes, auto-clear after 2 correct | Filter by topic and age | — |
 | Home and progress | Exam countdown, today's plan, streak, simple totals, today card, last session, one suggested drill | Full dashboard: 14-day trends, weakest topics, words per box; in-app study nudges; personal note for the second user | Score predictor; reminders outside the app (needs a decision) |
 | Share | Share a session result (image card + text) | Share 7- or 14-day history | Compare with a friend (needs a free backend) |
-| Settings and data | Daily goals, exam date, timer and answer-mode defaults, theme, export/import, reset progress or everything | Type-in hint toggle, per-topic defaults | — |
+| Settings and data | Daily goals, exam date, timer and answer-mode defaults, theme, export/import, reset progress or everything | Per-topic defaults | — |
 | Platforms | Web app + installable app on iPhone, Android and desktop (PWA), offline | Install prompt and app icon polish | Android APK (free, sideloaded); iOS App Store not planned ($99/yr) |
 
 ### Screens and navigation
@@ -150,7 +150,7 @@ The GRE rewards smart guessing, so drills train both exact calculation and elimi
 
 ## Feature 2: Vocab flashcards
 
-The deck holds the 1,500 most frequent GRE words. Each word has a meaning and one example sentence, and the user picks how to practice it: flashcards, multiple choice or type-in.
+The deck holds the 1,500 most frequent GRE words. Each word has a meaning and one example sentence, and the user picks how to practice it: flashcards, multiple choice, fill the blank or Sentence Equivalence.
 
 **Card contents**
 
@@ -170,14 +170,14 @@ The deck holds the 1,500 most frequent GRE words. Each word has a meaning and on
 - Three question types, mixed: pick the meaning of a word, pick the word for a meaning, or pick the word that fills the blank in its example sentence.
 - Five options. Wrong options are other GRE words of the same part of speech, often near-synonyms or look-alikes, so guessing has to be smart.
 
-**Type-in mode**
+**Sentence Equivalence mode** *(v0.7, replaces Type-in)*
 
-- The user sees the meaning and the example sentence with the word blanked out, and types the word.
-- The first letter is shown as a hint unless the user turns hints off. An answer one letter off counts as correct but is flagged as a spelling slip.
+- One sentence with a blank and six words. The user picks the two that give the sentence the same meaning.
+- Only the exact pair scores, as on the exam. Words without a checked partner are asked another chosen way.
 
 **Session results**
 
-- Same rule as quant: no right/wrong during multiple-choice or type-in sessions. Results come at the end: score, time, words missed, and a Share button.
+- Same rule as quant: no right/wrong during quiz cards. Results come at the end: score, time, words missed, and a Share button.
 - A wrong answer in any mode sends the word back to box 1 and into the mistake log.
 
 **Mark for review and spaced repetition**
@@ -241,7 +241,7 @@ Progress stays private on the device, but the user can choose to share it.
 
 **Settings**
 
-- Daily goals (new words, quant questions), exam date, default timer per question, default answer mode, type-in hints on/off, light/dark theme.
+- Daily goals (new words, quant questions), exam date, default timer per question, default answer mode, light/dark theme.
 - **Export / import progress** as a JSON file. Since there is no login, this is the backup and the way to move progress from phone to laptop.
 - Reset progress. A reminder to export appears every 3 days.
 - *(v0.6)* **Reset**, two levels, at the bottom of Settings:
@@ -413,7 +413,7 @@ The app succeeds if, by the exam on Nov 24, both users are faster and more accur
 | Quant accuracy (Medium) | 90% or higher |
 | Average time per question (Medium) | Down 30% from week 1 |
 | Words in Known or Retired boxes | 1,200 of 1,500 |
-| Vocab multiple-choice and type-in accuracy | 85% or higher |
+| Vocab quiz-card accuracy | 85% or higher |
 | Repeat rate | No question seen twice in 7 days outside the mistake log |
 | Days used | 20 of the days between start and exam |
 | Answer-key errors reported | Fewer than 5 |
@@ -447,7 +447,7 @@ Decided on Oct 31. Phase 1 includes the mistake log and every core feature; the 
 | Answer input | Mix of typed and multiple choice, to train guessing as well as calculation |
 | Feedback timing | Results only at the end of a session, never after each question |
 | New words per day | 200; deck stops at the 1,500 most frequent words, then offers Round 2 |
-| Vocab practice | User picks flashcards, multiple choice or type-in for each session |
+| Vocab practice | User picks any mix of flashcards, multiple choice, fill the blank and Sentence Equivalence for each session |
 | Comparing scores | No shared backend; progress stays private, and a Share button sends session stats or history |
 | Repo and URL | `Repo graphite at ashwynkmr.github.io/graphite` |
 | Look and feel | Minimal and elegant, with subtle study-desk design cues |

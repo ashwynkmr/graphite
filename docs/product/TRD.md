@@ -247,7 +247,7 @@ All of this lives in `src/engine/` as pure functions with no React or storage im
 4. Rounding rule: round the answer to the stated place, then require an exact match with the input (so 3.46 is wrong when the nearest tenth, 3.5, is asked).
 5. Blank input = skipped.
 
-**Type-in word matching (`word-answer.ts`)**
+**Type-in word matching (`word-answer.ts`)** *(Type-in can't be chosen now; kept for sessions saved before [0028](../decisions/0028-remove-type-in-practice.md))*
 
 - Normalize: lowercase, trim, collapse inner spaces.
 - Exact match to the headword, `exampleForm` or any variant = correct.
@@ -265,8 +265,8 @@ All of this lives in `src/engine/` as pure functions with no React or storage im
 | 4 | Solid | +7 days |
 | 5 | Retired | Only in later rounds |
 
-- Flashcard Know it, or a correct MCQ/type-in answer: box + 1. A spelling slip counts as correct.
-- Review, or a wrong MCQ/type-in answer: box 1.
+- Flashcard Know it, or a correct quiz answer: box + 1. A spelling slip counts as correct.
+- Review, or a wrong quiz answer: box 1.
 - Unsure: box stays the same, due tomorrow.
 
 **Quant session builder (`quant-builder.ts`)**
@@ -324,7 +324,7 @@ One engine (`session-machine.ts`) runs both quant and vocab sessions. It holds t
 The whole app, fonts and both content files are precached on the first visit, so every Phase 1 feature works with no network afterwards.
 
 - **Service worker:** vite-plugin-pwa in `generateSW` mode. Precache the app shell, fonts, icons, `questions.json` and `words.json` (content is imported as JSON modules so it is versioned with each build).
-- **Updates:** `registerType: 'prompt'`. When a new version is ready, a quiet "Update available · Reload" bar appears on every tab screen, never mid-session. *(Was Home only; widened after A3 testing, when a phone that opened straight to the Quant tab kept running an old build.)*
+- **Updates:** `registerType: 'prompt'`. When a new version is ready, a full-screen update page replaces the app, except during an active session, where it waits until the session ends or is paused ([0030](../decisions/0030-full-screen-update-page.md)).
 - **Manifest:** name "Graphite", `start_url` and `scope` `/graphite/`, `display: standalone`, theme and background colors from the paper palette, icons at 192, 512 and 512 maskable.
 - **iOS:** `apple-touch-icon` (180 px), `apple-mobile-web-app-capable`, status bar style, and safe-area padding for the notch and home bar.
 - **Install prompt:** on Android and desktop, capture `beforeinstallprompt` and show an Install button in Settings and once on Home. On iOS, show a one-time "Share → Add to Home Screen" hint.
@@ -353,7 +353,7 @@ Five tabs, one task per screen, built from a small set of shared components and 
 | `#/quant` | Quant setup | 1 |
 | `#/quant/session/:id` | Drill (full-screen, tab bar hidden) | 1 |
 | `#/vocab` | Vocab setup: mode, deck, length | 1 |
-| `#/vocab/session/:id` | Flashcard / MCQ / type-in session (full-screen) | 1 |
+| `#/vocab/session/:id` | Flashcard / MCQ / fill-the-blank / Sentence Equivalence session (full-screen) | 1 |
 | `#/results/:id` | Results for either session type, with Share | 1 |
 | `#/mistakes` | Mistake log and Drill my mistakes | 1 |
 | `#/progress` | Streak and totals (Phase 1); trends (Phase 2) | 1 |
@@ -425,7 +425,7 @@ Phase 1 is ten steps, each ending in a checkpoint you can see. Steps 3–4 and 7
 5. **Data layer.** Dexie schema, repos, export/import with round-trip test.
 6. **Quant flow.** Setup, Drill (Keypad, ChoiceList, SessionHeader), session engine, Results with breakdown, flags and review, Retry wrong. *Checkpoint: a full drill on your phone, including reload and resume.*
 7. **Vocab content.** Rank the words from the public lists, then write and validate entries for ranks 1–600. *Checkpoint: 600 words pass validation; 10% sample reviewed.*
-8. **Vocab flow.** Setup, Flashcard / MCQ / Type-in sessions, Results.
+8. **Vocab flow.** Setup, Flashcard / MCQ / fill-the-blank / Sentence Equivalence sessions, Results.
 9. **Home, Mistake log, Progress (basic), Settings, Share card.**
 10. **Launch pass.** Playwright smoke tests, offline test, install on iPhone and Android, manual checklist. *Checkpoint: Phase 1 live; send the link.*
 

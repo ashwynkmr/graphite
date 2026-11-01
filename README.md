@@ -8,7 +8,7 @@
 
 > **Try it:** open the link on your phone. On iPhone: Share → Add to Home Screen. On Android or desktop Chrome/Edge: Install app. No sign-up.
 >
-> *Status: **`v0.1.0` live (Oct 31, 2026): quant drills.** Vocab and the rest of Phase 1 are next. Screenshots come with the launch pass (Playwright captures them).*
+> *Status: **`v0.2.0` live (Nov 1, 2026): quant drills and all 1,500 vocab words.** The mistake log screen, progress and the rest of Phase 1 are next. Screenshots come with the launch pass (Playwright captures them).*
 
 ## The problem
 
@@ -31,7 +31,8 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | Practise under test conditions | No right/wrong feedback until the session ends; timed sets; the clock pauses when the phone locks | Live |
 | Learn from mistakes | Results review every question with a one-line shortcut; Retry wrong ones; misses are logged for "Drill my mistakes" | Live (mistake screen: Milestone C) |
 | Stay motivated for three weeks | Asks for your name once; greets you and cheers you on by name on Home and Results, never mid-drill | Live |
-| Learn 1,500 words in three weeks | Flashcards, multiple choice and type-in with Leitner spaced repetition, 200 new words a day | Milestone B |
+| Learn 1,500 words in three weeks | Swipe flashcards, multiple choice, fill the blank and Sentence Equivalence, mixed in any combination, with Leitner spaced repetition and 200 new words a day | Live |
+| Practise the exam's two-answer vocab question | Sentence Equivalence from 661 word pairs, each hand-checked in its sentence | Live |
 | Study anywhere | Installable app that works offline; progress stays on the device | Live |
 
 ## Key decisions and trade-offs
@@ -46,8 +47,9 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | Ship drills before all content is done | Nov 1 start date; the bank grows from ~1,200 to ~1,500 after launch | [0014](docs/decisions/0014-quant-drill-before-handwritten-problems.md) |
 | Approve every checkpoint on staging before anything is committed | Feedback lands before changes go public; costs a slower path to live | [0016](docs/decisions/0016-review-gate-staging-before-commit.md) |
 | Raise every difficulty one level, with Hard at the GRE's ceiling | The first sample's Easy questions weren't worth study time | [0017](docs/decisions/0017-difficulty-up-one-level.md) |
+| Hand-check Sentence Equivalence pairs instead of generating them | A listed synonym doesn't always fit a given sentence; the cost is 661 pairs rather than all 1,500 words | [0029](docs/decisions/0029-sentence-equivalence-hand-checked-pairs.md) |
 
-All 21 records: [docs/decisions](docs/decisions/README.md).
+All 30 records: [docs/decisions](docs/decisions/README.md).
 
 ## How the plan changed
 
@@ -62,6 +64,8 @@ All 21 records: [docs/decisions](docs/decisions/README.md).
 | Build, Oct 31 | Easy/Medium/Hard all moved up one level; a new Hard tier written for all 73 templates | [0017](docs/decisions/0017-difficulty-up-one-level.md) |
 | Build, Oct 31 | Name + optional cheer word → name only | [0019](docs/decisions/0019-personal-name-and-encouragement.md) → [0020](docs/decisions/0020-name-only-encouragement.md) |
 | Build, Oct 31 | Icon: geometric G → three options → hybrid → cursive pencil → serif g with fountain pen | [0021](docs/decisions/0021-app-icon-serif-g-with-pen.md) |
+| Build, Nov 1 | Launch with 600 words → all 1,500 written before launch | [0011](docs/decisions/0011-launch-with-600-words.md) → [0026](docs/decisions/0026-write-all-1500-entries-before-launch.md) |
+| Review, Nov 1 | Type-in removed; Sentence Equivalence added | [0028](docs/decisions/0028-remove-type-in-practice.md), [0029](docs/decisions/0029-sentence-equivalence-hand-checked-pairs.md) |
 
 ## Feedback that shaped the product
 

@@ -28,9 +28,12 @@ Every meaningful product or technical choice, with the options considered and wh
 | [0022](0022-question-count-dial.md) | Drill length is a swipe dial from 5 to 40 | 2026-11-01 | Accepted | Phase 1 | Product |
 | [0023](0023-word-ranking-core-and-broad-lists.md) | Rank words by agreement across focused GRE lists | 2026-11-01 | Accepted | Phase 1 | Content |
 | [0024](0024-vocab-screens-before-all-600-words.md) | Build the vocab screens with 100 words, before writing 600 | 2026-11-01 | Accepted | Phase 1 | Scope |
-| [0025](0025-swipe-flashcards-and-mixed-practice.md) | Flashcards are marked by swiping; practice types can be mixed | 2026-11-01 | Accepted | Phase 1 | Product |
+| [0025](0025-swipe-flashcards-and-mixed-practice.md) | Flashcards are marked by swiping; practice types can be mixed | 2026-11-01 | Accepted; Type-in superseded by 0028 | Phase 1 | Product |
 | [0026](0026-write-all-1500-entries-before-launch.md) | Write all 1,500 entries before launch, without sample reviews | 2026-11-01 | Accepted | Phase 1 | Content |
 | [0027](0027-fixed-session-size-missed-words-first.md) | Fixed session size, missed words first, and a redo round | 2026-11-01 | Accepted | Phase 1 | Product |
+| [0028](0028-remove-type-in-practice.md) | Remove Type-in from vocab practice | 2026-11-01 | Accepted | Phase 1 | Product |
+| [0029](0029-sentence-equivalence-hand-checked-pairs.md) | Sentence Equivalence from hand-checked word pairs | 2026-11-01 | Accepted | Phase 1 | Content |
+| [0030](0030-full-screen-update-page.md) | A full-screen update page, held during sessions | 2026-11-01 | Accepted | Phase 1 | Product |
 
 ## Template
 

@@ -4,18 +4,17 @@ Running log of what's built, what's live and known issues. Newest first.
 
 ## Live now
 
-`v0.1.0` (Milestone A) plus unreleased Milestone B work at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, type-in). Installable and offline. Mistakes, Progress and most of Settings are placeholders until Milestone C.
+`v0.2.0` (Milestone B) at https://ashwynkmr.github.io/graphite/: name prompt, Home with greeting, countdown and Quick drill; quant drills with topic and difficulty pickers; results with review and Retry wrong ones. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. Installable and offline. Mistakes, Progress and most of Settings are placeholders until Milestone C.
 
 ## Next up (handoff)
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** Milestone A shipped as `v0.1.0` (Oct 31). Study started Nov 1; exam Nov 24.
-- **Next step:** Checkpoint B2 on the full deck, then release `v0.2.0` (CHANGELOG, retro, tag, GitHub Release). All 1,500 entries are written ([0026](decisions/0026-write-all-1500-entries-before-launch.md)).
-- **Vocab screens (step 8) are built and approved** with ranks 1–100 ([0024](decisions/0024-vocab-screens-before-all-600-words.md), [0025](decisions/0025-swipe-flashcards-and-mixed-practice.md)).
-- **Also planned (PRD v0.6, Nov 1):** two-level reset and a fuller Home in step 9; study nudges and notes for the second user in Phase 2; reminders outside the app in Phase 3, needing a decision first.
-- **Then:** step 9 (Milestone C: mistake log screen, progress, two-level reset, fuller Home).
-- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-51). Next decision number: 0028.
+- **Where we are:** Milestone B shipped as `v0.2.0` (Nov 1). Study started Nov 1; exam Nov 24.
+- **Next step:** step 9 (Milestone C: mistake log screen, progress, two-level reset, fuller Home), on Ashwyn's go.
+- **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
+- **Also planned (PRD v0.6, Nov 1):** study nudges and notes for the second user in Phase 2; reminders outside the app in Phase 3, needing a decision first.
+- **How we work:** review gate ([0016](decisions/0016-review-gate-staging-before-commit.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise, ask 3–5 questions, and commit nothing until Ashwyn approves. Log feedback as FB-NN (last used: FB-60). Next decision number: 0031.
 - **Open items:** install/offline not yet verified on a real phone against the live site; README screenshots deferred to step 11; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -29,9 +28,15 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 5 | Quant flow + minimal Home | Done; A3 approved; `v0.1.0` | 2026-10-31 |
 | 6 | Ranked word list | Done; approved in chat | 2026-11-01 |
 | 7 | Word entries | Done: all 1,500 (plan was 600) | 2026-11-01 |
-| 8 | Vocab flow | Done; approved on staging | 2026-11-01 |
+| 8 | Vocab flow | Done; B2 approved; `v0.2.0` | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Checkpoint B2 and `v0.2.0`
+- Type-in removed ([0028](decisions/0028-remove-type-in-practice.md)); Sentence Equivalence added from 661 of 764 candidate pairs, each read in its sentence ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)); full-screen update page, held during sessions ([0030](decisions/0030-full-screen-update-page.md)). Feedback FB-52 to FB-60.
+- End session failed on Ashwyn's phone but not in desktop Chromium, so the exact cause wasn't confirmed. The button was below the fold and relied on `window.confirm`, which some in-app browsers refuse. It moved to the header and asks on the page, and Ashwyn confirmed it works.
+- An end-to-end run on the built app covered a real service-worker update, a session resume and a full Sentence Equivalence session. Testing also removed a giveaway pair (lucid/pellucid).
+- 541 tests green; offline download 1,483 KB.
 
 ### 2026-11-01: All 1,500 word entries
 - Ranks 101–1,500 written in batches of 100 after Ashwyn asked to skip sample reviews (FB-45, FB-47; [0026](decisions/0026-write-all-1500-entries-before-launch.md)). Every batch passed `validate-words.ts` before its commit.

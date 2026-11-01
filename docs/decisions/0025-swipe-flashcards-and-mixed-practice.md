@@ -1,5 +1,5 @@
 # 0025. Flashcards are marked by swiping; practice types can be mixed
-2026-11-01 · Accepted · Phase 1 · Product
+2026-11-01 · Accepted; Type-in superseded by [0028](0028-remove-type-in-practice.md) · Phase 1 · Product
 
 ## Context
 On staging, Ashwyn asked for Tinder/Quizlet-style marking: swipe right if you knew it, left if not, up if unsure, with a faded red cross or a green tick appearing as you swipe, and the star on the card itself. Also: the card's back should look different from its front, the session size should be a 25–400 dial, and practice types should be a multi-select so one session can mix, say, flashcards and fill-the-blank.

@@ -71,3 +71,12 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-49 | Vocab | Results: wrong answers first, then right | Grouped Missed, Unsure, Got right | Done | [0027](../decisions/0027-fixed-session-size-missed-words-first.md) |
 | FB-50 | Vocab | Redo the wrong words as flashcards until all are right | Redo button on results, repeats until none missed | Done | [0027](../decisions/0027-fixed-session-size-missed-words-first.md) |
 | FB-51 | Vocab | Shorter redo button text; then commit and push | "Redo these N words"; pushed | Done | |
+| FB-52 | Vocab | Remove Type-in | Removed from setup; old sessions still open | Done | [0028](../decisions/0028-remove-type-in-practice.md) |
+| FB-53 | Design | Update bar isn't noticeable; take the whole screen | Full-screen update page | Done | [0030](../decisions/0030-full-screen-update-page.md) |
+| FB-54 | Design | Don't interrupt a session with the update page | Held until the session ends or is paused | Done | [0030](../decisions/0030-full-screen-update-page.md) |
+| FB-55 | Design | Update page: say it won't take a second, make it fun | "We sharpened the pencil." | Done | [0030](../decisions/0030-full-screen-update-page.md) |
+| FB-56 | Vocab | Add Sentence Equivalence in the free Practice slot | New practice type; 661 hand-checked pairs | Done | [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md) |
+| FB-57 | Vocab | End session not working in Sentence Equivalence | End moved to the header; on-page confirm, also on End drill | Done | |
+| FB-58 | Design | Option marker should be a square, not a circle | Square markers on Sentence Equivalence | Done | |
+| FB-59 | Vocab | Full deck flow holds up on the phone | Answered yes | No change | |
+| FB-60 | Process | Fix confirmed on the phone; B2 approved | Logged and released as `v0.2.0` | Done | |
