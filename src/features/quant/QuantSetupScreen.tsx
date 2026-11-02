@@ -67,7 +67,7 @@ export function QuantSetupScreen() {
   return (
     <Screen title="Quant drills" eyebrow="Mental math">
       <div className={styles.form}>
-        <Field label="Topics" hint={s.topics === 'mixed' ? 'All nine' : `${picked.length} selected`}>
+        <Field label="Topics" hint={s.topics === 'mixed' ? `All ${TOPICS.length}` : `${picked.length} selected`}>
           <div className={styles.chips}>
             <Chip selected={s.topics === 'mixed'} onClick={() => set({ topics: 'mixed' })}>
               Mixed: give me anything

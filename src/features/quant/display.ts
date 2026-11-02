@@ -25,6 +25,11 @@ export const TOPIC_LABEL: Record<Topic, string> = {
   money: 'Money',
   exponents: 'Exponents',
   estimation: 'Estimation',
+  numbers: 'Number properties',
+  statistics: 'Statistics',
+  probability: 'Probability',
+  algebra: 'Algebra',
+  geometry: 'Geometry',
 };
 
 export const DIFFICULTY_LABEL: Record<1 | 2 | 3, string> = { 1: 'Easy', 2: 'Medium', 3: 'Hard' };

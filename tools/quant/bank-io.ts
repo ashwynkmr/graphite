@@ -8,7 +8,7 @@ import type { Difficulty, Topic } from '../../src/engine/generators/types';
 export const BANK_PATH = resolve(import.meta.dirname, '../../content/questions.json');
 export const HANDWRITTEN_PATH = resolve(import.meta.dirname, '../../content/handwritten.json');
 
-/** Generated questions per topic and difficulty (about 1,200 in all; hand-written problems add to these). */
+/** Generated questions per topic and difficulty (about 1,800 in all; hand-written problems add to these). */
 export const QUOTA: Record<Topic, number> = {
   arithmetic: 45,
   fractions: 45,
@@ -19,6 +19,11 @@ export const QUOTA: Record<Topic, number> = {
   money: 45,
   exponents: 40,
   estimation: 40,
+  numbers: 40,
+  statistics: 40,
+  probability: 40,
+  algebra: 40,
+  geometry: 40,
 };
 
 /** Validation floor per topic × difficulty pair. */

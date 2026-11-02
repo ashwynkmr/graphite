@@ -10,7 +10,12 @@ export type Topic =
   | 'rates'
   | 'money'
   | 'exponents'
-  | 'estimation';
+  | 'estimation'
+  | 'numbers'
+  | 'statistics'
+  | 'probability'
+  | 'algebra'
+  | 'geometry';
 
 export const TOPICS: Topic[] = [
   'arithmetic',
@@ -22,6 +27,11 @@ export const TOPICS: Topic[] = [
   'money',
   'exponents',
   'estimation',
+  'numbers',
+  'statistics',
+  'probability',
+  'algebra',
+  'geometry',
 ];
 
 export type Difficulty = 1 | 2 | 3;
