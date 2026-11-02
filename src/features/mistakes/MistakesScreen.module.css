@@ -88,3 +88,9 @@
   font-size: var(--text-sm);
   color: var(--graphite-soft);
 }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}

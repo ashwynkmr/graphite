@@ -85,7 +85,7 @@ describe('loadProgress', () => {
     await d.sessions.add(session('s', TODAY));
     await d.quantAttempts.bulkAdd([attempt('s', true), attempt('s', false)]);
     await d.wordStates.add({ wordId: 'laconic', box: 3, dueDay: TODAY, seen: 3, correct: 3, lastResult: 'know', starred: 0, round: 1, firstSeenDay: '2026-11-08' });
-    expect(await loadProgress(TODAY, d)).toEqual({
+    expect(await loadProgress(TODAY, d)).toMatchObject({
       streak: { current: 1, best: 1, studyDays: 1 },
       sessions: 1,
       quant: { answered: 2, correct: 1, averageMs: 1000 },

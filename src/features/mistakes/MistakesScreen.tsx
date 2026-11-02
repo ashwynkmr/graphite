@@ -5,9 +5,10 @@ import { loadBank } from '../../content/bank';
 import { loadWords } from '../../content/words';
 import { getSettings } from '../../data/repo/meta';
 import { loadMistakeLog } from '../../data/repo/mistakes';
+import { TOPICS, type Topic } from '../../engine/generators/types';
 import { CLEAR_AFTER } from '../../engine/sessions/mistakes';
 import { parseRefId, resolveQuestion } from '../../engine/sessions/questions';
-import { Button, Segmented } from '../../ui/controls';
+import { Button, Chip, Segmented } from '../../ui/controls';
 import { MathText } from '../../ui/MathText';
 import { ReportProblem } from '../../ui/ReportProblem';
 import { Screen } from '../../ui/Screen';
@@ -34,6 +35,11 @@ async function load() {
   };
 }
 
+const WORD_KINDS = ['review', 'quiz'] as const;
+type WordKind = (typeof WORD_KINDS)[number];
+const WORD_KIND_LABEL: Record<WordKind, string> = { review: 'Marked Review', quiz: 'Missed in a quiz' };
+const wordKindOf = (mode: string | undefined): WordKind => (mode === 'flashcard' ? 'review' : 'quiz');
+
 function Streak({ count }: { count: number }) {
   if (count === 0) return null;
   return <span className={`${styles.streak} tabular`}>{count} of {CLEAR_AFTER} correct</span>;
@@ -44,6 +50,8 @@ export function MistakesScreen() {
   const { data } = useAsync(load);
   const [tab, setTab] = useState<'quant' | 'words'>('quant');
   const [starting, setStarting] = useState(false);
+  const [topic, setTopic] = useState<Topic | null>(null);
+  const [wordKind, setWordKind] = useState<WordKind | null>(null);
 
   useEffect(() => {
     if (data && !data.quant.length && data.words.length) setTab('words');
@@ -62,12 +70,21 @@ export function MistakesScreen() {
     );
   }
 
+  // A filter that's emptied (the last one cleared) falls back to showing everything.
+  const topics = TOPICS.filter((t) => data.quant.some((m) => m.question.topic === t));
+  const activeTopic = topic && topics.includes(topic) ? topic : null;
+  const quantShown = activeTopic ? data.quant.filter((m) => m.question.topic === activeTopic) : data.quant;
+  const kinds = WORD_KINDS.filter((k) => data.words.some((m) => wordKindOf(m.miss?.mode) === k));
+  const activeKind = wordKind && kinds.includes(wordKind) ? wordKind : null;
+  const wordsShown = activeKind ? data.words.filter((m) => wordKindOf(m.miss?.mode) === activeKind) : data.words;
+
+  const shown = tab === 'quant' ? quantShown.length : wordsShown.length;
   const count = tab === 'quant' ? quantCount : wordCount;
-  const size = Math.min(count, tab === 'quant' ? data.drillLength : data.sessionLength);
+  const size = Math.min(shown, tab === 'quant' ? data.drillLength : data.sessionLength);
 
   const drill = async () => {
     setStarting(true);
-    const session = tab === 'quant' ? await startMistakeDrill() : await startMistakeVocab();
+    const session = tab === 'quant' ? await startMistakeDrill(activeTopic ? quantShown.map((m) => m.row.refId) : undefined) : await startMistakeVocab(activeKind ? wordsShown.map((m) => m.row.refId) : undefined);
     if (session) navigate(`/${session.type}/session/${session.id}`);
     else setStarting(false);
   };
@@ -84,6 +101,25 @@ export function MistakesScreen() {
         ]}
       />
 
+      {tab === 'quant' && topics.length > 1 && (
+        <div className={styles.filters}>
+          {topics.map((t) => (
+            <Chip key={t} selected={activeTopic === t} onClick={() => setTopic(activeTopic === t ? null : t)}>
+              {TOPIC_LABEL[t]}
+            </Chip>
+          ))}
+        </div>
+      )}
+      {tab === 'words' && kinds.length > 1 && (
+        <div className={styles.filters}>
+          {kinds.map((k) => (
+            <Chip key={k} selected={activeKind === k} onClick={() => setWordKind(activeKind === k ? null : k)}>
+              {WORD_KIND_LABEL[k]}
+            </Chip>
+          ))}
+        </div>
+      )}
+
       {count > 0 && (
         <div className={styles.drill}>
           <Button block onClick={drill} disabled={starting}>
@@ -97,7 +133,7 @@ export function MistakesScreen() {
 
       {tab === 'quant' && (
         <ul className={styles.list}>
-          {data.quant.map(({ row, miss, question }) => (
+          {quantShown.map(({ row, miss, question }) => (
             <li key={row.refId} className={styles.item}>
               <p className={styles.meta}>
                 <span>{TOPIC_LABEL[question.topic]}</span>
@@ -135,10 +171,10 @@ export function MistakesScreen() {
 
       {tab === 'words' && (
         <ul className={styles.list}>
-          {data.words.map(({ row, miss, word }) => (
+          {wordsShown.map(({ row, miss, word }) => (
             <li key={row.refId} className={styles.item}>
               <p className={styles.meta}>
-                <span>{miss?.mode === 'flashcard' ? 'Marked Review' : 'Missed in a quiz'}</span>
+                <span>{WORD_KIND_LABEL[wordKindOf(miss?.mode)]}</span>
                 <Streak count={row.correctStreak} />
               </p>
               <p className={styles.word}>

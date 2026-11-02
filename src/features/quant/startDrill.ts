@@ -57,9 +57,10 @@ export async function startRetry(from: SessionRow, items: PlannedItem[]): Promis
   });
 }
 
-/** Drill my mistakes: the oldest logged questions, up to the usual drill length. Null when none can be served. */
-export async function startMistakeDrill(): Promise<SessionRow | null> {
-  const [bank, mistakes, all] = await Promise.all([loadBank(), quantMistakes(), getSettings()]);
+/** Drill my mistakes: the oldest logged questions, up to the usual drill length; only `refIds` when the log is filtered. Null when none can be served. */
+export async function startMistakeDrill(refIds?: readonly string[]): Promise<SessionRow | null> {
+  const [bank, logged, all] = await Promise.all([loadBank(), quantMistakes(), getSettings()]);
+  const mistakes = refIds ? logged.filter((m) => refIds.includes(m.refId)) : logged;
   const seed = freshSeed();
   const items = buildMistakeItems({ mistakes, resolve: (ref) => resolveQuestion(ref, bank.byId), length: all.quant.length, seed });
   if (!items.length) return null;

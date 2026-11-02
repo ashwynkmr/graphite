@@ -11,6 +11,7 @@ import { EndConfirm } from '../../ui/EndConfirm';
 import { PairChoiceList } from '../../ui/PairChoiceList';
 import drill from '../quant/DrillScreen.module.css';
 import { POS_SHORT, sentence } from './display';
+import { ExampleSentence } from './ExampleSentence';
 import { MarkIcon, SwipeCard, type SwipeCardHandle, type SwipeMark } from './SwipeCard';
 import styles from './VocabSessionScreen.module.css';
 
@@ -57,7 +58,9 @@ function CardBack({ word }: { word: Word }) {
         {word.word} <span className={styles.posInline}>{POS_SHORT[word.pos]}</span>
       </span>
       <span className={styles.meaning}>{sentence(word.meaning)}</span>
-      <span className={styles.example}>{word.example}</span>
+      <span className={styles.example}>
+        <ExampleSentence word={word} />
+      </span>
       <span className={styles.synonyms}>{word.synonyms.join(' · ')}</span>
       {word.mnemonic && <span className={styles.mnemonic}>{word.mnemonic}</span>}
     </div>

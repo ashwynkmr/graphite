@@ -9,6 +9,7 @@ import { Button, Chip, Segmented } from '../../ui/controls';
 import { ReportProblem } from '../../ui/ReportProblem';
 import { Screen } from '../../ui/Screen';
 import { POS_SHORT, sentence } from './display';
+import { ExampleSentence } from './ExampleSentence';
 import styles from './BrowseScreen.module.css';
 
 const PAGE = 40;
@@ -113,7 +114,9 @@ export function BrowseScreen() {
               {isOpen && (
                 <div className={styles.detail}>
                   <p className={styles.meaning}>{sentence(w.meaning)}</p>
-                  <p className={styles.example}>{w.example}</p>
+                  <p className={styles.example}>
+                    <ExampleSentence word={w} />
+                  </p>
                   <p className={styles.synonyms}>{w.synonyms.join(' · ')}</p>
                   {w.mnemonic && <p className={styles.mnemonic}>{w.mnemonic}</p>}
                   <div className={styles.foot}>

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { answerQuant, signIn, table, waitForServiceWorker } from './helpers';
+import { answerQuant, currentSession, signIn, table, waitForServiceWorker } from './helpers';
 
 test('after the first visit, drills and vocab work with no network', async ({ page, context }) => {
   await signIn(page);
@@ -123,4 +123,68 @@ test('Share saves the image and copies the text where there is no share sheet', 
   const text = await page.evaluate(() => navigator.clipboard.readText());
   expect(text).toMatch(/^Graphite · Quant drill · 0\/20 \(0%\)/);
   expect(text).not.toContain('Test');
+});
+
+test('Progress shows trends, weakest topics, stages and levels from real answers, and shares a history', async ({ page }) => {
+  await signIn(page);
+  await page.getByRole('link', { name: 'Progress' }).click();
+  await expect(page.locator('body')).toContainText('Last 14 days');
+  await expect(page.locator('body')).toContainText('Nothing yet');
+  await expect(page.locator('body')).not.toContainText('Share your history');
+
+  await page.goto('./#/');
+  await page.getByRole('link', { name: 'Quant' }).click();
+  await page.getByRole('button', { name: 'Percents', exact: true }).click();
+  await page.getByRole('button', { name: 'Adaptive', exact: true }).click();
+  await page.getByRole('button', { name: /Start 20 questions/ }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  for (let i = 0; i < 20; i++) await answerQuant(page, i < 5);
+  await expect(page).toHaveURL(/results/);
+  // 15 of the last 20 wrong: Percents moves down.
+  await expect(page.locator('body')).toContainText('Percents moves down to Easy next time.');
+
+  await page.goto('./#/progress');
+  await expect(page.locator('figure').first()).toContainText('25% of 20');
+  const row = page.getByRole('row', { name: /Percents/ });
+  await expect(row).toContainText('Weakest');
+  await expect(row).toContainText('25%');
+  await expect(row).toContainText('Easy');
+
+  // Another topic has no answers, and says so.
+  await page.getByRole('combobox').selectOption('ratios');
+  await expect(page.locator('figure').first()).toContainText('Nothing yet');
+  await page.getByRole('combobox').selectOption('all');
+
+  await expect(page.getByRole('button', { name: 'Share' })).toBeEnabled({ timeout: 10_000 });
+  await page.getByRole('radio', { name: '14 days' }).click();
+  await expect(page.getByRole('button', { name: 'Share' })).toBeEnabled({ timeout: 10_000 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
+test('the mistake log filters by topic, and Drill my mistakes follows the filter', async ({ page }) => {
+  await signIn(page);
+  for (const name of ['Percents', 'Ratios']) {
+    await page.goto('./#/quant');
+    const chip = page.getByRole('button', { name, exact: true });
+    await chip.click();
+    await page.getByRole('slider', { name: 'Questions' }).focus();
+    await page.keyboard.press('Home');
+    await page.getByRole('button', { name: 'Start 5 questions' }).click();
+    await expect(page).toHaveURL(/quant\/session/);
+    for (let i = 0; i < 5; i++) await answerQuant(page, false);
+    await expect(page).toHaveURL(/results/);
+    await page.goto('./#/quant');
+    await chip.click();
+  }
+  await page.goto('./#/mistakes');
+  await expect(page.getByRole('radio', { name: 'Quant (10)' })).toBeVisible();
+  await page.getByRole('button', { name: 'Percents', exact: true }).click();
+  await expect(page.getByRole('listitem').filter({ hasText: 'Ratios' })).toHaveCount(0);
+  await expect(page.getByRole('listitem').filter({ hasText: 'Percents' })).toHaveCount(5);
+  await page.getByRole('button', { name: 'Drill my mistakes (5)' }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  const { items } = await currentSession(page);
+  expect(items).toHaveLength(5);
+  // Ratios questions have their own ids; none came through the filter.
+  expect(items.every((i) => !(i.ref as { id: string }).id.startsWith('ra-'))).toBe(true);
 });

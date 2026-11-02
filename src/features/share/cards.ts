@@ -132,6 +132,26 @@ export async function drawCard(card: ShareCard, day: string, daysLeft: number | 
     }
   });
 
+  // A history card's questions a day, in thin bars on the page's rules.
+  if (card.bars) {
+    const top = RULE * 15;
+    const bottom = RULE * 18;
+    const most = Math.max(1, ...card.bars.values);
+    const step = (RIGHT - LEFT) / card.bars.values.length;
+    const width = Math.min(28, step - 8);
+    ctx.font = `400 30px ${SANS}`;
+    ctx.fillStyle = colors.soft;
+    ctx.fillText(card.bars.label, LEFT, top - 16);
+    ctx.fillStyle = colors.ink;
+    card.bars.values.forEach((value, i) => {
+      if (!value) return;
+      const height = Math.max(8, (value / most) * (bottom - top - 16));
+      ctx.beginPath();
+      ctx.roundRect(LEFT + step * i, bottom - height, width, height, [8, 8, 0, 0]);
+      ctx.fill();
+    });
+  }
+
   const line = examLine(daysLeft);
   if (line) {
     ctx.font = `italic 400 44px ${SERIF}`;

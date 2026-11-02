@@ -1,10 +1,11 @@
 // What Home and Progress show, gathered from the tables. The rules are in engine/stats.
 import type { Day } from '../../engine/dates';
-import { isDue } from '../../engine/scheduling/leitner';
+import { isDue, type WordSchedule } from '../../engine/scheduling/leitner';
+import type { AdaptiveLevels } from '../../engine/sessions/adaptive';
 import { pickNudge, type Nudge } from '../../engine/stats/nudge';
 import { quantTotals, streaks, todayPlan, wordTotals, type QuantTotals, type Streaks, type TodayPlan } from '../../engine/stats/progress';
-import { db, type AnySession, type GraphiteDB } from '../db';
-import { getLastExportAt, getSettings } from './meta';
+import { db, type AnySession, type GraphiteDB, type QuantAttemptRow } from '../db';
+import { getAdaptiveLevels, getLastExportAt, getSettings } from './meta';
 import { loadWordStates } from './vocab';
 
 /** A session ended before its first answer has nothing in it: no streak day, no last session. */
@@ -56,11 +57,19 @@ export interface ProgressData {
   sessions: number;
   quant: QuantTotals;
   words: { seen: number; known: number };
+  attempts: QuantAttemptRow[];
+  states: Map<string, WordSchedule>;
+  studiedDays: Day[];
+  levels: AdaptiveLevels;
 }
 
 export async function loadProgress(today: Day, d: GraphiteDB = db): Promise<ProgressData> {
-  const [sessions, attempts, states] = await Promise.all([finishedWithAnswers(d), d.quantAttempts.toArray(), loadWordStates(d)]);
+  const [sessions, attempts, states, levels] = await Promise.all([finishedWithAnswers(d), d.quantAttempts.toArray(), loadWordStates(d), getAdaptiveLevels(d)]);
   return {
+    attempts,
+    states,
+    studiedDays: sessions.map((s) => s.day),
+    levels,
     streak: streaks(sessions.map((s) => s.day), today),
     sessions: sessions.length,
     quant: quantTotals(attempts),

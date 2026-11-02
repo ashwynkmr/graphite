@@ -114,6 +114,8 @@ test('a memory aid shows on the back of its flashcard, and the card still fits t
   await page.getByText('Tap to flip').first().click();
   const aid = WORDS.find((w) => w.id === session.items[withAid]!.wordId)!.mnemonic!;
   await expect(page.locator('body')).toContainText(aid);
+  // The word is bold in its sentence.
+  await expect(page.locator('strong').first()).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 

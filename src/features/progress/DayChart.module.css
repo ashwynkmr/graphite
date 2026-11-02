@@ -1,0 +1,81 @@
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  margin: 0;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.title {
+  font-weight: 600;
+}
+
+.reading {
+  color: var(--graphite-soft);
+}
+
+.plot {
+  position: relative;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.grid {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+.axis {
+  fill: var(--graphite-soft);
+  font-family: var(--font-sans);
+  font-size: 10px;
+}
+
+.cross {
+  stroke: var(--rule-strong);
+  stroke-width: 1;
+}
+
+.line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* A ring in the page colour keeps each dot apart from its line. */
+.dot {
+  fill: var(--ink);
+  stroke: var(--paper);
+  stroke-width: 2;
+}
+
+.bar {
+  fill: var(--ink);
+}
+
+.targets {
+  position: absolute;
+  inset: 0 0 0 auto;
+  display: grid;
+  right: 0;
+}
+
+.target {
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}

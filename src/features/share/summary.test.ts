@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { QuantResults } from '../../engine/stats/quant-results';
 import type { VocabResults } from '../../engine/stats/vocab-results';
 import { lightPalette } from './cards';
-import { dayText, examLine, quantShare, vocabShare } from './summary';
+import { dayText, examLine, historyShare, quantShare, shortDay, vocabShare } from './summary';
 
 const quant = (over: Partial<QuantResults> = {}): QuantResults => ({
   items: [],
@@ -95,5 +95,35 @@ describe('card text', () => {
 describe('lightPalette', () => {
   it('reads the light theme from tokens.css, whatever theme the device uses', () => {
     expect(lightPalette()).toMatchObject({ paper: '#f6f1e7', graphite: '#2a2a2d', ink: '#2c4a7c' });
+  });
+});
+
+describe('historyShare', () => {
+  const history = { days: 7, answered: 120, correct: 96, avgMs: 22_000, newWords: 400, studyDays: 5, perDay: [10, 0, 20, 30, 0, 30, 30], weakest: [{ topic: 'fractions' as const, answered: 20, accuracy: 0.6, avgMs: 30_000, weakest: true }] };
+
+  it('sums up the days, with one bar a day', () => {
+    const card = historyShare(history);
+    expect(card.kind).toBe('Last 7 days');
+    expect(card.score).toEqual({ value: 120, of: 'questions' });
+    expect(card.stats).toEqual([
+      { label: 'Accuracy', value: '80%' },
+      { label: 'New words', value: '400' },
+      { label: 'Study days', value: '5 of 7' },
+    ]);
+    expect(card.bars?.values).toHaveLength(7);
+    expect(card.rows[0]).toEqual({ label: 'Fractions', value: '60%', share: 0.6 });
+    expect(card.text).toBe('Graphite · Last 7 days · 120 questions (80%) · avg 22s · 400 new words · 5 of 7 days studied · to work on: fractions 60%');
+  });
+
+  it('reads sensibly with no questions', () => {
+    const card = historyShare({ ...history, answered: 0, correct: 0, avgMs: null, weakest: [] });
+    expect(card.stats[0]!.value).toBe('—');
+    expect(card.text).toBe('Graphite · Last 7 days · 0 questions · 400 new words · 5 of 7 days studied');
+  });
+});
+
+describe('shortDay', () => {
+  it('reads as a short date', () => {
+    expect(shortDay('2026-11-03')).toBe('Nov 3');
   });
 });

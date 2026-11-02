@@ -63,3 +63,91 @@
   margin: 0;
   font-weight: 500;
 }
+
+.pick {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.pickLabel {
+  color: var(--graphite-soft);
+}
+
+.select {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--tap);
+  padding: 0 var(--space-1);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  color: var(--graphite);
+  font-size: var(--text-md);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.table th,
+.table td {
+  min-height: 40px;
+  padding: var(--space-1) 0;
+  border-top: var(--border);
+  font-weight: 400;
+  text-align: left;
+}
+
+.table thead th {
+  border-top: none;
+  color: var(--graphite-soft);
+}
+
+.table .num {
+  padding-left: var(--space-1);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.weakest {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.stages {
+  list-style: none;
+  margin: 0 0 var(--space-2);
+  padding: 0;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: 5em 1fr 3.5em;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 32px;
+  font-size: var(--text-sm);
+}
+
+.stage > :last-child {
+  text-align: right;
+}
+
+.stageBar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--paper-sunk);
+  overflow: hidden;
+}
+
+.stageBar > span {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+}

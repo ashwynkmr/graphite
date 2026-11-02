@@ -71,9 +71,10 @@ export async function redoVocab(wordIds: readonly string[], base: VocabSettings)
   return createVocabSession({ settings, items: planVocabItems(ids, settings.modes, book.byId, seed), seed });
 }
 
-/** Drill my mistakes: the oldest logged words, up to the usual session length, in the usual practice types. */
-export async function startMistakeVocab(): Promise<VocabSessionRow | null> {
-  const [book, mistakes, all] = await Promise.all([loadWords(), wordMistakes(), getSettings()]);
+/** Drill my mistakes: the oldest logged words, up to the usual session length, in the usual practice types; only `refIds` when the log is filtered. */
+export async function startMistakeVocab(refIds?: readonly string[]): Promise<VocabSessionRow | null> {
+  const [book, logged, all] = await Promise.all([loadWords(), wordMistakes(), getSettings()]);
+  const mistakes = refIds ? logged.filter((m) => refIds.includes(m.refId)) : logged;
   const ids = [...mistakes].sort((a, b) => a.addedAt - b.addedAt).map((m) => m.refId).filter((id) => book.byId.has(id)).slice(0, all.vocab.length);
   if (!ids.length) return null;
   const seed = freshSeed();

@@ -2,6 +2,7 @@
 // The user's name and individual answers stay off it.
 import type { Topic } from '../../engine/generators/types';
 import type { QuantResults } from '../../engine/stats/quant-results';
+import type { StudyHistory } from '../../engine/stats/trends';
 import type { VocabResults } from '../../engine/stats/vocab-results';
 import { duration, TOPIC_LABEL } from '../quant/display';
 
@@ -18,6 +19,8 @@ export interface ShareCard {
   score: { value: number; of: string };
   stats: { label: string; value: string }[];
   rows: ShareRow[];
+  /** A history card's small bar chart, one value a day. */
+  bars?: { label: string; values: number[] };
   text: string;
 }
 
@@ -66,11 +69,36 @@ export function vocabShare(kind: string, r: VocabResults): ShareCard {
   };
 }
 
+/** A 7- or 14-day summary. The name and individual answers stay off it, as on every card. */
+export function historyShare(h: StudyHistory): ShareCard {
+  const kind = `Last ${h.days} days`;
+  const accuracy = `${percent(h.correct, h.answered)}%`;
+  const weakest = h.weakest.map((t) => `${TOPIC_LABEL[t.topic].toLowerCase()} ${Math.round(t.accuracy * 100)}%`).join(', ');
+  return {
+    kind,
+    score: { value: h.answered, of: h.answered === 1 ? 'question' : 'questions' },
+    stats: [
+      { label: 'Accuracy', value: h.answered ? accuracy : '—' },
+      { label: 'New words', value: String(h.newWords) },
+      { label: 'Study days', value: `${h.studyDays} of ${h.days}` },
+    ],
+    rows: h.weakest.map((t) => ({ label: TOPIC_LABEL[t.topic], value: `${Math.round(t.accuracy * 100)}%`, share: t.accuracy })),
+    bars: { label: 'Questions a day', values: h.perDay },
+    text: ['Graphite', kind, `${h.answered} questions${h.answered ? ` (${accuracy})` : ''}`, h.avgMs !== null && `avg ${duration(h.avgMs)}`, `${h.newWords} new words`, `${h.studyDays} of ${h.days} days studied`, weakest && `to work on: ${weakest}`].filter(Boolean).join(' · '),
+  };
+}
+
 /** The line at the foot of the card; null once the exam has passed. */
 export function examLine(daysLeft: number | null): string | null {
   if (daysLeft === null) return null;
   if (daysLeft === 0) return 'GRE day';
   return `${daysLeft} ${daysLeft === 1 ? 'day' : 'days'} to the GRE`;
+}
+
+/** '2026-11-03' → 'Nov 3'. */
+export function shortDay(day: string): string {
+  const [y, m, d] = day.split('-').map(Number);
+  return new Date(y!, m! - 1, d!).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
 export function dayText(day: string): string {
