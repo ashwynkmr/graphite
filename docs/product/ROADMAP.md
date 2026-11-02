@@ -18,11 +18,11 @@ In progress on the `phase-2` branch since Nov 1, and launched all at once when d
 
 - Checkpoint 1, built and reviewed: Sprint mode, Adaptive difficulty, per-topic defaults ([0043](../decisions/0043-sprint-adaptive-and-topic-memory.md))
 - Checkpoint 2, built and reviewed: Round 2, Browse and search, mnemonics for the hardest words ([0044](../decisions/0044-round-2-browse-and-memory-aids.md))
-- Checkpoint 3, built and in review: full dashboard, history share, mistake-log filters ([0046](../decisions/0046-progress-dashboard.md))
+- Checkpoint 3, built and reviewed: full dashboard, history share, mistake-log filters ([0046](../decisions/0046-progress-dashboard.md))
+- Checkpoint 4, built and in review: study nudges on Results as well as Home ([0047](../decisions/0047-nudges-on-results.md))
 
 Still to build or finish:
 
-- In-app study nudges from the user's own results (weak topic, slow topic, due words, paused drill)
 - A one-time What's New screen at launch
 
 ## Phase 3: later (optional)

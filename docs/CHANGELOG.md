@@ -13,6 +13,7 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 - Memory aids for 231 of the hardest words, on the flashcard's back and in Browse.
 - Progress: 14-day accuracy and speed trends for all topics or one, your weakest topics, each topic's level, words per stage and new words a day.
 - Share a 7- or 14-day summary of your studying from Progress.
+- A suggestion of what to do next on the results screen: a paused session, a weak topic, words due or a slow topic.
 - Filter the mistake log by topic, or by how a word was missed. Drill my mistakes follows the filter.
 
 ### Changed
