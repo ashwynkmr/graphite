@@ -99,8 +99,8 @@ function QuizPrompt({ item, word }: { item: VocabItem; word: Word }) {
     return (
       <>
         <p className={styles.ask}>Which two mean the same?</p>
-        <p className={styles.prompt}>{blankOutEquiv(word)}</p>
-        {inflected(word) && <p className={styles.formNote}>Options are in their base form.</p>}
+        <p className={styles.prompt}>{item.sentence ?? blankOutEquiv(word)}</p>
+        {!item.sentence && inflected(word) && <p className={styles.formNote}>Options are in their base form.</p>}
       </>
     );
   }

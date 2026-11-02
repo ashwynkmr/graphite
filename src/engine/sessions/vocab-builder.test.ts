@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import type { Word } from '../../content/schema';
+import { EquivSentenceListSchema, type EquivSentence, type Word } from '../../content/schema';
 import { newSchedule, type WordSchedule } from '../scheduling/leitner';
 import { scoreVocab } from '../stats/vocab-results';
+import equivJson from '../../../content/equiv-sentences.json';
 import wordsJson from '../../../content/words.json';
-import { blankOutEquiv, buildPracticeQueue, choosableModes, equivAnswer, equivChoices, VOCAB_MODES, blankOut, buildVocabQueue, CHOICES, deckCounts, distractors, gradeVocab, inflected, introducedOn, planVocabItems, roundStatus } from './vocab-builder';
+import { checkEquivSentences } from '../../../tools/vocab/check-equiv';
+import { blankOutEquiv, buildPracticeQueue, choosableModes, equivAnswer, equivChoices, indexEquivSentences, VOCAB_MODES, blankOut, buildVocabQueue, CHOICES, deckCounts, distractors, gradeVocab, inflected, introducedOn, planVocabItems, roundStatus } from './vocab-builder';
 
 const TODAY = '2026-11-02';
 
@@ -165,6 +167,57 @@ describe('multiple choice', () => {
       expect(only).toHaveLength(50);
       expect(only.every((id) => byId.get(id)!.equivalent)).toBe(true);
       expect(buildPracticeQueue(args, ['equiv', 'flashcard'])).toEqual(buildVocabQueue(args));
+    });
+
+    describe('exam-style bank', () => {
+      const bank = equivJson as EquivSentence[];
+      const index = indexEquivSentences(bank);
+      const first = bank[0]!;
+      const [a, b] = first.answer;
+
+      it('passes its content checks', () => {
+        expect(bank.length).toBeGreaterThan(280);
+        expect(checkEquivSentences(EquivSentenceListSchema.parse(bank), deck)).toEqual([]);
+      });
+
+      it('asks the bank sentence, and scores only its right pair', () => {
+        const item = planVocabItems([a], ['equiv'], byId, 3, index)[0]!;
+        expect(item).toMatchObject({ kind: 'equiv', partner: b, sentenceId: first.id, sentence: first.sentence });
+        expect(item.choices!.slice().sort()).toEqual([...first.answer, ...first.decoy, ...first.others].sort());
+        const w = byId.get(a)!;
+        expect(gradeVocab(item, w, equivAnswer(b, a))).toBe('correct');
+        expect(gradeVocab(item, w, equivAnswer(...first.decoy))).toBe('wrong');
+        expect(gradeVocab(item, w, equivAnswer(a, first.decoy[0]))).toBe('wrong');
+      });
+
+      it('never shows a sentence twice in one session, when both its right words come up', () => {
+        const items = planVocabItems([a, b], ['equiv'], byId, 3, index);
+        expect(items[0]!.sentenceId).toBe(first.id);
+        expect(items[1]!.sentenceId).not.toBe(first.id);
+      });
+
+      it('leaves words outside the bank asked as before', () => {
+        const other = paired.find((w) => !index.has(w.id))!;
+        expect(planVocabItems([other.id], ['equiv'], byId, 3, index)).toEqual(planVocabItems([other.id], ['equiv'], byId, 3));
+      });
+
+      it('lets a word with no partner but a bank sentence into an equivalence-only session', () => {
+        const lone = deck.find((w) => !w.equivalent && index.has(w.id))!;
+        const args = { words: [lone], states: new Map(), deck: 'new' as const, length: 5, today: '2026-11-01' as never, newLeft: 5 };
+        expect(buildPracticeQueue(args, ['equiv'], index)).toEqual([lone.id]);
+        expect(planVocabItems([lone.id], ['equiv'], byId, 1, index)[0]!.kind).toBe('equiv');
+      });
+
+      it('finds problems in a bad sentence', () => {
+        const bad = { ...first, id: 'se-9999', sentence: 'No blank here.', decoy: ['notaword', first.decoy[1]] as [string, string] };
+        const errors = checkEquivSentences([bad], deck);
+        expect(errors).toContain('se-9999: needs exactly one blank');
+        expect(errors).toContain('se-9999: "notaword" is not in the deck');
+        const second = { ...first, others: [first.answer[0], first.others[1]] as [string, string] };
+        expect(checkEquivSentences([second], deck)).toContain(`${first.id}: repeats an option`);
+        const article = { ...first, sentence: 'It was a _____ idea.' };
+        expect(checkEquivSentences([article], deck).join()).toContain('a(n)');
+      });
     });
 
     it('never lets the article give an option away', () => {

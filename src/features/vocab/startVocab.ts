@@ -1,16 +1,21 @@
-import { loadWords } from '../../content/words';
+import { loadEquivSentences, loadWords } from '../../content/words';
 import type { VocabSessionRow, VocabSettings } from '../../data/db';
 import { getRoundDeclined, getSettings, getVocabRound, setVocabRound, updateSettings } from '../../data/repo/meta';
 import { wordMistakes } from '../../data/repo/mistakes';
 import { createVocabSession, loadWordStates } from '../../data/repo/vocab';
 import { toDay } from '../../engine/dates';
 import { mulberry32 } from '../../engine/rng';
-import { buildPracticeQueue, choosableModes, deckCounts, introducedOn, planVocabItems, roundStatus, type DeckCounts, type RoundStatus } from '../../engine/sessions/vocab-builder';
+import { buildPracticeQueue, choosableModes, deckCounts, indexEquivSentences, introducedOn, planVocabItems, roundStatus, type DeckCounts, type EquivIndex, type VocabMode, type RoundStatus } from '../../engine/sessions/vocab-builder';
 
 const DECK_SIZE = 1500;
 
 function freshSeed(): number {
   return Math.floor(Math.random() * 2 ** 31);
+}
+
+/** The exam-style sentences, when the session asks sentence equivalence at all. */
+async function sentencesFor(modes: readonly VocabMode[]): Promise<EquivIndex | undefined> {
+  return modes.includes('equiv') ? indexEquivSentences(await loadEquivSentences()) : undefined;
 }
 
 export interface VocabOverview {
@@ -51,11 +56,12 @@ export async function startVocab(chosen: VocabSettings): Promise<VocabSessionRow
     // Starting the deck when a round is on offer is what starts that round.
     if (status.offer) await setVocabRound(status.offer);
   }
-  const ids = buildPracticeQueue({ words: book.words, states, deck: settings.deck, length: settings.length, today, newLeft, round }, settings.modes);
+  const sentences = await sentencesFor(settings.modes);
+  const ids = buildPracticeQueue({ words: book.words, states, deck: settings.deck, length: settings.length, today, newLeft, round }, settings.modes, sentences);
   await updateSettings({ vocab: settings });
   if (!ids.length) return null;
   const seed = freshSeed();
-  return createVocabSession({ settings: round ? { ...settings, round } : settings, items: planVocabItems(ids, settings.modes, book.byId, seed), seed });
+  return createVocabSession({ settings: round ? { ...settings, round } : settings, items: planVocabItems(ids, settings.modes, book.byId, seed, sentences), seed });
 }
 
 /**
@@ -79,5 +85,5 @@ export async function startMistakeVocab(refIds?: readonly string[]): Promise<Voc
   if (!ids.length) return null;
   const seed = freshSeed();
   const settings: VocabSettings = { ...all.vocab, length: ids.length, deck: all.vocab.deck === 'round' ? 'today' : all.vocab.deck };
-  return createVocabSession({ settings, items: planVocabItems(ids, settings.modes, book.byId, seed), seed });
+  return createVocabSession({ settings, items: planVocabItems(ids, settings.modes, book.byId, seed, await sentencesFor(settings.modes)), seed });
 }

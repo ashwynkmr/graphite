@@ -204,7 +204,7 @@ export function VocabResultsScreen() {
               {g.items.map((it) => {
                 const w = words.get(it.wordId)!;
                 const showYours = !it.flashcard && !isPassing(it.grade);
-                const partner = session.items[it.index]!.partner;
+                const { partner, sentence: asked, sentenceId } = session.items[it.index]!;
                 return (
                   <li key={it.index} className={r.item}>
                     <Mark grade={it.grade} />
@@ -213,10 +213,11 @@ export function VocabResultsScreen() {
                         {w.word} <span className={styles.pos}>{w.pos}</span>
                       </p>
                       <p className={r.note}>{sentence(w.meaning)}</p>
+                      {asked && <p className={r.note}>{asked}</p>}
                       {partner && <p className={r.note}>Pairs with {partner} in that sentence.</p>}
                       {showYours && <p className={r.ans}>{it.answer === null ? 'Skipped' : <span className={r.yours}>{it.answer.split('|').join(', ')}</span>}</p>}
                       {it.grade === 'slip' && <p className={r.ans}>Typed “{it.answer}”, a spelling slip</p>}
-                      <ReportProblem id={w.id} />
+                      <ReportProblem id={sentenceId ?? w.id} />
                     </div>
                   </li>
                 );

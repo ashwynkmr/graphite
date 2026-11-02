@@ -33,7 +33,7 @@ export function PairChoiceList({ choices, onSubmit, onSkip }: PairChoiceListProp
 
   return (
     <div className={styles.wrap}>
-      <ul className={styles.list} aria-label="Choose two words">
+      <ul className={`${styles.list} ${styles.pairList}`} aria-label="Choose two words">
         {choices.map((c, i) => {
           const on = selected.includes(c);
           return (

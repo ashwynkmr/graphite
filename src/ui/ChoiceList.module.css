@@ -106,4 +106,23 @@
   .choice {
     min-height: var(--tap);
   }
+
+}
+
+/* Six words beside a long sentence: two columns keep Submit on a short screen. */
+@media (max-height: 760px) {
+  .pairList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pairList .choice {
+    gap: var(--space-1);
+    padding: 0 var(--space-1);
+  }
+
+  .pairList .text {
+    min-width: 0;
+    font-size: var(--text-sm);
+  }
 }

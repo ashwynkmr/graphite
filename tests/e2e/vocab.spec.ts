@@ -32,6 +32,61 @@ test('missed quiz words stay hidden until results, then reach the mistake log', 
   await expect(page.locator('body')).toContainText('Words (3)');
 });
 
+test('an exam-style sentence fits a short phone, keeps its verdict for results and shows there', async ({ page }) => {
+  const bank = JSON.parse(readFileSync(resolve(import.meta.dirname, '../../content/equiv-sentences.json'), 'utf8')) as { id: string; sentence: string; answer: [string, string]; decoy: [string, string]; others: [string, string] }[];
+  const longest = bank.reduce((a, b) => (b.sentence.length > a.sentence.length ? b : a));
+  const [wordId, partner] = longest.answer;
+  await page.setViewportSize({ width: 375, height: 664 });
+  await signIn(page);
+  await startWith(page, 'Sentence equivalence');
+  const session = await currentSession(page);
+  expect(session.items.some((i) => (i as { sentenceId?: string }).sentenceId)).toBe(true);
+
+  // Put the longest sentence first, as if the session had dealt it.
+  const widest = bank.flatMap((s) => [...s.answer, ...s.decoy, ...s.others]).reduce((a, b) => (b.length > a.length ? b : a));
+  const choices = [...longest.answer, ...longest.decoy, longest.others[0], widest];
+  await page.evaluate(
+    ({ id, item }) =>
+      new Promise<void>((done) => {
+        const open = indexedDB.open('graphite');
+        open.onsuccess = () => {
+          const store = open.result.transaction('sessions', 'readwrite').objectStore('sessions');
+          const get = store.get(id);
+          get.onsuccess = () => {
+            const row = get.result;
+            row.items[row.cursor] = item;
+            store.put(row).onsuccess = () => {
+              open.result.close();
+              done();
+            };
+          };
+        };
+      }),
+    { id: session.id, item: { wordId, kind: 'equiv', partner, sentenceId: longest.id, sentence: longest.sentence, choices } },
+  );
+  await page.reload();
+  await expect(page.locator('body')).toContainText(longest.sentence);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
+  const cut = await page.getByRole('list', { name: 'Choose two words' }).locator('button').evaluateAll((all) => all.filter((b) => b.scrollWidth > b.clientWidth).map((b) => b.textContent));
+  expect(cut).toEqual([]);
+  await page.getByRole('button', { name: new RegExp(`^[A-F] ${wordId}$`) }).click();
+  await page.getByRole('button', { name: new RegExp(`^[A-F] ${partner}$`) }).click();
+  const submit = (await page.getByRole('button', { name: 'Submit' }).boundingBox())!;
+  expect(submit.y + submit.height).toBeLessThanOrEqual(664);
+  // The first height with one column has the least room.
+  await page.setViewportSize({ width: 375, height: 761 });
+  const tall = (await page.getByRole('button', { name: 'Submit' }).boundingBox())!;
+  expect(tall.y + tall.height).toBeLessThanOrEqual(761);
+  await page.getByRole('button', { name: 'Submit' }).click();
+  await expectNoVerdict(page);
+
+  await page.getByRole('button', { name: 'End session' }).click();
+  await page.getByRole('alertdialog').getByRole('button', { name: /End/ }).click();
+  await expect(page).toHaveURL(/vocab\/results/);
+  await expect(page.locator('body')).toContainText(longest.sentence);
+  await expect(page.locator('body')).toContainText(`Pairs with ${partner} in that sentence.`);
+});
+
 test('flashcard marks move words into the right boxes', async ({ page }) => {
   await signIn(page);
   await startWith(page, 'Flashcards');

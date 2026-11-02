@@ -1,6 +1,6 @@
 // Vocab session builder (TRD "Vocab session builder"): which words a session shows, in what order,
 // how each is asked, and how an answer is graded. Pure: callers pass words, states and the day.
-import type { Word } from '../../content/schema';
+import type { EquivSentence, Word } from '../../content/schema';
 import type { Day } from '../dates';
 import { matchWord } from '../matching/word-answer';
 import { mulberry32 } from '../rng';
@@ -30,6 +30,9 @@ export interface VocabItem {
   choices?: string[];
   /** Sentence equivalence: the word that pairs with `wordId`. */
   partner?: string;
+  /** Sentence equivalence from the exam-style bank: its id and text. Without these the word's own example is asked. */
+  sentenceId?: string;
+  sentence?: string;
   /** A flashcard marked Review, shown again at the end of the same session (once). */
   requeued?: boolean;
 }
@@ -130,12 +133,12 @@ export function buildVocabQueue(args: { words: readonly Word[]; states: States; 
 
 /**
  * The queue for the chosen practice types. A sentence-equivalence-only session takes words that have
- * a partner first, and tops up from the usual queue only when the deck runs out of them.
+ * a partner or a bank sentence first, and tops up from the usual queue only when the deck runs out of them.
  */
-export function buildPracticeQueue(args: Parameters<typeof buildVocabQueue>[0], modes: readonly VocabMode[]): string[] {
+export function buildPracticeQueue(args: Parameters<typeof buildVocabQueue>[0], modes: readonly VocabMode[], sentences?: EquivIndex): string[] {
   const all = buildVocabQueue(args);
   if (modes.length !== 1 || modes[0] !== 'equiv') return all;
-  const paired = buildVocabQueue({ ...args, words: args.words.filter((w) => w.equivalent) });
+  const paired = buildVocabQueue({ ...args, words: args.words.filter((w) => w.equivalent || sentences?.has(w.id)) });
   return [...new Set([...paired, ...all])].slice(0, all.length);
 }
 
@@ -195,19 +198,38 @@ export function equivAnswer(a: string, b: string): string {
   return `${a}|${b}`;
 }
 
+/** The exam-style sentences each word is a right answer in. */
+export type EquivIndex = ReadonlyMap<string, readonly EquivSentence[]>;
+
+export function indexEquivSentences(sentences: readonly EquivSentence[]): EquivIndex {
+  const index = new Map<string, EquivSentence[]>();
+  for (const s of sentences) for (const id of s.answer) index.set(id, [...(index.get(id) ?? []), s]);
+  return index;
+}
+
 /**
  * How each word is asked. The chosen practice types are spread evenly over the session (dealt in turn,
- * then shuffled), so two types give about half each. Choice order is shuffled with the seed.
+ * then shuffled), so two types give about half each. Choice order is shuffled with the seed. Sentence
+ * equivalence uses a bank sentence when the word has one still unused this session, since its partner
+ * could otherwise meet the same sentence, then the word's own example and partner.
  */
-export function planVocabItems(ids: readonly string[], modes: readonly VocabMode[], pool: ReadonlyMap<string, Word>, seed: number): VocabItem[] {
+export function planVocabItems(ids: readonly string[], modes: readonly VocabMode[], pool: ReadonlyMap<string, Word>, seed: number, sentences?: EquivIndex): VocabItem[] {
   const rng = mulberry32(seed);
   const chosen = modes.length ? modes : (['flashcard'] as const);
   const dealt = rng.shuffle(ids.map((_, i) => chosen[i % chosen.length]!));
+  const used = new Set<string>();
   return ids.map((wordId, i) => {
     const w = pool.get(wordId);
     const partner = w?.equivalent ? pool.get(w.equivalent) : undefined;
     let mode = dealt[i]!;
     if (mode === 'equiv') {
+      const unused = (sentences?.get(wordId) ?? []).filter((s) => !used.has(s.id));
+      if (unused.length) {
+        const itemRng = mulberry32(seed + i + 1);
+        const s = itemRng.pick(unused);
+        used.add(s.id);
+        return { wordId, kind: 'equiv', partner: s.answer.find((id) => id !== wordId)!, sentenceId: s.id, sentence: s.sentence, choices: itemRng.shuffle([...s.answer, ...s.decoy, ...s.others]) };
+      }
       if (w && partner) return { wordId, kind: 'equiv', partner: partner.id, choices: equivChoices(w, partner, pool, seed + i + 1) };
       // No partner for this word: ask it another chosen way.
       mode = chosen.find((m) => m !== 'equiv') ?? 'blank';

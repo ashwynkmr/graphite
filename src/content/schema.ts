@@ -52,3 +52,19 @@ export const WordSchema = z
 export type Word = z.infer<typeof WordSchema>;
 
 export const WordListSchema = z.array(WordSchema);
+
+/** An exam-style sentence equivalence question, hand-written and hand-read. All six options are deck words. */
+export const EquivSentenceSchema = z
+  .object({
+    id: z.string().regex(/^se-\d{4}$/),
+    sentence: z.string().min(1),
+    answer: z.tuple([z.string().min(1), z.string().min(1)]),
+    /** Two words that mean the same as each other but don't fit the sentence. */
+    decoy: z.tuple([z.string().min(1), z.string().min(1)]),
+    others: z.tuple([z.string().min(1), z.string().min(1)]),
+  })
+  .strict();
+
+export type EquivSentence = z.infer<typeof EquivSentenceSchema>;
+
+export const EquivSentenceListSchema = z.array(EquivSentenceSchema);
