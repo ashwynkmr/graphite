@@ -281,7 +281,7 @@ All of this lives in `src/engine/` as pure functions with no React or storage im
 - Session length 25, 50 (default) or 100 cards.
 - Order: due words first (box 1–4 with due day today or earlier, lowest box first), then new words in rank order until the daily cap (default 200 new words per local day) is reached.
 - MCQ distractors: the word's confusables first, then random words of the same part of speech and tier.
-- Rounds: when every word has been seen and no box-0 words remain, Home offers Round 2. Starting it sets `round = 2` and builds a new queue ordered starred, box 1, box 2 … box 5.
+- Rounds ([0044](../decisions/0044-round-2-browse-and-memory-aids.md)): when every word has been seen, Home offers Round 2. It's a separate deck: `meta` holds the current round, each answer sets that word's `round`, and the queue is the words still to go, ordered starred, box 1, box 2 … box 5.
 
 **Mistake log (`mistakes.ts`)**
 

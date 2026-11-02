@@ -11,7 +11,7 @@ At 200 new words a day, the deck runs out within 8 days, before the Nov 24 exam,
 
 ## Decision
 - **Round 2:** a separate deck, offered once on Home when every word has been seen, and always available in Vocab. Due reviews carry on in Today. Words go weakest first: starred, then box 1 up to retired. Answers change boxes as usual. Rounds repeat until the exam.
-- **Memory aids:** 231 written fresh, chosen by judgment across all tiers as the words hardest to decode from their parts. Each is one sentence of 90 characters or less, shown on the flashcard's back and in Browse. Latin and French origins were included only where true.
+- **Memory aids:** 231 written fresh, chosen by judgment across all tiers as the words hardest to decode from their parts. Each is one sentence of 90 characters or less, shown on the flashcard's back and in Browse.
 - **Browse:** search by word, synonym or meaning; filter by frequency, stage or star. Looking up never changes a word's box.
 
 ## Trade-offs
