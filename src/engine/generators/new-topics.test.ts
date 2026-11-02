@@ -215,3 +215,100 @@ describe('geometry', () => {
     }
   });
 });
+
+describe('later templates, worked a second way', () => {
+  const divisors = (n: number) => Array.from({ length: n }, (_, i) => i + 1).filter((x) => n % x === 0);
+  const isPrime = (n: number) => divisors(n).length === 2;
+
+  it('factor counts match listing the factors', () => {
+    for (const d of [1, 2] as Difficulty[]) {
+      for (const q of draws('np-factor-count', d)) expect(Number(q.answer)).toBe(divisors(numbersIn(q.prompt)[0]!).length);
+    }
+    for (const q of draws('np-factor-count', 3)) expect(Number(q.answer)).toBe(divisors(numbersIn(q.prompt)[0]!).filter((x) => x % 2).length);
+  });
+
+  it('prime questions match testing each number', () => {
+    for (const q of draws('np-primes', 1)) {
+      const [a, b] = numbersIn(q.prompt) as [number, number];
+      let n = 0;
+      for (let x = a + 1; x < b; x++) if (isPrime(x)) n++;
+      expect(Number(q.answer)).toBe(n);
+    }
+    for (const q of draws('np-primes', 3)) expect(Number(q.answer)).toBe(Math.max(...divisors(numbersIn(q.prompt)[0]!).filter(isPrime)));
+  });
+
+  it('the missing digit is the right one by trying every digit', () => {
+    for (const q of draws('np-digits', 3)) {
+      const stem = q.prompt.match(/number (\d{3})d/)![1]!;
+      const fits = Array.from({ length: 10 }, (_, i) => i).filter((x) => Number(`${stem}${x}`) % 12 === 0);
+      expect(Number(q.answer)).toBe(Math.max(...fits));
+    }
+    for (const d of [1, 2] as Difficulty[]) {
+      for (const q of draws('np-digits', d)) {
+        const m = q.prompt.match(/number (\d)d(\d\d) is divisible by (\d)/)!;
+        const fits = [1, 2, 3, 4, 5, 6, 7, 8, 9].filter((x) => Number(`${m[1]}${x}${m[2]}`) % Number(m[3]) === 0);
+        expect(Number(q.answer)).toBe(fits[0]);
+      }
+    }
+  });
+
+  it('counts of arrangements match listing them', () => {
+    const arrangements = (letters: string[]): Set<string> => {
+      if (letters.length <= 1) return new Set([letters.join('')]);
+      const out = new Set<string>();
+      letters.forEach((c, i) => {
+        for (const rest of arrangements(letters.filter((_, j) => j !== i))) out.add(c + rest);
+      });
+      return out;
+    };
+    for (const q of draws('pb-arrange', 2)) {
+      const word = q.prompt.match(/letters in ([A-Z]+)/)![1]!;
+      expect(Number(q.answer)).toBe(arrangements([...word]).size);
+    }
+    for (const q of draws('pb-arrange', 3).filter((x) => numbersIn(x.prompt)[0]! <= 6)) {
+      const people = 'ABCDEF'.slice(0, numbersIn(q.prompt)[0]!);
+      const all = [...arrangements([...people])];
+      const near = (s: string) => Math.abs(s.indexOf('A') - s.indexOf('B')) === 1;
+      expect(Number(q.answer)).toBe(all.filter((s) => (q.prompt.includes('not sit') ? !near(s) : near(s))).length);
+    }
+  });
+
+  it('two groups match a head count by the sets themselves', () => {
+    for (const q of draws('pb-sets', 1)) {
+      const [total, a, b, both] = numbersIn(q.prompt) as [number, number, number, number];
+      const french = new Set(Array.from({ length: a }, (_, i) => i));
+      const spanish = new Set(Array.from({ length: b }, (_, i) => a - both + i));
+      let neither = 0;
+      for (let i = 0; i < total; i++) if (!french.has(i) && !spanish.has(i)) neither++;
+      expect(Number(q.answer)).toBe(neither);
+    }
+  });
+
+  it('pipes and shared jobs finish exactly on time', () => {
+    for (const q of draws('rt-pipes', 2, 60)) {
+      const [a, b, c] = numbersIn(q.prompt) as [number, number, number];
+      expect(answerOf(q).mul(R(1, a).add(R(1, b)).sub(R(1, c))).equals(R(1))).toBe(true);
+    }
+    for (const q of draws('rt-partial', 3)) {
+      const [a, b, h] = numbersIn(q.prompt) as [number, number, number];
+      expect(R(h, a).add(R(h, b)).add(answerOf(q).div(R(a))).equals(R(1))).toBe(true);
+    }
+  });
+
+  it('a ratio after a change comes out as stated', () => {
+    for (const q of draws('ra-after-change', 3, 60)) {
+      const [p0, q0, k, p, q2] = numbersIn(q.prompt) as [number, number, number, number, number];
+      const larger = answerOf(q);
+      const smaller = larger.mul(R(p0, q0));
+      expect(smaller.add(R(k)).div(larger.add(R(k))).equals(R(p, q2))).toBe(true);
+    }
+  });
+
+  it('tickets add up to the stated takings', () => {
+    for (const q of draws('al-word', 3)) {
+      const [adult, child, tickets, total] = numbersIn(q.prompt) as [number, number, number, number];
+      const adults = Number(q.answer);
+      expect(adult * adults + child * (tickets - adults)).toBe(total);
+    }
+  });
+});

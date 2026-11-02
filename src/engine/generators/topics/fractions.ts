@@ -60,7 +60,7 @@ export const fractions: Template[] = [
         prompt: `${shown} as a decimal = ?`,
         answer: f,
         distractors: [f.mul(R(10)), f.div(R(10)), f.add(R(1, f.d)), f.sub(R(1, f.d)), R(f.d, f.n)],
-        explain: pw[1] === 1n ? `${frac(f)} = ${num(f)}` : `${frac(f)} = ${f.n * pw[1]}/${pw[0]} = ${num(f)}`,
+        explain: pw[1] === 1n ? `Its bottom is already a power of 10: ${frac(f)} = ${num(f)}` : `Scale the bottom up to ${pw[0]}: ${frac(f)} = ${f.n * pw[1]}/${pw[0]} = ${num(f)}`,
       };
     },
   }),
@@ -80,7 +80,7 @@ export const fractions: Template[] = [
         answer: f,
         format: 'fraction',
         distractors: [Rational.of(digits, 10n ** BigInt(Math.max(places - 1, 0))), R(1).sub(f), Rational.of(f.n, f.d + 1n), Rational.of(f.n + 1n, f.d)],
-        explain: `${dec} = ${digits}/${10n ** BigInt(places)} = ${frac(f)}`,
+        explain: `Read it over ${10n ** BigInt(places)}: ${digits}/${10n ** BigInt(places)}, which cancels to ${frac(f)}`,
       };
     },
   }),

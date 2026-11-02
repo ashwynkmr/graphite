@@ -34,7 +34,7 @@ export interface NudgeInput {
 
 /**
  * Each topic's answers from the last 3 drills that included it, reaching further back until it has
- * 10 answers: a 20-question mixed drill gives each of the 9 topics only about 2. Topics with too few are dropped.
+ * 10 answers: a 20-question mixed drill gives each of the 14 topics only 1 or 2. Topics with too few are dropped.
  */
 function recentByTopic(attempts: readonly NudgeAttempt[], drillIds: readonly string[]): Map<Topic, NudgeAttempt[]> {
   const bySession = new Map<string, NudgeAttempt[]>();

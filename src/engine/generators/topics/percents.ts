@@ -102,7 +102,7 @@ export const percents: Template[] = [
         answer: p,
         unit: PCT_UNIT,
         distractors: [y.div(x).mul(R(100)), R(100).sub(p), p.mul(R(10)), p.add(R(5)), p.sub(R(5))],
-        explain: `${num(x)}/${num(y)} = ${frac(x.div(y))} = ${pct(p)}`,
+        explain: `Part ÷ whole: ${num(x)}/${num(y)} = ${frac(x.div(y))} = ${pct(p)}`,
       };
     },
   }),
@@ -229,7 +229,7 @@ export const percents: Template[] = [
           answer: f,
           format: 'fraction',
           distractors: [p.div(R(10)), R(1).sub(f), Rational.of(f.n, f.d + 1n), Rational.of(f.n + 1n, f.d), f.mul(R(10))],
-          explain: `${pct(p)} = ${num(p)}/100 = ${frac(f)}`,
+          explain: `Percent means over 100: ${num(p)}/100, which cancels to ${frac(f)}`,
         };
       }
       return {

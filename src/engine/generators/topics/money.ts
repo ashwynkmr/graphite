@@ -193,7 +193,7 @@ export const moneyTopic: Template[] = [
         distractors: askTotal
           ? [P.add(P.mul(rate(r))), P.add(compound), interest, ans.add(R(100))]
           : [P.mul(rate(r)), P.mul(rate(r)).mul(R(months)), interest.mul(R(10)), interest.add(R(10))],
-        explain: `${money(P)} × ${num(rate(r))} × ${num(years)} = ${money(interest)}${askTotal ? `; + ${money(P)} = ${money(ans)}` : ''}`,
+        explain: `Interest = amount × rate × years: ${money(P)} × ${num(rate(r))} × ${num(years)} = ${money(interest)}${askTotal ? `; + ${money(P)} = ${money(ans)}` : ''}`,
       };
     },
   }),
@@ -240,7 +240,7 @@ export const moneyTopic: Template[] = [
         answer: ans,
         unit: USD,
         distractors: [P.mul(R(1).add(per.mul(R(2)))), ans.sub(P), P.mul(R(1).add(per)), ans.add(R(by(d, 50, 100, 0)))],
-        explain: `${money(P)} × ${num(R(1).add(per))} × ${num(R(1).add(per))} = ${money(ans)}`,
+        explain: `Each year multiplies by ${num(R(1).add(per))}: ${money(P)} × ${num(R(1).add(per))} × ${num(R(1).add(per))} = ${money(ans)}`,
       };
     },
   }),
@@ -272,7 +272,7 @@ export const moneyTopic: Template[] = [
           answer: total,
           unit: USD,
           distractors: [tipOnTaxed, bill.mul(rate(tax.add(tip))), bill.mul(up(tip)), total.add(R(1))],
-          explain: `${money(bill)} × ${num(factor)} = ${money(total)}`,
+          explain: `Add the percents to 100%, so multiply by ${num(factor)}: ${money(bill)} × ${num(factor)} = ${money(total)}`,
         };
       }
       const bill = R(rng.int(5, 40) * 4);

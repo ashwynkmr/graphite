@@ -66,6 +66,8 @@ export interface Template {
   topic: Topic;
   kind: Kind;
   difficulties: Difficulty[];
+  /** Added to a topic already live: takes its own share of the bank, so older questions keep their ids. */
+  extra?: boolean;
   /** Pure function of the rng; null rejects this draw. */
   generate(rng: Rng, d: Difficulty): Draft | null;
 }

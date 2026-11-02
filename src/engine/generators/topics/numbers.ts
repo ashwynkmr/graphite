@@ -1,13 +1,29 @@
 import { R } from '../../matching/rational';
 import { num } from '../format';
 import type { Template } from '../types';
-import { by, gcdNum, lcmNum } from '../util';
+import { by, gcdNum, lcmNum, sup } from '../util';
 
 const t = (x: Omit<Template, 'topic' | 'kind'> & { kind?: Template['kind'] }): Template => ({
   topic: 'numbers',
   kind: 'calc',
   ...x,
 });
+
+/** 360 → [[2, 3], [3, 2], [5, 1]]. */
+export function primeFactors(n: number): [number, number][] {
+  const out: [number, number][] = [];
+  let rest = n;
+  for (let p = 2; p * p <= rest; p++) {
+    let e = 0;
+    while (rest % p === 0) {
+      rest /= p;
+      e++;
+    }
+    if (e) out.push([p, e]);
+  }
+  if (rest > 1) out.push([rest, 1]);
+  return out;
+}
 
 /** Wrong remainders a divisor k allows, nearest mistakes first. */
 function wrongRemainders(r: number, k: number): number[] {
@@ -147,6 +163,111 @@ export const numbers: Template[] = [
         answer: R(l),
         distractors: [l * 2, ab, a * b, a + b + c, l + ab].map((x) => R(x)),
         explain: `They meet at the least common multiple. ${a} and ${b} meet every ${ab}; ${ab} and ${c} meet every ${l}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'np-factor-count',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const n = rng.int(by(d, 12, 72, 120), by(d, 99, 360, 900));
+      const factors = primeFactors(n);
+      if (factors.length < 2) return null;
+      const form = factors.map(([p, e]) => (e === 1 ? `${p}` : `${p}${sup(e)}`)).join(' × ');
+      const all = factors.reduce((a, [, e]) => a * (e + 1), 1);
+      if (d === 3) {
+        const odd = factors.filter(([p]) => p !== 2).reduce((a, [, e]) => a * (e + 1), 1);
+        if (odd === all) return null;
+        return {
+          prompt: `How many positive factors of ${n} are odd?`,
+          answer: R(odd),
+          distractors: [all, all - odd, odd + 1, odd + 2].map((x) => R(x)),
+          explain: `${n} = ${form}. Odd factors ignore the 2s, so multiply one more than each other power: ${odd}`,
+        };
+      }
+      return {
+        prompt: `How many positive factors does ${n} have?`,
+        answer: R(all),
+        distractors: [all - 2, all + 1, all - 1, all + 2, factors.length].map((x) => R(x)),
+        explain: `${n} = ${form}. Multiply one more than each power: ${factors.map(([, e]) => e + 1).join(' × ')} = ${all}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'np-primes',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      if (d === 1) {
+        const a = rng.int(10, 70);
+        const b = a + rng.int(14, 30);
+        const list: number[] = [];
+        for (let x = a + 1; x < b; x++) if (primeFactors(x).length === 1 && primeFactors(x)[0]![1] === 1) list.push(x);
+        const ans = list.length;
+        if (ans < 2) return null;
+        return {
+          prompt: `How many prime numbers are there between ${a} and ${b}?`,
+          answer: R(ans),
+          distractors: [ans + 1, ans - 1, ans + 2, ans + 3].map((x) => R(x)),
+          explain: `They are ${list.join(', ')}: ${ans} in all`,
+        };
+      }
+      const n = rng.int(30, 990);
+      const factors = primeFactors(n);
+      if (factors.length < 2) return null;
+      const primes = factors.map(([p]) => p);
+      const form = factors.map(([p, e]) => (e === 1 ? `${p}` : `${p}${sup(e)}`)).join(' × ');
+      if (d === 2) {
+        const ans = primes.reduce((a, b) => a + b, 0);
+        return {
+          prompt: `What is the sum of the different prime factors of ${n}?`,
+          answer: R(ans),
+          distractors: [factors.reduce((a, [p, e]) => a + p * e, 0) === ans ? ans + 2 : factors.reduce((a, [p, e]) => a + p * e, 0), Math.max(...primes), ans + 1, ans - 1, ans + 3].map((x) => R(x)),
+          explain: `${n} = ${form}, so add ${primes.join(' + ')} = ${ans}`,
+        };
+      }
+      const ans = Math.max(...primes);
+      if (ans < 7) return null;
+      return {
+        prompt: `What is the largest prime factor of ${n}?`,
+        answer: R(ans),
+        distractors: [primes[0] === ans ? 2 : primes[0]!, ans + 2, ans - 2, ans + 4, ans * 2, n / ans].map((x) => R(x)),
+        explain: `Divide out the small primes: ${n} = ${form}. The largest is ${ans}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'np-digits',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const a = rng.int(1, 9);
+      const b = rng.int(1, 9);
+      const c = rng.int(0, 9);
+      const by9 = d === 2;
+      const k = by9 ? 9 : 3;
+      if (d === 3) {
+        const hits: number[] = [];
+        for (let x = 0; x <= 9; x++) if ((1000 * a + 100 * b + 10 * c + x) % 12 === 0) hits.push(x);
+        if (!hits.length || hits[hits.length - 1]! === 0) return null;
+        const ans = hits[hits.length - 1]!;
+        return {
+          prompt: `The 4-digit number ${a}${b}${c}d is divisible by 12. What is the largest digit d can be?`,
+          answer: R(ans),
+          distractors: [1, 2, 3, 4, 5, 6, 7, 8, 9].filter((x) => x !== ans).map((x) => R(x)),
+          explain: `It must pass for 3 (digits add to a multiple of 3) and for 4 (last two digits). The largest that does both is ${ans}`,
+        };
+      }
+      const hits: number[] = [];
+      for (let x = 0; x <= 9; x++) if ((a + b + c + x) % k === 0) hits.push(x);
+      const ans = hits.find((x) => x > 0);
+      if (ans === undefined) return null;
+      return {
+        prompt: `The number ${a}d${b}${c} is divisible by ${k}. What is the smallest positive digit d can be?`,
+        answer: R(ans),
+        distractors: [1, 2, 3, 4, 5, 6, 7, 8, 9].filter((x) => x !== ans).map((x) => R(x)),
+        explain: `A multiple of ${k} has digits adding to a multiple of ${k}. ${a} + ${b} + ${c} = ${a + b + c}, and adding ${ans} makes ${a + b + c + ans}`,
       };
     },
   }),

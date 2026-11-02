@@ -161,4 +161,112 @@ export const statistics: Template[] = [
       };
     },
   }),
+
+  t({
+    id: 'st-quartile',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const n = by(d, 8, 8, 12);
+      const xs = distinct(rng, n, 10, 120);
+      const s = sorted(xs);
+      const lower = medianOf(s.slice(0, n / 2));
+      const upper = medianOf(s.slice(n / 2));
+      if (d === 1) {
+        return {
+          prompt: `What is the first quartile of ${list(xs)}?`,
+          answer: lower,
+          distractors: [medianOf(s), upper, R(s[1]!), R(s[2]!), lower.add(R(1))],
+          explain: `Sorted: ${list(s)}. The first quartile is the median of the lower half: ${num(lower)}`,
+        };
+      }
+      const iqr = upper.sub(lower);
+      return {
+        prompt: `What is the interquartile range of ${list(xs)}?`,
+        answer: iqr,
+        distractors: [R(s[n - 1]! - s[0]!), upper, lower, iqr.add(R(2)), iqr.sub(R(2))],
+        explain: `Sorted: ${list(s)}. Medians of the two halves are ${num(lower)} and ${num(upper)}. The gap is ${num(iqr)}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'st-shift',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const sd = rng.int(2, 12);
+      const range = rng.int(9, 40);
+      const a = rng.int(2, 6);
+      const b = rng.int(2, 30);
+      if (d === 1) {
+        return {
+          prompt: `A list has a range of ${range}. If ${b} is added to every number, what is the new range?`,
+          answer: R(range),
+          distractors: [range + b, range + 2 * b, range * 2, range + 1].map((x) => R(x)),
+          explain: `Adding the same number moves the whole list, so the spread stays at ${range}`,
+        };
+      }
+      if (d === 2) {
+        const ans = a * sd;
+        return {
+          prompt: `A list has a standard deviation of ${sd}. If every number is multiplied by ${a}, what is the new standard deviation?`,
+          answer: R(ans),
+          distractors: [sd, sd + a, a * a * sd, ans + 1].map((x) => R(x)),
+          explain: `Multiplying stretches the spread by the same factor: ${a} × ${sd} = ${ans}`,
+        };
+      }
+      const mean = rng.int(10, 50);
+      const ans = a * sd;
+      const askMean = rng.chance(0.5);
+      return {
+        prompt: `A list has a mean of ${mean} and a standard deviation of ${sd}. Each number is multiplied by ${a}, then increased by ${b}. What is the new ${askMean ? 'mean' : 'standard deviation'}?`,
+        answer: R(askMean ? a * mean + b : ans),
+        distractors: (askMean ? [a * mean, mean + b, a * (mean + b), a * mean + b + a] : [ans + b, sd + b, sd, a * a * sd]).map((x) => R(x)),
+        explain: askMean ? `The mean takes both steps: ${a} × ${mean} + ${b} = ${a * mean + b}` : `Only the multiplying changes the spread; adding ${b} moves it. ${a} × ${sd} = ${ans}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'st-weighted',
+    kind: 'word',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const [w1, w2] = rng.pick<[number, number]>([[40, 60], [30, 70], [25, 75], [20, 80], [50, 50], [60, 40]]);
+      const x = rng.int(12, 19) * 5;
+      if (d === 1) {
+        const y = rng.int(12, 19) * 5;
+        const ans = R(w1 * x + w2 * y).div(R(100));
+        if (x === y || w1 === w2) return null;
+        return {
+          prompt: `Coursework counts ${w1}% and the final ${w2}%. A student gets ${x} and ${y}. What is the overall grade?`,
+          answer: ans,
+          distractors: [R(x + y).div(R(2)), R(w2 * x + w1 * y).div(R(100)), ans.add(R(1)), ans.sub(R(1))],
+          explain: `${w1}% of ${x} is ${num(R(w1 * x).div(R(100)))} and ${w2}% of ${y} is ${num(R(w2 * y).div(R(100)))}. Together: ${num(ans)}`,
+        };
+      }
+      if (d === 2) {
+        const want = rng.int(13, 18) * 5;
+        const need = R(want * 100 - w1 * x).div(R(w2));
+        if (!need.isTerminating() || (need.decimalPlaces() ?? 9) > 1 || need.cmp(R(100)) > 0 || need.cmp(R(0)) <= 0) return null;
+        return {
+          prompt: `Coursework counts ${w1}% and the final ${w2}%. A student has ${x} in coursework and wants ${want} overall. What final score is needed?`,
+          answer: need,
+          distractors: [R(2 * want - x), R(want), need.add(R(5)), need.sub(R(5))],
+          explain: `${want} − ${w1}% of ${x} = ${num(R(want * 100 - w1 * x).div(R(100)))} must come from the ${w2}%: that ÷ ${num(R(w2).div(R(100)))} = ${num(need)}`,
+        };
+      }
+      const y = rng.int(12, 19) * 5;
+      const final = rng.int(13, 19) * 5;
+      const ans = R(20 * x + 30 * y + 50 * final).div(R(100));
+      const drop = ans.sub(R(10));
+      const need = drop.mul(R(100)).sub(R(20 * x + 30 * y)).div(R(50));
+      if (need.cmp(R(0)) <= 0 || !need.isTerminating() || (need.decimalPlaces() ?? 9) > 1) return null;
+      return {
+        prompt: `Quizzes count 20%, a project 30% and the final 50%. A student has ${x} and ${y}, and wants ${num(drop)} overall. What final score is needed?`,
+        answer: need,
+        distractors: [drop, need.add(R(10)), need.sub(R(10)), R(x + y).div(R(2))],
+        explain: `Quizzes and project give ${num(R(20 * x + 30 * y).div(R(100)))}. The rest, ${num(drop.sub(R(20 * x + 30 * y).div(R(100))))}, ÷ 0.5 = ${num(need)}`,
+      };
+    },
+  }),
 ];

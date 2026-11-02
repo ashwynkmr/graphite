@@ -1,6 +1,6 @@
 // Geometry told in words, with no diagrams. Areas with π are asked as k, so answers stay exact.
 import { R } from '../../matching/rational';
-import { num } from '../format';
+import { frac, num } from '../format';
 import type { Template } from '../types';
 
 const t = (x: Omit<Template, 'topic' | 'kind'> & { kind?: Template['kind'] }): Template => ({
@@ -149,6 +149,128 @@ export const geometry: Template[] = [
         answer: R(n),
         distractors: [n + 1, n - 1, n + 2, n - 2, 2 * n].map((x) => R(x)),
         explain: `Each outside angle is 180 − ${each} = ${180 - each}°, and they add to 360. 360 ÷ ${180 - each} = ${n}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'ge-coordinates',
+    kind: 'calc',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const x1 = rng.int(-9, 9);
+      const y1 = rng.int(-9, 9);
+      if (d === 1) {
+        const [a, b, c] = rng.pick(TRIPLES.slice(0, 3));
+        const m = rng.int(1, 3);
+        const x2 = x1 + a * m;
+        const y2 = y1 + b * m;
+        return {
+          prompt: `How far apart are the points (${num(x1)}, ${num(y1)}) and (${num(x2)}, ${num(y2)})?`,
+          answer: R(c * m),
+          distractors: [(a + b) * m, c * m + 1, c * m - 1, b * m, c * m + m].map((v) => R(v)),
+          explain: `Across ${a * m} and up ${b * m}, so a right triangle: √(${a * m}² + ${b * m}²) = ${c * m}`,
+        };
+      }
+      const run = rng.int(1, 9);
+      const rise = rng.int(1, 9);
+      if (d === 2) {
+        const slope = R(rise, run);
+        const x2 = x1 + run;
+        const y2 = y1 + rise;
+        return {
+          prompt: `What is the slope of the line through (${num(x1)}, ${num(y1)}) and (${num(x2)}, ${num(y2)})?`,
+          answer: slope,
+          format: 'fraction',
+          distractors: [R(run, rise), R(rise + 1, run), R(rise, run + 1), R(rise + 2, run + 1)],
+          explain: `Rise over run: up ${rise} and across ${run}, so ${rise}/${run}${slope.d !== BigInt(run) ? ` = ${frac(slope)}` : ''}`,
+        };
+      }
+      const m = rng.int(2, 6);
+      const b = rng.int(1, 20);
+      const x = rng.int(2, 9);
+      const y = m * x + b;
+      const x3 = x + rng.int(2, 8);
+      const y3 = m * x3 + b;
+      return {
+        prompt: `A line passes through (${x}, ${y}) and (${x3}, ${y3}). Where does it cross the y-axis? Give the y-value.`,
+        answer: R(b),
+        distractors: [m, y - x, b + m, y - m].map((v) => R(v)),
+        explain: `The slope is ${y3 - y} ÷ ${x3 - x} = ${m}. Walk back to x = 0: ${y} − ${x} × ${m} = ${b}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'ge-solids',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      if (d === 1) {
+        const [l, w, h] = [rng.int(3, 15), rng.int(2, 12), rng.int(2, 10)];
+        return {
+          prompt: `A box measures ${l} by ${w} by ${h}. What is its volume?`,
+          answer: R(l * w * h),
+          distractors: [2 * (l * w + w * h + l * h), l + w + h, l * w, l * w * h + l].map((v) => R(v)),
+          explain: `Multiply all three: ${l} × ${w} × ${h} = ${num(l * w * h)}`,
+        };
+      }
+      if (d === 2) {
+        const s = rng.int(2, 12);
+        const askArea = rng.chance(0.5);
+        return {
+          prompt: askArea ? `A cube has a volume of ${num(s ** 3)}. What is its surface area?` : `A cube has a surface area of ${num(6 * s * s)}. What is its volume?`,
+          answer: R(askArea ? 6 * s * s : s ** 3),
+          distractors: (askArea ? [s * s, 4 * s * s, 12 * s, 6 * s * s + s] : [s * s, 6 * s, s ** 3 + s, 2 * s ** 3]).map((v) => R(v)),
+          explain: askArea ? `The edge is the cube root: ${s}. Six faces of ${s * s}: ${num(6 * s * s)}` : `Each face is ${num(6 * s * s)} ÷ 6 = ${s * s}, so the edge is ${s}. ${s}³ = ${num(s ** 3)}`,
+        };
+      }
+      const r = rng.int(2, 9);
+      const h = rng.int(2, 12);
+      const m = rng.int(2, 3);
+      const ans = m * m * r * r * h;
+      return {
+        prompt: `A cylinder has radius ${r} and height ${h}. Its radius is multiplied by ${m}. The new volume is kπ. What is k?`,
+        answer: R(ans),
+        distractors: [m * r * r * h, r * r * h, m * m * r * h, 2 * m * r * h].map((v) => R(v)),
+        explain: `Volume = πr²h. The new radius is ${m * r}: ${m * r}² × ${h} = ${num(ans)}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'ge-sector',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const deg = rng.pick([30, 40, 45, 60, 72, 90, 120, 135, 150, 180]);
+      const r = rng.int(2, 18) * 2;
+      if (d === 1) {
+        const ans = R(deg * 2 * r).div(R(360));
+        if (!ans.isInteger()) return null;
+        return {
+          prompt: `A sector of a circle with radius ${r} has a ${deg}° angle. Its arc length is kπ. What is k?`,
+          answer: ans,
+          distractors: [R(deg * r).div(R(360)), R(2 * r), R(deg * r * r).div(R(360)), ans.add(R(2))],
+          explain: `${deg}° is ${frac(R(deg, 360))} of the circle. ${frac(R(deg, 360))} × ${2 * r}π = ${num(ans)}π`,
+        };
+      }
+      if (d === 2) {
+        const ans = R(deg * r * r).div(R(360));
+        if (!ans.isInteger()) return null;
+        return {
+          prompt: `A sector of a circle with radius ${r} has a ${deg}° angle. Its area is kπ. What is k?`,
+          answer: ans,
+          distractors: [R(deg * 2 * r).div(R(360)), R(r * r), ans.mul(R(2)), ans.add(R(r))],
+          explain: `${deg}° is ${frac(R(deg, 360))} of the circle. ${frac(R(deg, 360))} × ${num(r * r)}π = ${num(ans)}π`,
+        };
+      }
+      const [p, q] = rng.pick<[number, number]>([[2, 3], [3, 4], [3, 5], [4, 5], [2, 5], [5, 6], [1, 3], [3, 7]]);
+      const small = p * p * rng.int(1, 9);
+      const ans = R(small * q * q).div(R(p * p));
+      return {
+        prompt: `Two similar triangles have sides in the ratio ${p} : ${q}. The smaller has an area of ${small}. What is the area of the larger?`,
+        answer: ans,
+        distractors: [R(small * q).div(R(p)), R(small + q * q - p * p), ans.mul(R(2)), R(small * q)],
+        explain: `Areas scale by the square of the sides: ${small} × ${q * q}/${p * p} = ${num(ans)}`,
       };
     },
   }),

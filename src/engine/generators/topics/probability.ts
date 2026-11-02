@@ -217,4 +217,118 @@ export const probability: Template[] = [
       };
     },
   }),
+
+  t({
+    id: 'pb-sets',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const total = rng.int(4, 20) * 5;
+      const a = rng.int(Math.floor(total * 0.4), Math.floor(total * 0.8));
+      const b = rng.int(Math.floor(total * 0.3), Math.floor(total * 0.7));
+      if (d === 3) {
+        const least = a + b - total;
+        if (least <= 0) return null;
+        return {
+          prompt: `Of ${total} students, ${a} study French and ${b} study Spanish. What is the least number who could study both?`,
+          answer: R(least),
+          distractors: [Math.min(a, b), total - a, total - b, least + 1, least + 2].map((x) => R(x)),
+          explain: `If as few overlap as possible, everyone studies at least one: ${a} + ${b} − ${total} = ${least}`,
+        };
+      }
+      const both = rng.int(2, Math.max(2, Math.floor(Math.min(a, b) / 2)));
+      const any = a + b - both;
+      if (any >= total) return null;
+      if (d === 1) {
+        const ans = total - any;
+        return {
+          prompt: `Of ${total} students, ${a} study French, ${b} study Spanish and ${both} study both. How many study neither?`,
+          answer: R(ans),
+          distractors: [total - a - b > 0 ? total - a - b : ans + both + 1, ans + both, ans - 1, ans + 1, both].map((x) => R(x)),
+          explain: `Those who study at least one: ${a} + ${b} − ${both} = ${any}. ${total} − ${any} = ${ans}`,
+        };
+      }
+      const ans = R(any - both).div(R(total));
+      const wrong = asProbabilities(ans, [R(any).div(R(total)), R(both).div(R(total)), R(total - any).div(R(total)), R(a).div(R(total)), ...nearFractions(ans)]);
+      return {
+        prompt: `Of ${total} students, ${a} study French, ${b} study Spanish and ${both} study both. One is picked at random. What is the probability they study exactly one?`,
+        answer: ans,
+        format: 'fraction',
+        exactChoices: true,
+        distractors: wrong,
+        explain: `Only French: ${a - both}. Only Spanish: ${b - both}. That's ${any - both} of ${total}: ${frac(ans)}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'pb-independent',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const p = R(rng.int(1, 3), rng.pick([4, 5, 6, 8, 10]));
+      const q = R(rng.int(1, 3), rng.pick([3, 4, 5, 7, 9]));
+      const notP = R(1).sub(p);
+      const notQ = R(1).sub(q);
+      const both = p.mul(q);
+      const neither = notP.mul(notQ);
+      const one = R(1).sub(both).sub(neither);
+      const [ans, ask, how] =
+        d === 1
+          ? [both, 'both happen', `Independent, so multiply: ${frac(p)} × ${frac(q)} = ${frac(both)}`]
+          : d === 2
+            ? [neither, 'neither happens', `Multiply the chances of not happening: ${frac(notP)} × ${frac(notQ)} = ${frac(neither)}`]
+            : [one, 'exactly one happens', `Both ways: ${frac(p)} × ${frac(notQ)} + ${frac(notP)} × ${frac(q)} = ${frac(one)}`];
+      const wrong = asProbabilities(ans, [both, neither, one, p.add(q), R(1).sub(ans), ...nearFractions(ans)]);
+      return {
+        prompt: `Two independent events have probabilities ${frac(p)} and ${frac(q)}. What is the probability ${ask}?`,
+        answer: ans,
+        format: 'fraction',
+        exactChoices: true,
+        distractors: wrong,
+        explain: how,
+      };
+    },
+  }),
+
+  t({
+    id: 'pb-arrange',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const fact = (n: number): number => (n <= 1 ? 1 : n * fact(n - 1));
+      if (d === 1) {
+        const n = rng.int(5, 12);
+        const k = rng.int(2, 3);
+        const ans = perm(n, k);
+        return {
+          prompt: `A code uses ${k} different letters from a set of ${n}, and order matters. How many codes are possible?`,
+          answer: R(ans),
+          distractors: [n ** k, choose(n, k), n * k, ans + n].map((x) => R(x)),
+          explain: `${Array.from({ length: k }, (_, i) => n - i).join(' × ')} = ${num(ans)}`,
+        };
+      }
+      if (d === 2) {
+        const word = rng.pick(['LEVEL', 'TOOTH', 'BANANA', 'PEPPER', 'SEEDED', 'NOODLE', 'COFFEE', 'LITTLE', 'MISSES', 'ARRAY', 'TEETH', 'PIZZA', 'GEESE', 'CANNON']);
+        const counts = new Map<string, number>();
+        for (const c of word) counts.set(c, (counts.get(c) ?? 0) + 1);
+        const repeats = [...counts.values()].filter((x) => x > 1);
+        const below = repeats.map((x) => fact(x)).reduce((a, b) => a * b, 1);
+        const ans = fact(word.length) / below;
+        return {
+          prompt: `How many different arrangements are there of the letters in ${word}?`,
+          answer: R(ans),
+          distractors: [fact(word.length), fact(word.length) / repeats[0]!, ans * 2, ans + word.length].map((x) => R(x)),
+          explain: `${word.length}! = ${num(fact(word.length))}. Repeated letters can swap unseen, so divide by ${repeats.map((x) => `${x}!`).join(' × ')}: ${num(ans)}`,
+        };
+      }
+      const n = rng.int(4, 8);
+      const together = fact(n - 1) * 2;
+      const apart = rng.chance(0.5);
+      const ans = apart ? fact(n) - together : together;
+      return {
+        prompt: `${n} people sit in a row. In how many ways can they sit if two of them must ${apart ? 'not sit' : 'sit'} next to each other?`,
+        answer: R(ans),
+        distractors: [fact(n), fact(n - 1), apart ? together : fact(n) - together, ans + n].map((x) => R(x)),
+        explain: apart ? `All ways: ${num(fact(n))}. Pair together: ${n - 1}! × 2 = ${num(together)}. ${num(fact(n))} − ${num(together)} = ${num(ans)}` : `Treat the pair as one seat: ${n - 1}! ways, × 2 for the pair's order = ${num(ans)}`,
+      };
+    },
+  }),
 ];

@@ -312,7 +312,7 @@ export const ratios: Template[] = [
           answer: map,
           unit: { suffix: small },
           distractors: [real.mul(scale), map.mul(R(10)), map.div(R(10)), map.add(R(1))],
-          explain: `${num(real)} ÷ ${num(scale)} = ${num(map)}`,
+          explain: `Real distance ÷ the scale: ${num(real)} ÷ ${num(scale)} = ${num(map)}`,
         };
       }
       const map = R(rng.int(11, 99), 10);

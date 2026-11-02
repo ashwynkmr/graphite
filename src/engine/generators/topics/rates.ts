@@ -89,7 +89,7 @@ export const rates: Template[] = [
         answer: v,
         unit: { suffix: m.speed },
         distractors: [dist.div(wrongTime), dist.mul(time), v.add(R(m.step)), v.sub(R(m.step))],
-        explain: d === 2 ? `${timeText} = ${num(time)} hours; ${num(dist)} ÷ ${num(time)} = ${num(v)}` : `${num(dist)} ÷ ${num(time)} = ${num(v)}`,
+        explain: d === 2 ? `${timeText} = ${num(time)} hours; ${num(dist)} ÷ ${num(time)} = ${num(v)}` : `Speed = distance ÷ time: ${num(dist)} ÷ ${num(time)} = ${num(v)}`,
       };
     },
   }),
@@ -172,7 +172,7 @@ export const rates: Template[] = [
         answer: ans,
         unit: { suffix: inMinutes ? 'minutes' : 'hours' },
         distractors: inMinutes ? [time.mul(R(100)), v.div(dist).mul(R(60)), ans.add(R(5)), ans.sub(R(5))] : [v.div(dist), dist.mul(v).div(R(100)), ans.add(R(1)), ans.add(R('0.5'))],
-        explain: inMinutes ? `${num(dist)} ÷ ${num(v)} = ${num(time)} h = ${num(ans)} minutes` : `${num(dist)} ÷ ${num(v)} = ${num(ans)}`,
+        explain: inMinutes ? `${num(dist)} ÷ ${num(v)} = ${num(time)} h = ${num(ans)} minutes` : `Time = distance ÷ speed: ${num(dist)} ÷ ${num(v)} = ${num(ans)}`,
       };
     },
   }),

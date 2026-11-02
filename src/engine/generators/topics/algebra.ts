@@ -1,7 +1,7 @@
 import { R } from '../../matching/rational';
-import { num } from '../format';
+import { frac, money, num } from '../format';
 import type { Template } from '../types';
-import { lcmNum } from '../util';
+import { gcdNum, lcmNum } from '../util';
 
 const t = (x: Omit<Template, 'topic' | 'kind'> & { kind?: Template['kind'] }): Template => ({
   topic: 'algebra',
@@ -156,6 +156,175 @@ export const algebra: Template[] = [
         answer: R(r),
         distractors: [s, r + s, r * s, Math.abs(b), r + 1].map((x) => R(x)),
         explain: `Find two numbers that multiply to ${num(c)} and add to ${num(b)}: ${r} and ${s} with opposite signs. (x − ${r})(x + ${s}) = 0, so x = ${r}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'al-function',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const a = rng.int(2, 7);
+      const b = rng.int(-12, 12);
+      if (!b) return null;
+      const k = rng.int(2, 9);
+      if (d === 1) {
+        const ans = a * k * k + b;
+        return {
+          prompt: `If f(x) = ${a}x²${term(b)}, what is f(${k})?`,
+          answer: R(ans),
+          distractors: [(a * k) ** 2 + b, 2 * a * k + b, a * k + b, ans + a].map((x) => R(x)),
+          explain: `Square first: ${k}² = ${k * k}. ${a} × ${k * k} = ${a * k * k}, then ${b < 0 ? '−' : '+'} ${Math.abs(b)} = ${num(ans)}`,
+        };
+      }
+      if (d === 2) {
+        const inner = a * k + b;
+        const ans = a * inner + b;
+        return {
+          prompt: `If f(x) = ${a}x${term(b)}, what is f(f(${k}))?`,
+          answer: R(ans),
+          distractors: [inner, inner * inner, a * a * k + b, ans + b].map((x) => R(x)),
+          explain: `Inside first: f(${k}) = ${num(inner)}. Then f(${num(inner)}) = ${a} × ${num(inner)}${term(b)} = ${num(ans)}`,
+        };
+      }
+      const p = rng.int(1, 6);
+      const r = p + rng.int(1, 5);
+      const s = r + rng.int(1, 6);
+      const fp = a * p + b;
+      const fr = a * r + b;
+      const ans = a * s + b;
+      return {
+        prompt: `f is a straight-line function with f(${p}) = ${num(fp)} and f(${r}) = ${num(fr)}. What is f(${s})?`,
+        answer: R(ans),
+        distractors: [fp + fr, fr + (s - r), ans + a, ans - a].map((x) => R(x)),
+        explain: `Going from ${p} to ${r} adds ${a * (r - p)}, so the slope is ${a}. From ${r} to ${s} adds ${s - r} × ${a}: ${num(ans)}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'al-ratio-sub',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const p = rng.int(2, 9);
+      const q = rng.int(2, 11);
+      if (p === q || gcdNum(p, q) !== 1) return null;
+      if (d === 1) {
+        const ans = R(p + q, q);
+        return {
+          prompt: `If a/b = ${p}/${q}, what is (a + b)/b?`,
+          answer: ans,
+          format: 'fraction',
+          distractors: [R(p + q, p), R(p, p + q), R(q, p + q), R(p + 1, q + 1)],
+          explain: `Split it: a/b + b/b = ${p}/${q} + 1 = ${frac(ans)}`,
+        };
+      }
+      if (d === 2) {
+        const m = rng.int(2, 4);
+        if (m * p <= q) return null;
+        const ans = R(m * p - q, p + q);
+        return {
+          prompt: `If a/b = ${p}/${q}, what is (${m}a − b)/(a + b)?`,
+          answer: ans,
+          format: 'fraction',
+          distractors: [R(m * p + q, p + q), R(m * p - q, q), R(p - q > 0 ? p - q : q - p, p + q), R(m * q + p, p + q)],
+          explain: `Use a = ${p} and b = ${q}, since only the ratio matters: (${m * p} − ${q}) ÷ ${p + q} = ${frac(ans)}`,
+        };
+      }
+      const ans = R(p * p, q * q);
+      return {
+        prompt: `If ${q}x = ${p}y and y is not 0, what is x²/y²?`,
+        answer: ans,
+        format: 'fraction',
+        distractors: [R(p, q), R(q * q, p * p), R(2 * p, 2 * q + 1), R(p * p, q)],
+        explain: `x/y = ${p}/${q}. Square it: ${p * p}/${q * q}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'al-sequence',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      const first = rng.int(2, 25);
+      const gap = rng.int(2, 12);
+      const n = rng.int(8, 40);
+      if (d === 1) {
+        const ans = first + (n - 1) * gap;
+        return {
+          prompt: `A sequence starts ${first}, ${first + gap}, ${first + 2 * gap}, … and keeps adding ${gap}. What is term ${n}?`,
+          answer: R(ans),
+          distractors: [first + n * gap, n * gap, ans - first, ans + gap + 1].map((x) => R(x)),
+          explain: `Term ${n} is ${n - 1} gaps past the first: ${first} + ${n - 1} × ${gap} = ${ans}`,
+        };
+      }
+      if (d === 2) {
+        const last = first + (n - 1) * gap;
+        const ans = R(first + last).mul(R(n)).div(R(2));
+        return {
+          prompt: `What is the sum of the first ${n} terms of ${first}, ${first + gap}, ${first + 2 * gap}, …?`,
+          answer: ans,
+          distractors: [R(last * n), R(first + last), ans.add(R(last)), ans.sub(R(first))],
+          explain: `Term ${n} is ${last}. Average the ends and multiply: (${first} + ${last}) ÷ 2 × ${n} = ${num(ans)}`,
+        };
+      }
+      const m = rng.int(2, 3);
+      const c = rng.int(1, 5);
+      const start = rng.int(1, 6);
+      const steps = rng.int(3, 5);
+      let v = start;
+      const seen = [v];
+      for (let i = 0; i < steps; i++) {
+        v = m * v + c;
+        seen.push(v);
+      }
+      return {
+        prompt: `Each term is ${m} times the one before, plus ${c}. Term 1 is ${start}. What is term ${steps + 1}?`,
+        answer: R(v),
+        distractors: [seen[steps - 1]!, m * v + c, v - c, v + c].map((x) => R(x)),
+        explain: `Step along: ${seen.join(', ')}`,
+      };
+    },
+  }),
+
+  t({
+    id: 'al-word',
+    kind: 'word',
+    difficulties: [1, 2, 3],
+    generate(rng, d) {
+      if (d === 1) {
+        const big = rng.int(20, 90);
+        const small = rng.int(5, big - 2);
+        return {
+          prompt: `Two numbers add to ${big + small} and differ by ${big - small}. What is the larger?`,
+          answer: R(big),
+          distractors: [small, big + small, big - small, big + 1].map((x) => R(x)),
+          explain: `Add the sum and the gap, then halve: (${big + small} + ${big - small}) ÷ 2 = ${big}`,
+        };
+      }
+      if (d === 2) {
+        const young = rng.int(6, 25);
+        const m = rng.int(2, 4);
+        const later = rng.int(2, 12);
+        const old = m * young;
+        const sum = old + young + 2 * later;
+        return {
+          prompt: `A parent is ${m} times as old as a child. In ${later} years their ages will add to ${sum}. How old is the child now?`,
+          answer: R(young),
+          distractors: [young + later, old, young - 2, young + 2].map((x) => R(x)),
+          explain: `Now they add to ${sum} − ${2 * later} = ${old + young}, which is ${m + 1} child-ages: ${old + young} ÷ ${m + 1} = ${young}`,
+        };
+      }
+      const pa = rng.pick([8, 10, 12, 15, 18, 20]);
+      const pc = rng.pick([3, 4, 5, 6, 7]);
+      const adults = rng.int(5, 60);
+      const kids = rng.int(5, 60);
+      const total = pa * adults + pc * kids;
+      return {
+        prompt: `Adult tickets cost ${money(pa)} and child tickets ${money(pc)}. ${adults + kids} tickets sold for ${money(total)}. How many were adult tickets?`,
+        answer: R(adults),
+        distractors: [kids === adults ? adults + 2 : kids, adults + 1, adults - 1, adults + 5].map((x) => R(x)),
+        explain: `If all were child tickets: ${money(pc * (adults + kids))}. Each adult adds ${money(pa - pc)}: ${money(total - pc * (adults + kids))} ÷ ${money(pa - pc)} = ${adults}`,
       };
     },
   }),

@@ -27,7 +27,7 @@ export const averages: Template[] = [
       if ((mean.decimalPlaces() ?? 0) > 2) return null;
       const sorted = [...xs].sort((a, b) => a.cmp(b));
       const median = n % 2 ? sorted[(n - 1) / 2]! : sorted[n / 2 - 1]!.add(sorted[n / 2]!).div(R(2));
-      let explain = `Sum ${num(total)} ÷ ${n} = ${num(rounding ? mean.round(rounding) : mean)}${rounding ? ' (to the nearest tenth)' : ''}`;
+      let explain = `Add them, then divide by how many: ${num(total)} ÷ ${n} = ${num(rounding ? mean.round(rounding) : mean)}${rounding ? ' (to the nearest tenth)' : ''}`;
       if (d === 1) {
         const base = mean.round('whole').div(R(10)).round('whole').mul(R(10));
         const devs = xs.map((x) => x.sub(base));
