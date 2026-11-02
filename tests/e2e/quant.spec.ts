@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { expect, test, type Page } from '@playwright/test';
 import { answerQuant, answerSprint, currentSession, pickSprint, expectNoVerdict, signIn, table, type SessionRow } from './helpers';
 
@@ -251,3 +253,44 @@ test('at time-up a picked option counts as answered, and an unpicked question do
   expect(done.score).toEqual({ correct: 1, total: 1 });
 });
 
+test('at phone size, the longest question and Submit are both in view, typed or multiple choice', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 664 });
+  const bank = JSON.parse(readFileSync(resolve(import.meta.dirname, '../../content/questions.json'), 'utf8')) as { id: string; prompt: string; choices?: string[]; rounding?: string }[];
+  const longest = (list: typeof bank) => [...list].sort((a, b) => b.prompt.length - a.prompt.length)[0]!;
+  await signIn(page);
+  await page.getByRole('button', { name: 'Quick drill' }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  const id = new URL(page.url()).hash.split('/').pop()!;
+  for (const [mode, question] of [['typed', longest(bank.filter((q) => !q.rounding))], ['mcq', longest(bank.filter((q) => q.choices))]] as const) {
+    await page.evaluate(
+      ({ sessionId, questionId, mode, choices }) =>
+        new Promise<void>((done) => {
+          const open = indexedDB.open('graphite');
+          open.onsuccess = () => {
+            const store = open.result.transaction('sessions', 'readwrite').objectStore('sessions');
+            const get = store.get(sessionId);
+            get.onsuccess = () => {
+              const row = get.result;
+              row.items[row.cursor] = { ref: { kind: 'bank', id: questionId }, mode, ...(mode === 'mcq' ? { choices } : {}) };
+              store.put(row).onsuccess = () => {
+                open.result.close();
+                done();
+              };
+            };
+          };
+        }),
+      { sessionId: id, questionId: question.id, mode, choices: question.choices },
+    );
+    await page.reload();
+    await expect(page.locator('body')).toContainText(question.prompt.slice(0, 20));
+    const fits = await page.evaluate(() => {
+      const main = document.querySelector('main')!;
+      return { scrollsInside: main.scrollHeight > main.clientHeight + 1, pageScrolls: document.documentElement.scrollHeight > window.innerHeight + 1 };
+    });
+    expect(fits.pageScrolls).toBe(false);
+    expect(fits.scrollsInside).toBe(false);
+    const submit = (await page.getByRole('button', { name: 'Submit' }).boundingBox())!;
+    expect(submit.y + submit.height).toBeLessThanOrEqual(664);
+    expect(submit.height).toBeGreaterThanOrEqual(48);
+  }
+});

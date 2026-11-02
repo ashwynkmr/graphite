@@ -60,3 +60,11 @@
 .submit:disabled {
   opacity: 0.4;
 }
+
+@media (max-height: 720px) {
+  .key,
+  .skip,
+  .submit {
+    min-height: var(--tap);
+  }
+}

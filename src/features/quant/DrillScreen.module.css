@@ -1,5 +1,6 @@
 .screen {
-  min-height: 100dvh;
+  /* Exactly one screen tall: a long question scrolls inside the card's area, and Submit stays in reach. */
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   max-width: var(--content-max);
@@ -73,12 +74,14 @@
 
 .body {
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
-  align-items: center;
   padding: var(--space-3) 0;
 }
 
 .card {
+  margin: auto 0;
   /* Ruled lines spaced to the prompt's line height, so text sits on them like notebook paper. */
   --line: 38px;
   width: 100%;
@@ -171,4 +174,30 @@
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
+}
+
+/* Short screens, such as a phone browser with its toolbars showing: tighter, so more fits at once. */
+@media (max-height: 720px) {
+  .body {
+    padding: var(--space-1) 0;
+  }
+
+  .card {
+    --line: 30px;
+    padding: var(--space-2) var(--space-2) var(--space-2) var(--space-5);
+    background-position: 0 calc(var(--space-2) - 4px);
+  }
+
+  .prompt {
+    font-size: var(--text-lg);
+  }
+
+  .answerLine {
+    margin-top: var(--space-1);
+    min-height: 44px;
+  }
+
+  .typed {
+    font-size: var(--text-xl);
+  }
 }

@@ -101,3 +101,9 @@
 .submit:disabled {
   opacity: 0.4;
 }
+
+@media (max-height: 720px) {
+  .choice {
+    min-height: var(--tap);
+  }
+}
