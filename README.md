@@ -23,7 +23,7 @@
   <img src="docs/assets/screens/mistakes.png" width="180" alt="The mistake log with topic filters and Drill my mistakes">
 </p>
 
-*Screens from an automated test run, so the numbers aren't real study results.*
+*Screens from an automated test run with made-up study data, so the numbers aren't real results.*
 
 ## At a glance
 
