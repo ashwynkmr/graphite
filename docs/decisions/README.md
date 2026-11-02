@@ -59,5 +59,6 @@ Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Pro
 ## Signals to revisit   what evidence would make us change this
 ```
 | [0042](0042-phase-2-on-a-branch-commit-as-we-go.md) | Phase 2 is built on a branch, committed as it goes, and launched once | 2026-11-01 | Accepted | Phase 2 | Scope |
-| [0043](0043-sprint-adaptive-and-topic-memory.md) | How Sprint, Adaptive and per-topic defaults work | 2026-11-01 | Accepted | Phase 2 | Product |
+| [0043](0043-sprint-adaptive-and-topic-memory.md) | How Sprint, Adaptive and per-topic defaults work | 2026-11-01 | Accepted; sprint times superseded by 0045 | Phase 2 | Product |
 | [0044](0044-round-2-browse-and-memory-aids.md) | How Round 2, Browse and memory aids work | 2026-11-01 | Accepted | Phase 2 | Product |
+| [0045](0045-sprint-time-dial-and-search-layout.md) | Sprint time is a dial, and search results sit right under the bar | 2026-11-01 | Accepted | Phase 2 | Design |

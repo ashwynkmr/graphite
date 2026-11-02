@@ -1,5 +1,5 @@
 # 0043. How Sprint, Adaptive and per-topic defaults work
-2026-11-01 · Accepted · Phase 2 · Product
+2026-11-01 · Accepted; sprint times superseded by [0045](0045-sprint-time-dial-and-search-layout.md) · Phase 2 · Product
 
 ## Context
 The PRD leaves gaps. Sprint questions go unreached. The Adaptive rule would let one good drill count twice. "Per-topic defaults" doesn't say what is set or where.

@@ -5,7 +5,7 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 ## [Unreleased]
 
 ### Added
-- Sprint: 2, 5 or 10 minutes, answering as many questions as you can.
+- Sprint: 30 seconds to 15 minutes on a dial, answering as many questions as you can.
 - Adaptive difficulty: each topic moves up or down with your results, and Results tell you when one does.
 - Picking one topic brings back the setup you last used for it.
 - Browse and search all 1,500 words by word, synonym or meaning, and filter by frequency, stage or star.

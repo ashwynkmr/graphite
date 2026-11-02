@@ -23,6 +23,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-11-01 | C5: launch pass, fractions, personal notes | Staging and in chat | [2026-11-01-C5](2026-11-01-C5.md) |
 | 2026-11-01 | C6: Phase 1 launch | On iPhone and in chat | [2026-11-01-C6](2026-11-01-C6.md) |
 | 2026-11-01 | P2-1: Phase 2 start and quant | In chat, then staging | [2026-11-01-P2-1](2026-11-01-P2-1.md) |
+| 2026-11-01 | P2-2: Vocab | Staging | [2026-11-01-P2-2](2026-11-01-P2-2.md) |
 
 ## Tracker
 
@@ -127,3 +128,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-97 | Progress | No need to see each topic's level before starting | Level goes on Progress in checkpoint 3 | Planned | |
 | FB-98 | Design | "Fractions look nice now" | Seen on a real phone | Done | [0040](../decisions/0040-stacked-fractions.md) |
 | FB-99 | Process | Checkpoint 1: "All good" | Moved on to checkpoint 2 | Done | |
+| FB-100 | Vocab | Memory aids: "It's okay" | Kept | No change | [0044](../decisions/0044-round-2-browse-and-memory-aids.md) |
+| FB-101 | Vocab | Memory aid shown right away on the card's back: "Fine" | Kept | No change | [0044](../decisions/0044-round-2-browse-and-memory-aids.md) |
+| FB-102 | Vocab | A searched word only shows in the search bar; it should show separately underneath | Results sit right under the bar, and the best match opens with the word large | Built | [0045](../decisions/0045-sprint-time-dial-and-search-layout.md) |
+| FB-103 | Quant | Sprint time should be a dial, from 30 seconds in 30-second steps up to 15 minutes | Built as asked | Built | [0045](../decisions/0045-sprint-time-dial-and-search-layout.md) |
