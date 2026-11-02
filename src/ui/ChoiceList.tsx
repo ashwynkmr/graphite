@@ -14,7 +14,7 @@ interface ChoiceListProps {
   long?: boolean;
 }
 
-/** Five options, A–E. Keys 1–5 or A–E select; Enter submits. Selection is neutral: no right or wrong shown. */
+/** Up to five options, A–E. Keys 1–5 or A–E select; Enter submits. Selection is neutral: no right or wrong shown. */
 export function ChoiceList({ choices, selected, onSelect, onSubmit, onSkip, long }: ChoiceListProps) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

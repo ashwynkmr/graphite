@@ -1,4 +1,5 @@
 // How answers read on screen: commas, $ amounts with cents, fractions with a true minus, units.
+import { COMPARE_LABELS } from '../../engine/generators/compare';
 import { frac, money, num } from '../../engine/generators/format';
 import { Rational } from '../../engine/matching/rational';
 import type { Topic } from '../../engine/generators/types';
@@ -6,6 +7,7 @@ import type { PlayableQuestion } from '../../engine/sessions/questions';
 
 export function showValue(q: Pick<PlayableQuestion, 'unit' | 'format'>, value: string | null | undefined): string {
   if (value === null || value === undefined || value === '') return '—';
+  if (q.format === 'compare') return COMPARE_LABELS[value] ?? value;
   const r = Rational.parse(value);
   if (!r) return value;
   const prefix = q.unit?.prefix ?? '';
@@ -30,6 +32,7 @@ export const TOPIC_LABEL: Record<Topic, string> = {
   probability: 'Probability',
   algebra: 'Algebra',
   geometry: 'Geometry',
+  comparison: 'Comparison',
 };
 
 export const DIFFICULTY_LABEL: Record<1 | 2 | 3, string> = { 1: 'Easy', 2: 'Medium', 3: 'Hard' };

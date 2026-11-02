@@ -9,6 +9,7 @@ import { ChoiceList } from '../../ui/ChoiceList';
 import { EndConfirm } from '../../ui/EndConfirm';
 import { Keypad } from '../../ui/Keypad';
 import { MathText } from '../../ui/MathText';
+import { splitCompare } from '../../engine/generators/compare';
 import { clock, showValue } from './display';
 import styles from './DrillScreen.module.css';
 
@@ -126,6 +127,7 @@ export function DrillScreen() {
 
   const item = session.items[session.cursor]!;
   const q = questions[session.cursor]!;
+  const compare = q.format === 'compare' ? splitCompare(q.prompt) : null;
   const timeText = session.limitMs !== null ? clock(remaining(session.timer, session.limitMs, now)) : null;
   const low = session.limitMs !== null && remaining(session.timer, session.limitMs, now) < Math.min(30_000, session.limitMs / 4);
   const sprint = session.settings.timer === 'sprint';
@@ -151,9 +153,33 @@ export function DrillScreen() {
 
       <main className={styles.body}>
         <div className={styles.card}>
-          <p className={styles.prompt}>
-            <MathText text={q.prompt} />
-          </p>
+          {compare ? (
+            <>
+              {compare.given && (
+                <p className={styles.given}>
+                  <MathText text={compare.given} />
+                </p>
+              )}
+              <dl className={styles.quantities}>
+                <div>
+                  <dt>Quantity A</dt>
+                  <dd>
+                    <MathText text={compare.a} />
+                  </dd>
+                </div>
+                <div>
+                  <dt>Quantity B</dt>
+                  <dd>
+                    <MathText text={compare.b} />
+                  </dd>
+                </div>
+              </dl>
+            </>
+          ) : (
+            <p className={styles.prompt}>
+              <MathText text={q.prompt} />
+            </p>
+          )}
           {item.mode === 'typed' && (
             <div className={styles.answerLine} aria-live="polite">
               {q.unit?.prefix && <span className={styles.unit}>{q.unit.prefix}</span>}

@@ -255,13 +255,14 @@ test('at time-up a picked option counts as answered, and an unpicked question do
 
 test('at phone size, the longest question and Submit are both in view, typed or multiple choice', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 664 });
-  const bank = JSON.parse(readFileSync(resolve(import.meta.dirname, '../../content/questions.json'), 'utf8')) as { id: string; prompt: string; choices?: string[]; rounding?: string }[];
+  const bank = JSON.parse(readFileSync(resolve(import.meta.dirname, '../../content/questions.json'), 'utf8')) as { id: string; prompt: string; format: string; choices?: string[]; rounding?: string }[];
   const longest = (list: typeof bank) => [...list].sort((a, b) => b.prompt.length - a.prompt.length)[0]!;
   await signIn(page);
   await page.getByRole('button', { name: 'Quick drill' }).click();
   await expect(page).toHaveURL(/quant\/session/);
   const id = new URL(page.url()).hash.split('/').pop()!;
-  for (const [mode, question] of [['typed', longest(bank.filter((q) => !q.rounding))], ['mcq', longest(bank.filter((q) => q.choices))]] as const) {
+  const plain = bank.filter((q) => q.format !== 'compare');
+  for (const [mode, question] of [['typed', longest(plain.filter((q) => !q.rounding))], ['mcq', longest(plain.filter((q) => q.choices))], ['mcq', longest(bank.filter((q) => q.format === 'compare'))]] as const) {
     await page.evaluate(
       ({ sessionId, questionId, mode, choices }) =>
         new Promise<void>((done) => {
@@ -293,4 +294,25 @@ test('at phone size, the longest question and Submit are both in view, typed or 
     expect(submit.y + submit.height).toBeLessThanOrEqual(664);
     expect(submit.height).toBeGreaterThanOrEqual(48);
   }
+});
+
+test('a comparison drill shows both quantities and four answers in exam order, with no verdict, then labels them on Results', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 664 });
+  await signIn(page);
+  await page.goto('./#/quant');
+  await page.getByRole('button', { name: 'Comparison', exact: true }).click();
+  await page.getByRole('radio', { name: 'Typed' }).click();
+  await page.getByRole('button', { name: /^Start 20 questions/ }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  for (let i = 0; i < 20; i++) {
+    await expect(page.getByRole('term').first()).toHaveText('Quantity A');
+    await expect(page.getByRole('radio')).toHaveText(['AQuantity A is greater', 'BQuantity B is greater', 'CThe two quantities are equal', 'DIt cannot be determined']);
+    await expectNoVerdict(page);
+    const submit = (await page.getByRole('button', { name: 'Submit' }).boundingBox())!;
+    expect(submit.y + submit.height).toBeLessThanOrEqual(664);
+    await answerQuant(page, i % 2 === 0);
+  }
+  await expect(page).toHaveURL(/results/);
+  await expect(page.locator('body')).toContainText(/10\s*of 20/);
+  await expect(page.locator('body')).toContainText(/Quantity [AB] is greater|equal|cannot be determined/);
 });
