@@ -11,9 +11,9 @@ Running log of what's built, what's live and known issues. Newest first.
 Read this and `CLAUDE.md` first when starting a new session.
 
 - **Where we are:** `v2.0.0` is live. Phase 3 is under way on the `phase-3` branch: the question bank and a quick tour ([0049](decisions/0049-phase-3-is-the-question-bank-and-a-tour.md)). Study started Nov 1; exam Nov 24.
-- **Next step:** Ashwyn reviews checkpoint 1. Then the rest of the new templates, better explanations, Quantitative Comparison and the harder Sentence Equivalence bank.
-- **When adding quant templates:** don't change an existing template's use of random numbers, or lower the share of existing templates in a topic, or question IDs change under saved progress. Compare the rebuilt bank's old questions with the live one each time.
-- **How we work:** branch from `main`, commit once checks pass, and never push to `main` until Ashwyn approves the launch ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). One launch, a few days after Phase 3 is finished. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-112). Next decision number: 0052. Each release needs a new `RELEASE` and list in `WhatsNewScreen.tsx`. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
+- **Next step:** Ashwyn reviews checkpoint 2. Then Quantitative Comparison and the harder Sentence Equivalence bank.
+- **When adding quant templates:** mark them `extra` in a live topic, and don't change an existing template's use of random numbers, or question IDs change under saved progress. Compare the rebuilt bank's old questions with the live one each time.
+- **How we work:** branch from `main`, commit once checks pass, and never push to `main` until Ashwyn approves the launch ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). One launch, a few days after Phase 3 is finished. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-113). Next decision number: 0053. Each release needs a new `RELEASE` and list in `WhatsNewScreen.tsx`. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
 - **Open items:** Round 2 on a real phone; reminders and notes on Android, including the answer buttons; a reminder run going over Cloudflare's 10 ms limit and retrying; the Android install button not yet tried; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -33,6 +33,14 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 11 | Launch pass: run-throughs, Report a problem, screenshots | Done; real-phone checklist passed; `v1.0.0` | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Phase 3, checkpoint 2
+- 34 more templates: 18 across the first nine topics and 16 across the new five. The bank is 2,976 questions, and the offline download about 2.3 MB against the 3 MB limit. The 1,500 live questions kept their IDs, answers and options. Not live. Feedback FB-113.
+- 231 explanations reworded to name a method, 112 of them hand-written problems. Ones that already showed a shortcut stayed as they were.
+- The drill screen now fits one screen, so Submit stays in reach on long questions ([0052](decisions/0052-drill-screen-fits-one-screen.md)).
+- With 14 topics, a weak-topic suggestion from Quick drills takes about 7 drills to appear, up from 5.
+- Reading samples caught "13 − −2", "√6 = √6", and a question where a pipe and drain cancelled out. `pb-arrange` ran short of unique questions at Medium (7 of 11) and Hard (9 of 11); it can't make more with so few numbers.
+- Checked in Chromium at 375 × 664. Not yet on a real phone.
 
 ### 2026-11-01: Phase 3, checkpoint 1
 - Five new topics with 15 templates and 600 questions: Number properties, Statistics, Probability, Algebra and Geometry ([0051](decisions/0051-five-new-quant-subjects.md)). The rebuild left all 1,500 existing questions unchanged. Not live.

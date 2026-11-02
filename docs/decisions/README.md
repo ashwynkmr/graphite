@@ -68,3 +68,4 @@ Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Pro
 | [0049](0049-phase-3-is-the-question-bank-and-a-tour.md) | Phase 3 is the question bank and a quick tour, launched once | 2026-11-01 | Accepted | Phase 3 | Scope |
 | [0050](0050-quick-tour-spotlights-each-tab.md) | The first-time tour spotlights each tab on the real screen | 2026-11-01 | Accepted | Phase 3 | Design |
 | [0051](0051-five-new-quant-subjects.md) | Five new quant subjects join the nine topics | 2026-11-01 | Accepted | Phase 3 | Content |
+| [0052](0052-drill-screen-fits-one-screen.md) | The drill screen fits one screen, so Submit is always in reach | 2026-11-01 | Accepted | Phase 3 | Design |
