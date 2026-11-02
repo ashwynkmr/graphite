@@ -149,3 +149,6 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-112 | Process | Launch a few days after the phase is done; the second user stays on the Phase 2 build | One launch planned; date to be set | Planned | [0049](../decisions/0049-phase-3-is-the-question-bank-and-a-tour.md) |
 | FB-113 | Process | Checkpoint 1: "Looks good" | Moved on to checkpoint 2 | Done | [2026-11-01-P3-1](2026-11-01-P3-1.md) |
 | FB-114 | Process | Checkpoint 2: "I've tested everything so far and it does look good." | Moved on to checkpoint 3 | Done | [2026-11-01-P3-2](2026-11-01-P3-2.md) |
+| FB-115 | Quant | Comparison layout: A, two columns | Layout A stays | Done | [0054](../decisions/0054-comparison-questions-use-two-columns.md) |
+| FB-116 | Quant | Comparison questions feel okay | No change to the level | No change | [2026-11-01-P3-3](2026-11-01-P3-3.md) |
+| FB-117 | Quant | "Cannot be determined" at about 21% should be fine | No change to the mix | No change | [2026-11-01-P3-3](2026-11-01-P3-3.md) |

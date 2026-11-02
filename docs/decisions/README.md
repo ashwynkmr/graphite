@@ -70,3 +70,4 @@ Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Pro
 | [0051](0051-five-new-quant-subjects.md) | Five new quant subjects join the nine topics | 2026-11-01 | Accepted | Phase 3 | Content |
 | [0052](0052-drill-screen-fits-one-screen.md) | The drill screen fits one screen, so Submit is always in reach | 2026-11-01 | Accepted | Phase 3 | Design |
 | [0053](0053-comparison-questions-computed-from-test-values.md) | Comparison answers are computed by trying values, and stored as codes | 2026-11-01 | Accepted | Phase 3 | Content |
+| [0054](0054-comparison-questions-use-two-columns.md) | Comparison questions use two columns | 2026-11-01 | Accepted | Phase 3 | Design |
