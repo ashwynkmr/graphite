@@ -152,3 +152,4 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-115 | Quant | Comparison layout: A, two columns | Layout A stays | Done | [0054](../decisions/0054-comparison-questions-use-two-columns.md) |
 | FB-116 | Quant | Comparison questions feel okay | No change to the level | No change | [2026-11-01-P3-3](2026-11-01-P3-3.md) |
 | FB-117 | Quant | "Cannot be determined" at about 21% should be fine | No change to the mix | No change | [2026-11-01-P3-3](2026-11-01-P3-3.md) |
+| FB-118 | Vocab | Sample Sentence Equivalence sentences: "level and fairness are okay, you can go ahead" | 294 sentences written; awaiting review in the app | Planned | [0055](../decisions/0055-exam-style-sentence-equivalence-bank.md) |

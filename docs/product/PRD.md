@@ -174,6 +174,7 @@ The deck holds the 1,500 most frequent GRE words. Each word has a meaning and on
 
 - One sentence with a blank and six words. The user picks the two that give the sentence the same meaning.
 - Only the exact pair scores, as on the exam. Words without a checked partner are asked another chosen way.
+- *(Phase 3, [0055](../decisions/0055-exam-style-sentence-equivalence-bank.md))* Words in the exam-style bank get a longer sentence with a decoy pair; other words keep the older question.
 
 **Session results**
 

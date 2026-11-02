@@ -11,9 +11,9 @@ Running log of what's built, what's live and known issues. Newest first.
 Read this and `CLAUDE.md` first when starting a new session.
 
 - **Where we are:** `v2.0.0` is live. Phase 3 is under way on the `phase-3` branch: the question bank and a quick tour ([0049](decisions/0049-phase-3-is-the-question-bank-and-a-tour.md)). Study started Nov 1; exam Nov 24.
-- **Next step:** Checkpoint 3 is approved, with layout A ([0054](decisions/0054-comparison-questions-use-two-columns.md)). Ashwyn is reviewing 20 sample sentences for the harder Sentence Equivalence bank. Once approved, write about 300 and read each one. Then the launch, a few days after the phase is finished, on a date Ashwyn sets.
+- **Next step:** Checkpoint 3 is approved, with layout A ([0054](decisions/0054-comparison-questions-use-two-columns.md)). Checkpoint 4, the harder Sentence Equivalence bank of 294 sentences ([0055](decisions/0055-exam-style-sentence-equivalence-bank.md)), is built and awaiting Ashwyn's review on a test link. After approval, ask for a launch date: one launch, a few days after the phase is finished.
 - **When adding quant templates:** mark them `extra` in a live topic, and don't change an existing template's use of random numbers, or question IDs change under saved progress. Compare the rebuilt bank with the live one each time (`git show origin/main:content/questions.json`): all 1,500 must keep their IDs, answers and options.
-- **How we work:** branch from `main`, commit once checks pass, and never push to `main` until Ashwyn approves the launch ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). One launch, a few days after Phase 3 is finished. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-117). Next decision number: 0055. Each release needs a new `RELEASE` and list in `WhatsNewScreen.tsx`. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
+- **How we work:** branch from `main`, commit once checks pass, and never push to `main` until Ashwyn approves the launch ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). One launch, a few days after Phase 3 is finished. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-118). Next decision number: 0056. Each release needs a new `RELEASE` and list in `WhatsNewScreen.tsx`. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
 - **Open items:** Round 2 on a real phone; reminders and notes on Android, including the answer buttons; a reminder run going over Cloudflare's 10 ms limit and retrying; the Android install button not yet tried; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -33,6 +33,10 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 11 | Launch pass: run-throughs, Report a problem, screenshots | Done; real-phone checklist passed; `v1.0.0` | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Phase 3, checkpoint 4
+- 294 hand-written Sentence Equivalence sentences with decoy pairs, covering 582 words, used before the older questions ([0055](decisions/0055-exam-style-sentence-equivalence-bank.md)). Not live. Feedback FB-118.
+- Rereading caught decoys that could arguably fit ("pacify", "plethora"), and seven sentences were rewritten. A browser test caught Submit 52 px off a 664 px screen on the longest sentence, so short screens now show the options in two columns.
 
 ### 2026-11-01: Phase 3, checkpoint 3 approved
 - Ashwyn chose layout A and left the question level and the "cannot be determined" mix as they are (FB-115 to FB-117). Ashwyn asked for the answers to be tidied in the docs, and the record says so. The device used wasn't stated.

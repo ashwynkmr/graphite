@@ -33,7 +33,7 @@ Scope set by Ashwyn ([0049](../decisions/0049-phase-3-is-the-question-bank-and-a
 | 1. First look | 15 templates in five new subjects (600 questions), about 20 samples, the quick tour | Done; approved |
 | 2. Variety and explanations | 34 more templates (2,976 questions), 231 better explanations, Submit always in reach | Done; approved |
 | 3. Quantitative Comparison | A new topic of 239 questions, with layout options side by side (bank at 3,215) | Done; approved |
-| 4. Sentence Equivalence | About 300 harder, original sentences | 20 samples awaiting review |
+| 4. Sentence Equivalence | 294 harder, original sentences, with decoy pairs | Awaiting review |
 | Launch | Date set by Ashwyn once the phase is finished | Not started |
 
 Dropped: audio pronunciation, score predictor, compare with a friend, Android APK. Not chosen: data-interpretation questions.
