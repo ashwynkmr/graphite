@@ -15,7 +15,8 @@ export type Topic =
   | 'statistics'
   | 'probability'
   | 'algebra'
-  | 'geometry';
+  | 'geometry'
+  | 'comparison';
 
 export const TOPICS: Topic[] = [
   'arithmetic',
@@ -32,6 +33,7 @@ export const TOPICS: Topic[] = [
   'probability',
   'algebra',
   'geometry',
+  'comparison',
 ];
 
 export type Difficulty = 1 | 2 | 3;
@@ -48,8 +50,8 @@ export interface Unit {
 export interface Draft {
   prompt: string;
   answer: Rational;
-  /** How the answer and choices are written: decimals/integers (default) or fractions. */
-  format?: 'number' | 'fraction';
+  /** How the answer and choices are written: decimals/integers (default), fractions, or a comparison's four fixed answers. */
+  format?: 'number' | 'fraction' | 'compare';
   rounding?: Rounding;
   unit?: Unit;
   /** Wrong answers from named mistakes, most plausible first. */
@@ -79,7 +81,7 @@ export interface GeneratedQuestion {
   kind: Kind;
   prompt: string;
   answer: string;
-  format: 'number' | 'fraction';
+  format: 'number' | 'fraction' | 'compare';
   rounding?: Rounding;
   unit?: Unit;
   choices?: string[];

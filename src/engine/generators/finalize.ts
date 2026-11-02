@@ -3,6 +3,7 @@
 
 import { R, Rational, type Rounding } from '../matching/rational';
 import { mulberry32, type Rng } from '../rng';
+import { COMPARE_CHOICES } from './compare';
 import type { Difficulty, Draft, GeneratedQuestion, Template } from './types';
 
 export const BASE_TARGET_SEC: Record<Difficulty, number> = { 1: 35, 2: 50, 3: 70 };
@@ -38,6 +39,23 @@ export function finalize(template: Template, d: Difficulty, seed: number): Final
 export function finishDraft(draft: Draft, origin: Pick<Template, 'topic' | 'kind'>, d: Difficulty, rng: Rng): FinalizeResult {
   if (!draft.prompt || !draft.explain) return { ok: false, reason: 'bad-draft' };
 
+  if (draft.format === 'compare') {
+    return {
+      ok: true,
+      question: {
+        topic: origin.topic,
+        difficulty: d,
+        kind: origin.kind,
+        prompt: draft.prompt,
+        answer: writeAnswer(draft.answer, 'number'),
+        format: 'compare',
+        targetSec: draft.targetSec ?? BASE_TARGET_SEC[d] + (origin.kind === 'word' ? WORD_EXTRA_SEC : 0),
+        explain: draft.explain,
+        choices: COMPARE_CHOICES,
+        mcqOnly: true,
+      },
+    };
+  }
   const format = draft.format ?? 'number';
   const final = draft.rounding ? draft.answer.round(draft.rounding) : draft.answer;
 

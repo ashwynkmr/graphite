@@ -2,6 +2,7 @@ import type { Template } from './types';
 import { algebra } from './topics/algebra';
 import { arithmetic } from './topics/arithmetic';
 import { averages } from './topics/averages';
+import { comparison } from './topics/comparison';
 import { estimation } from './topics/estimation';
 import { exponents } from './topics/exponents';
 import { extras } from './topics/extras';
@@ -15,6 +16,6 @@ import { ratios } from './topics/ratios';
 import { rates } from './topics/rates';
 import { statistics } from './topics/statistics';
 
-export const TEMPLATES: Template[] = [...arithmetic, ...fractions, ...percents, ...ratios, ...averages, ...rates, ...moneyTopic, ...exponents, ...estimation, ...numbers, ...statistics, ...probability, ...algebra, ...geometry, ...extras];
+export const TEMPLATES: Template[] = [...arithmetic, ...fractions, ...percents, ...ratios, ...averages, ...rates, ...moneyTopic, ...exponents, ...estimation, ...numbers, ...statistics, ...probability, ...algebra, ...geometry, ...comparison, ...extras];
 
 export const TEMPLATE_BY_ID: ReadonlyMap<string, Template> = new Map(TEMPLATES.map((t) => [t.id, t]));

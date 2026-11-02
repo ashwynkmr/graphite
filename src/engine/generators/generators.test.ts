@@ -2,6 +2,7 @@
 import { describe, expect, it } from 'vitest';
 import { matchNumeric } from '../matching/numeric-answer';
 import { R, Rational } from '../matching/rational';
+import { COMPARE_CHOICES } from './compare';
 import { finalize, MAX_SIG_DIGITS } from './finalize';
 import { TEMPLATE_BY_ID, TEMPLATES } from './index';
 import type { GeneratedQuestion } from './types';
@@ -23,7 +24,10 @@ function checkQuestion(q: GeneratedQuestion) {
   expect(q.prompt).not.toMatch(/undefined|NaN|\{\w+\}/);
   expect(q.explain).not.toMatch(/undefined|NaN|\{\w+\}/);
   if (q.mcqOnly) expect(q.choices).toBeDefined();
-  if (q.choices) {
+  if (q.format === 'compare') {
+    expect(q.choices).toEqual(COMPARE_CHOICES);
+    expect(COMPARE_CHOICES).toContain(q.answer);
+  } else if (q.choices) {
     expect(q.choices).toHaveLength(5);
     expect(new Set(q.choices).size).toBe(5);
     const values = q.choices.map((c) => Rational.parse(c));

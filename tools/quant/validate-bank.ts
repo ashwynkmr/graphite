@@ -106,7 +106,8 @@ for (const q of bank) {
   // Choices
   if (q.mcqOnly && !q.choices) fail(q.id, 'mcqOnly without choices');
   if (q.choices) {
-    if (new Set(q.choices).size !== 5) fail(q.id, 'choices are not 5 distinct values');
+    const wanted = q.format === 'compare' ? 4 : 5;
+    if (new Set(q.choices).size !== wanted) fail(q.id, `choices are not ${wanted} distinct values`);
     const values = q.choices.map((c) => Rational.parse(c));
     if (values.some((v) => !v)) fail(q.id, 'a choice does not parse');
     else {

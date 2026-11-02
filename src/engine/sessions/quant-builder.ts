@@ -4,6 +4,7 @@
 //  - When fewer than 10% of a topic's bank is still available, generate fresh questions live.
 //  - Answer mode: Typed, MCQ, or Mix (about half MCQ; estimation is always MCQ).
 import { daysBetween, type Day } from '../dates';
+import { COMPARE_CHOICES } from '../generators/compare';
 import { finalize } from '../generators/finalize';
 import { TEMPLATES } from '../generators/index';
 import type { Difficulty, Topic } from '../generators/types';
@@ -48,7 +49,9 @@ export function sprintLength(seconds: number): number {
 }
 
 /** Typed / MCQ for one question, and its shuffled choices. Null if it can't be served in this mode. */
-export function planMode(q: Pick<PlayableQuestion, 'choices' | 'mcqOnly'>, setting: AnswerModeSetting, rng: Rng): Omit<PlannedItem, 'ref'> | null {
+export function planMode(q: Pick<PlayableQuestion, 'choices' | 'mcqOnly' | 'format'>, setting: AnswerModeSetting, rng: Rng): Omit<PlannedItem, 'ref'> | null {
+  // Comparisons have no number to type, and their answers always keep the exam's order.
+  if (q.format === 'compare') return { mode: 'mcq', choices: [...COMPARE_CHOICES] };
   const canMcq = Boolean(q.choices);
   let mode: 'typed' | 'mcq';
   if (q.mcqOnly) mode = 'mcq';
@@ -140,7 +143,7 @@ export function buildQuantItems(input: QuantBuildInput): PlannedItem[] {
 /** Retry wrong ones: exactly the given items again, with choices reshuffled. */
 export function rebuildItems(items: readonly PlannedItem[], seed: number): PlannedItem[] {
   const rng = mulberry32(seed);
-  return items.map((it) => (it.choices ? { ...it, choices: rng.shuffle(it.choices) } : { ...it }));
+  return items.map((it) => (it.choices && it.choices.length !== COMPARE_CHOICES.length ? { ...it, choices: rng.shuffle(it.choices) } : { ...it }));
 }
 
 /**
@@ -149,7 +152,7 @@ export function rebuildItems(items: readonly PlannedItem[], seed: number): Plann
  */
 export function buildMistakeItems(args: {
   mistakes: readonly { refId: string; addedAt: number }[];
-  resolve: (ref: QuestionRef) => Pick<PlayableQuestion, 'choices' | 'mcqOnly'> | null;
+  resolve: (ref: QuestionRef) => Pick<PlayableQuestion, 'choices' | 'mcqOnly' | 'format'> | null;
   length: number;
   seed: number;
 }): PlannedItem[] {
