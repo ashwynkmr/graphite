@@ -1,0 +1,4706 @@
+[
+ {
+  "id": "se-0001",
+  "sentence": "The committee had expected the new auditor to be _____, so members were unsettled when she waved through the first three reports without a single question.",
+  "answer": [
+   "scrupulous",
+   "punctilious"
+  ],
+  "decoy": [
+   "lax",
+   "remiss"
+  ],
+  "others": [
+   "gregarious",
+   "diffident"
+  ]
+ },
+ {
+  "id": "se-0002",
+  "sentence": "The minister's carefully worded denial did nothing to _____ the rumors; if anything, it gave them fresh life.",
+  "answer": [
+   "quell",
+   "quash"
+  ],
+  "decoy": [
+   "foment",
+   "kindle"
+  ],
+  "others": [
+   "corroborate",
+   "lampoon"
+  ]
+ },
+ {
+  "id": "se-0003",
+  "sentence": "Critics who dismissed the novel as _____ overlooked how much careful structure lay beneath its seemingly wandering plot.",
+  "answer": [
+   "haphazard",
+   "desultory"
+  ],
+  "decoy": [
+   "painstaking",
+   "meticulous"
+  ],
+  "others": [
+   "poignant",
+   "derivative"
+  ]
+ },
+ {
+  "id": "se-0004",
+  "sentence": "Long known as a(n) _____ scientist, one who spent thirty years refusing to say anything the data did not force her to say, the biologist startled colleagues with a sudden, sweeping claim.",
+  "answer": [
+   "circumspect",
+   "prudent"
+  ],
+  "decoy": [
+   "audacious",
+   "brazen"
+  ],
+  "others": [
+   "lethargic",
+   "munificent"
+  ]
+ },
+ {
+  "id": "se-0005",
+  "sentence": "Because the treaty's language was so _____, each side could claim with a straight face that the other had broken it.",
+  "answer": [
+   "equivocal",
+   "ambiguous"
+  ],
+  "decoy": [
+   "explicit",
+   "unequivocal"
+  ],
+  "others": [
+   "draconian",
+   "obsolete"
+  ]
+ },
+ {
+  "id": "se-0006",
+  "sentence": "The donor's gifts were more _____ than generous: each was chosen to be noticed, and each was announced in front of the press.",
+  "answer": [
+   "ostentatious",
+   "flamboyant"
+  ],
+  "decoy": [
+   "munificent",
+   "beneficent"
+  ],
+  "others": [
+   "furtive",
+   "venial"
+  ]
+ },
+ {
+  "id": "se-0007",
+  "sentence": "The firm's recovery proved _____: within a year the same debts that had nearly sunk it returned, and the gains of the previous spring had vanished.",
+  "answer": [
+   "ephemeral",
+   "transient"
+  ],
+  "decoy": [
+   "robust",
+   "sound"
+  ],
+  "others": [
+   "lucrative",
+   "opaque"
+  ]
+ },
+ {
+  "id": "se-0008",
+  "sentence": "Although the new evidence did not _____ the theory outright, it left the theory's defenders with very little ground to stand on.",
+  "answer": [
+   "refute",
+   "debunk"
+  ],
+  "decoy": [
+   "bolster",
+   "buttress"
+  ],
+  "others": [
+   "obfuscate",
+   "emulate"
+  ]
+ },
+ {
+  "id": "se-0009",
+  "sentence": "The professor's attention to students is anything but _____; she will spend an hour on a single question and still apologize for rushing.",
+  "answer": [
+   "perfunctory",
+   "cursory"
+  ],
+  "decoy": [
+   "affable",
+   "genial"
+  ],
+  "others": [
+   "pedantic",
+   "fastidious"
+  ]
+ },
+ {
+  "id": "se-0010",
+  "sentence": "Once a(n) _____ critic of the regime, he now praises every decree with the eagerness of a convert.",
+  "answer": [
+   "scathing",
+   "caustic"
+  ],
+  "decoy": [
+   "obsequious",
+   "subservient"
+  ],
+  "others": [
+   "reticent",
+   "nascent"
+  ]
+ },
+ {
+  "id": "se-0011",
+  "sentence": "Nothing seemed able to _____ her resolve: neither the lawsuit nor the loss of her oldest allies made her waver.",
+  "answer": [
+   "sap",
+   "undermine"
+  ],
+  "decoy": [
+   "augment",
+   "enhance"
+  ],
+  "others": [
+   "placate",
+   "exculpate"
+  ]
+ },
+ {
+  "id": "se-0012",
+  "sentence": "The new safety rules are far less _____ than they sound: the exemptions are so many that almost no factory has to change anything.",
+  "answer": [
+   "stringent",
+   "exacting"
+  ],
+  "decoy": [
+   "arcane",
+   "esoteric"
+  ],
+  "others": [
+   "salutary",
+   "novel"
+  ]
+ },
+ {
+  "id": "se-0013",
+  "sentence": "The director's early films are so _____ that viewers often need a second viewing, or a guide, to follow what is going on.",
+  "answer": [
+   "abstruse",
+   "recondite"
+  ],
+  "decoy": [
+   "lucid",
+   "pellucid"
+  ],
+  "others": [
+   "maudlin",
+   "frivolous"
+  ]
+ },
+ {
+  "id": "se-0014",
+  "sentence": "Her _____ in the face of the board's anger surprised those who knew how quickly she usually lost her temper.",
+  "answer": [
+   "equanimity",
+   "poise"
+  ],
+  "decoy": [
+   "animosity",
+   "enmity"
+  ],
+  "others": [
+   "alacrity",
+   "largess"
+  ]
+ },
+ {
+  "id": "se-0015",
+  "sentence": "The startup's early success owed less to its founders' foresight than to a(n) _____ turn of events: the one competitor that could have crushed it went bankrupt the same month.",
+  "answer": [
+   "fortuitous",
+   "providential"
+  ],
+  "decoy": [
+   "ominous",
+   "baleful"
+  ],
+  "others": [
+   "astute",
+   "tenacious"
+  ]
+ },
+ {
+  "id": "se-0016",
+  "sentence": "Though the evidence against him was _____, consisting of a few secondhand remarks, the press treated his guilt as settled.",
+  "answer": [
+   "scant",
+   "sparse"
+  ],
+  "decoy": [
+   "incontrovertible",
+   "conclusive"
+  ],
+  "others": [
+   "oblique",
+   "pristine"
+  ]
+ },
+ {
+  "id": "se-0017",
+  "sentence": "Instead of trying to _____ the angry shareholders, the chairman read out the losses in a flat voice and left the room.",
+  "answer": [
+   "mollify",
+   "placate"
+  ],
+  "decoy": [
+   "incense",
+   "rile"
+  ],
+  "others": [
+   "exonerate",
+   "castigate"
+  ]
+ },
+ {
+  "id": "se-0018",
+  "sentence": "Her remarks, which seemed _____ at the time, turned out to have been planned weeks in advance.",
+  "answer": [
+   "offhand",
+   "extemporaneous"
+  ],
+  "decoy": [
+   "elaborate",
+   "ornate"
+  ],
+  "others": [
+   "incendiary",
+   "banal"
+  ]
+ },
+ {
+  "id": "se-0019",
+  "sentence": "The archive's _____ of letters from those years is frustrating: for a period that produced so much public argument, only a handful of private notes survive.",
+  "answer": [
+   "dearth",
+   "paucity"
+  ],
+  "decoy": [
+   "plethora",
+   "surfeit"
+  ],
+  "others": [
+   "vestige",
+   "umbrage"
+  ]
+ },
+ {
+  "id": "se-0020",
+  "sentence": "His _____ took in even his closest partners: for a decade he kept two sets of books and a warm smile for everyone.",
+  "answer": [
+   "duplicity",
+   "chicanery"
+  ],
+  "decoy": [
+   "probity",
+   "veracity"
+  ],
+  "others": [
+   "ennui",
+   "panache"
+  ]
+ },
+ {
+  "id": "se-0021",
+  "sentence": "After an hour with the famously _____ collector, the reporter had filled three notebooks and had not yet managed to ask a question.",
+  "answer": [
+   "loquacious",
+   "garrulous"
+  ],
+  "decoy": [
+   "taciturn",
+   "reticent"
+  ],
+  "others": [
+   "callow",
+   "august"
+  ]
+ },
+ {
+  "id": "se-0022",
+  "sentence": "The general was so _____ about his plans that even his staff learned of the attack only on the morning it began.",
+  "answer": [
+   "taciturn",
+   "reticent"
+  ],
+  "decoy": [
+   "voluble",
+   "garrulous"
+  ],
+  "others": [
+   "frugal",
+   "ardent"
+  ]
+ },
+ {
+  "id": "se-0023",
+  "sentence": "The editor prized _____ prose, and would happily cut a paragraph down to the one sentence that carried its point.",
+  "answer": [
+   "pithy",
+   "succinct"
+  ],
+  "decoy": [
+   "prolix",
+   "verbose"
+  ],
+  "others": [
+   "bucolic",
+   "droll"
+  ]
+ },
+ {
+  "id": "se-0024",
+  "sentence": "The founder's _____ replies to investors, never more than a few words, were read by some as confidence and by others as contempt.",
+  "answer": [
+   "terse",
+   "laconic"
+  ],
+  "decoy": [
+   "turgid",
+   "orotund"
+  ],
+  "others": [
+   "cogent",
+   "amorous"
+  ]
+ },
+ {
+  "id": "se-0025",
+  "sentence": "Her lecture on tax law was remarkably _____: students who had dreaded the subject left able to explain it to one another.",
+  "answer": [
+   "lucid",
+   "limpid"
+  ],
+  "decoy": [
+   "cryptic",
+   "enigmatic"
+  ],
+  "others": [
+   "ribald",
+   "supine"
+  ]
+ },
+ {
+  "id": "se-0026",
+  "sentence": "The oracle's answers were so _____ that every general who consulted her marched away convinced she had promised him victory.",
+  "answer": [
+   "cryptic",
+   "enigmatic"
+  ],
+  "decoy": [
+   "unequivocal",
+   "explicit"
+  ],
+  "others": [
+   "fetid",
+   "bawdy"
+  ]
+ },
+ {
+  "id": "se-0027",
+  "sentence": "To outsiders the guild's rituals seemed _____, understood only by the few who had spent years inside it.",
+  "answer": [
+   "esoteric",
+   "hermetic"
+  ],
+  "decoy": [
+   "mundane",
+   "quotidian"
+  ],
+  "others": [
+   "salubrious",
+   "jocund"
+  ]
+ },
+ {
+  "id": "se-0028",
+  "sentence": "The minister's speech was so _____, each line a phrase the audience had heard a hundred times, that people began mouthing the endings.",
+  "answer": [
+   "trite",
+   "hackneyed"
+  ],
+  "decoy": [
+   "novel",
+   "unprecedented"
+  ],
+  "others": [
+   "bellicose",
+   "penitent"
+  ]
+ },
+ {
+  "id": "se-0029",
+  "sentence": "What disappointed reviewers was not that the sequel was bad but that it was _____: no scene offended, and no scene stayed in the mind.",
+  "answer": [
+   "insipid",
+   "vapid"
+  ],
+  "decoy": [
+   "piquant",
+   "scintillating"
+  ],
+  "others": [
+   "prurient",
+   "mordant"
+  ]
+ },
+ {
+  "id": "se-0030",
+  "sentence": "For all the glamour the title suggests, the ambassador's daily routine was thoroughly _____: forms, dinners, and more forms.",
+  "answer": [
+   "humdrum",
+   "prosaic"
+  ],
+  "decoy": [
+   "exotic",
+   "outlandish"
+  ],
+  "others": [
+   "penurious",
+   "contrite"
+  ]
+ },
+ {
+  "id": "se-0031",
+  "sentence": "The firm's accountant was so _____ that she reused envelopes and questioned every paper clip on the monthly order.",
+  "answer": [
+   "parsimonious",
+   "miserly"
+  ],
+  "decoy": [
+   "lavish",
+   "extravagant"
+  ],
+  "others": [
+   "fastidious",
+   "nascent"
+  ]
+ },
+ {
+  "id": "se-0032",
+  "sentence": "The new owners proved so _____ that within a year they had stripped the company of its pension fund, its land, and even its office furniture.",
+  "answer": [
+   "rapacious",
+   "avaricious"
+  ],
+  "decoy": [
+   "benevolent",
+   "beneficent"
+  ],
+  "others": [
+   "callow",
+   "diurnal"
+  ]
+ },
+ {
+  "id": "se-0033",
+  "sentence": "A(n) _____ reader from childhood, she went through the town library shelf by shelf and then started writing to libraries in other towns.",
+  "answer": [
+   "voracious",
+   "avid"
+  ],
+  "decoy": [
+   "listless",
+   "languid"
+  ],
+  "others": [
+   "diminutive",
+   "illicit"
+  ]
+ },
+ {
+  "id": "se-0034",
+  "sentence": "The prince's _____ spending, which had seemed merely colorful while the harvests were good, emptied the treasury in the first dry year.",
+  "answer": [
+   "prodigal",
+   "profligate"
+  ],
+  "decoy": [
+   "provident",
+   "frugal"
+  ],
+  "others": [
+   "covert",
+   "sinuous"
+  ]
+ },
+ {
+  "id": "se-0035",
+  "sentence": "Thanks to a(n) _____ benefactor who asked only that her name be left off the building, the library could stay open on Sundays.",
+  "answer": [
+   "munificent",
+   "magnanimous"
+  ],
+  "decoy": [
+   "penurious",
+   "parsimonious"
+  ],
+  "others": [
+   "retiring",
+   "urbane"
+  ]
+ },
+ {
+  "id": "se-0036",
+  "sentence": "Although the tumor was found to be _____, the surgeon advised removing it before it could press on a nerve.",
+  "answer": [
+   "benign",
+   "innocuous"
+  ],
+  "decoy": [
+   "virulent",
+   "noxious"
+  ],
+  "others": [
+   "latent",
+   "cardinal"
+  ]
+ },
+ {
+  "id": "se-0037",
+  "sentence": "Officials insisted the leak was harmless, but the _____ effects of the chemical appeared in the river's fish within a month.",
+  "answer": [
+   "deleterious",
+   "pernicious"
+  ],
+  "decoy": [
+   "salutary",
+   "salubrious"
+  ],
+  "others": [
+   "ostensible",
+   "hoary"
+  ]
+ },
+ {
+  "id": "se-0038",
+  "sentence": "The swamp gave off a(n) _____ smell that clung to the surveyors' clothes for days after they had left.",
+  "answer": [
+   "fetid",
+   "noisome"
+  ],
+  "decoy": [
+   "mellifluous",
+   "sonorous"
+  ],
+  "others": [
+   "ancillary",
+   "chary"
+  ]
+ },
+ {
+  "id": "se-0039",
+  "sentence": "Divorce talks that began politely grew so _____ that the two lawyers had to be seated in separate rooms.",
+  "answer": [
+   "acrimonious",
+   "vitriolic"
+  ],
+  "decoy": [
+   "amicable",
+   "congenial"
+  ],
+  "others": [
+   "lachrymose",
+   "pastoral"
+  ]
+ },
+ {
+  "id": "se-0040",
+  "sentence": "The reviewer's _____ wit spared no one: a first novelist, she wrote, should at least have the decency to bore us briefly.",
+  "answer": [
+   "acerbic",
+   "mordant"
+  ],
+  "decoy": [
+   "genial",
+   "amiable"
+  ],
+  "others": [
+   "inert",
+   "rustic"
+  ]
+ },
+ {
+  "id": "se-0041",
+  "sentence": "Her case against the merger was so _____ that even its supporters on the board stopped to reconsider their votes.",
+  "answer": [
+   "cogent",
+   "compelling"
+  ],
+  "decoy": [
+   "specious",
+   "fallacious"
+  ],
+  "others": [
+   "ponderous",
+   "fledgling"
+  ]
+ },
+ {
+  "id": "se-0042",
+  "sentence": "The argument sounds convincing until one notices that it assumes the very thing it sets out to prove, which makes it _____.",
+  "answer": [
+   "specious",
+   "fallacious"
+  ],
+  "decoy": [
+   "conclusive",
+   "unimpeachable"
+  ],
+  "others": [
+   "didactic",
+   "lugubrious"
+  ]
+ },
+ {
+  "id": "se-0043",
+  "sentence": "The painting turned out to be _____: the pigments it used had not been invented in the year it was supposedly signed.",
+  "answer": [
+   "spurious",
+   "bogus"
+  ],
+  "decoy": [
+   "unimpeachable",
+   "impeccable"
+  ],
+  "others": [
+   "anachronistic",
+   "retiring"
+  ]
+ },
+ {
+  "id": "se-0044",
+  "sentence": "During the war, families stirred chicory and burnt grain into a(n) _____ coffee that fooled no one.",
+  "answer": [
+   "ersatz",
+   "factitious"
+  ],
+  "decoy": [
+   "pristine",
+   "immaculate"
+  ],
+  "others": [
+   "glib",
+   "stoic"
+  ]
+ },
+ {
+  "id": "se-0045",
+  "sentence": "Everyone in the department knew her as _____, a colleague who would tell you your chapter was weak before you had finished asking.",
+  "answer": [
+   "candid",
+   "forthright"
+  ],
+  "decoy": [
+   "evasive",
+   "oblique"
+  ],
+  "others": [
+   "cadaverous",
+   "soporific"
+  ]
+ },
+ {
+  "id": "se-0046",
+  "sentence": "The salesman's _____ assurances fell apart when the buyers found three earlier complaints, all of which he had told them did not exist.",
+  "answer": [
+   "mendacious",
+   "disingenuous"
+  ],
+  "decoy": [
+   "veracious",
+   "forthright"
+  ],
+  "others": [
+   "hapless",
+   "squalid"
+  ]
+ },
+ {
+  "id": "se-0047",
+  "sentence": "The spy was betrayed by the one ally he had trusted; his _____ friend had been selling his letters to the enemy for years.",
+  "answer": [
+   "perfidious",
+   "treacherous"
+  ],
+  "decoy": [
+   "staunch",
+   "stalwart"
+  ],
+  "others": [
+   "somnolent",
+   "verdant"
+  ]
+ },
+ {
+  "id": "se-0048",
+  "sentence": "Like a(n) _____ old fox, the negotiator let the other side believe it had won, then collected the only clause that mattered.",
+  "answer": [
+   "wily",
+   "cunning"
+  ],
+  "decoy": [
+   "gullible",
+   "credulous"
+  ],
+  "others": [
+   "wan",
+   "disparate"
+  ]
+ },
+ {
+  "id": "se-0049",
+  "sentence": "A(n) _____ judge of character, she could tell within a minute of meeting a job candidate whether the resume was inflated.",
+  "answer": [
+   "astute",
+   "perspicacious"
+  ],
+  "decoy": [
+   "obtuse",
+   "myopic"
+  ],
+  "others": [
+   "halcyon",
+   "corporeal"
+  ]
+ },
+ {
+  "id": "se-0050",
+  "sentence": "The fresh graduate was so _____ that he signed the first contract put before him and thanked the man who cheated him.",
+  "answer": [
+   "credulous",
+   "gullible"
+  ],
+  "decoy": [
+   "astute",
+   "discerning"
+  ],
+  "others": [
+   "ardent",
+   "august"
+  ]
+ },
+ {
+  "id": "se-0051",
+  "sentence": "With a few _____ strokes of the knife, the chef boned the fish in less time than it took the guests to sit down.",
+  "answer": [
+   "deft",
+   "adroit"
+  ],
+  "decoy": [
+   "maladroit",
+   "inept"
+  ],
+  "others": [
+   "cavalier",
+   "moribund"
+  ]
+ },
+ {
+  "id": "se-0052",
+  "sentence": "The new manager proved _____ at every turn, losing two clients in his first week by sending each the other's contract.",
+  "answer": [
+   "maladroit",
+   "inept"
+  ],
+  "decoy": [
+   "deft",
+   "nimble"
+  ],
+  "others": [
+   "blithe",
+   "impassive"
+  ]
+ },
+ {
+  "id": "se-0053",
+  "sentence": "The ambassador, a(n) _____ host at ease in six languages, could soothe a furious guest with one well-timed joke.",
+  "answer": [
+   "urbane",
+   "debonair"
+  ],
+  "decoy": [
+   "boorish",
+   "churlish"
+  ],
+  "others": [
+   "dilapidated",
+   "fecund"
+  ]
+ },
+ {
+  "id": "se-0054",
+  "sentence": "The town's _____ outlook showed in its newspaper, which gave a flood in the next county less room than a local bake sale.",
+  "answer": [
+   "parochial",
+   "provincial"
+  ],
+  "decoy": [
+   "cosmopolitan",
+   "catholic"
+  ],
+  "others": [
+   "truculent",
+   "gossamer"
+  ]
+ },
+ {
+  "id": "se-0055",
+  "sentence": "She is too _____ a thinker to change her view on evidence; she treats every objection as an attack to be repelled.",
+  "answer": [
+   "dogmatic",
+   "doctrinaire"
+  ],
+  "decoy": [
+   "tractable",
+   "amenable"
+  ],
+  "others": [
+   "cerebral",
+   "tawdry"
+  ]
+ },
+ {
+  "id": "se-0056",
+  "sentence": "In an age when every scholar repeated the same account, his _____ reading of the texts earned him both exile and, much later, a statue.",
+  "answer": [
+   "heterodox",
+   "heretical"
+  ],
+  "decoy": [
+   "trite",
+   "banal"
+  ],
+  "others": [
+   "erudite",
+   "nominal"
+  ]
+ },
+ {
+  "id": "se-0057",
+  "sentence": "The union remained _____, rejecting the fourth offer as it had the first three, although each had been better than the last.",
+  "answer": [
+   "intransigent",
+   "obdurate"
+  ],
+  "decoy": [
+   "compliant",
+   "pliant"
+  ],
+  "others": [
+   "dispassionate",
+   "sanguine"
+  ]
+ },
+ {
+  "id": "se-0058",
+  "sentence": "Even after the third warning, the _____ pupil kept passing notes and smiled at the headmaster while doing it.",
+  "answer": [
+   "recalcitrant",
+   "refractory"
+  ],
+  "decoy": [
+   "docile",
+   "tractable"
+  ],
+  "others": [
+   "precocious",
+   "minute"
+  ]
+ },
+ {
+  "id": "se-0059",
+  "sentence": "The regime preferred judges who were _____, men who could be counted on to find the law wherever the palace happened to need it.",
+  "answer": [
+   "pliant",
+   "malleable"
+  ],
+  "decoy": [
+   "resolute",
+   "staunch"
+  ],
+  "others": [
+   "sedulous",
+   "bucolic"
+  ]
+ },
+ {
+  "id": "se-0060",
+  "sentence": "The weather that spring was as _____ as the market: sun at breakfast, hail by noon, and no forecast worth the paper.",
+  "answer": [
+   "capricious",
+   "fickle"
+  ],
+  "decoy": [
+   "static",
+   "immutable"
+  ],
+  "others": [
+   "inclement",
+   "wan"
+  ]
+ },
+ {
+  "id": "se-0061",
+  "sentence": "Actors learned to watch the director's face closely; his _____ temper could turn from delight to fury within a single take.",
+  "answer": [
+   "mercurial",
+   "volatile"
+  ],
+  "decoy": [
+   "placid",
+   "equable"
+  ],
+  "others": [
+   "pedantic",
+   "incumbent"
+  ]
+ },
+ {
+  "id": "se-0062",
+  "sentence": "Through two bankruptcies and a fire, her _____ supporters never once asked for their money back.",
+  "answer": [
+   "staunch",
+   "steadfast"
+  ],
+  "decoy": [
+   "fickle",
+   "erratic"
+  ],
+  "others": [
+   "hapless",
+   "scurvy"
+  ]
+ },
+ {
+  "id": "se-0063",
+  "sentence": "The _____ researcher tried the experiment some four hundred times, ignoring colleagues who told her that it could not be done.",
+  "answer": [
+   "dogged",
+   "tenacious"
+  ],
+  "decoy": [
+   "indolent",
+   "lethargic"
+  ],
+  "others": [
+   "lissome",
+   "ignominious"
+  ]
+ },
+ {
+  "id": "se-0064",
+  "sentence": "The clerks, _____ to the end, stayed past midnight copying the ledgers by candlelight so the audit could open on time.",
+  "answer": [
+   "assiduous",
+   "sedulous"
+  ],
+  "decoy": [
+   "negligent",
+   "slovenly"
+  ],
+  "others": [
+   "plebeian",
+   "verdant"
+  ]
+ },
+ {
+  "id": "se-0065",
+  "sentence": "Months of heat had left the whole crew so _____ that even the news of the ship's arrival drew only a slow turn of the head.",
+  "answer": [
+   "lethargic",
+   "listless"
+  ],
+  "decoy": [
+   "ebullient",
+   "buoyant"
+  ],
+  "others": [
+   "impecunious",
+   "cerebral"
+  ]
+ },
+ {
+  "id": "se-0066",
+  "sentence": "In the face of every provocation his _____ expression did not change; the photographers left with nothing they could use.",
+  "answer": [
+   "impassive",
+   "stolid"
+  ],
+  "decoy": [
+   "histrionic",
+   "overwrought"
+  ],
+  "others": [
+   "obsolete",
+   "prosaic"
+  ]
+ },
+ {
+  "id": "se-0067",
+  "sentence": "After the storm the lake lay _____, so still that the hills stood upside down in it without a tremor.",
+  "answer": [
+   "placid",
+   "tranquil"
+  ],
+  "decoy": [
+   "boisterous",
+   "raucous"
+  ],
+  "others": [
+   "opaque",
+   "ancillary"
+  ]
+ },
+ {
+  "id": "se-0068",
+  "sentence": "Although she had just lost the election, she seemed _____, thanking her staff with jokes and ordering champagne for the room.",
+  "answer": [
+   "ebullient",
+   "buoyant"
+  ],
+  "decoy": [
+   "morose",
+   "saturnine"
+  ],
+  "others": [
+   "penitent",
+   "sinuous"
+  ]
+ },
+ {
+  "id": "se-0069",
+  "sentence": "The host's _____ manner put even the shy guests at ease, and by midnight the room was singing.",
+  "answer": [
+   "convivial",
+   "genial"
+  ],
+  "decoy": [
+   "aloof",
+   "haughty"
+  ],
+  "others": [
+   "pedestrian",
+   "malleable"
+  ]
+ },
+ {
+  "id": "se-0070",
+  "sentence": "He had grown so _____ since the business failed that old friends stopped calling, tired of leaving the table feeling worse.",
+  "answer": [
+   "morose",
+   "saturnine"
+  ],
+  "decoy": [
+   "jocund",
+   "jovial"
+  ],
+  "others": [
+   "didactic",
+   "kinetic"
+  ]
+ },
+ {
+  "id": "se-0071",
+  "sentence": "The elegy's _____ tone suited a funeral but made a strange choice for the opening of the new bridge.",
+  "answer": [
+   "lugubrious",
+   "dolorous"
+  ],
+  "decoy": [
+   "jocular",
+   "sportive"
+  ],
+  "others": [
+   "comprehensive",
+   "illicit"
+  ]
+ },
+ {
+  "id": "se-0072",
+  "sentence": "The film's ending, in which the orphan and the lost dog are reunited in falling snow, is shamelessly _____.",
+  "answer": [
+   "maudlin",
+   "mawkish"
+  ],
+  "decoy": [
+   "cynical",
+   "sardonic"
+  ],
+  "others": [
+   "sporadic",
+   "chronological"
+  ]
+ },
+ {
+  "id": "se-0073",
+  "sentence": "His _____ temper was known throughout the ward; nurses drew lots to decide who would bring him his morning tea.",
+  "answer": [
+   "irascible",
+   "choleric"
+  ],
+  "decoy": [
+   "imperturbable",
+   "equable"
+  ],
+  "others": [
+   "precocious",
+   "hoary"
+  ]
+ },
+ {
+  "id": "se-0074",
+  "sentence": "The child was _____ all through dinner, sighing, pushing away each dish, and complaining that no one ever listened to him.",
+  "answer": [
+   "petulant",
+   "peevish"
+  ],
+  "decoy": [
+   "stoic",
+   "phlegmatic"
+  ],
+  "others": [
+   "illusory",
+   "pallid"
+  ]
+ },
+ {
+  "id": "se-0075",
+  "sentence": "Reviewers found the memoir _____: page after page of small grievances against editors, neighbors, and the weather.",
+  "answer": [
+   "querulous",
+   "captious"
+  ],
+  "decoy": [
+   "blithe",
+   "sanguine"
+  ],
+  "others": [
+   "laconic",
+   "diurnal"
+  ]
+ },
+ {
+  "id": "se-0076",
+  "sentence": "The drunk's _____ mood worsened by the hour, and by closing time he was offering to fight the whole bar.",
+  "answer": [
+   "truculent",
+   "pugnacious"
+  ],
+  "decoy": [
+   "complaisant",
+   "amenable"
+  ],
+  "others": [
+   "soporific",
+   "catholic"
+  ]
+ },
+ {
+  "id": "se-0077",
+  "sentence": "The small republic, suddenly _____ after decades of neutrality, began massing troops along a border no one had ever disputed.",
+  "answer": [
+   "bellicose",
+   "belligerent"
+  ],
+  "decoy": [
+   "quiescent",
+   "dormant"
+  ],
+  "others": [
+   "autonomous",
+   "florid"
+  ]
+ },
+ {
+  "id": "se-0078",
+  "sentence": "The meeting turned _____ over something as small as the seating plan, with each group accusing the other of bad faith.",
+  "answer": [
+   "fractious",
+   "contentious"
+  ],
+  "decoy": [
+   "conciliatory",
+   "complaisant"
+  ],
+  "others": [
+   "apposite",
+   "leery"
+  ]
+ },
+ {
+  "id": "se-0079",
+  "sentence": "The king's _____ advisers, afraid of any risk, urged him to surrender a city that had not yet been attacked.",
+  "answer": [
+   "craven",
+   "pusillanimous"
+  ],
+  "decoy": [
+   "intrepid",
+   "plucky"
+  ],
+  "others": [
+   "puissant",
+   "judicious"
+  ]
+ },
+ {
+  "id": "se-0080",
+  "sentence": "Only the _____ climber would try the north face in winter, and she did it alone, on a bet, without oxygen.",
+  "answer": [
+   "intrepid",
+   "mettlesome"
+  ],
+  "decoy": [
+   "timorous",
+   "pusillanimous"
+  ],
+  "others": [
+   "foolhardy",
+   "abstruse"
+  ]
+ },
+ {
+  "id": "se-0081",
+  "sentence": "The junior clerk's _____ question about the chairman's salary, put in front of the whole staff, silenced the room.",
+  "answer": [
+   "impudent",
+   "impertinent"
+  ],
+  "decoy": [
+   "decorous",
+   "reverent"
+  ],
+  "others": [
+   "diminutive",
+   "protean"
+  ]
+ },
+ {
+  "id": "se-0082",
+  "sentence": "With a(n) _____ wave of the hand, the duchess dismissed the petitioners without looking up from her letter.",
+  "answer": [
+   "haughty",
+   "supercilious"
+  ],
+  "decoy": [
+   "subservient",
+   "unctuous"
+  ],
+  "others": [
+   "gauche",
+   "nimble"
+  ]
+ },
+ {
+  "id": "se-0083",
+  "sentence": "The director's _____ note left no room for discussion: the report would be on her desk by noon, and there would be no extensions.",
+  "answer": [
+   "peremptory",
+   "imperious"
+  ],
+  "decoy": [
+   "tentative",
+   "diffident"
+  ],
+  "others": [
+   "arduous",
+   "verdant"
+  ]
+ },
+ {
+  "id": "se-0084",
+  "sentence": "The mayor's _____ speech promised a new golden age in words so inflated that reporters had trouble finding the news in it.",
+  "answer": [
+   "bombastic",
+   "grandiloquent"
+  ],
+  "decoy": [
+   "pithy",
+   "succinct"
+  ],
+  "others": [
+   "cathartic",
+   "scant"
+  ]
+ },
+ {
+  "id": "se-0085",
+  "sentence": "The author's late style is _____, each sentence swollen with clauses that add weight and no meaning.",
+  "answer": [
+   "turgid",
+   "orotund"
+  ],
+  "decoy": [
+   "limpid",
+   "pellucid"
+  ],
+  "others": [
+   "cursory",
+   "bereft"
+  ]
+ },
+ {
+  "id": "se-0086",
+  "sentence": "The chapel's _____ carvings, every inch crowded with vines, cherubs and gilded shells, exhausted the eye.",
+  "answer": [
+   "baroque",
+   "ornate"
+  ],
+  "decoy": [
+   "austere",
+   "spartan"
+  ],
+  "others": [
+   "antithetical",
+   "soporific"
+  ]
+ },
+ {
+  "id": "se-0087",
+  "sentence": "The monks' _____ cells held a cot, a stool, and nothing else, and visitors found it hard to believe anyone chose them.",
+  "answer": [
+   "spartan",
+   "austere"
+  ],
+  "decoy": [
+   "ornate",
+   "rococo"
+  ],
+  "others": [
+   "solvent",
+   "cloying"
+  ]
+ },
+ {
+  "id": "se-0088",
+  "sentence": "Although he could afford any meal in the city, he remained _____, dining on bread and water and rising before dawn to pray.",
+  "answer": [
+   "ascetic",
+   "abstemious"
+  ],
+  "decoy": [
+   "licentious",
+   "wanton"
+  ],
+  "others": [
+   "contiguous",
+   "impious"
+  ]
+ },
+ {
+  "id": "se-0089",
+  "sentence": "The regent's court was so _____ that foreign envoys wrote home warning their sons to stay away from its parties.",
+  "answer": [
+   "licentious",
+   "wanton"
+  ],
+  "decoy": [
+   "decorous",
+   "demure"
+  ],
+  "others": [
+   "inadvertent",
+   "cerebral"
+  ]
+ },
+ {
+  "id": "se-0090",
+  "sentence": "The comedian's _____ songs, full of winks about sailors and farmers' daughters, were dropped from the family broadcast.",
+  "answer": [
+   "ribald",
+   "bawdy"
+  ],
+  "decoy": [
+   "demure",
+   "decorous"
+  ],
+  "others": [
+   "abject",
+   "sinuous"
+  ]
+ },
+ {
+  "id": "se-0091",
+  "sentence": "The strictly _____ dinner, at which nobody spoke above a murmur and nobody touched a glass before the host, felt like a long religious service.",
+  "answer": [
+   "staid",
+   "decorous"
+  ],
+  "decoy": [
+   "raucous",
+   "boisterous"
+  ],
+  "others": [
+   "bellicose",
+   "pallid"
+  ]
+ },
+ {
+  "id": "se-0092",
+  "sentence": "The inquiry described _____ conditions in the camp: open drains, rotting food, and families sleeping in the mud.",
+  "answer": [
+   "squalid",
+   "sordid"
+  ],
+  "decoy": [
+   "immaculate",
+   "pristine"
+  ],
+  "others": [
+   "rustic",
+   "equitable"
+  ]
+ },
+ {
+  "id": "se-0093",
+  "sentence": "Within a decade the once wealthy family was _____, selling its last spoons to pay the rent.",
+  "answer": [
+   "destitute",
+   "indigent"
+  ],
+  "decoy": [
+   "flush",
+   "solvent"
+  ],
+  "others": [
+   "abstemious",
+   "diurnal"
+  ]
+ },
+ {
+  "id": "se-0094",
+  "sentence": "The young poet was so _____ that he wrote a sonnet to his landlord in place of the rent.",
+  "answer": [
+   "impecunious",
+   "penurious"
+  ],
+  "decoy": [
+   "lavish",
+   "extravagant"
+  ],
+  "others": [
+   "fanciful",
+   "cumbersome"
+  ]
+ },
+ {
+  "id": "se-0095",
+  "sentence": "Conditions on the ridge could hardly have been more _____: a falling barometer, thin ice, and no shelter for twenty miles.",
+  "answer": [
+   "adverse",
+   "inimical"
+  ],
+  "decoy": [
+   "propitious",
+   "auspicious"
+  ],
+  "others": [
+   "ancillary",
+   "novel"
+  ]
+ },
+ {
+  "id": "se-0096",
+  "sentence": "The launch seemed _____ from the start: clear skies, a rising market, and a rival that had just gone out of business.",
+  "answer": [
+   "propitious",
+   "auspicious"
+  ],
+  "decoy": [
+   "inopportune",
+   "untoward"
+  ],
+  "others": [
+   "pastoral",
+   "mordant"
+  ]
+ },
+ {
+  "id": "se-0097",
+  "sentence": "The historian treats the fall of the empire as _____, as though no decision by any emperor could have delayed it by a day.",
+  "answer": [
+   "ineluctable",
+   "inexorable"
+  ],
+  "decoy": [
+   "contingent",
+   "provisional"
+  ],
+  "others": [
+   "grievous",
+   "verdant"
+  ]
+ },
+ {
+  "id": "se-0098",
+  "sentence": "Contrary to what the textbooks imply, the rules of the language are not _____; they shift a little with every generation of speakers.",
+  "answer": [
+   "immutable",
+   "static"
+  ],
+  "decoy": [
+   "protean",
+   "plastic"
+  ],
+  "others": [
+   "didactic",
+   "lavish"
+  ]
+ },
+ {
+  "id": "se-0099",
+  "sentence": "The critic calls the collection _____ in the best sense: a single page can move from Persian miniatures to Detroit jazz.",
+  "answer": [
+   "eclectic",
+   "multifarious"
+  ],
+  "decoy": [
+   "homogeneous",
+   "monotonous"
+  ],
+  "others": [
+   "hackneyed",
+   "pungent"
+  ]
+ },
+ {
+  "id": "se-0100",
+  "sentence": "What strikes a visitor to the two cities is how _____ they are: different languages, different faiths, and not a single shared holiday.",
+  "answer": [
+   "disparate",
+   "heterogeneous"
+  ],
+  "decoy": [
+   "analogous",
+   "homogeneous"
+  ],
+  "others": [
+   "contiguous",
+   "raucous"
+  ]
+ },
+ {
+  "id": "se-0101",
+  "sentence": "Plastic is now so _____ that researchers have found it in Arctic ice, in deep-sea trenches, and in the clouds.",
+  "answer": [
+   "ubiquitous",
+   "pervasive"
+  ],
+  "decoy": [
+   "scant",
+   "sparse"
+  ],
+  "others": [
+   "opaque",
+   "refractory"
+  ]
+ },
+ {
+  "id": "se-0102",
+  "sentence": "Corruption was _____ in the port; an honest customs officer was a story told to new recruits as a joke.",
+  "answer": [
+   "rife",
+   "rampant"
+  ],
+  "decoy": [
+   "sporadic",
+   "intermittent"
+  ],
+  "others": [
+   "exotic",
+   "cardinal"
+  ]
+ },
+ {
+  "id": "se-0103",
+  "sentence": "Power cuts in the district are _____ rather than constant, which makes them harder to plan around: weeks pass, then three in a day.",
+  "answer": [
+   "sporadic",
+   "intermittent"
+  ],
+  "decoy": [
+   "incessant",
+   "perennial"
+  ],
+  "others": [
+   "sanguine",
+   "oblique"
+  ]
+ },
+ {
+  "id": "se-0104",
+  "sentence": "The movement was still _____ in those years, with no leaders, no program, and little more than a shared sense of grievance.",
+  "answer": [
+   "inchoate",
+   "nascent"
+  ],
+  "decoy": [
+   "entrenched",
+   "inveterate"
+  ],
+  "others": [
+   "pecuniary",
+   "ribald"
+  ]
+ },
+ {
+  "id": "se-0105",
+  "sentence": "Scientists suspect that the virus may lie _____ in the nerve cells for decades before any symptom appears.",
+  "answer": [
+   "latent",
+   "dormant"
+  ],
+  "decoy": [
+   "overt",
+   "manifest"
+  ],
+  "others": [
+   "prolific",
+   "chivalrous"
+  ]
+ },
+ {
+  "id": "se-0106",
+  "sentence": "Her contempt for the proposal was _____; she yawned through the presentation and left before it ended.",
+  "answer": [
+   "patent",
+   "overt"
+  ],
+  "decoy": [
+   "covert",
+   "furtive"
+  ],
+  "others": [
+   "ingenious",
+   "vicarious"
+  ]
+ },
+ {
+  "id": "se-0107",
+  "sentence": "A(n) _____ agreement held the two rivals apart for years; nothing was ever written down or said aloud, and both knew exactly where the line ran.",
+  "answer": [
+   "tacit",
+   "implicit"
+  ],
+  "decoy": [
+   "explicit",
+   "overt"
+  ],
+  "others": [
+   "draconian",
+   "corporeal"
+  ]
+ },
+ {
+  "id": "se-0108",
+  "sentence": "The journalists met their source in a parking garage, after a series of _____ messages passed through a cousin's bakery.",
+  "answer": [
+   "clandestine",
+   "surreptitious"
+  ],
+  "decoy": [
+   "overt",
+   "blatant"
+  ],
+  "others": [
+   "scintillating",
+   "lugubrious"
+  ]
+ },
+ {
+  "id": "se-0109",
+  "sentence": "The most _____ feature of her report, the one every reader noticed first, was a chart showing the deaths by month.",
+  "answer": [
+   "salient",
+   "conspicuous"
+  ],
+  "decoy": [
+   "peripheral",
+   "tangential"
+  ],
+  "others": [
+   "verdant",
+   "venial"
+  ]
+ },
+ {
+  "id": "se-0110",
+  "sentence": "The judge ruled that the defendant's school record, while interesting, was not _____ to the question of where he had been that night.",
+  "answer": [
+   "germane",
+   "pertinent"
+  ],
+  "decoy": [
+   "extraneous",
+   "tangential"
+  ],
+  "others": [
+   "bogus",
+   "conducive"
+  ]
+ },
+ {
+  "id": "se-0111",
+  "sentence": "Much of the report is _____, and an editor could remove half its tables without any loss to the argument.",
+  "answer": [
+   "superfluous",
+   "extraneous"
+  ],
+  "decoy": [
+   "cardinal",
+   "prime"
+  ],
+  "others": [
+   "immaculate",
+   "hoary"
+  ]
+ },
+ {
+  "id": "se-0112",
+  "sentence": "Compared with the famine, the quarrel over the palace budget seemed _____, and the council was ashamed to have spent a week on it.",
+  "answer": [
+   "trivial",
+   "trifling"
+  ],
+  "decoy": [
+   "grievous",
+   "egregious"
+  ],
+  "others": [
+   "sublime",
+   "chronological"
+  ]
+ },
+ {
+  "id": "se-0113",
+  "sentence": "He has made a career of _____ answers to hard questions, each delivered with a smile and forgotten before the applause has stopped.",
+  "answer": [
+   "glib",
+   "facile"
+  ],
+  "decoy": [
+   "profound",
+   "sagacious"
+  ],
+  "others": [
+   "inclement",
+   "diurnal"
+  ]
+ },
+ {
+  "id": "se-0114",
+  "sentence": "The committee's review was _____, a two-year effort that covered every contract the agency had signed since its founding.",
+  "answer": [
+   "exhaustive",
+   "comprehensive"
+  ],
+  "decoy": [
+   "superficial",
+   "cursory"
+  ],
+  "others": [
+   "contrite",
+   "prophetic"
+  ]
+ },
+ {
+  "id": "se-0115",
+  "sentence": "Restoring the manuscript was _____ work, done with tweezers under a lens at the rate of a few words a day.",
+  "answer": [
+   "painstaking",
+   "meticulous"
+  ],
+  "decoy": [
+   "slovenly",
+   "negligent"
+  ],
+  "others": [
+   "lucrative",
+   "boisterous"
+  ]
+ },
+ {
+  "id": "se-0116",
+  "sentence": "She is so _____ about her tea that she carries her own kettle, and has been known to send back water she judged too hot.",
+  "answer": [
+   "finicky",
+   "fastidious"
+  ],
+  "decoy": [
+   "cavalier",
+   "nonchalant"
+  ],
+  "others": [
+   "illicit",
+   "bucolic"
+  ]
+ },
+ {
+  "id": "se-0117",
+  "sentence": "The state was found _____ in its duty, having ignored four separate warnings about the dam.",
+  "answer": [
+   "remiss",
+   "negligent"
+  ],
+  "decoy": [
+   "scrupulous",
+   "assiduous"
+  ],
+  "others": [
+   "solvent",
+   "pastoral"
+  ]
+ },
+ {
+  "id": "se-0118",
+  "sentence": "As a referee she is famously _____, and players on both sides have accused her of hating them equally.",
+  "answer": [
+   "impartial",
+   "dispassionate"
+  ],
+  "decoy": [
+   "partisan",
+   "tendentious"
+  ],
+  "others": [
+   "irksome",
+   "lissome"
+  ]
+ },
+ {
+  "id": "se-0119",
+  "sentence": "Though presented as neutral analysis, the paper is _____ throughout, choosing only the figures that favor the sponsor's position.",
+  "answer": [
+   "tendentious",
+   "partisan"
+  ],
+  "decoy": [
+   "objective",
+   "impartial"
+  ],
+  "others": [
+   "soporific",
+   "ancillary"
+  ]
+ },
+ {
+  "id": "se-0120",
+  "sentence": "Even those who defended the general's motives agreed that his conduct was _____ and deserved the censure it received.",
+  "answer": [
+   "reprehensible",
+   "culpable"
+  ],
+  "decoy": [
+   "laudable",
+   "estimable"
+  ],
+  "others": [
+   "vicarious",
+   "sinuous"
+  ]
+ },
+ {
+  "id": "se-0121",
+  "sentence": "When the ferry operator finally admitted fault, his _____ letter of apology, handwritten to each family, moved even those who had planned to sue.",
+  "answer": [
+   "contrite",
+   "penitent"
+  ],
+  "decoy": [
+   "obdurate",
+   "callous"
+  ],
+  "others": [
+   "cumbersome",
+   "wizened"
+  ]
+ },
+ {
+  "id": "se-0122",
+  "sentence": "The landlord's _____ reply to the tenants' plea, a printed notice about late fees, showed how little their winter without heat meant to him.",
+  "answer": [
+   "callous",
+   "insensible"
+  ],
+  "decoy": [
+   "benevolent",
+   "beneficent"
+  ],
+  "others": [
+   "verdant",
+   "ancillary"
+  ]
+ },
+ {
+  "id": "se-0123",
+  "sentence": "The aide's _____ flattery, delivered with a slight bow at every meeting, embarrassed even the minister it was meant to please.",
+  "answer": [
+   "unctuous",
+   "obsequious"
+  ],
+  "decoy": [
+   "churlish",
+   "surly"
+  ],
+  "others": [
+   "kinetic",
+   "scant"
+  ]
+ },
+ {
+  "id": "se-0124",
+  "sentence": "The senator's _____ lectures on family values looked rather different after the photographs were published.",
+  "answer": [
+   "sanctimonious",
+   "pious"
+  ],
+  "decoy": [
+   "ribald",
+   "licentious"
+  ],
+  "others": [
+   "nominal",
+   "fallow"
+  ]
+ },
+ {
+  "id": "se-0125",
+  "sentence": "Rejecting every grand theory, the party's new leader took a(n) _____ line: she would support whatever measure actually lowered rents.",
+  "answer": [
+   "pragmatic",
+   "expedient"
+  ],
+  "decoy": [
+   "quixotic",
+   "fanciful"
+  ],
+  "others": [
+   "sporadic",
+   "lachrymose"
+  ]
+ },
+ {
+  "id": "se-0126",
+  "sentence": "His _____ plan to reunite the two warring churches by writing each a friendly letter was admired, gently, by everyone who knew them.",
+  "answer": [
+   "quixotic",
+   "fanciful"
+  ],
+  "decoy": [
+   "pragmatic",
+   "feasible"
+  ],
+  "others": [
+   "corpulent",
+   "illicit"
+  ]
+ },
+ {
+  "id": "se-0127",
+  "sentence": "Written twenty years before the crash, her _____ essay described almost exactly how the lending boom would end.",
+  "answer": [
+   "prescient",
+   "prophetic"
+  ],
+  "decoy": [
+   "archaic",
+   "obsolete"
+  ],
+  "others": [
+   "jocund",
+   "wan"
+  ]
+ },
+ {
+  "id": "se-0128",
+  "sentence": "At nine she was correcting her tutors, and her _____ talent worried her parents almost as much as it delighted them.",
+  "answer": [
+   "precocious",
+   "prodigious"
+  ],
+  "decoy": [
+   "callow",
+   "naive"
+  ],
+  "others": [
+   "sinuous",
+   "bereft"
+  ]
+ },
+ {
+  "id": "se-0129",
+  "sentence": "After the second burglary the horses grew _____, shying at shadows and refusing to enter the barn after dark.",
+  "answer": [
+   "skittish",
+   "restive"
+  ],
+  "decoy": [
+   "stolid",
+   "placid"
+  ],
+  "others": [
+   "pecuniary",
+   "august"
+  ]
+ },
+ {
+  "id": "se-0130",
+  "sentence": "Burned once by a partner, she was _____ of any deal that looked simple, and read each contract twice.",
+  "answer": [
+   "wary",
+   "leery"
+  ],
+  "decoy": [
+   "gullible",
+   "naive"
+  ],
+  "others": [
+   "fetid",
+   "diminutive"
+  ]
+ },
+ {
+  "id": "se-0131",
+  "sentence": "The surgeon was _____ with praise; in twenty years her residents could count on one hand the times she had said a case went well.",
+  "answer": [
+   "chary",
+   "parsimonious"
+  ],
+  "decoy": [
+   "lavish",
+   "profuse"
+  ],
+  "others": [
+   "ornate",
+   "kinetic"
+  ]
+ },
+ {
+  "id": "se-0132",
+  "sentence": "His _____ remarks about the flood, made while families were still on their roofs, cost him the party's nomination.",
+  "answer": [
+   "flippant",
+   "facetious"
+  ],
+  "decoy": [
+   "somber",
+   "lugubrious"
+  ],
+  "others": [
+   "extant",
+   "ancillary"
+  ]
+ },
+ {
+  "id": "se-0133",
+  "sentence": "A mild, _____ man, he could make a budget meeting funny without ever seeming to try.",
+  "answer": [
+   "droll",
+   "jocular"
+  ],
+  "decoy": [
+   "lugubrious",
+   "dolorous"
+  ],
+  "others": [
+   "derelict",
+   "gratis"
+  ]
+ },
+ {
+  "id": "se-0134",
+  "sentence": "The dictator's most _____ decree ordered the arrest of children for the speeches of their parents.",
+  "answer": [
+   "odious",
+   "repugnant"
+  ],
+  "decoy": [
+   "laudable",
+   "estimable"
+  ],
+  "others": [
+   "diaphanous",
+   "supple"
+  ]
+ },
+ {
+  "id": "se-0135",
+  "sentence": "The gang's _____ schemes ran from selling false medicine to the sick to robbing the widows' fund.",
+  "answer": [
+   "nefarious",
+   "unconscionable"
+  ],
+  "decoy": [
+   "beneficent",
+   "benevolent"
+  ],
+  "others": [
+   "gawky",
+   "chronological"
+  ]
+ },
+ {
+  "id": "se-0136",
+  "sentence": "He ended his career in _____ retreat, chased from the capital in a laundry cart while the crowd threw vegetables.",
+  "answer": [
+   "ignominious",
+   "ignoble"
+  ],
+  "decoy": [
+   "august",
+   "eminent"
+  ],
+  "others": [
+   "sentient",
+   "verdant"
+  ]
+ },
+ {
+  "id": "se-0137",
+  "sentence": "The visitors fell silent before the _____ old judge, whose rulings they had studied as students.",
+  "answer": [
+   "eminent",
+   "august"
+  ],
+  "decoy": [
+   "ignoble",
+   "plebeian"
+  ],
+  "others": [
+   "nimble",
+   "sporadic"
+  ]
+ },
+ {
+  "id": "se-0138",
+  "sentence": "The rescue was a(n) _____ effort, all the more so because the volunteers had lost their own homes in the same flood.",
+  "answer": [
+   "laudable",
+   "estimable"
+  ],
+  "decoy": [
+   "ignominious",
+   "reprehensible"
+  ],
+  "others": [
+   "gossamer",
+   "diurnal"
+  ]
+ },
+ {
+  "id": "se-0139",
+  "sentence": "The restorers left the altar _____, every trace of soot gone and not a single gilded edge out of place.",
+  "answer": [
+   "immaculate",
+   "pristine"
+  ],
+  "decoy": [
+   "dilapidated",
+   "squalid"
+  ],
+  "others": [
+   "didactic",
+   "supine"
+  ]
+ },
+ {
+  "id": "se-0140",
+  "sentence": "Critics who disliked her politics still conceded her _____ technique: not a note out of place in forty years of recordings.",
+  "answer": [
+   "impeccable",
+   "consummate"
+  ],
+  "decoy": [
+   "maladroit",
+   "inept"
+  ],
+  "others": [
+   "mawkish",
+   "fallow"
+  ]
+ },
+ {
+  "id": "se-0141",
+  "sentence": "The company's _____ output astonished its rivals: nine new models in a single year, each selling better than the last.",
+  "answer": [
+   "prolific",
+   "fecund"
+  ],
+  "decoy": [
+   "scant",
+   "sparse"
+  ],
+  "others": [
+   "corporeal",
+   "peevish"
+  ]
+ },
+ {
+  "id": "se-0142",
+  "sentence": "The harvest was so _____ that year that farmers left apples on the ground for lack of barrels.",
+  "answer": [
+   "copious",
+   "profuse"
+  ],
+  "decoy": [
+   "scant",
+   "sparse"
+  ],
+  "others": [
+   "hermetic",
+   "peremptory"
+  ]
+ },
+ {
+  "id": "se-0143",
+  "sentence": "The curtains were of a(n) _____ silk so fine that morning light passed through them almost unchanged.",
+  "answer": [
+   "diaphanous",
+   "gossamer"
+  ],
+  "decoy": [
+   "opaque",
+   "impermeable"
+  ],
+  "others": [
+   "surly",
+   "chronological"
+  ]
+ },
+ {
+  "id": "se-0144",
+  "sentence": "Her voice was _____, low and even, and audiences who could not follow the Italian wept anyway.",
+  "answer": [
+   "mellifluous",
+   "sonorous"
+  ],
+  "decoy": [
+   "cacophonous",
+   "discordant"
+  ],
+  "others": [
+   "plebeian",
+   "inert"
+  ]
+ },
+ {
+  "id": "se-0145",
+  "sentence": "The rehearsal was _____: three bands in one hall, each tuning up, and a drummer who would not stop.",
+  "answer": [
+   "cacophonous",
+   "discordant"
+  ],
+  "decoy": [
+   "mellifluous",
+   "sonorous"
+  ],
+  "others": [
+   "scrupulous",
+   "wizened"
+  ]
+ },
+ {
+  "id": "se-0146",
+  "sentence": "A(n) _____ crowd spilled out of the stadium, singing and banging on the sides of the buses.",
+  "answer": [
+   "raucous",
+   "boisterous"
+  ],
+  "decoy": [
+   "demure",
+   "staid"
+  ],
+  "others": [
+   "extant",
+   "fecund"
+  ]
+ },
+ {
+  "id": "se-0147",
+  "sentence": "The sergeant's _____ voice carried across the parade ground and could be heard, the cooks claimed, in the next village.",
+  "answer": [
+   "stentorian",
+   "vociferous"
+  ],
+  "decoy": [
+   "diffident",
+   "retiring"
+  ],
+  "others": [
+   "antithetical",
+   "gossamer"
+  ]
+ },
+ {
+  "id": "se-0148",
+  "sentence": "The _____ class had driven off two substitute teachers by Wednesday, and the third arrived with a whistle.",
+  "answer": [
+   "unruly",
+   "obstreperous"
+  ],
+  "decoy": [
+   "docile",
+   "compliant"
+  ],
+  "others": [
+   "eminent",
+   "pellucid"
+  ]
+ },
+ {
+  "id": "se-0149",
+  "sentence": "The new tax form is so _____ that even accountants have asked the agency for a guide to the guide.",
+  "answer": [
+   "convoluted",
+   "byzantine"
+  ],
+  "decoy": [
+   "lucid",
+   "limpid"
+  ],
+  "others": [
+   "jovial",
+   "prurient"
+  ]
+ },
+ {
+  "id": "se-0150",
+  "sentence": "The path was _____, doubling back on itself so often that after an hour the hikers could still see the parking lot.",
+  "answer": [
+   "tortuous",
+   "sinuous"
+  ],
+  "decoy": [
+   "cursory",
+   "perfunctory"
+  ],
+  "others": [
+   "sedulous",
+   "malodorous"
+  ]
+ },
+ {
+  "id": "se-0151",
+  "sentence": "Carrying the crates up the mountain by hand was _____, and most of the porters quit within a week.",
+  "answer": [
+   "arduous",
+   "onerous"
+  ],
+  "decoy": [
+   "facile",
+   "trifling"
+  ],
+  "others": [
+   "sentient",
+   "ornate"
+  ]
+ },
+ {
+  "id": "se-0152",
+  "sentence": "The young lawyer found the case _____, with four hundred witnesses, three languages, and a rival firm twice the size of hers.",
+  "answer": [
+   "daunting",
+   "formidable"
+  ],
+  "decoy": [
+   "trivial",
+   "picayune"
+  ],
+  "others": [
+   "amorous",
+   "gratis"
+  ]
+ },
+ {
+  "id": "se-0153",
+  "sentence": "Hopes of a settlement looked _____: the two sides had agreed on nothing, and neither would enter the room unless the other left.",
+  "answer": [
+   "futile",
+   "illusory"
+  ],
+  "decoy": [
+   "feasible",
+   "viable"
+  ],
+  "others": [
+   "voluble",
+   "pastoral"
+  ]
+ },
+ {
+  "id": "se-0154",
+  "sentence": "Engineers said the plan was _____ only if the river could be moved, which the budget did not allow.",
+  "answer": [
+   "feasible",
+   "viable"
+  ],
+  "decoy": [
+   "futile",
+   "illusory"
+  ],
+  "others": [
+   "noisome",
+   "wizened"
+  ]
+ },
+ {
+  "id": "se-0155",
+  "sentence": "The bridge's condition is _____: one more hard winter, the report warns, and the eastern span could fall.",
+  "answer": [
+   "precarious",
+   "untenable"
+  ],
+  "decoy": [
+   "robust",
+   "stalwart"
+  ],
+  "others": [
+   "bawdy",
+   "gratis"
+  ]
+ },
+ {
+  "id": "se-0156",
+  "sentence": "The treasurer made the _____ error of paying the same invoice four times, and then of denying that it had happened.",
+  "answer": [
+   "egregious",
+   "grievous"
+  ],
+  "decoy": [
+   "venial",
+   "trifling"
+  ],
+  "others": [
+   "sentient",
+   "hoary"
+  ]
+ },
+ {
+  "id": "se-0157",
+  "sentence": "The fault was a(n) _____ one, a late form and nothing more, and the board let her off with a note.",
+  "answer": [
+   "venial",
+   "picayune"
+  ],
+  "decoy": [
+   "egregious",
+   "grievous"
+  ],
+  "others": [
+   "limpid",
+   "bucolic"
+  ]
+ },
+ {
+  "id": "se-0158",
+  "sentence": "Her _____ study of the marshes has the unhurried tone of someone who lived among the reeds, and the shepherds she describes would recognize themselves in it.",
+  "answer": [
+   "pastoral",
+   "bucolic"
+  ],
+  "decoy": [
+   "urbane",
+   "cosmopolitan"
+  ],
+  "others": [
+   "acrid",
+   "fallacious"
+  ]
+ },
+ {
+  "id": "se-0159",
+  "sentence": "The family's old _____ remedies, handed down from a time before doctors, turned out to contain nothing but sugar.",
+  "answer": [
+   "archaic",
+   "obsolete"
+  ],
+  "decoy": [
+   "modish",
+   "novel"
+  ],
+  "others": [
+   "irksome",
+   "jocund"
+  ]
+ },
+ {
+  "id": "se-0160",
+  "sentence": "The theory rests on assumptions so _____ that a single study could bring it down.",
+  "answer": [
+   "tenuous",
+   "dubious"
+  ],
+  "decoy": [
+   "unimpeachable",
+   "incontrovertible"
+  ],
+  "others": [
+   "lissome",
+   "verdant"
+  ]
+ },
+ {
+  "id": "se-0161",
+  "sentence": "He remained _____ about the offer for weeks, drafting an acceptance one morning and a refusal the next.",
+  "answer": [
+   "ambivalent",
+   "irresolute"
+  ],
+  "decoy": [
+   "resolute",
+   "adamant"
+  ],
+  "others": [
+   "fecund",
+   "livid"
+  ]
+ },
+ {
+  "id": "se-0162",
+  "sentence": "On this one point she was _____, and no argument from her editor, her agent, or her mother could move her.",
+  "answer": [
+   "adamant",
+   "resolute"
+  ],
+  "decoy": [
+   "irresolute",
+   "ambivalent"
+  ],
+  "others": [
+   "sinuous",
+   "extant"
+  ]
+ },
+ {
+  "id": "se-0163",
+  "sentence": "Reporters mistook his _____ manner for boredom, but the calm was hard won; he had been shot at more than once before breakfast.",
+  "answer": [
+   "nonchalant",
+   "imperturbable"
+  ],
+  "decoy": [
+   "overwrought",
+   "distraught"
+  ],
+  "others": [
+   "pecuniary",
+   "gawky"
+  ]
+ },
+ {
+  "id": "se-0164",
+  "sentence": "She came out of the hearing _____, unable to finish a sentence, and had to be helped to the car by her brother.",
+  "answer": [
+   "distraught",
+   "overwrought"
+  ],
+  "decoy": [
+   "serene",
+   "placid"
+  ],
+  "others": [
+   "efficacious",
+   "hoary"
+  ]
+ },
+ {
+  "id": "se-0165",
+  "sentence": "The clerk's _____ manner, always correcting others and insisting on rules no one else had heard of, made every errand take twice as long.",
+  "answer": [
+   "officious",
+   "pedantic"
+  ],
+  "decoy": [
+   "nonchalant",
+   "cavalier"
+  ],
+  "others": [
+   "verdant",
+   "fetid"
+  ]
+ },
+ {
+  "id": "se-0166",
+  "sentence": "The storm did not _____ until morning, by which time half the roofs on the coast road were gone.",
+  "answer": [
+   "abate",
+   "subside"
+  ],
+  "decoy": [
+   "burgeon",
+   "proliferate"
+  ],
+  "others": [
+   "elucidate",
+   "ostracize"
+  ]
+ },
+ {
+  "id": "se-0167",
+  "sentence": "The new drug can _____ the pain, though it does nothing about the disease that causes it.",
+  "answer": [
+   "alleviate",
+   "assuage"
+  ],
+  "decoy": [
+   "augment",
+   "enhance"
+  ],
+  "others": [
+   "divulge",
+   "lampoon"
+  ]
+ },
+ {
+  "id": "se-0168",
+  "sentence": "Nothing the mediator said could _____ the damage of the leaked letter; each statement only drew attention to it.",
+  "answer": [
+   "mitigate",
+   "palliate"
+  ],
+  "decoy": [
+   "augment",
+   "exacerbate"
+  ],
+  "others": [
+   "espouse",
+   "decipher"
+  ]
+ },
+ {
+  "id": "se-0169",
+  "sentence": "Faced with falling sales, the publisher had to _____ the series, ending it after three volumes of the planned ten.",
+  "answer": [
+   "curtail",
+   "truncate"
+  ],
+  "decoy": [
+   "augment",
+   "enhance"
+  ],
+  "others": [
+   "extol",
+   "placate"
+  ]
+ },
+ {
+  "id": "se-0170",
+  "sentence": "Once the first shop succeeded, imitators began to _____ along the avenue, until there were eleven on a single block.",
+  "answer": [
+   "proliferate",
+   "burgeon"
+  ],
+  "decoy": [
+   "wane",
+   "flag"
+  ],
+  "others": [
+   "quibble",
+   "inter"
+  ]
+ },
+ {
+  "id": "se-0171",
+  "sentence": "Interest in the scandal began to _____ once the election was over, and by spring the papers had moved on.",
+  "answer": [
+   "wane",
+   "flag"
+  ],
+  "decoy": [
+   "burgeon",
+   "proliferate"
+  ],
+  "others": [
+   "abjure",
+   "decipher"
+  ]
+ },
+ {
+  "id": "se-0172",
+  "sentence": "The board met to _____ the director for the missing funds, though in the end it only sent a mild letter.",
+  "answer": [
+   "censure",
+   "rebuke"
+  ],
+  "decoy": [
+   "extol",
+   "laud"
+  ],
+  "others": [
+   "cede",
+   "obviate"
+  ]
+ },
+ {
+  "id": "se-0173",
+  "sentence": "In print she would _____ her rivals without mercy, calling one a thief and another a fool in the same column.",
+  "answer": [
+   "excoriate",
+   "castigate"
+  ],
+  "decoy": [
+   "laud",
+   "exalt"
+  ],
+  "others": [
+   "acquiesce",
+   "ford"
+  ]
+ },
+ {
+  "id": "se-0174",
+  "sentence": "The sergeant would _____ recruits for a loose button as harshly as for losing a rifle.",
+  "answer": [
+   "berate",
+   "upbraid"
+  ],
+  "decoy": [
+   "coddle",
+   "cosset"
+  ],
+  "others": [
+   "digress",
+   "molt"
+  ]
+ },
+ {
+  "id": "se-0175",
+  "sentence": "Decades after her death, the same critics who had ignored her began to _____ her work as the finest of its generation.",
+  "answer": [
+   "extol",
+   "laud"
+  ],
+  "decoy": [
+   "disparage",
+   "denigrate"
+  ],
+  "others": [
+   "secrete",
+   "forestall"
+  ]
+ },
+ {
+  "id": "se-0176",
+  "sentence": "It is odd that a society so quick to _____ its athletes as heroes should forget them so soon after they retire.",
+  "answer": [
+   "lionize",
+   "exalt"
+  ],
+  "decoy": [
+   "vilify",
+   "malign"
+  ],
+  "others": [
+   "circumvent",
+   "peruse"
+  ]
+ },
+ {
+  "id": "se-0177",
+  "sentence": "Villagers still _____ the old doctor, and his photograph hangs in the bakery beside the saints.",
+  "answer": [
+   "venerate",
+   "deify"
+  ],
+  "decoy": [
+   "execrate",
+   "loathe"
+  ],
+  "others": [
+   "parry",
+   "dither"
+  ]
+ },
+ {
+  "id": "se-0178",
+  "sentence": "His rivals sought to _____ the plan by suggesting, without evidence, that its author had once been bankrupt.",
+  "answer": [
+   "denigrate",
+   "disparage"
+  ],
+  "decoy": [
+   "laud",
+   "extol"
+  ],
+  "others": [
+   "mollify",
+   "truncate"
+  ]
+ },
+ {
+  "id": "se-0179",
+  "sentence": "The tabloids continued to _____ the actress long after a court had found every story about her to be false.",
+  "answer": [
+   "malign",
+   "vilify"
+  ],
+  "decoy": [
+   "lionize",
+   "venerate"
+  ],
+  "others": [
+   "equivocate",
+   "slake"
+  ]
+ },
+ {
+  "id": "se-0180",
+  "sentence": "Older members _____ the new rule as a betrayal of the club, though few of them could say which clause they objected to.",
+  "answer": [
+   "decry",
+   "deprecate"
+  ],
+  "decoy": [
+   "espouse",
+   "advocate"
+  ],
+  "others": [
+   "ford",
+   "yoke"
+  ]
+ },
+ {
+  "id": "se-0181",
+  "sentence": "The sketch show's favorite habit was to _____ the prime minister, whose walk alone supplied a season of jokes.",
+  "answer": [
+   "lampoon",
+   "deride"
+  ],
+  "decoy": [
+   "venerate",
+   "exalt"
+  ],
+  "others": [
+   "obviate",
+   "amortize"
+  ]
+ },
+ {
+  "id": "se-0182",
+  "sentence": "The discovery of the second letter did much to _____ the accused, whose name had been dragged through the courts for a decade.",
+  "answer": [
+   "exonerate",
+   "vindicate"
+  ],
+  "decoy": [
+   "indict",
+   "impugn"
+  ],
+  "others": [
+   "dilate",
+   "quaff"
+  ]
+ },
+ {
+  "id": "se-0183",
+  "sentence": "A clerk who agrees to look away is no bystander; he helps to _____ the fraud as surely as the man who forged the checks.",
+  "answer": [
+   "abet",
+   "foster"
+  ],
+  "decoy": [
+   "foil",
+   "thwart"
+  ],
+  "others": [
+   "expatiate",
+   "molt"
+  ]
+ },
+ {
+  "id": "se-0184",
+  "sentence": "Heavy snow did not stop the march, but it did _____ the army's supply trains for most of the month.",
+  "answer": [
+   "impede",
+   "hamper"
+  ],
+  "decoy": [
+   "expedite",
+   "facilitate"
+  ],
+  "others": [
+   "extol",
+   "disabuse"
+  ]
+ },
+ {
+  "id": "se-0185",
+  "sentence": "Quick work by a bank teller helped _____ the swindle before any money had left the account.",
+  "answer": [
+   "thwart",
+   "foil"
+  ],
+  "decoy": [
+   "abet",
+   "foster"
+  ],
+  "others": [
+   "digress",
+   "quaff"
+  ]
+ },
+ {
+  "id": "se-0186",
+  "sentence": "The missing permit continues to _____ the engineers, who can neither start work nor explain the delay to the city.",
+  "answer": [
+   "stymie",
+   "frustrate"
+  ],
+  "decoy": [
+   "facilitate",
+   "expedite"
+  ],
+  "others": [
+   "exalt",
+   "relish"
+  ]
+ },
+ {
+  "id": "se-0187",
+  "sentence": "By announcing the cuts herself, the mayor hoped to _____ an attack from the opposition.",
+  "answer": [
+   "forestall",
+   "preempt"
+  ],
+  "decoy": [
+   "foment",
+   "kindle"
+  ],
+  "others": [
+   "molt",
+   "inter"
+  ]
+ },
+ {
+  "id": "se-0188",
+  "sentence": "New software should _____ the claims process, so that a payment that took two months can arrive within a week.",
+  "answer": [
+   "expedite",
+   "facilitate"
+  ],
+  "decoy": [
+   "hamper",
+   "impede"
+  ],
+  "others": [
+   "exhort",
+   "abase"
+  ]
+ },
+ {
+  "id": "se-0189",
+  "sentence": "Their accountant found a way to _____ the rule entirely by moving the head office across the border.",
+  "answer": [
+   "circumvent",
+   "skirt"
+  ],
+  "decoy": [
+   "laud",
+   "extol"
+  ],
+  "others": [
+   "vituperate",
+   "quaff"
+  ]
+ },
+ {
+  "id": "se-0190",
+  "sentence": "The students chose to _____ the dress code openly, arriving at assembly in pajamas with the headmaster's photograph pinned to their sleeves.",
+  "answer": [
+   "flout",
+   "contravene"
+  ],
+  "decoy": [
+   "extol",
+   "exalt"
+  ],
+  "others": [
+   "relish",
+   "ascribe"
+  ]
+ },
+ {
+  "id": "se-0191",
+  "sentence": "Under pressure from the bishops, the scientist was forced to _____ the views he had defended for thirty years.",
+  "answer": [
+   "recant",
+   "renounce"
+  ],
+  "decoy": [
+   "espouse",
+   "advocate"
+  ],
+  "others": [
+   "elucidate",
+   "ford"
+  ]
+ },
+ {
+  "id": "se-0192",
+  "sentence": "The newspaper was forced to _____ the story within a day, printing a correction on its front page.",
+  "answer": [
+   "retract",
+   "repudiate"
+  ],
+  "decoy": [
+   "reiterate",
+   "corroborate"
+  ],
+  "others": [
+   "mar",
+   "gambol"
+  ]
+ },
+ {
+  "id": "se-0193",
+  "sentence": "The new government moved at once to _____ the treaty, declaring that it no longer bound anyone.",
+  "answer": [
+   "abrogate",
+   "rescind"
+  ],
+  "decoy": [
+   "condone",
+   "countenance"
+  ],
+  "others": [
+   "slake",
+   "peruse"
+  ]
+ },
+ {
+  "id": "se-0194",
+  "sentence": "She was the first in her landowning family to _____ the cause of land reform, and her father cut her off for it.",
+  "answer": [
+   "espouse",
+   "advocate"
+  ],
+  "decoy": [
+   "repudiate",
+   "abjure"
+  ],
+  "others": [
+   "decipher",
+   "molt"
+  ]
+ },
+ {
+  "id": "se-0195",
+  "sentence": "Serious cooks _____ the shortcuts in such recipes, however much time they might save.",
+  "answer": [
+   "eschew",
+   "spurn"
+  ],
+  "decoy": [
+   "relish",
+   "savor"
+  ],
+  "others": [
+   "reiterate",
+   "fret"
+  ]
+ },
+ {
+  "id": "se-0196",
+  "sentence": "The old guard continued to _____ the new arrival, turning their chairs away whenever he came into the room.",
+  "answer": [
+   "snub",
+   "ostracize"
+  ],
+  "decoy": [
+   "fawn",
+   "grovel"
+  ],
+  "others": [
+   "elucidate",
+   "peruse"
+  ]
+ },
+ {
+  "id": "se-0197",
+  "sentence": "After an hour of patient effort she managed to _____ the old man into seeing a doctor.",
+  "answer": [
+   "cajole",
+   "wheedle"
+  ],
+  "decoy": [
+   "browbeat",
+   "badger"
+  ],
+  "others": [
+   "decipher",
+   "relent"
+  ]
+ },
+ {
+  "id": "se-0198",
+  "sentence": "The old con man could _____ almost anyone into handing over savings, using nothing but courtesy and a borrowed uniform.",
+  "answer": [
+   "inveigle",
+   "beguile"
+  ],
+  "decoy": [
+   "disabuse",
+   "apprise"
+  ],
+  "others": [
+   "ossify",
+   "quaff"
+  ]
+ },
+ {
+  "id": "se-0199",
+  "sentence": "The forger had managed to _____ three major museums, and one of the fakes remained on display for nine years.",
+  "answer": [
+   "dupe",
+   "hoodwink"
+  ],
+  "decoy": [
+   "edify",
+   "apprise"
+  ],
+  "others": [
+   "temper",
+   "slake"
+  ]
+ },
+ {
+  "id": "se-0200",
+  "sentence": "Each morning the coach would _____ the swimmers to go faster, standing over the lane and shouting out the times.",
+  "answer": [
+   "goad",
+   "exhort"
+  ],
+  "decoy": [
+   "daunt",
+   "abash"
+  ],
+  "others": [
+   "abate",
+   "peruse"
+  ]
+ },
+ {
+  "id": "se-0201",
+  "sentence": "The ministers offered grain and titles to _____ the rebel lords, and for a season it seemed to work.",
+  "answer": [
+   "appease",
+   "pacify"
+  ],
+  "decoy": [
+   "antagonize",
+   "incense"
+  ],
+  "others": [
+   "abridge",
+   "extrapolate"
+  ]
+ },
+ {
+  "id": "se-0202",
+  "sentence": "The priests sacrificed a goat to _____ the river god, and when the water rose anyway they sacrificed another.",
+  "answer": [
+   "propitiate",
+   "conciliate"
+  ],
+  "decoy": [
+   "rile",
+   "nettle"
+  ],
+  "others": [
+   "abridge",
+   "embroil"
+  ]
+ },
+ {
+  "id": "se-0203",
+  "sentence": "The professor's sudden question seemed to _____ him; he stared at the board, opened his mouth, and sat down again.",
+  "answer": [
+   "nonplus",
+   "flummox"
+  ],
+  "decoy": [
+   "apprise",
+   "inform"
+  ],
+  "others": [
+   "husband",
+   "extol"
+  ]
+ },
+ {
+  "id": "se-0204",
+  "sentence": "Her refusal to raise her voice seemed to _____ the opposing counsel, who began to stammer and lost his place in his notes.",
+  "answer": [
+   "discomfit",
+   "perturb"
+  ],
+  "decoy": [
+   "console",
+   "pacify"
+  ],
+  "others": [
+   "amortize",
+   "inter"
+  ]
+ },
+ {
+  "id": "se-0205",
+  "sentence": "Constant small delays began to _____ even the most patient passengers, and by the third stop people were shouting.",
+  "answer": [
+   "exasperate",
+   "nettle"
+  ],
+  "decoy": [
+   "mollify",
+   "pacify"
+  ],
+  "others": [
+   "expurgate",
+   "elucidate"
+  ]
+ },
+ {
+  "id": "se-0206",
+  "sentence": "His heirs managed to _____ the entire fortune within five years on racehorses and a yacht no one could sail.",
+  "answer": [
+   "squander",
+   "dissipate"
+  ],
+  "decoy": [
+   "husband",
+   "garner"
+  ],
+  "others": [
+   "parry",
+   "ascertain"
+  ]
+ },
+ {
+  "id": "se-0207",
+  "sentence": "Pamphlets printed in cellars helped to _____ the movement's ideas far beyond the capital.",
+  "answer": [
+   "disseminate",
+   "propagate"
+  ],
+  "decoy": [
+   "stifle",
+   "squelch"
+  ],
+  "others": [
+   "countenance",
+   "ford"
+  ]
+ },
+ {
+  "id": "se-0208",
+  "sentence": "Asked whether he had met the buyer, the minister continued to _____, answering each question with a remark about the weather.",
+  "answer": [
+   "equivocate",
+   "prevaricate"
+  ],
+  "decoy": [
+   "concede",
+   "aver"
+  ],
+  "others": [
+   "ossify",
+   "ford"
+  ]
+ },
+ {
+  "id": "se-0209",
+  "sentence": "Faced with two good offers, he would _____ for days, leaning first one way and then the other until both firms lost patience.",
+  "answer": [
+   "vacillate",
+   "dither"
+  ],
+  "decoy": [
+   "prevail",
+   "resolve"
+  ],
+  "others": [
+   "excoriate",
+   "slake"
+  ]
+ },
+ {
+  "id": "se-0210",
+  "sentence": "After six days of resistance the council had little choice but to _____ to the strikers' terms.",
+  "answer": [
+   "accede",
+   "acquiesce"
+  ],
+  "decoy": [
+   "balk",
+   "demur"
+  ],
+  "others": [
+   "vilify",
+   "decipher"
+  ]
+ },
+ {
+  "id": "se-0211",
+  "sentence": "Though the fortress could have held for months, its commander chose to _____ on the first morning of the siege.",
+  "answer": [
+   "capitulate",
+   "yield"
+  ],
+  "decoy": [
+   "lament",
+   "rue"
+  ],
+  "others": [
+   "expatiate",
+   "quaff"
+  ]
+ },
+ {
+  "id": "se-0212",
+  "sentence": "Several members began to _____ at the cost, and the vote had to be put off until the treasurer could answer them.",
+  "answer": [
+   "balk",
+   "demur"
+  ],
+  "decoy": [
+   "accede",
+   "acquiesce"
+  ],
+  "others": [
+   "tantalize",
+   "ford"
+  ]
+ },
+ {
+  "id": "se-0213",
+  "sentence": "The guide's aim is to _____ the treaty's dense wording, clause by clause, for readers with no legal training.",
+  "answer": [
+   "elucidate",
+   "explicate"
+  ],
+  "decoy": [
+   "obfuscate",
+   "confound"
+  ],
+  "others": [
+   "rue",
+   "slake"
+  ]
+ },
+ {
+  "id": "se-0214",
+  "sentence": "Lab results from three countries helped to _____ the claim, which was widely doubted when first published and is now in every textbook.",
+  "answer": [
+   "corroborate",
+   "substantiate"
+  ],
+  "decoy": [
+   "refute",
+   "gainsay"
+  ],
+  "others": [
+   "forsake",
+   "gambol"
+  ]
+ },
+ {
+  "id": "se-0215",
+  "sentence": "Few dared to _____ the bishop's account in public, though everyone in the town knew it to be false.",
+  "answer": [
+   "gainsay",
+   "impugn"
+  ],
+  "decoy": [
+   "corroborate",
+   "substantiate"
+  ],
+  "others": [
+   "molt",
+   "ascribe"
+  ]
+ },
+ {
+  "id": "se-0216",
+  "sentence": "The reforms were meant to _____ conditions in the mines, and within a decade deaths underground had fallen by half.",
+  "answer": [
+   "ameliorate",
+   "redress"
+  ],
+  "decoy": [
+   "impair",
+   "mar"
+  ],
+  "others": [
+   "peruse",
+   "yoke"
+  ]
+ },
+ {
+  "id": "se-0217",
+  "sentence": "One careless error can _____ an entire study, however well the rest of it was done.",
+  "answer": [
+   "vitiate",
+   "impair"
+  ],
+  "decoy": [
+   "bolster",
+   "enhance"
+  ],
+  "others": [
+   "gambol",
+   "wheedle"
+  ]
+ },
+ {
+  "id": "se-0218",
+  "sentence": "A single rumor was enough to _____ a reputation that had taken forty years to build.",
+  "answer": [
+   "sully",
+   "tarnish"
+  ],
+  "decoy": [
+   "burnish",
+   "exalt"
+  ],
+  "others": [
+   "extrapolate",
+   "ruminate"
+  ]
+ },
+ {
+  "id": "se-0219",
+  "sentence": "The dealer would _____ the honey with sugar syrup, and it was years before anyone tested a jar.",
+  "answer": [
+   "adulterate",
+   "debase"
+  ],
+  "decoy": [
+   "extol",
+   "laud"
+  ],
+  "others": [
+   "parry",
+   "ostracize"
+  ]
+ },
+ {
+  "id": "se-0220",
+  "sentence": "No editor could _____ the story for long: the photographs were already in the hands of three other papers.",
+  "answer": [
+   "stifle",
+   "squelch"
+  ],
+  "decoy": [
+   "disseminate",
+   "propagate"
+  ],
+  "others": [
+   "dilate",
+   "ruminate"
+  ]
+ },
+ {
+  "id": "se-0221",
+  "sentence": "Within a generation the railway came to _____ the canals, which stood empty after carrying the whole region's coal for a century.",
+  "answer": [
+   "supplant",
+   "supersede"
+  ],
+  "decoy": [
+   "perpetuate",
+   "foster"
+  ],
+  "others": [
+   "quibble",
+   "rue"
+  ]
+ },
+ {
+  "id": "se-0222",
+  "sentence": "Although they rarely agree, both parties _____ the idea of a new tax, and each has promised to vote it down.",
+  "answer": [
+   "abhor",
+   "loathe"
+  ],
+  "decoy": [
+   "relish",
+   "savor"
+  ],
+  "others": [
+   "decipher",
+   "parry"
+  ]
+ },
+ {
+  "id": "se-0223",
+  "sentence": "He was the sort of man who would _____ every bite of a meal and then talk about it for a week.",
+  "answer": [
+   "savor",
+   "relish"
+  ],
+  "decoy": [
+   "abhor",
+   "loathe"
+  ],
+  "others": [
+   "obviate",
+   "fluctuate"
+  ]
+ },
+ {
+  "id": "se-0224",
+  "sentence": "She would _____ for days over a single chess move, walking the beach with the board in her head.",
+  "answer": [
+   "ruminate",
+   "deliberate"
+  ],
+  "decoy": [
+   "expedite",
+   "facilitate"
+  ],
+  "others": [
+   "inveigle",
+   "ossify"
+  ]
+ },
+ {
+  "id": "se-0225",
+  "sentence": "From the worn stone it was hard to _____ more than a name and part of a date.",
+  "answer": [
+   "discern",
+   "decipher"
+  ],
+  "decoy": [
+   "obfuscate",
+   "occlude"
+  ],
+  "others": [
+   "lionize",
+   "wheedle"
+  ]
+ },
+ {
+  "id": "se-0226",
+  "sentence": "With no records to go on, historians can only _____ what the two kings said to one another at that meeting.",
+  "answer": [
+   "surmise",
+   "posit"
+  ],
+  "decoy": [
+   "ascertain",
+   "substantiate"
+  ],
+  "others": [
+   "exalt",
+   "cower"
+  ]
+ },
+ {
+  "id": "se-0227",
+  "sentence": "The old song can still _____ the smell of her grandmother's kitchen in an instant.",
+  "answer": [
+   "evoke",
+   "elicit"
+  ],
+  "decoy": [
+   "stifle",
+   "squelch"
+  ],
+  "others": [
+   "chastise",
+   "peregrinate"
+  ]
+ },
+ {
+  "id": "se-0228",
+  "sentence": "Years of night shifts had begun to _____ him, and by forty he could hardly climb the stairs.",
+  "answer": [
+   "enervate",
+   "sap"
+  ],
+  "decoy": [
+   "galvanize",
+   "kindle"
+  ],
+  "others": [
+   "ascribe",
+   "snub"
+  ]
+ },
+ {
+  "id": "se-0229",
+  "sentence": "News of the march seemed to _____ the whole student body, and by evening every hall had a committee.",
+  "answer": [
+   "galvanize",
+   "kindle"
+  ],
+  "decoy": [
+   "enervate",
+   "stultify"
+  ],
+  "others": [
+   "abridge",
+   "parry"
+  ]
+ },
+ {
+  "id": "se-0230",
+  "sentence": "Her parents tried to _____ a respect for books by reading aloud at every meal.",
+  "answer": [
+   "inculcate",
+   "foster"
+  ],
+  "decoy": [
+   "eradicate",
+   "stifle"
+  ],
+  "others": [
+   "fawn",
+   "ford"
+  ]
+ },
+ {
+  "id": "se-0231",
+  "sentence": "In his memoirs he does more than _____ the facts; several of the battles he describes never took place.",
+  "answer": [
+   "embellish",
+   "distort"
+  ],
+  "decoy": [
+   "abridge",
+   "truncate"
+  ],
+  "others": [
+   "placate",
+   "rue"
+  ]
+ },
+ {
+  "id": "se-0232",
+  "sentence": "The lecturer would _____ at the slightest excuse, and a remark about Rome could lead to twenty minutes on his dentist.",
+  "answer": [
+   "digress",
+   "meander"
+  ],
+  "decoy": [
+   "converge",
+   "coalesce"
+  ],
+  "others": [
+   "lacerate",
+   "censor"
+  ]
+ },
+ {
+  "id": "se-0233",
+  "sentence": "New members would _____ before the chairman, laughing at his jokes before he had got to the end of them.",
+  "answer": [
+   "fawn",
+   "grovel"
+  ],
+  "decoy": [
+   "browbeat",
+   "badger"
+  ],
+  "others": [
+   "decipher",
+   "slake"
+  ]
+ },
+ {
+  "id": "se-0234",
+  "sentence": "The boy would _____ at the sound of his uncle's boots on the stairs, and hide behind the stove.",
+  "answer": [
+   "cower",
+   "quail"
+  ],
+  "decoy": [
+   "strut",
+   "gambol"
+  ],
+  "others": [
+   "abridge",
+   "ascertain"
+  ]
+ },
+ {
+  "id": "se-0235",
+  "sentence": "The young conductor began to _____ in the second movement, losing his place and then his players.",
+  "answer": [
+   "falter",
+   "flounder"
+  ],
+  "decoy": [
+   "prevail",
+   "transcend"
+  ],
+  "others": [
+   "extrapolate",
+   "yoke"
+  ]
+ },
+ {
+  "id": "se-0236",
+  "sentence": "She brought such _____ to the campaign that volunteers half her age went home exhausted before she did.",
+  "answer": [
+   "zeal",
+   "alacrity"
+  ],
+  "decoy": [
+   "apathy",
+   "torpor"
+  ],
+  "others": [
+   "dearth",
+   "gaffe"
+  ]
+ },
+ {
+  "id": "se-0237",
+  "sentence": "The speech was given with real _____, and old men who had come to scoff found themselves on their feet.",
+  "answer": [
+   "fervor",
+   "ardor"
+  ],
+  "decoy": [
+   "ennui",
+   "lassitude"
+  ],
+  "others": [
+   "penury",
+   "canard"
+  ]
+ },
+ {
+  "id": "se-0238",
+  "sentence": "The islanders' _____ toward the election surprised the organizers: barely one voter in ten turned up, and few of those stayed to the end.",
+  "answer": [
+   "apathy",
+   "torpor"
+  ],
+  "decoy": [
+   "zeal",
+   "fervor"
+  ],
+  "others": [
+   "calumny",
+   "stipend"
+  ]
+ },
+ {
+  "id": "se-0239",
+  "sentence": "A heavy _____ settled on the office in August, and little got done beyond the moving of papers from one desk to another.",
+  "answer": [
+   "torpor",
+   "lassitude"
+  ],
+  "decoy": [
+   "alacrity",
+   "vim"
+  ],
+  "others": [
+   "sedition",
+   "maxim"
+  ]
+ },
+ {
+  "id": "se-0240",
+  "sentence": "Her business _____ was legendary; she bought the railway stock a month before anyone else knew the line would be extended.",
+  "answer": [
+   "acumen",
+   "prowess"
+  ],
+  "decoy": [
+   "levity",
+   "mirth"
+  ],
+  "others": [
+   "stigma",
+   "dirge"
+  ]
+ },
+ {
+  "id": "se-0241",
+  "sentence": "Nobody who had witnessed his _____ during the coup, when he sold the names of his own officers, would ever trust him again.",
+  "answer": [
+   "perfidy",
+   "duplicity"
+  ],
+  "decoy": [
+   "fidelity",
+   "probity"
+  ],
+  "others": [
+   "zephyr",
+   "precis"
+  ]
+ },
+ {
+  "id": "se-0242",
+  "sentence": "There was no _____ in the boy; when asked who broke the window, he pointed at himself and asked if he could help to mend it.",
+  "answer": [
+   "guile",
+   "artifice"
+  ],
+  "decoy": [
+   "candor",
+   "probity"
+  ],
+  "others": [
+   "chagrin",
+   "modicum"
+  ]
+ },
+ {
+  "id": "se-0243",
+  "sentence": "The general's retreat was only a(n) _____, meant to draw the enemy out of the hills and into the open plain.",
+  "answer": [
+   "stratagem",
+   "ploy"
+  ],
+  "decoy": [
+   "gaffe",
+   "solecism"
+  ],
+  "others": [
+   "elegy",
+   "largess"
+  ]
+ },
+ {
+  "id": "se-0244",
+  "sentence": "Using a(n) _____ worthy of a spy novel, she entered the archive as a cleaner and walked out with the files in a mop bucket.",
+  "answer": [
+   "subterfuge",
+   "artifice"
+  ],
+  "decoy": [
+   "candor",
+   "probity"
+  ],
+  "others": [
+   "cornucopia",
+   "stipend"
+  ]
+ },
+ {
+  "id": "se-0245",
+  "sentence": "The campaign relied on _____, spreading rumors about the candidate's war record that no one had ever bothered to check.",
+  "answer": [
+   "calumny",
+   "aspersion"
+  ],
+  "decoy": [
+   "encomium",
+   "panegyric"
+  ],
+  "others": [
+   "respite",
+   "gist"
+  ]
+ },
+ {
+  "id": "se-0246",
+  "sentence": "The opposition's response was pure _____, an hour of insults with hardly a word about the bill itself.",
+  "answer": [
+   "invective",
+   "vitriol"
+  ],
+  "decoy": [
+   "eulogy",
+   "encomium"
+  ],
+  "others": [
+   "mirth",
+   "nuance"
+  ]
+ },
+ {
+  "id": "se-0247",
+  "sentence": "The losing coach launched into a(n) _____ against the referees that lasted longer than the second half.",
+  "answer": [
+   "tirade",
+   "diatribe"
+  ],
+  "decoy": [
+   "encomium",
+   "eulogy"
+  ],
+  "others": [
+   "stint",
+   "sinecure"
+  ]
+ },
+ {
+  "id": "se-0248",
+  "sentence": "His retirement dinner was marked by a(n) _____ that ran to forty minutes and left out, tactfully, all of his failures.",
+  "answer": [
+   "encomium",
+   "panegyric"
+  ],
+  "decoy": [
+   "tirade",
+   "diatribe"
+  ],
+  "others": [
+   "penchant",
+   "fracas"
+  ]
+ },
+ {
+  "id": "se-0249",
+  "sentence": "The film won wide _____, and critics who rarely agreed on anything called it the best work of the decade.",
+  "answer": [
+   "acclaim",
+   "approbation"
+  ],
+  "decoy": [
+   "opprobrium",
+   "stigma"
+  ],
+  "others": [
+   "stipend",
+   "torque"
+  ]
+ },
+ {
+  "id": "se-0250",
+  "sentence": "The town's _____ fell on the banker's family, and even his children were turned away from the school.",
+  "answer": [
+   "opprobrium",
+   "stigma"
+  ],
+  "decoy": [
+   "acclaim",
+   "kudos"
+  ],
+  "others": [
+   "penchant",
+   "zephyr"
+  ]
+ },
+ {
+  "id": "se-0251",
+  "sentence": "The _____ between the two rival departments was so bitter that they built separate staircases.",
+  "answer": [
+   "animosity",
+   "enmity"
+  ],
+  "decoy": [
+   "affinity",
+   "bent"
+  ],
+  "others": [
+   "panacea",
+   "coda"
+  ]
+ },
+ {
+  "id": "se-0252",
+  "sentence": "His lifelong _____ toward committees began, he said, the day one of them spent a year choosing a color for the door.",
+  "answer": [
+   "aversion",
+   "antipathy"
+  ],
+  "decoy": [
+   "penchant",
+   "predilection"
+  ],
+  "others": [
+   "fidelity",
+   "gist"
+  ]
+ },
+ {
+  "id": "se-0253",
+  "sentence": "She has a marked _____ for long novels in translation, and rarely goes on holiday without a Russian brick in her bag.",
+  "answer": [
+   "penchant",
+   "predilection"
+  ],
+  "decoy": [
+   "aversion",
+   "antipathy"
+  ],
+  "others": [
+   "schism",
+   "modicum"
+  ]
+ },
+ {
+  "id": "se-0254",
+  "sentence": "People with his _____ for risk rarely last long in banking: within two years he had bet the branch's whole reserve on one shipment.",
+  "answer": [
+   "propensity",
+   "proclivity"
+  ],
+  "decoy": [
+   "aversion",
+   "antipathy"
+  ],
+  "others": [
+   "pittance",
+   "canard"
+  ]
+ },
+ {
+  "id": "se-0255",
+  "sentence": "Early on she showed a natural _____ for languages, picking up her neighbors' Greek and Turkish before she could read.",
+  "answer": [
+   "affinity",
+   "bent"
+  ],
+  "decoy": [
+   "antipathy",
+   "aversion"
+  ],
+  "others": [
+   "jargon",
+   "precis"
+  ]
+ },
+ {
+  "id": "se-0256",
+  "sentence": "It was with some _____ that the villagers opened the sealed letter, for such letters rarely held good news.",
+  "answer": [
+   "trepidation",
+   "apprehension"
+  ],
+  "decoy": [
+   "equanimity",
+   "poise"
+  ],
+  "others": [
+   "pittance",
+   "largess"
+  ]
+ },
+ {
+  "id": "se-0257",
+  "sentence": "Much to her _____, the speech she had rehearsed for a month was read out first by the man before her.",
+  "answer": [
+   "chagrin",
+   "vexation"
+  ],
+  "decoy": [
+   "euphoria",
+   "mirth"
+  ],
+  "others": [
+   "gist",
+   "tome"
+  ]
+ },
+ {
+  "id": "se-0258",
+  "sentence": "In his _____, the young tycoon announced that the firm would never fail, a week before it did.",
+  "answer": [
+   "hubris",
+   "presumption"
+  ],
+  "decoy": [
+   "forbearance",
+   "temperance"
+  ],
+  "others": [
+   "knell",
+   "stipend"
+  ]
+ },
+ {
+  "id": "se-0259",
+  "sentence": "He had the _____ to send her a bill for the dinner she had cooked for him.",
+  "answer": [
+   "effrontery",
+   "gall"
+  ],
+  "decoy": [
+   "propriety",
+   "decorum"
+  ],
+  "others": [
+   "panacea",
+   "stanza"
+  ]
+ },
+ {
+  "id": "se-0260",
+  "sentence": "She had barely a(n) _____ of chemistry, but the job called for little more than a confident manner.",
+  "answer": [
+   "smattering",
+   "modicum"
+  ],
+  "decoy": [
+   "prowess",
+   "forte"
+  ],
+  "others": [
+   "fracas",
+   "schism"
+  ]
+ },
+ {
+  "id": "se-0261",
+  "sentence": "Not a(n) _____ of proof has been offered for the charge: no document, no witness, nothing at all, though it has been repeated for a decade.",
+  "answer": [
+   "scintilla",
+   "vestige"
+  ],
+  "decoy": [
+   "plethora",
+   "glut"
+  ],
+  "others": [
+   "bromide",
+   "foible"
+  ]
+ },
+ {
+  "id": "se-0262",
+  "sentence": "He had no _____ of the trouble ahead until the police arrived with the second set of accounts.",
+  "answer": [
+   "inkling",
+   "presentiment"
+  ],
+  "decoy": [
+   "delusion",
+   "fallacy"
+  ],
+  "others": [
+   "sinecure",
+   "din"
+  ]
+ },
+ {
+  "id": "se-0263",
+  "sentence": "The town now suffers from a(n) _____ of coffee shops, with five on one corner and no customers for most of them.",
+  "answer": [
+   "glut",
+   "plethora"
+  ],
+  "decoy": [
+   "dearth",
+   "paucity"
+  ],
+  "others": [
+   "canard",
+   "epitome"
+  ]
+ },
+ {
+  "id": "se-0264",
+  "sentence": "Damp has long been the _____ of the archive, destroying more paper than fire and war combined.",
+  "answer": [
+   "bane",
+   "blight"
+  ],
+  "decoy": [
+   "boon",
+   "panacea"
+  ],
+  "others": [
+   "parley",
+   "gist"
+  ]
+ },
+ {
+  "id": "se-0265",
+  "sentence": "The first robins are the _____ of spring in these hills, arriving while the passes are still full of snow.",
+  "answer": [
+   "harbinger",
+   "precursor"
+  ],
+  "decoy": [
+   "coda",
+   "denouement"
+  ],
+  "others": [
+   "miser",
+   "fracas"
+  ]
+ },
+ {
+  "id": "se-0266",
+  "sentence": "At the _____ of her fame she could fill the opera house three nights running; a decade later she sang in hotel bars.",
+  "answer": [
+   "zenith",
+   "apogee"
+  ],
+  "decoy": [
+   "interregnum",
+   "lull"
+  ],
+  "others": [
+   "cabal",
+   "dirge"
+  ]
+ },
+ {
+  "id": "se-0267",
+  "sentence": "For a generation of nurses she was the _____ of calm under pressure, and they told stories about her on night shifts.",
+  "answer": [
+   "paragon",
+   "exemplar"
+  ],
+  "decoy": [
+   "travesty",
+   "caricature"
+  ],
+  "others": [
+   "maverick",
+   "din"
+  ]
+ },
+ {
+  "id": "se-0268",
+  "sentence": "The _____ wandered into the wrong lecture hall on her first day, and stayed, not wishing to seem lost.",
+  "answer": [
+   "neophyte",
+   "tyro"
+  ],
+  "decoy": [
+   "virtuoso",
+   "savant"
+  ],
+  "others": [
+   "pundit",
+   "miser"
+  ]
+ },
+ {
+  "id": "se-0269",
+  "sentence": "Having played from the age of three, the _____ could read any score at sight and fill a hall by the age of twelve.",
+  "answer": [
+   "virtuoso",
+   "savant"
+  ],
+  "decoy": [
+   "tyro",
+   "neophyte"
+  ],
+  "others": [
+   "miser",
+   "hedonist"
+  ]
+ },
+ {
+  "id": "se-0270",
+  "sentence": "Surrounded by every _____ at court, the king had not heard an honest opinion in twenty years.",
+  "answer": [
+   "sycophant",
+   "toady"
+  ],
+  "decoy": [
+   "iconoclast",
+   "maverick"
+  ],
+  "others": [
+   "epicure",
+   "pundit"
+  ]
+ },
+ {
+  "id": "se-0271",
+  "sentence": "A true _____, she ignored the school's rules on perspective and painted her horses blue.",
+  "answer": [
+   "maverick",
+   "iconoclast"
+  ],
+  "decoy": [
+   "toady",
+   "sycophant"
+  ],
+  "others": [
+   "miser",
+   "tyro"
+  ]
+ },
+ {
+  "id": "se-0272",
+  "sentence": "His book of advice is little more than one _____ after another: be yourself, work hard, and never give up.",
+  "answer": [
+   "platitude",
+   "bromide"
+  ],
+  "decoy": [
+   "neologism",
+   "solecism"
+  ],
+  "others": [
+   "fracas",
+   "stipend"
+  ]
+ },
+ {
+  "id": "se-0273",
+  "sentence": "\"Measure twice, cut once\" was a(n) _____ of the workshop, and apprentices heard it before they were allowed to touch a saw.",
+  "answer": [
+   "maxim",
+   "dictum"
+  ],
+  "decoy": [
+   "canard",
+   "calumny"
+  ],
+  "others": [
+   "stanza",
+   "largess"
+  ]
+ },
+ {
+  "id": "se-0274",
+  "sentence": "The bank's collapse was a(n) _____ for the town, costing it its savings, its mill, and nearly a third of its people.",
+  "answer": [
+   "debacle",
+   "cataclysm"
+  ],
+  "decoy": [
+   "boon",
+   "panacea"
+  ],
+  "others": [
+   "parley",
+   "precis"
+  ]
+ },
+ {
+  "id": "se-0275",
+  "sentence": "Talks reached a(n) _____ in March, with neither side willing to make the first offer and both refusing to leave.",
+  "answer": [
+   "impasse",
+   "stasis"
+  ],
+  "decoy": [
+   "consensus",
+   "resolution"
+  ],
+  "others": [
+   "sobriquet",
+   "toady"
+  ]
+ },
+ {
+  "id": "se-0276",
+  "sentence": "She found herself in a real _____: to tell the truth would ruin her friend, and to lie would ruin her.",
+  "answer": [
+   "quandary",
+   "predicament"
+  ],
+  "decoy": [
+   "respite",
+   "repose"
+  ],
+  "others": [
+   "maxim",
+   "dirge"
+  ]
+ },
+ {
+  "id": "se-0277",
+  "sentence": "The _____ outside the tavern drew in half the street before the constable arrived, and nobody could recall how it began.",
+  "answer": [
+   "fracas",
+   "imbroglio"
+  ],
+  "decoy": [
+   "consensus",
+   "resolution"
+  ],
+  "others": [
+   "sinecure",
+   "elegy"
+  ]
+ },
+ {
+  "id": "se-0278",
+  "sentence": "The _____ among the orchestra's players could be heard even in the music, and the conductor resigned in the spring.",
+  "answer": [
+   "discord",
+   "dissonance"
+  ],
+  "decoy": [
+   "consensus",
+   "resolution"
+  ],
+  "others": [
+   "stipend",
+   "epigram"
+  ]
+ },
+ {
+  "id": "se-0279",
+  "sentence": "The rain brought a brief _____ from the heat, and the whole village came out to stand in it.",
+  "answer": [
+   "respite",
+   "repose"
+  ],
+  "decoy": [
+   "surfeit",
+   "glut"
+  ],
+  "others": [
+   "sobriquet",
+   "miser"
+  ]
+ },
+ {
+  "id": "se-0280",
+  "sentence": "After a(n) _____ of two hours, the shelling started again, heavier than before.",
+  "answer": [
+   "lull",
+   "moratorium"
+  ],
+  "decoy": [
+   "crescendo",
+   "din"
+  ],
+  "others": [
+   "gist",
+   "epicure"
+  ]
+ },
+ {
+  "id": "se-0281",
+  "sentence": "The confession, signed under _____ after four days without sleep, was thrown out by the court.",
+  "answer": [
+   "duress",
+   "coercion"
+  ],
+  "decoy": [
+   "sanction",
+   "approbation"
+  ],
+  "others": [
+   "panache",
+   "stanza"
+  ]
+ },
+ {
+  "id": "se-0282",
+  "sentence": "Her _____ was the talk of the village; she counted the matches every evening and sold her empty jars.",
+  "answer": [
+   "cupidity",
+   "avarice"
+  ],
+  "decoy": [
+   "largess",
+   "altruism"
+  ],
+  "others": [
+   "vim",
+   "coda"
+  ]
+ },
+ {
+  "id": "se-0283",
+  "sentence": "The lifeboat crew showed great _____ that night, going back out twice after their own boat had overturned.",
+  "answer": [
+   "fortitude",
+   "perseverance"
+  ],
+  "decoy": [
+   "trepidation",
+   "apprehension"
+  ],
+  "others": [
+   "stipend",
+   "nuance"
+  ]
+ },
+ {
+  "id": "se-0284",
+  "sentence": "The answering machine does its best to give a(n) _____ of warmth, thanking callers for their patience in a voice recorded years ago.",
+  "answer": [
+   "semblance",
+   "veneer"
+  ],
+  "decoy": [
+   "surfeit",
+   "glut"
+  ],
+  "others": [
+   "canard",
+   "stint"
+  ]
+ },
+ {
+  "id": "se-0285",
+  "sentence": "Let me give you the _____ of the report, since nobody has time to read all four hundred pages.",
+  "answer": [
+   "gist",
+   "pith"
+  ],
+  "decoy": [
+   "preamble",
+   "coda"
+  ],
+  "others": [
+   "fracas",
+   "toady"
+  ]
+ },
+ {
+  "id": "se-0286",
+  "sentence": "The film is less a biography than a(n) _____ of one, with a great life reduced to a few wigs and a shouting match.",
+  "answer": [
+   "travesty",
+   "caricature"
+  ],
+  "decoy": [
+   "paragon",
+   "epitome"
+  ],
+  "others": [
+   "panacea",
+   "stipend"
+  ]
+ },
+ {
+  "id": "se-0287",
+  "sentence": "The whole table erupted in _____ when the toast ended with the speaker's chair giving way beneath him.",
+  "answer": [
+   "mirth",
+   "levity"
+  ],
+  "decoy": [
+   "dirge",
+   "elegy"
+  ],
+  "others": [
+   "parley",
+   "stipend"
+  ]
+ },
+ {
+  "id": "se-0288",
+  "sentence": "The new ambassador committed a(n) _____ at her first dinner, praising the wine of a family that had banned alcohol.",
+  "answer": [
+   "gaffe",
+   "solecism"
+  ],
+  "decoy": [
+   "finesse",
+   "tact"
+  ],
+  "others": [
+   "dirge",
+   "stipend"
+  ]
+ },
+ {
+  "id": "se-0289",
+  "sentence": "Her habit of tapping a pen was a(n) _____ her staff had learned to forgive, given everything else she did for them.",
+  "answer": [
+   "foible",
+   "peccadillo"
+  ],
+  "decoy": [
+   "forte",
+   "prowess"
+  ],
+  "others": [
+   "cabal",
+   "panoply"
+  ]
+ },
+ {
+  "id": "se-0290",
+  "sentence": "The court heard evidence of such _____ that two jurors asked to be excused from the rest of the trial.",
+  "answer": [
+   "depravity",
+   "turpitude"
+  ],
+  "decoy": [
+   "probity",
+   "veracity"
+  ],
+  "others": [
+   "nuance",
+   "stint"
+  ]
+ },
+ {
+  "id": "se-0291",
+  "sentence": "The leaflets were judged an act of _____, and their printer was given ten years for encouraging the army to mutiny.",
+  "answer": [
+   "sedition",
+   "insurrection"
+  ],
+  "decoy": [
+   "homage",
+   "obeisance"
+  ],
+  "others": [
+   "epicure",
+   "pittance"
+  ]
+ },
+ {
+  "id": "se-0292",
+  "sentence": "The empire's _____ over the region was so complete that no port could change its harbor fees without permission.",
+  "answer": [
+   "hegemony",
+   "primacy"
+  ],
+  "decoy": [
+   "obeisance",
+   "deference"
+  ],
+  "others": [
+   "epitome",
+   "dirge"
+  ]
+ },
+ {
+  "id": "se-0293",
+  "sentence": "In the corridors, a(n) _____ of six ministers was already deciding who would succeed the sick president.",
+  "answer": [
+   "cabal",
+   "coterie"
+  ],
+  "decoy": [
+   "epicure",
+   "miser"
+  ],
+  "others": [
+   "stanza",
+   "precis"
+  ]
+ },
+ {
+  "id": "se-0294",
+  "sentence": "Investigators found clear signs of _____ between the two bidders, who had agreed on their prices over lunch.",
+  "answer": [
+   "collusion",
+   "intrigue"
+  ],
+  "decoy": [
+   "animosity",
+   "enmity"
+  ],
+  "others": [
+   "largess",
+   "elegy"
+  ]
+ }
+]
