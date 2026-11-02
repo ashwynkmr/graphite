@@ -8,7 +8,7 @@ export const COMPARE_CHOICES = ['1', '2', '3', '4'];
 export const COMPARE_LABELS: Record<string, string> = {
   '1': 'Quantity A is greater',
   '2': 'Quantity B is greater',
-  '3': 'The two quantities are equal',
+  '3': 'The quantities are equal',
   '4': 'It cannot be determined',
 };
 

@@ -306,7 +306,7 @@ test('a comparison drill shows both quantities and four answers in exam order, w
   await expect(page).toHaveURL(/quant\/session/);
   for (let i = 0; i < 20; i++) {
     await expect(page.getByRole('term').first()).toHaveText('Quantity A');
-    await expect(page.getByRole('radio')).toHaveText(['AQuantity A is greater', 'BQuantity B is greater', 'CThe two quantities are equal', 'DIt cannot be determined']);
+    await expect(page.getByRole('radio')).toHaveText(['AQuantity A is greater', 'BQuantity B is greater', 'CThe quantities are equal', 'DIt cannot be determined']);
     await expectNoVerdict(page);
     const submit = (await page.getByRole('button', { name: 'Submit' }).boundingBox())!;
     expect(submit.y + submit.height).toBeLessThanOrEqual(664);
