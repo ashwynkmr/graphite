@@ -8,6 +8,12 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 - Sprint: 2, 5 or 10 minutes, answering as many questions as you can.
 - Adaptive difficulty: each topic moves up or down with your results, and Results tell you when one does.
 - Picking one topic brings back the setup you last used for it.
+- Browse and search all 1,500 words by word, synonym or meaning, and filter by frequency, stage or star.
+- Round 2: once you've seen every word, go through them all again, weakest first.
+- Memory aids for 231 of the hardest words, on the flashcard's back and in Browse.
+
+### Changed
+- When time runs out on a timed set or sprint, an option you've picked counts as your answer.
 
 ## [1.0.0] - 2026-11-01 · Milestone C: Phase 1 complete
 
