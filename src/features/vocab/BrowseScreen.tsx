@@ -12,6 +12,7 @@ import { POS_SHORT, sentence } from './display';
 import styles from './BrowseScreen.module.css';
 
 const PAGE = 40;
+const CLOSED = '';
 
 const GROUP_LABEL: Record<BoxGroup, string> = { new: 'New', learning: 'Learning', known: 'Known', retired: 'Retired' };
 
@@ -37,10 +38,16 @@ export function BrowseScreen() {
 
   useEffect(() => setShown(PAGE), [query, tier, group, starredOnly]);
 
+  // Reset what's open as the search changes, so the best match opens by itself.
+  useEffect(() => setOpen(null), [query]);
+
+  // While searching, the filters step aside: on a phone they'd push the results behind the keyboard.
+  const searching = query.trim() !== '';
   const found = useMemo(
-    () => (book ? browseWords(book.words, states, { query, tier: tier === 'all' ? null : tier, group, starredOnly }) : []),
-    [book, states, query, tier, group, starredOnly],
+    () => (book ? browseWords(book.words, states, searching ? { query, tier: null, group: null, starredOnly: false } : { query, tier: tier === 'all' ? null : tier, group, starredOnly }) : []),
+    [book, states, query, searching, tier, group, starredOnly],
   );
+  const openId = open === CLOSED ? null : (open ?? (searching ? (found[0]?.id ?? null) : null));
 
   const toggleStar = async (id: string) => {
     const current = states.get(id) ?? newSchedule(id);
@@ -60,28 +67,32 @@ export function BrowseScreen() {
     >
       <input className={styles.search} type="search" placeholder="Search a word or meaning" aria-label="Search a word or meaning" value={query} onChange={(e) => setQuery(e.target.value)} autoComplete="off" autoCapitalize="none" autoCorrect="off" spellCheck={false} />
 
-      <Segmented<TierChoice>
-        label="Frequency"
-        value={tier}
-        onChange={setTier}
-        options={[
-          { value: 'all', label: 'All' },
-          { value: 1, label: 'Top 500' },
-          { value: 2, label: 'Next 500' },
-          { value: 3, label: 'Last 500' },
-        ]}
-      />
+      {!searching && (
+        <>
+          <Segmented<TierChoice>
+            label="Frequency"
+            value={tier}
+            onChange={setTier}
+            options={[
+              { value: 'all', label: 'All' },
+              { value: 1, label: 'Top 500' },
+              { value: 2, label: 'Next 500' },
+              { value: 3, label: 'Last 500' },
+            ]}
+          />
 
-      <div className={styles.chips}>
-        {BOX_GROUPS.map((g) => (
-          <Chip key={g} selected={group === g} onClick={() => setGroup(group === g ? null : g)}>
-            {GROUP_LABEL[g]}
-          </Chip>
-        ))}
-        <Chip selected={starredOnly} onClick={() => setStarredOnly(!starredOnly)}>
-          Starred
-        </Chip>
-      </div>
+          <div className={styles.chips}>
+            {BOX_GROUPS.map((g) => (
+              <Chip key={g} selected={group === g} onClick={() => setGroup(group === g ? null : g)}>
+                {GROUP_LABEL[g]}
+              </Chip>
+            ))}
+            <Chip selected={starredOnly} onClick={() => setStarredOnly(!starredOnly)}>
+              Starred
+            </Chip>
+          </div>
+        </>
+      )}
 
       <p className={`${styles.count} tabular`} aria-live="polite">
         {book ? `${found.length.toLocaleString('en-US')} ${found.length === 1 ? 'word' : 'words'}` : 'Opening the word list…'}
@@ -90,11 +101,11 @@ export function BrowseScreen() {
       <ul className={styles.list}>
         {found.slice(0, shown).map((w) => {
           const state = states.get(w.id);
-          const isOpen = open === w.id;
+          const isOpen = openId === w.id;
           return (
             <li key={w.id} className={styles.item}>
-              <button type="button" className={styles.row} aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : w.id)}>
-                <span className={styles.word}>
+              <button type="button" className={styles.row} aria-expanded={isOpen} onClick={() => setOpen(isOpen ? CLOSED : w.id)}>
+                <span className={isOpen ? styles.wordOpen : styles.word}>
                   {w.word} <span className={styles.pos}>{POS_SHORT[w.pos]}</span>
                 </span>
                 {!isOpen && <span className={styles.short}>{w.meaning}</span>}

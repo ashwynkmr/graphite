@@ -3,7 +3,7 @@ import bankJson from '../../../content/questions.json';
 import { addDays } from '../dates';
 import { elapsed, itemMs, nextItem, pause, remaining, resume, startClock } from './clock';
 import { mistakeChange } from './mistakes';
-import { buildMistakeItems, buildQuantItems, NO_REPEAT_DAYS, rebuildItems, sprintLength, SPRINT_MINUTES, type QuantBuildInput } from './quant-builder';
+import { buildMistakeItems, buildQuantItems, NO_REPEAT_DAYS, rebuildItems, sprintLength, SPRINT_SECONDS, type QuantBuildInput } from './quant-builder';
 import { parseRefId, refId, resolveQuestion, type BankQuestion } from './questions';
 
 const bank = bankJson as unknown as BankQuestion[];
@@ -97,10 +97,17 @@ describe('buildQuantItems', () => {
     expect(items.every((i) => i.ref.kind === 'gen' && i.ref.difficulty === 3)).toBe(true);
   });
 
+  it('sprint times run from 30 seconds to 15 minutes in steps of 30 seconds', () => {
+    expect(SPRINT_SECONDS).toHaveLength(30);
+    expect(SPRINT_SECONDS[0]).toBe(30);
+    expect(SPRINT_SECONDS[1]).toBe(60);
+    expect(SPRINT_SECONDS[29]).toBe(900);
+  });
+
   it('a sprint lines up more questions than anyone could answer, with no duplicates', () => {
-    for (const minutes of SPRINT_MINUTES) {
-      const items = buildQuantItems(input({ topics: ['percents'], length: sprintLength(minutes) }));
-      expect(items).toHaveLength(minutes * 25);
+    for (const seconds of [30, 300, 900]) {
+      const items = buildQuantItems(input({ topics: ['percents'], length: sprintLength(seconds) }));
+      expect(items).toHaveLength(Math.ceil((seconds / 60) * 25));
       expect(new Set(items.map((i) => refId(i.ref))).size).toBe(items.length);
     }
   });

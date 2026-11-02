@@ -31,7 +31,7 @@ export const DEFAULT_QUANT: QuantSettings = {
   answerMode: 'mix',
   timer: 'per-set',
   secondsPerQuestion: 45,
-  sprintMinutes: 5,
+  sprintSeconds: 300,
 };
 
 /** The same setup for a drill of set length: retries, mistake drills and suggestions are never sprints. */

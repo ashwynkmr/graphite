@@ -5,7 +5,7 @@ import type { Day } from '../engine/dates';
 import type { Difficulty, Topic } from '../engine/generators/types';
 import type { Box, Grade } from '../engine/scheduling/leitner';
 import type { Clock } from '../engine/sessions/clock';
-import type { PlannedItem, SprintMinutes } from '../engine/sessions/quant-builder';
+import type { PlannedItem } from '../engine/sessions/quant-builder';
 import type { VocabDeck, VocabItem, VocabMode } from '../engine/sessions/vocab-builder';
 
 export const SCHEMA_VERSION = 1;
@@ -25,7 +25,7 @@ export interface QuantSettings {
   answerMode: 'typed' | 'mcq' | 'mix';
   timer: 'per-set' | 'sprint' | 'untimed';
   secondsPerQuestion: number;
-  sprintMinutes: SprintMinutes;
+  sprintSeconds: number;
 }
 
 /** A topic's Adaptive level changing because of this session. */

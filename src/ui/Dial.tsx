@@ -9,7 +9,8 @@ const ITEM = 60;
  * Values curve away from the centre like a drum turning, and each small tick is one step of 1.
  * Uses native scroll-snap so momentum feels right on iPhone; acts as a slider for keyboards and screen readers.
  */
-export function Dial({ label, values, value, onChange }: { label: string; values: readonly number[]; value: number; onChange: (v: number) => void }) {
+export function Dial({ label, values, value, onChange, format }: { label: string; values: readonly number[]; value: number; onChange: (v: number) => void; format?: (v: number) => string }) {
+  const show = format ?? String;
   const track = useRef<HTMLDivElement>(null);
   const items = useRef<(HTMLButtonElement | null)[]>([]);
   const settle = useRef<number>();
@@ -95,6 +96,7 @@ export function Dial({ label, values, value, onChange }: { label: string; values
         aria-valuemin={values[0]}
         aria-valuemax={values[values.length - 1]}
         aria-valuenow={value}
+        aria-valuetext={show(value)}
         onScroll={onScroll}
         onKeyDown={onKey}
       >
@@ -113,7 +115,7 @@ export function Dial({ label, values, value, onChange }: { label: string; values
               scrollTo(i, true);
             }}
           >
-            <span className={`${styles.num} tabular`}>{v}</span>
+            <span className={`${styles.num} ${format ? styles.compact : ''} tabular`}>{show(v)}</span>
           </button>
         ))}
       </div>

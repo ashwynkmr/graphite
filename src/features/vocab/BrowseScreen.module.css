@@ -58,6 +58,13 @@
   font-size: var(--text-lg);
 }
 
+.wordOpen {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
 .pos {
   font-style: italic;
   font-size: var(--text-sm);

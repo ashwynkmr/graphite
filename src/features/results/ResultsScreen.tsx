@@ -11,7 +11,7 @@ import { MathText } from '../../ui/MathText';
 import { ReportProblem } from '../../ui/ReportProblem';
 import { resultsLine } from '../personal/messages';
 import { useProfile } from '../personal/ProfileContext';
-import { DIFFICULTY_LABEL, duration, showValue, TOPIC_LABEL } from '../quant/display';
+import { DIFFICULTY_LABEL, duration, showValue, sprintName, TOPIC_LABEL } from '../quant/display';
 import { startDrill, startRetry } from '../quant/startDrill';
 import { ShareButton } from '../share/ShareButton';
 import { quantShare } from '../share/summary';
@@ -108,7 +108,7 @@ export function ResultsScreen() {
     navigate(`/quant/session/${s.id}`);
   };
 
-  const kind = session.origin.kind === 'retry' ? 'Retry' : session.origin.kind === 'mistakes' ? 'My mistakes' : session.settings.timer === 'sprint' ? `${session.settings.sprintMinutes}-minute sprint` : 'Quant drill';
+  const kind = session.origin.kind === 'retry' ? 'Retry' : session.origin.kind === 'mistakes' ? 'My mistakes' : session.settings.timer === 'sprint' ? `${sprintName(session.settings.sprintSeconds)} sprint` : 'Quant drill';
 
   return (
     <main className={styles.page}>

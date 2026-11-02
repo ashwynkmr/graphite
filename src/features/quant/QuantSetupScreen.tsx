@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { QuantSettings } from '../../data/db';
 import { DEFAULT_QUANT, getSettings, normalizeQuant, type Settings } from '../../data/repo/meta';
-import { SPRINT_MINUTES } from '../../engine/sessions/quant-builder';
+import { SPRINT_SECONDS } from '../../engine/sessions/quant-builder';
 import { TOPICS, type Difficulty, type Topic } from '../../engine/generators/types';
 import { Button, Chip, Field, Segmented, ToggleGroup } from '../../ui/controls';
 import { Dial } from '../../ui/Dial';
 import { Screen } from '../../ui/Screen';
-import { difficultiesLabel, DIFFICULTY_LABEL, TOPIC_LABEL } from './display';
+import { difficultiesLabel, DIFFICULTY_LABEL, sprintClock, sprintName, TOPIC_LABEL } from './display';
 import { startDrill } from './startDrill';
 import styles from './QuantSetupScreen.module.css';
 
@@ -104,8 +104,8 @@ export function QuantSetupScreen() {
         </Field>
 
         {s.timer === 'sprint' ? (
-          <Field label="Minutes">
-            <Segmented label="Minutes" value={s.sprintMinutes} onChange={(sprintMinutes) => set({ sprintMinutes })} options={SPRINT_MINUTES.map((m) => ({ value: m, label: `${m} min` }))} />
+          <Field label="Time" hint="Swipe to choose">
+            <Dial label="Time" values={SPRINT_SECONDS} value={s.sprintSeconds} onChange={(sprintSeconds) => set({ sprintSeconds })} format={sprintClock} />
           </Field>
         ) : (
           <Field label="Questions" hint="Swipe to choose">
@@ -129,7 +129,7 @@ export function QuantSetupScreen() {
 
       <div className={styles.startBar}>
         <Button block onClick={start} disabled={starting}>
-          {starting ? 'Building your drill…' : s.timer === 'sprint' ? `Start ${s.sprintMinutes}-minute sprint` : `Start ${s.length} questions`}
+          {starting ? 'Building your drill…' : s.timer === 'sprint' ? `Start ${sprintName(s.sprintSeconds)} sprint` : `Start ${s.length} questions`}
         </Button>
       </div>
     </Screen>

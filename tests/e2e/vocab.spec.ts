@@ -81,7 +81,11 @@ test('Browse finds a word by name or meaning, and starring it reaches the Starre
   await expect(page.locator('body')).toContainText('1,500 words');
   const search = page.getByRole('searchbox');
   await search.fill('laconic');
-  await page.getByRole('button', { name: /^laconic/ }).click();
+  // The best match opens by itself, straight under the bar: a phone's keyboard covers the lower half.
+  const found = page.getByRole('button', { name: /^laconic/ });
+  await expect(found).toHaveAttribute('aria-expanded', 'true');
+  expect((await found.boundingBox())!.y).toBeLessThan(260);
+  await expect(page.getByRole('radio', { name: 'Top 500' })).toBeHidden();
   await expect(page.locator('body')).toContainText('New');
   await page.getByRole('button', { name: 'Star', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Unstar' })).toBeVisible();

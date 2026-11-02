@@ -73,7 +73,7 @@ describe('sprints', () => {
   async function sprint(answered: number) {
     const items = buildQuantItems({ bank, topics: ['percents'], difficulties: [1], length: 50, answerMode: 'typed', today: '2026-11-10', seed: 3, lastSeen: new Map() });
     const questions = items.map((i) => resolveQuestion(i.ref, byId)!);
-    let s = await createQuantSession({ settings: { ...DEFAULT_QUANT, timer: 'sprint', sprintMinutes: 2 }, items, origin: { kind: 'drill' }, seed: 3, now: 1000 }, d);
+    let s = await createQuantSession({ settings: { ...DEFAULT_QUANT, timer: 'sprint', sprintSeconds: 120 }, items, origin: { kind: 'drill' }, seed: 3, now: 1000 }, d);
     for (let i = 0; i < answered; i++) s = await recordAnswer(s, questions[i]!, questions[i]!.answer, 2000 + i, d);
     return { s, questions };
   }

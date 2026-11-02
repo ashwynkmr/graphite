@@ -127,7 +127,7 @@ export function DrillScreen() {
   const item = session.items[session.cursor]!;
   const q = questions[session.cursor]!;
   const timeText = session.limitMs !== null ? clock(remaining(session.timer, session.limitMs, now)) : null;
-  const low = session.limitMs !== null && remaining(session.timer, session.limitMs, now) < 30_000;
+  const low = session.limitMs !== null && remaining(session.timer, session.limitMs, now) < Math.min(30_000, session.limitMs / 4);
   const sprint = session.settings.timer === 'sprint';
   // A sprint's bar is its clock: the question count has no end to measure against.
   const progress = sprint ? 1 - remaining(session.timer, session.limitMs!, now) / session.limitMs! : session.cursor / session.items.length;

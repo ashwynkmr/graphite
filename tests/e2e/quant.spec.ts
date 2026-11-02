@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { answerQuant, answerSprint, currentSession, pickSprint, expectNoVerdict, signIn, table, type SessionRow } from './helpers';
 
 test('a Quick drill scores exactly what was answered, then retries only the misses', async ({ page }) => {
@@ -107,12 +107,40 @@ test('fractions are stacked, and their lines stay on the card’s ruled spacing'
   expect(lineHeight).toBeLessThan(0.05);
 });
 
+/** Turns the sprint dial from its low end, one 30-second step per key press, to the given minutes. */
+async function chooseSprintTime(page: Page, minutes: number): Promise<void> {
+  const dial = page.getByRole('slider', { name: 'Time' });
+  await dial.focus();
+  await page.keyboard.press('Home');
+  await expect(dial).toHaveAttribute('aria-valuetext', '0:30');
+  for (let i = 1; i < minutes * 2; i++) await page.keyboard.press('ArrowRight');
+  await expect(dial).toHaveAttribute('aria-valuenow', String(minutes * 60));
+}
+
+test('the sprint dial runs from 30 seconds to 15 minutes', async ({ page }) => {
+  await signIn(page);
+  await page.getByRole('link', { name: 'Quant' }).click();
+  await page.getByRole('radio', { name: 'Sprint' }).click();
+  const dial = page.getByRole('slider', { name: 'Time' });
+  await expect(dial).toHaveAttribute('aria-valuetext', '5:00');
+  await dial.focus();
+  await page.keyboard.press('Home');
+  await expect(dial).toHaveAttribute('aria-valuetext', '0:30');
+  await expect(page.getByRole('button', { name: 'Start 30-second sprint' })).toBeVisible();
+  await page.keyboard.press('ArrowRight');
+  await page.keyboard.press('ArrowRight');
+  await expect(page.getByRole('button', { name: 'Start 1:30 sprint' })).toBeVisible();
+  await page.keyboard.press('End');
+  await expect(dial).toHaveAttribute('aria-valuetext', '15:00');
+  await expect(page.getByRole('button', { name: 'Start 15-minute sprint' })).toBeVisible();
+});
+
 test('a sprint stops at time-up and counts only what was answered', async ({ page }) => {
   await page.clock.install();
   await signIn(page);
   await page.getByRole('link', { name: 'Quant' }).click();
   await page.getByRole('radio', { name: 'Sprint' }).click();
-  await page.getByRole('radio', { name: '2 min' }).click();
+  await chooseSprintTime(page, 2);
   await page.getByRole('button', { name: 'Start 2-minute sprint' }).click();
   await expect(page).toHaveURL(/quant\/session/);
   await expect(page.locator('body')).toContainText('0 answered');
@@ -196,7 +224,7 @@ test('at time-up a picked option counts as answered, and an unpicked question do
   await signIn(page);
   await page.getByRole('link', { name: 'Quant' }).click();
   await page.getByRole('radio', { name: 'Sprint' }).click();
-  await page.getByRole('radio', { name: '2 min' }).click();
+  await chooseSprintTime(page, 2);
   await page.getByRole('radio', { name: 'Choices' }).click();
   await page.getByRole('button', { name: 'Start 2-minute sprint' }).click();
   await expect(page).toHaveURL(/quant\/session/);

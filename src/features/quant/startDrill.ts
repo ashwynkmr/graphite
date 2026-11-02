@@ -24,7 +24,7 @@ export async function startDrill(input: QuantSettings, remember = true): Promise
     topics,
     difficulties: settings.difficulties,
     levels: settings.adaptive ? levelsFor(topics, levels) : undefined,
-    length: settings.timer === 'sprint' ? sprintLength(settings.sprintMinutes) : settings.length,
+    length: settings.timer === 'sprint' ? sprintLength(settings.sprintSeconds) : settings.length,
     answerMode: settings.answerMode,
     today: toDay(new Date()),
     seed,

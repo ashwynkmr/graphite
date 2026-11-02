@@ -95,3 +95,8 @@
   pointer-events: none;
   z-index: 2;
 }
+
+/* Longer labels (12:30) have to fit the same 60px slot as a two-digit number. */
+.item .compact {
+  font-size: var(--text-md);
+}

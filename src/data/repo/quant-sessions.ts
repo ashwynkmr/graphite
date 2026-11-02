@@ -17,7 +17,7 @@ export function newSessionId(): string {
 }
 
 function limitFor(settings: QuantSettings, items: number): number | null {
-  if (settings.timer === 'sprint') return settings.sprintMinutes * 60_000;
+  if (settings.timer === 'sprint') return settings.sprintSeconds * 1000;
   return settings.timer === 'per-set' ? settings.secondsPerQuestion * items * 1000 : null;
 }
 

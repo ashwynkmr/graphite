@@ -41,6 +41,17 @@ export function clock(ms: number): string {
   return `${m}:${String(s % 60).padStart(2, '0')}`;
 }
 
+/** A sprint's time on the dial: 90 → '1:30'. */
+export function sprintClock(seconds: number): string {
+  return clock(seconds * 1000);
+}
+
+/** A sprint's time in a sentence: 30 → '30-second', 120 → '2-minute', 90 → '1:30'. */
+export function sprintName(seconds: number): string {
+  if (seconds < 60) return `${seconds}-second`;
+  return seconds % 60 ? sprintClock(seconds) : `${seconds / 60}-minute`;
+}
+
 /** 12_400 → '12s'; 75_000 → '1m 15s'. */
 export function duration(ms: number): string {
   const s = Math.round(ms / 1000);

@@ -38,13 +38,13 @@ export interface QuantBuildInput {
   lastSeen: ReadonlyMap<string, Day>;
 }
 
-export const SPRINT_MINUTES = [2, 5, 10] as const;
-export type SprintMinutes = (typeof SPRINT_MINUTES)[number];
+/** Sprint times on the dial: 30 seconds to 15 minutes, in steps of 30 seconds. */
+export const SPRINT_SECONDS = Array.from({ length: 30 }, (_, i) => (i + 1) * 30);
 const SPRINT_QUESTIONS_PER_MINUTE = 25;
 
 /** How many questions to line up for a sprint: more than anyone could answer in the time. */
-export function sprintLength(minutes: SprintMinutes): number {
-  return minutes * SPRINT_QUESTIONS_PER_MINUTE;
+export function sprintLength(seconds: number): number {
+  return Math.ceil((seconds / 60) * SPRINT_QUESTIONS_PER_MINUTE);
 }
 
 /** Typed / MCQ for one question, and its shuffled choices. Null if it can't be served in this mode. */
