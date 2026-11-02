@@ -1,6 +1,6 @@
 # Feedback
 
-Ashwyn tests every checkpoint on a staging site before anything is committed ([0016](../decisions/0016-review-gate-staging-before-commit.md)). Each round gets a file with what was tested, the feedback in Ashwyn's words, what changed and what deliberately didn't. Every item has an ID so it can be traced to the change it caused.
+Ashwyn tests every checkpoint on a staging site before anything is committed ([0016](../decisions/0016-review-gate-staging-before-commit.md)). Each round gets a file with what was tested, the feedback in Ashwyn's words, what changed and what deliberately didn't. Every item has an ID so it can be traced to the change it caused. For Phase 2, work was committed to a branch as it went and nothing went live until Ashwyn approved the launch ([0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)).
 
 **Status:** Open · Planned · Built (awaiting review) · Done (approved) · No change (kept as is, on purpose)
 
@@ -140,3 +140,4 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-106 | Progress | The chart's day line should move in steps when dragged | Dragging moves it from day to day | Done | [0046](../decisions/0046-progress-dashboard.md) |
 | FB-107 | Process | Checkpoint 3: "Rest is all good" | Moved on to checkpoint 4 | Done | |
 | FB-108 | Process | Checkpoint 4: "Everything works great" | Moved on to the launch checkpoint | Done | |
+| FB-109 | Process | "Launch it and record everything on my repo" | `v2.0.0` launched; README, decisions, feedback and retros brought up to date | Done | [Retro](../retros/phase-2-retro.md) |

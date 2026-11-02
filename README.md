@@ -16,8 +16,24 @@
   <img src="docs/assets/screens/flashcard.png" width="180" alt="A vocabulary flashcard showing a word's meaning and example">
   <img src="docs/assets/screens/results.png" width="180" alt="Results with score, accuracy and time">
 </p>
+<p>
+  <img src="docs/assets/screens/progress.png" width="180" alt="Progress dashboard with accuracy and speed charts">
+  <img src="docs/assets/screens/sprint.png" width="180" alt="Drill setup with Adaptive difficulty and the sprint time dial">
+  <img src="docs/assets/screens/browse.png" width="180" alt="A word found by search, with its meaning, sentence and memory aid">
+  <img src="docs/assets/screens/mistakes.png" width="180" alt="The mistake log with topic filters and Drill my mistakes">
+</p>
 
 *Screens from an automated test run, so the numbers aren't real study results.*
+
+## At a glance
+
+| | At `v2.0.0` |
+| --- | --- |
+| Content | 1,500 questions with every answer worked out by code; 1,500 words with original meanings and sentences; 231 memory aids |
+| Cost and size | $0 a month; 1.9 MB to download, against a 3 MB limit |
+| Checks before every deploy | 740 unit tests, 26 browser run-throughs, full content validation |
+| Paper trail | 48 decisions, 109 tracked feedback items, 4 retros, 4 releases |
+| Real study results | Not yet known: study started Nov 1 |
 
 ## The problem
 
@@ -63,8 +79,15 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | PWA on GitHub Pages, not app stores | Hard $0 constraint; the cost is a less discoverable install on iOS | [0009](docs/decisions/0009-pwa-on-github-pages.md) |
 | Ship drills before all content is done | Nov 1 start date; the bank grew from 1,200 to 1,500 after launch | [0014](docs/decisions/0014-quant-drill-before-handwritten-problems.md) |
 | Approve every checkpoint on staging before anything is committed | Feedback lands before changes go public; costs a slower path to live | [0016](docs/decisions/0016-review-gate-staging-before-commit.md) |
+| Build Phase 2 on a branch and launch it once | The live app stayed steady for two people studying on it; the cost is users waiting for everything at the end | [0042](docs/decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) |
 | Raise every difficulty one level, with Hard at the GRE's ceiling | The first sample's Easy questions weren't worth study time | [0017](docs/decisions/0017-difficulty-up-one-level.md) |
 | Hand-check Sentence Equivalence pairs instead of generating them | A listed synonym doesn't always fit a given sentence; the cost is 661 pairs rather than all 1,500 words | [0029](docs/decisions/0029-sentence-equivalence-hand-checked-pairs.md) |
+| The phone writes each reminder; the server only sends an empty wake-up | Results never leave the device; the cost is a small service to run, and reminders still depend on it | [0037](docs/decisions/0037-push-reminders-with-on-device-text.md) |
+| Encrypt personal notes in the public repo | Private text can ship without being readable there; a name is a weak key, which is acceptable for this content | [0041](docs/decisions/0041-personal-notes-sealed-in-the-app.md) |
+| Sprints count only what was answered; Adaptive restarts its count after each move | Unreached questions can't flood the mistake log, and one good drill can't jump two levels; level moves take several Mixed drills | [0043](docs/decisions/0043-sprint-adaptive-and-topic-memory.md) |
+| Choose the hardest words for memory aids by judgment | No study data exists yet; the aids may miss the words these two users find hardest | [0044](docs/decisions/0044-round-2-browse-and-memory-aids.md) |
+| One chart per measure, one colour, tap a day to read it | Phones have no hover, and nine colours wouldn't read; topics are compared in a table instead | [0046](docs/decisions/0046-progress-dashboard.md) |
+| Announce new features on a one-time screen, not a notification | A phone can't show news from a build it hasn't installed; the cost is one extra tap, once | [0048](docs/decisions/0048-whats-new-screen.md) |
 
 All 48 records: [docs/decisions](docs/decisions/README.md).
 
@@ -96,8 +119,21 @@ Every checkpoint ends with Ashwyn testing and answering a few questions; each it
 - **"Not all wrong options should be a giveaway" (FB-08)** → every multiple-choice question keeps at least two options from named mistakes; absurd options are dropped ([0018](docs/decisions/0018-distractors-real-mistakes.md)).
 - **Ask for my name and personalise the motivation (FB-11, FB-14)** → a one-field first-run screen and name-based lines on Home and Results; an optional cheer word was tried, then removed at Ashwyn's request ([0020](docs/decisions/0020-name-only-encouragement.md)).
 - **Pick topics, and mix difficulties (FB-10, FB-15)** → a topic picker with "Mixed: give me anything" and multi-select difficulty.
-- **"The word only shows in the search bar" (FB-102)** → the phone's keyboard was hiding results behind the filters; they now step aside while you search ([0045](docs/decisions/0045-sprint-time-dial-and-search-layout.md)).
 - **"The multi-select still doesn't work" (FB-20)** → testing through the staging URL showed the logic was fine; the cause was an ambiguous control plus a stale cached build. Fixed with check-mark toggles and an update bar on every tab.
+- **"1 1/4 reads like 11/4" (FB-87)** → stacked fractions and raised powers on every screen, with the bank and saved progress untouched ([0040](docs/decisions/0040-stacked-fractions.md)).
+- **"If it is [picked], count it as the marked option even if it's not submitted" (FB-96)** → at time-up a picked option now counts, as on the exam ([0043](docs/decisions/0043-sprint-adaptive-and-topic-memory.md)).
+- **"The word only shows in the search bar" (FB-102)** → the phone's keyboard was hiding results behind the filters; they now step aside while you search ([0045](docs/decisions/0045-sprint-time-dial-and-search-layout.md)).
+- **"The sprint time selection should again be a dial" (FB-103)** → three fixed times became 30 stops from 30 seconds to 15 minutes ([0045](docs/decisions/0045-sprint-time-dial-and-search-layout.md)).
+- **"I would like to have the response taken within the notification itself" (FB-92)** → iPhones don't offer that to web apps. Ashwyn heard why and chose to keep it as is: an example of a request that ended in no change.
+
+## What building it taught me
+
+- **Real phones find what browsers can't.** A keyboard hiding search results, a bad fraction, an awkward control: automated checks passed all of these. Phone reviews found them.
+- **Write down what a spec leaves out.** "Sprint" and "Adaptive" sounded finished in the PRD. Working through their edge cases exposed a flooded mistake log and a two-level jump before anyone met them.
+- **Reading catches what validators can't.** A validator caught a formula giving 35 instead of 31; only reading all 300 problems caught drafting left in prompts.
+- **Gate the action, not just the report.** A failed check once didn't stop a commit to a working branch. Nothing went live, and the check now has to pass before the commit can run.
+
+Full retros: [docs/retros](docs/retros/README.md).
 
 ## Metrics and outcomes
 
@@ -108,7 +144,7 @@ These are the PRD's targets for Nov 24, 2026. **No results yet**; actuals will b
 | Quant accuracy (Medium) | ≥ 90% | Not yet known |
 | Average time per question (Medium) | Down 30% from week 1 | Not yet known |
 | Words in Known or Retired boxes | 1,200 of 1,500 | Not yet known |
-| Vocab MCQ and type-in accuracy | ≥ 85% | Not yet known |
+| Vocab quiz accuracy | ≥ 85% | Not yet known |
 | Repeat rate | No question twice in 7 days outside the mistake log | Not yet known |
 | Days used | 20 of the days between start and exam | Not yet known |
 | Answer-key errors reported | Fewer than 5 | Not yet known |
@@ -119,8 +155,8 @@ Phase 1 shipped in three milestones: **A** quant drills (Oct 31, `v0.1.0`, [retr
 
 ## Tech overview
 
-A static, offline-first PWA: Vite + React 18 + TypeScript (strict), served from GitHub Pages with hash routing. All progress lives in the browser's IndexedDB via Dexie. Quant content is generated at build time from seeded code templates, and every answer is computed and re-verified in CI. Scoring, scheduling and generation live in a pure, unit-tested `src/engine/`. GitHub Actions runs typecheck → lint → tests → content validation → build → browser run-throughs → service checks → deploy on every push. Full detail: [TRD](docs/product/TRD.md) · [PRD](docs/product/PRD.md).
+A static, offline-first PWA: Vite + React 18 + TypeScript (strict), served from GitHub Pages with hash routing. All progress lives in the browser's IndexedDB via Dexie. The one service is a small Cloudflare Worker for opt-in reminders, which holds only a push address and wake-up times, and studying never depends on it. Quant content is generated at build time from seeded code templates, and every answer is computed and re-verified in CI. Scoring, scheduling and generation live in a pure, unit-tested `src/engine/`. GitHub Actions runs typecheck → lint → tests → content validation → build → browser run-throughs → service checks → deploy on every push. Full detail: [TRD](docs/product/TRD.md) · [PRD](docs/product/PRD.md).
 
 ## How this was built
 
-AI-assisted: the code and content were written with Claude Code. Ashwyn was product owner: setting direction, priorities and scope, making the trade-off calls recorded in the decision log, and testing each checkpoint on a staging site before approving it for release.
+AI-assisted: the code and content were written with Claude Code. Ashwyn was product owner: setting direction, priorities and scope, making the trade-off calls recorded in the decision log, and testing each checkpoint on a phone through a staging site before approving it for release.
