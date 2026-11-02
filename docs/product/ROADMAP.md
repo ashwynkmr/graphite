@@ -14,14 +14,18 @@ Built in three milestones so studying can start before all of Phase 1 is done ([
 
 ## Phase 2: first week (by Nov 7)
 
-Starts only when Ashwyn says go.
+In progress on the `phase-2` branch since Nov 1, and launched all at once when done ([0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)).
 
-- Sprint mode and Adaptive difficulty
+- Checkpoint 1, built and in review: Sprint mode, Adaptive difficulty, per-topic defaults ([0043](../decisions/0043-sprint-adaptive-and-topic-memory.md))
+
+Still to build or finish:
+
 - Round 2, Browse and search
 - Full dashboard: 14-day trends, weakest topics, words per box
 - Share 7- or 14-day history
-- Mnemonics for the hardest ~200 words; per-topic defaults; mistake-log filters
+- Mnemonics for the hardest ~200 words; mistake-log filters
 - In-app study nudges from the user's own results (weak topic, slow topic, due words, paused drill)
+- A one-time What's New screen at launch
 
 ## Phase 3: later (optional)
 
@@ -31,6 +35,7 @@ Quantitative comparison and data-interpretation questions, audio pronunciation, 
 
 | Date | Change | Why | Record |
 | --- | --- | --- | --- |
+| 2026-11-01 | Phase 2 pieces during the first week → one launch at the end | Owner request | [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) |
 | 2026-11-01 | Personal notes for the second user moved from Phase 2 into Phase 1 | Owner request | [0041](../decisions/0041-personal-notes-sealed-in-the-app.md) |
 | 2026-11-01 | Reminder service moved from Northflank to Cloudflare | Northflank security incident | [0038](../decisions/0038-reminder-service-on-cloudflare.md) |
 | 2026-11-01 | Usage-based push reminders added ahead of step 10; supersedes in-app only | Owner request | [0037](../decisions/0037-push-reminders-with-on-device-text.md) |

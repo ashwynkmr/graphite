@@ -19,7 +19,7 @@ Every meaningful product or technical choice, with the options considered and wh
 | [0013](0013-static-react-dexie-hash-routing-ci.md) | Static React + TypeScript app, IndexedDB via Dexie, hash routing, CI-gated deploys | 2026-10-31 | Accepted | Planning | Technical |
 | [0014](0014-quant-drill-before-handwritten-problems.md) | Ship a usable quant drill before the hand-written word problems | 2026-10-31 | Accepted | Phase 1 | Scope |
 | [0015](0015-leitner-edge-cases.md) | Leitner edge cases: same-session repeats only for misses | 2026-10-31 | Accepted | Phase 1 | Product |
-| [0016](0016-review-gate-staging-before-commit.md) | Review every checkpoint on staging before anything is committed | 2026-10-31 | Accepted | Phase 1 | Scope |
+| [0016](0016-review-gate-staging-before-commit.md) | Review every checkpoint on staging before anything is committed | 2026-10-31 | Superseded by 0042 | Phase 1 | Scope |
 | [0017](0017-difficulty-up-one-level.md) | Raise every difficulty by one level; Hard reaches the GRE's hardest | 2026-10-31 | Accepted | Phase 1 | Content |
 | [0018](0018-distractors-real-mistakes.md) | Wrong options must include real mistakes, not only near misses | 2026-10-31 | Accepted | Phase 1 | Content |
 | [0019](0019-personal-name-and-encouragement.md) | Ask for a name and use it for encouragement, on the device only | 2026-10-31 | Superseded by 0020 (cheer word) | Phase 1 | Product |
@@ -58,3 +58,5 @@ Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Pro
 ## Trade-offs           what we gave up and why that's acceptable
 ## Signals to revisit   what evidence would make us change this
 ```
+| [0042](0042-phase-2-on-a-branch-commit-as-we-go.md) | Phase 2 is built on a branch, committed as it goes, and launched once | 2026-11-01 | Accepted | Phase 2 | Scope |
+| [0043](0043-sprint-adaptive-and-topic-memory.md) | How Sprint, Adaptive and per-topic defaults work | 2026-11-01 | Accepted | Phase 2 | Product |

@@ -6,8 +6,8 @@ Graphite is a free, offline-first GRE prep PWA (mental-math drills + GRE vocab) 
 
 - Read `docs/product/PRD.md` (what) and `docs/product/TRD.md` (how) before starting a step.
 - If the PRD and TRD conflict, follow the TRD and flag it. The owner's instructions override both.
-- Build one step at a time and stop at each checkpoint. Phase 1 only until the owner says otherwise.
-- **Review gate ([0016](docs/decisions/0016-review-gate-staging-before-commit.md)):** at each checkpoint, serve the production build on an HTTPS staging tunnel (`npm run staging`), summarise, and wait. Do not commit or push anything until the owner approves that checkpoint on staging.
+- Build one step at a time and stop at each checkpoint. Phase 2 is under way; Phase 3 only when the owner says so.
+- **Review gate ([0042](docs/decisions/0042-phase-2-on-a-branch-commit-as-we-go.md), replacing [0016](docs/decisions/0016-review-gate-staging-before-commit.md)):** Phase 2 work goes on the `phase-2` branch, committed and pushed there once its checks pass. At each checkpoint, serve the production build on an HTTPS staging tunnel (`npm run staging`), summarise, and wait for the owner's review. Never merge or push to `main` for Phase 2 until the owner approves the launch; every push to `main` deploys live.
 - Current status lives in `docs/PROGRESS.md`. Plan and phase status live in `docs/product/ROADMAP.md`.
 
 ## Non-negotiables

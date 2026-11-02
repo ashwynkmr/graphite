@@ -22,6 +22,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-11-01 | C4: hand-written word problems | Staging | [2026-11-01-C4](2026-11-01-C4.md) |
 | 2026-11-01 | C5: launch pass, fractions, personal notes | Staging and in chat | [2026-11-01-C5](2026-11-01-C5.md) |
 | 2026-11-01 | C6: Phase 1 launch | On iPhone and in chat | [2026-11-01-C6](2026-11-01-C6.md) |
+| 2026-11-01 | P2-1: Phase 2 start and quant | In chat, then staging | [2026-11-01-P2-1](2026-11-01-P2-1.md) |
 
 ## Tracker
 
@@ -120,3 +121,5 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-91 | Process | "Tests are passing": the real-phone launch checklist | Step 11 closed | Done | |
 | FB-92 | Reminders | Answer the nightly question inside the notification, without opening the app | Not possible on iPhones for web apps; rewording offered, and Ashwyn kept it as is | No change | [0041](../decisions/0041-personal-notes-sealed-in-the-app.md) |
 | FB-93 | Process | "Finish, commit and push phase 1" | Retro, docs and `v1.0.0` | Done | [Retro](../retros/milestone-c-retro.md) |
+| FB-94 | Process | Build Phase 2; keep committing; nothing live until it ends; tell users what's new at launch | `phase-2` branch; What's New screen planned | Planned | [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) |
+| FB-95 | Process | "Your pick for both questions. Use best practices." | Branch and What's New screen | Done | [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) |

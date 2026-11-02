@@ -4,6 +4,11 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+### Added
+- Sprint: 2, 5 or 10 minutes, answering as many questions as you can.
+- Adaptive difficulty: each topic moves up or down with your results, and Results tell you when one does.
+- Picking one topic brings back the setup you last used for it.
+
 ## [1.0.0] - 2026-11-01 · Milestone C: Phase 1 complete
 
 ### Added

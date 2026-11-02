@@ -293,7 +293,7 @@ All of this lives in `src/engine/` as pure functions with no React or storage im
 - Slow: correct but over 1.5 × `targetSec`. Careless: wrong in under 0.5 × `targetSec`.
 - Results and Progress aggregate from attempts on demand; no stored rollups in Phase 1.
 
-**Adaptive difficulty (Phase 2):** per-topic level stored in `meta`. After each session, look at that topic's last 10 attempts: up a level if 8+ are correct and under target time, down if 5+ are wrong.
+**Adaptive difficulty (Phase 2, [0043](../decisions/0043-sprint-adaptive-and-topic-memory.md)):** per-topic level stored in `meta`, starting at Medium. After each Adaptive drill, look at that topic's last 10 attempts from Adaptive drills since its last move: up a level if 8+ are correct and under target time, down if 5+ are wrong.
 
 ## Session engine
 

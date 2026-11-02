@@ -1,5 +1,5 @@
 # 0016. Review every checkpoint on staging before anything is committed
-2026-10-31 · Accepted · Phase 1 · Scope
+2026-10-31 · Superseded by [0042](0042-phase-2-on-a-branch-commit-as-we-go.md) for Phase 2 · Phase 1 · Scope
 
 ## Context
 Until Checkpoint A2, each step was committed, pushed and deployed straight to the live site, and Ashwyn reviewed afterwards. After A2, Ashwyn asked to approve each checkpoint on a staging site first: nothing is committed or pushed until it looks right there (FB-12). GitHub Pages serves one site per repo, a staging branch would itself need a push, and other repos are off limits.
