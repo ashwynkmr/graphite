@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { applyTheme } from '../../app/theme';
 import { useAsync } from '../../app/useAsync';
 import { getSettings, updateSettings, type Settings } from '../../data/repo/meta';
@@ -148,6 +149,10 @@ export function SettingsScreen() {
           </section>
         </>
       )}
+
+      <Link to="/whats-new" className={styles.whatsNew}>
+        What’s new
+      </Link>
 
       <ReminderSection />
       <InstallSection />

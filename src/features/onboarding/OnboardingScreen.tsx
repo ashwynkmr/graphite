@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { setWhatsNewSeen } from '../../data/repo/meta';
 import { Button } from '../../ui/controls';
 import { Wordmark } from '../../ui/Wordmark';
 import { useProfile } from '../personal/ProfileContext';
+import { RELEASE } from '../whatsnew/WhatsNewScreen';
 import styles from './OnboardingScreen.module.css';
 
 /** First run: ask for a name. Stored only on this device. */
@@ -21,7 +23,8 @@ export function OnboardingScreen() {
           className={styles.form}
           onSubmit={(e) => {
             e.preventDefault();
-            if (ready) void save({ name });
+            // Everything is new to a new user: no news owed, now or next time.
+            if (ready) void setWhatsNewSeen(RELEASE).then(() => save({ name }));
           }}
         >
           <label className={styles.label} htmlFor="name">

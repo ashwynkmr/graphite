@@ -75,3 +75,11 @@
 .fileInput {
   display: none;
 }
+
+.whatsNew {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--ink);
+  font-weight: 600;
+}

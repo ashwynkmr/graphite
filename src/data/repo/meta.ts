@@ -107,6 +107,15 @@ export async function setAdaptiveLevels(levels: AdaptiveLevels, d: GraphiteDB = 
   await put(ADAPTIVE_KEY, levels, d);
 }
 
+/** The last release whose What's New screen was seen on this device (0048). */
+export async function getWhatsNewSeen(d: GraphiteDB = db): Promise<string | null> {
+  return get<string | null>('whatsNewSeen', null, d);
+}
+
+export async function setWhatsNewSeen(release: string, d: GraphiteDB = db): Promise<void> {
+  await put('whatsNewSeen', release, d);
+}
+
 const ROUND_KEY = 'vocabRound';
 const ROUND_DECLINED_KEY = 'vocabRoundDeclined';
 

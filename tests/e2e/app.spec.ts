@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { answerQuant, currentSession, signIn, table, waitForServiceWorker } from './helpers';
 
 test('after the first visit, drills and vocab work with no network', async ({ page, context }) => {
@@ -243,5 +243,62 @@ test('after a drill, Results suggests the weak topic, and a paused session comes
   await expect(page.locator('body')).toContainText('You left a drill at 1 of 20. Pick it up?');
   await page.getByRole('button', { name: 'Resume' }).click();
   await expect(page.locator('body')).toContainText('2 / 20');
+});
+
+/** Puts this device back to before the What's New screen existed, as on an updated install. */
+async function forgetWhatsNew(page: Page): Promise<void> {
+  await page.evaluate(
+    () =>
+      new Promise<void>((done, fail) => {
+        const open = indexedDB.open('graphite');
+        open.onerror = () => fail(open.error);
+        open.onsuccess = () => {
+          const tx = open.result.transaction('meta', 'readwrite');
+          tx.objectStore('meta').delete('whatsNewSeen');
+          tx.oncomplete = () => {
+            open.result.close();
+            done();
+          };
+        };
+      }),
+  );
+}
+
+test('What’s New shows once after an update, never to a new user, and stays in Settings', async ({ page }) => {
+  await signIn(page);
+  await expect(page.locator('body')).not.toContainText('What’s new');
+  await page.reload();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
+  await expect(page.locator('body')).not.toContainText('What’s new');
+
+  await forgetWhatsNew(page);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'What’s new' })).toBeVisible();
+  await expect(page.locator('body')).toContainText('Round 2');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.getByRole('button', { name: 'Back to studying' }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
+
+  await page.reload();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
+  await expect(page.getByRole('heading', { name: 'What’s new' })).toBeHidden();
+
+  await page.goto('./#/settings');
+  await page.getByRole('link', { name: 'What’s new' }).click();
+  await expect(page.getByRole('heading', { name: 'What’s new' })).toBeVisible();
+  await page.getByRole('button', { name: 'Back to Settings' }).click();
+  await expect(page).toHaveURL(/settings/);
+});
+
+test('What’s New waits while a session is open', async ({ page }) => {
+  await signIn(page);
+  await page.getByRole('button', { name: 'Quick drill' }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  await forgetWhatsNew(page);
+  await page.reload();
+  await expect(page.locator('body')).toContainText('1 / 20');
+  await expect(page.getByRole('heading', { name: 'What’s new' })).toBeHidden();
+  await page.getByRole('button', { name: 'Pause and go home' }).click();
+  await expect(page.getByRole('heading', { name: 'What’s new' })).toBeVisible();
 });
 

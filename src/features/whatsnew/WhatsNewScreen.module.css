@@ -1,0 +1,65 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 100dvh;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: calc(var(--safe-top) + var(--space-3)) var(--space-2) 0;
+}
+
+.eyebrow {
+  margin-bottom: var(--space-1);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.heading {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.name {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+}
+
+.what {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--graphite-soft);
+}
+
+/* Under the thumb, however long the list runs. */
+.done {
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  padding: var(--space-2) 0 calc(var(--safe-bottom) + var(--space-2));
+  background: linear-gradient(to bottom, transparent, var(--paper) 30%);
+}
