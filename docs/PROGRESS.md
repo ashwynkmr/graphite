@@ -4,16 +4,16 @@ Running log of what's built, what's live and known issues. Newest first.
 
 ## Live now
 
-`v2.0.0` (Phase 2 complete) at https://ashwynkmr.github.io/graphite/: everything below, plus Sprint, Adaptive, per-topic setups, Browse and search, Round 2, memory aids, a full Progress dashboard, history share, mistake filters, nudges on Results and a What's New screen. From Phase 1: name prompt, a full Home, and quant drills from 1,500 questions with topic and difficulty pickers; results with review, Retry wrong ones and Report a problem. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. The mistake log with Drill my mistakes, Progress totals, Share, and Settings with goals, theme, backup and two-level reset. Optional reminders and personal notes for the second user. Installable and offline.
+`v3.0.0` (Phase 3 complete) at https://ashwynkmr.github.io/graphite/: the bank at 3,215 questions across 15 topics, including five new subjects and Comparison; harder Sentence Equivalence; clearer explanations; Submit always in view; a quick tour; and a new What's New. From Phase 2: Sprint, Adaptive, per-topic setups, Browse and search, Round 2, memory aids, a full Progress dashboard, history share, mistake filters, nudges on Results and a What's New screen. From Phase 1: name prompt, a full Home, and quant drills from 1,500 questions with topic and difficulty pickers; results with review, Retry wrong ones and Report a problem. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. The mistake log with Drill my mistakes, Progress totals, Share, and Settings with goals, theme, backup and two-level reset. Optional reminders and personal notes for the second user. Installable and offline.
 
 ## Next up (handoff)
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** `v2.0.0` is live. Phase 3 is under way on the `phase-3` branch: the question bank and a quick tour ([0049](decisions/0049-phase-3-is-the-question-bank-and-a-tour.md)). Study started Nov 1; exam Nov 24.
-- **Next step:** Checkpoint 3 is approved, with layout A ([0054](decisions/0054-comparison-questions-use-two-columns.md)). Checkpoint 4, the harder Sentence Equivalence bank of 294 sentences ([0055](decisions/0055-exam-style-sentence-equivalence-bank.md)), is built and awaiting Ashwyn's review on a test link. After approval, ask for a launch date: one launch, a few days after the phase is finished.
+- **Where we are:** `v3.0.0` is live and Phases 1 to 3 are done ([retro](retros/phase-3-retro.md)). Study started Nov 1; exam Nov 24. No Phase 4 is planned.
+- **Next step:** only what Ashwyn asks for. Ashwyn hasn't confirmed how the harder sentences and two-column options feel on a real phone, so ask if it comes up.
 - **When adding quant templates:** mark them `extra` in a live topic, and don't change an existing template's use of random numbers, or question IDs change under saved progress. Compare the rebuilt bank with the live one each time (`git show origin/main:content/questions.json`): all 1,500 must keep their IDs, answers and options.
-- **How we work:** branch from `main`, commit once checks pass, and never push to `main` until Ashwyn approves the launch ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). One launch, a few days after Phase 3 is finished. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-118). Next decision number: 0056. Each release needs a new `RELEASE` and list in `WhatsNewScreen.tsx`. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
+- **How we work:** branch from `main`, commit once checks pass, and never push to `main` until Ashwyn approves the launch ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). One launch, a few days after Phase 3 is finished. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-120). Next decision number: 0056. Each release needs a new `RELEASE` and list in `WhatsNewScreen.tsx`. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
 - **Open items:** Round 2 on a real phone; reminders and notes on Android, including the answer buttons; a reminder run going over Cloudflare's 10 ms limit and retrying; the Android install button not yet tried; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -33,6 +33,11 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 11 | Launch pass: run-throughs, Report a problem, screenshots | Done; real-phone checklist passed; `v1.0.0` | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Phase 3 complete, `v3.0.0`
+- Launched on Ashwyn's request with a new What's New (FB-119, FB-120). A real update from the `v2.0.0` build lost no saved data, resumed a paused drill, showed What's New once, and ran Comparison and Sentence Equivalence offline.
+- In a Sentence-Equivalence-only first pass, about 68% of questions use the new sentences. Mixing in other practice types lowers that, since each type gets a share.
+- Bank 3,215, all 1,500 live questions unchanged; 950 unit tests; offline download 2,498 KB.
 
 ### 2026-11-01: Phase 3, checkpoint 4
 - 294 hand-written Sentence Equivalence sentences with decoy pairs, covering 582 words, used before the older questions ([0055](decisions/0055-exam-style-sentence-equivalence-bank.md)). Not live. Feedback FB-118.

@@ -26,15 +26,15 @@ Left out until real results show a need: more templates for weak topics.
 
 ## Phase 3: the question bank and a quick tour
 
-Scope set by Ashwyn ([0049](../decisions/0049-phase-3-is-the-question-bank-and-a-tour.md)). Built on the `phase-3` branch, with one launch a few days after it's finished. Until then the second user stays on live `v2.0.0`.
+**Shipped Nov 1** as `v3.0.0` ([retro](../retros/phase-3-retro.md)). Scope set by Ashwyn ([0049](../decisions/0049-phase-3-is-the-question-bank-and-a-tour.md)). Built on the `phase-3` branch, with one launch. Ashwyn asked to launch on finishing rather than a few days later (FB-119).
 
 | Checkpoint | What | Status |
 | --- | --- | --- |
 | 1. First look | 15 templates in five new subjects (600 questions), about 20 samples, the quick tour | Done; approved |
 | 2. Variety and explanations | 34 more templates (2,976 questions), 231 better explanations, Submit always in reach | Done; approved |
 | 3. Quantitative Comparison | A new topic of 239 questions, with layout options side by side (bank at 3,215) | Done; approved |
-| 4. Sentence Equivalence | 294 harder, original sentences, with decoy pairs | Awaiting review |
-| Launch | Date set by Ashwyn once the phase is finished | Not started |
+| 4. Sentence Equivalence | 294 harder, original sentences, with decoy pairs | Done; samples approved, full set not reviewed on a phone |
+| Launch | `v3.0.0`, with a new What's New | Shipped Nov 1 |
 
 Dropped: audio pronunciation, score predictor, compare with a friend, Android APK. Not chosen: data-interpretation questions.
 

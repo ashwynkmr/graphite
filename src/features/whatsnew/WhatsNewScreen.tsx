@@ -3,33 +3,29 @@ import { Wordmark } from '../../ui/Wordmark';
 import styles from './WhatsNewScreen.module.css';
 
 /** Changes each release, and shows once to anyone who had the app before it (0048). */
-export const RELEASE = '2.0.0';
+export const RELEASE = '3.0.0';
 
 const GROUPS: { title: string; items: { name: string; what: string }[] }[] = [
   {
     title: 'Quant',
     items: [
-      { name: 'Sprint', what: 'Answer as many as you can in 30 seconds to 15 minutes. Find it under Timer.' },
-      { name: 'Adaptive', what: 'Each topic moves up or down a level with your results. Find it under Difficulty.' },
-      { name: 'Your setups', what: 'Pick one topic and the settings you last used for it come back.' },
+      { name: 'Twice the questions', what: 'More than 3,200 now, up from 1,500. Your progress carries over.' },
+      { name: 'Five new subjects', what: 'Algebra, geometry, number properties, statistics and probability.' },
+      { name: 'Comparison', what: 'Quantity A against Quantity B, in the exam’s format and order. Find it under Topics.' },
+      { name: 'Clearer explanations', what: '231 questions have a better explanation on Results.' },
+      { name: 'Submit in reach', what: 'Long questions now fit, with Submit always on screen.' },
     ],
   },
   {
     title: 'Vocab',
     items: [
-      { name: 'Browse', what: 'Search all 1,500 words by word, synonym or meaning.' },
-      { name: 'Memory aids', what: 'A short hook for 231 of the hardest words, on the back of the card.' },
-      { name: 'Round 2', what: 'Once you’ve seen every word, go through them again, weakest first.' },
+      { name: 'Harder Sentence Equivalence', what: '294 longer, exam-style sentences. Watch for two words that match each other but don’t fit.' },
+      { name: 'See the sentence again', what: 'Results now show the sentence, so you can see why a pair was right.' },
     ],
   },
   {
-    title: 'Progress',
-    items: [
-      { name: 'Trends', what: '14 days of accuracy and speed, for all topics or one, plus your weakest topics.' },
-      { name: 'Share your history', what: 'Send a 7- or 14-day summary. It leaves out your name and your answers.' },
-      { name: 'Mistake filters', what: 'Narrow the log by topic, and drill just those.' },
-      { name: 'What to do next', what: 'Results now suggest your next step.' },
-    ],
+    title: 'Getting around',
+    items: [{ name: 'Quick tour', what: 'A short walk through each tab. Find it in Settings.' }],
   },
 ];
 

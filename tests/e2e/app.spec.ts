@@ -274,7 +274,7 @@ test('What’s New shows once after an update, never to a new user, and stays in
   await forgetWhatsNew(page);
   await page.reload();
   await expect(page.getByRole('heading', { name: 'What’s new' })).toBeVisible();
-  await expect(page.locator('body')).toContainText('Round 2');
+  await expect(page.locator('body')).toContainText('Harder Sentence Equivalence');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.getByRole('button', { name: 'Back to studying' }).click();
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');

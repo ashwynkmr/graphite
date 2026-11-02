@@ -8,7 +8,7 @@
 
 > **Try it:** open the link on your phone. On iPhone: Share → Add to Home Screen. On Android or desktop Chrome/Edge: Install app. No sign-up.
 >
-> *Status: **Phase 2 complete, `v2.0.0` (Nov 1, 2026).** Quant drills, sprints, all 1,500 vocab words, the mistake log, a progress dashboard, optional reminders and backup all work today. Real study results aren't in yet.*
+> *Status: **Phase 3 complete, `v3.0.0` (Nov 1, 2026).** Quant drills from 3,215 questions, sprints, all 1,500 vocab words, exam-style Sentence Equivalence, the mistake log, a progress dashboard, optional reminders and backup all work today. Real study results aren't in yet.*
 
 <p>
   <img src="docs/assets/screens/home.png" width="180" alt="Home screen with the exam countdown, streak and today's progress as tally marks">
@@ -27,12 +27,12 @@
 
 ## At a glance
 
-| | At `v2.0.0` |
+| | At `v3.0.0` |
 | --- | --- |
-| Content | 1,500 questions with every answer worked out by code; 1,500 words with original meanings and sentences; 231 memory aids |
-| Cost and size | $0 a month; 1.9 MB to download, against a 3 MB limit |
-| Checks before every deploy | 740 unit tests, 26 browser run-throughs, full content validation |
-| Paper trail | 48 decisions, 109 tracked feedback items, 4 retros, 4 releases |
+| Content | 3,215 questions across 15 topics, with every answer worked out by code; 1,500 words with original meanings and sentences; 294 exam-style sentences; 231 memory aids |
+| Cost and size | $0 a month; 2.4 MB to download, against a 3 MB limit |
+| Checks before every deploy | 950 unit tests, 32 browser run-throughs, full content validation |
+| Paper trail | 55 decisions, 120 tracked feedback items, 5 retros, 5 releases |
 | Real study results | Not yet known: study started Nov 1 |
 
 ## The problem
@@ -51,7 +51,7 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 
 | Need | Feature | Status |
 | --- | --- | --- |
-| Get faster at calculation | Timed mental-math drills: 1,500 questions across 9 topics, 1,200 generated and 300 hand-written, with every answer worked out by code; pick topics and any mix of Easy/Medium/Hard (Hard = top of GRE mental math) | Live |
+| Get faster at calculation | Timed mental-math drills: 3,215 questions across 15 topics, 2,915 generated and 300 hand-written, with every answer worked out by code; pick topics and any mix of Easy/Medium/Hard (Hard = top of GRE mental math) | Live |
 | Build speed under pressure | Sprints of 30 seconds to 15 minutes, and Adaptive difficulty that moves each topic up or down with your results | Live |
 | Train smart guessing, not just calculation | Typed answers and five-option multiple choice; at least two wrong options per question come from real mistakes (wrong base, adding instead of chaining, ×10 slips) | Live |
 | Practise under test conditions | No right/wrong feedback until the session ends; timed sets; the clock pauses when the phone locks | Live |
@@ -59,7 +59,9 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | Stay motivated for three weeks | Asks for your name once; greets you and cheers you on by name on Home and Results, never mid-drill | Live |
 | Learn 1,500 words in three weeks | Swipe flashcards, multiple choice, fill the blank and Sentence Equivalence, mixed in any combination, with Leitner spaced repetition and 200 new words a day | Live |
 | Look up and remember hard words | Search all 1,500 words; memory aids for 231 of the hardest; Round 2 goes through them all again, weakest first | Live |
-| Practise the exam's two-answer vocab question | Sentence Equivalence from 661 word pairs, each hand-checked in its sentence | Live |
+| Practise the exam's two-answer vocab question | Sentence Equivalence from 294 harder, exam-style sentences with decoy pairs, plus 661 older word pairs, each read in its sentence | Live |
+| Practise the exam's quantity comparisons | A Comparison topic of 239 questions, in the exam's format, each answer computed by trying values | Live |
+| Learn the app quickly | A short first-time tour of each tab, also in Settings | Live |
 | Know what to do today | Home shows the countdown, streak, today's goals as tally marks and one suggestion from your own results, repeated on Results | Live |
 | See whether it's working | 14-day accuracy and speed trends for all topics or one, the three weakest topics, words per stage | Live |
 | Keep progress safe | Export and import a backup file; reset progress or everything | Live |
@@ -88,6 +90,7 @@ Two people are preparing for the GRE on Nov 24, 2026, with a three-week sprint s
 | Choose the hardest words for memory aids by judgment | No study data exists yet; the aids may miss the words these two users find hardest | [0044](docs/decisions/0044-round-2-browse-and-memory-aids.md) |
 | One chart per measure, one colour, tap a day to read it | Phones have no hover, and nine colours wouldn't read; topics are compared in a table instead | [0046](docs/decisions/0046-progress-dashboard.md) |
 | Announce new features on a one-time screen, not a notification | A phone can't show news from a build it hasn't installed; the cost is one extra tap, once | [0048](docs/decisions/0048-whats-new-screen.md) |
+| Hand-write harder Sentence Equivalence and read every sentence | A test can't tell whether a decoy pair also fits; the cost is 294 sentences rather than one for every word, so other words keep the older question | [0055](docs/decisions/0055-exam-style-sentence-equivalence-bank.md) |
 
 All 48 records: [docs/decisions](docs/decisions/README.md).
 
@@ -151,7 +154,7 @@ These are the PRD's targets for Nov 24, 2026. **No results yet**; actuals will b
 
 ## Roadmap and what's next
 
-Phase 1 shipped in three milestones: **A** quant drills (Oct 31, `v0.1.0`, [retro](docs/retros/milestone-a-retro.md)), **B** vocab (Nov 1, `v0.2.0`, [retro](docs/retros/milestone-b-retro.md)), **C** mistake log, progress, settings, share and the launch pass (Nov 1, `v1.0.0`, [retro](docs/retros/milestone-c-retro.md)). Phase 2 (Nov 1, `v2.0.0`, [retro](docs/retros/phase-2-retro.md)) added sprints, adaptive difficulty, Round 2, Browse, memory aids and a trends dashboard, launched all at once. Phase 3 is optional. Details: [ROADMAP](docs/product/ROADMAP.md) · build log: [PROGRESS](docs/PROGRESS.md).
+Phase 1 shipped in three milestones: **A** quant drills (Oct 31, `v0.1.0`, [retro](docs/retros/milestone-a-retro.md)), **B** vocab (Nov 1, `v0.2.0`, [retro](docs/retros/milestone-b-retro.md)), **C** mistake log, progress, settings, share and the launch pass (Nov 1, `v1.0.0`, [retro](docs/retros/milestone-c-retro.md)). Phase 2 (Nov 1, `v2.0.0`, [retro](docs/retros/phase-2-retro.md)) added sprints, adaptive difficulty, Round 2, Browse, memory aids and a trends dashboard, launched all at once. Phase 3 (Nov 1, `v3.0.0`, [retro](docs/retros/phase-3-retro.md)) grew the question bank to 3,215 with five new subjects and a Comparison topic, added harder Sentence Equivalence and a quick tour, and launched all at once. Details: [ROADMAP](docs/product/ROADMAP.md) · build log: [PROGRESS](docs/PROGRESS.md).
 
 ## Tech overview
 

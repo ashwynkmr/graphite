@@ -4,6 +4,22 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-11-01 · Phase 3
+
+### Added
+- The question bank grows from 1,500 to 3,215, and every question you've seen keeps its place in your progress.
+- Five new subjects: algebra, geometry, number properties, statistics and probability.
+- A Comparison topic of 239 questions, Quantity A against Quantity B, in the exam's format and order.
+- 294 harder, exam-style Sentence Equivalence sentences with decoy pairs, used first for the 582 words they test.
+- Results show the sentence after a Sentence Equivalence question from the new set.
+- A quick tour for first-time users, also in Settings.
+- A new What's New screen for this release.
+
+### Changed
+- 231 questions have a clearer explanation on Results.
+- Long questions fit one screen, with Submit always in view.
+- On short screens, Sentence Equivalence options sit in two columns.
+
 ## [2.0.0] - 2026-11-01 · Phase 2
 
 ### Added
