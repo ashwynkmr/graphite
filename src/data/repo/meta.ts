@@ -2,7 +2,8 @@
 import { DEFAULT_EXAM_DAY, type Day } from '../../engine/dates';
 import type { PlannedWake } from '../../engine/scheduling/reminder-plan';
 import { choosableModes } from '../../engine/sessions/vocab-builder';
-import type { Difficulty } from '../../engine/generators/types';
+import type { AdaptiveLevels } from '../../engine/sessions/adaptive';
+import type { Difficulty, Topic } from '../../engine/generators/types';
 import { db, type GraphiteDB, type QuantSettings, type VocabSettings } from '../db';
 
 export interface Settings {
@@ -10,6 +11,8 @@ export interface Settings {
   goals: { newWords: number; quantQuestions: number };
   /** Last-used quant setup, remembered between drills. */
   quant: QuantSettings;
+  /** The setup last used for each topic drilled on its own (0043). */
+  quantByTopic: Partial<Record<Topic, Omit<QuantSettings, 'topics'>>>;
   /** Last-used vocab setup. */
   vocab: VocabSettings;
   theme: 'system' | 'light' | 'dark';
@@ -23,11 +26,18 @@ export interface Profile {
 export const DEFAULT_QUANT: QuantSettings = {
   topics: 'mixed',
   difficulties: [2],
+  adaptive: false,
   length: 20,
   answerMode: 'mix',
   timer: 'per-set',
   secondsPerQuestion: 45,
+  sprintMinutes: 5,
 };
+
+/** The same setup for a drill of set length: retries, mistake drills and suggestions are never sprints. */
+export function fixedLength(settings: QuantSettings, length: number): QuantSettings {
+  return { ...settings, length, timer: settings.timer === 'sprint' ? 'per-set' : settings.timer };
+}
 
 export const DEFAULT_VOCAB: VocabSettings = { modes: ['flashcard'], deck: 'today', length: 50 };
 
@@ -45,6 +55,7 @@ export const DEFAULT_SETTINGS: Settings = {
   examDay: DEFAULT_EXAM_DAY,
   goals: { newWords: 200, quantQuestions: 100 },
   quant: DEFAULT_QUANT,
+  quantByTopic: {},
   vocab: DEFAULT_VOCAB,
   theme: 'system',
 };
@@ -84,6 +95,21 @@ export async function getProfile(d: GraphiteDB = db): Promise<Profile | null> {
 
 export async function saveProfile(profile: Profile, d: GraphiteDB = db): Promise<void> {
   await put('profile', { name: profile.name.trim() }, d);
+}
+
+const ADAPTIVE_KEY = 'adaptiveLevels';
+
+export async function getAdaptiveLevels(d: GraphiteDB = db): Promise<AdaptiveLevels> {
+  return get<AdaptiveLevels>(ADAPTIVE_KEY, {}, d);
+}
+
+export async function setAdaptiveLevels(levels: AdaptiveLevels, d: GraphiteDB = db): Promise<void> {
+  await put(ADAPTIVE_KEY, levels, d);
+}
+
+/** Levels come from study data, so Reset progress clears them. */
+export async function clearAdaptiveLevels(d: GraphiteDB = db): Promise<void> {
+  await d.meta.delete(ADAPTIVE_KEY);
 }
 
 export const DEFAULT_REMINDER_TIME = '19:00';

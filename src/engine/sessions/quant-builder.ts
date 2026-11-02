@@ -28,12 +28,23 @@ export interface QuantBuildInput {
   topics: readonly Topic[];
   /** One or more levels; the drill mixes them. */
   difficulties: readonly Difficulty[];
+  /** Adaptive: one level per topic, used in place of `difficulties`. */
+  levels?: Partial<Record<Topic, Difficulty>>;
   length: number;
   answerMode: AnswerModeSetting;
   today: Day;
   seed: number;
   /** questionId → last day it was shown. */
   lastSeen: ReadonlyMap<string, Day>;
+}
+
+export const SPRINT_MINUTES = [2, 5, 10] as const;
+export type SprintMinutes = (typeof SPRINT_MINUTES)[number];
+const SPRINT_QUESTIONS_PER_MINUTE = 25;
+
+/** How many questions to line up for a sprint: more than anyone could answer in the time. */
+export function sprintLength(minutes: SprintMinutes): number {
+  return minutes * SPRINT_QUESTIONS_PER_MINUTE;
 }
 
 /** Typed / MCQ for one question, and its shuffled choices. Null if it can't be served in this mode. */
@@ -82,8 +93,13 @@ export function buildQuantItems(input: QuantBuildInput): PlannedItem[] {
   const topics = rng.shuffle(input.topics);
   const queues = new Map<Topic, BankQuestion[]>();
   const generateFor = new Set<Topic>();
+  const difficultiesFor = (topic: Topic): readonly Difficulty[] => {
+    const level = input.levels?.[topic];
+    return level ? [level] : input.difficulties;
+  };
   for (const topic of topics) {
-    const pool = input.bank.filter((q) => q.topic === topic && input.difficulties.includes(q.difficulty));
+    const allowed = difficultiesFor(topic);
+    const pool = input.bank.filter((q) => q.topic === topic && allowed.includes(q.difficulty));
     const available = availableFor(pool, input.lastSeen, input.today);
     // Never-seen first, in random order; then the longest-unseen.
     const fresh = available.filter((q) => !input.lastSeen.has(q.id));
@@ -110,7 +126,7 @@ export function buildQuantItems(input: QuantBuildInput): PlannedItem[] {
       }
       if (!item) generateFor.add(topic);
     }
-    if (!item) item = generateLive(topic, input.difficulties, rng, input.answerMode);
+    if (!item) item = generateLive(topic, difficultiesFor(topic), rng, input.answerMode);
     if (item) {
       items.push(item);
       stalled = 0;

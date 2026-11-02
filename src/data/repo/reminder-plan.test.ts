@@ -81,7 +81,7 @@ describe('currentWakeTimes', () => {
 describe('studySummary', () => {
   it('reports what the reminder needs', async () => {
     await d.sessions.bulkAdd([session('a', '2026-11-06'), session('b', '2026-11-07'), session('c', '2026-11-10', { status: 'active', cursor: 3 })]);
-    expect(await studySummary(NOW, d)).toEqual({ paused: { id: 'c', type: 'quant', cursor: 3, total: 1 }, streak: 0, studiedToday: false, daysAway: 3 });
+    expect(await studySummary(NOW, d)).toEqual({ paused: { id: 'c', type: 'quant', cursor: 3, total: 1, sprint: false }, streak: 0, studiedToday: false, daysAway: 3 });
   });
 
   it('treats a new user as not away', async () => {

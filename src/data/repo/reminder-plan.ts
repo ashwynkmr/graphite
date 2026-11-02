@@ -57,7 +57,7 @@ export async function studySummary(now: number, d: GraphiteDB = db) {
   const [days, paused] = await Promise.all([studyDays(d), pausedSession(now, d)]);
   const last = days.reduce<string | null>((latest, day) => (!latest || day > latest ? day : latest), null);
   return {
-    paused: paused ? { id: paused.id, type: paused.type, cursor: paused.cursor, total: paused.items.length } : null,
+    paused: paused ? { id: paused.id, type: paused.type, cursor: paused.cursor, total: paused.items.length, sprint: paused.type === 'quant' && paused.settings.timer === 'sprint' } : null,
     streak: streaks(days, today).current,
     studiedToday: last === today,
     daysAway: last ? daysBetween(last, today) : 0,

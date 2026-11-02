@@ -3,7 +3,7 @@ import bankJson from '../../../content/questions.json';
 import { addDays } from '../dates';
 import { elapsed, itemMs, nextItem, pause, remaining, resume, startClock } from './clock';
 import { mistakeChange } from './mistakes';
-import { buildMistakeItems, buildQuantItems, NO_REPEAT_DAYS, rebuildItems, type QuantBuildInput } from './quant-builder';
+import { buildMistakeItems, buildQuantItems, NO_REPEAT_DAYS, rebuildItems, sprintLength, SPRINT_MINUTES, type QuantBuildInput } from './quant-builder';
 import { parseRefId, refId, resolveQuestion, type BankQuestion } from './questions';
 
 const bank = bankJson as unknown as BankQuestion[];
@@ -82,6 +82,26 @@ describe('buildQuantItems', () => {
     for (const i of buildQuantItems(input({ answerMode: 'mcq' }))) {
       const q = resolveQuestion(i.ref, bankById)!;
       expect([...i.choices!].sort()).toEqual([...q.choices!].sort());
+    }
+  });
+
+  it('Adaptive serves each topic only at its own level', () => {
+    const items = buildQuantItems(input({ topics: ['percents', 'ratios'], levels: { percents: 3, ratios: 1 }, difficulties: [2], length: 20 }));
+    for (const q of items.map((i) => resolveQuestion(i.ref, bankById)!)) expect(q.difficulty).toBe(q.topic === 'percents' ? 3 : 1);
+  });
+
+  it('Adaptive keeps to a topic’s level once the bank runs out and questions are generated', () => {
+    const lastSeen = new Map<string, string>();
+    for (const q of bank) lastSeen.set(q.id, TODAY);
+    const items = buildQuantItems(input({ topics: ['percents'], levels: { percents: 3 }, lastSeen, length: 5 }));
+    expect(items.every((i) => i.ref.kind === 'gen' && i.ref.difficulty === 3)).toBe(true);
+  });
+
+  it('a sprint lines up more questions than anyone could answer, with no duplicates', () => {
+    for (const minutes of SPRINT_MINUTES) {
+      const items = buildQuantItems(input({ topics: ['percents'], length: sprintLength(minutes) }));
+      expect(items).toHaveLength(minutes * 25);
+      expect(new Set(items.map((i) => refId(i.ref))).size).toBe(items.length);
     }
   });
 

@@ -23,6 +23,8 @@ export interface SessionRow {
   cursor: number;
   items: SessionItem[];
   score?: { correct: number; total: number };
+  limitMs?: number | null;
+  settings?: { adaptive?: boolean };
 }
 
 /** Reads a whole table straight from the app's database. */
@@ -86,6 +88,22 @@ export async function answerQuant(page: Page, right: boolean): Promise<void> {
     for (const ch of right ? answer : '9999') {
       await page.getByRole('button', { name: KEY[ch] ?? ch, exact: true }).click();
     }
+  }
+  await page.getByRole('button', { name: 'Submit' }).click();
+}
+
+/** Answers question `index` of a sprint, whose header counts answers rather than showing a position. */
+export async function answerSprint(page: Page, index: number, right: boolean): Promise<void> {
+  const session = await currentSession(page);
+  const item = session.items[index]!;
+  const ref = item.ref as { kind: string; id?: string };
+  const answer = ref.kind === 'bank' ? bank.get(ref.id!)?.answer : undefined;
+  if (!answer) throw new Error('Test drills should only use bank questions');
+  if (item.mode === 'mcq') {
+    const wanted = item.choices!.indexOf(answer);
+    await page.getByRole('radio').nth(right ? wanted : (wanted + 1) % item.choices!.length).click();
+  } else {
+    for (const ch of right ? answer : '9999') await page.getByRole('button', { name: KEY[ch] ?? ch, exact: true }).click();
   }
   await page.getByRole('button', { name: 'Submit' }).click();
 }

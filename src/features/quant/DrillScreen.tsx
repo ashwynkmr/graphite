@@ -117,6 +117,9 @@ export function DrillScreen() {
   const q = questions[session.cursor]!;
   const timeText = session.limitMs !== null ? clock(remaining(session.timer, session.limitMs, now)) : null;
   const low = session.limitMs !== null && remaining(session.timer, session.limitMs, now) < 30_000;
+  const sprint = session.settings.timer === 'sprint';
+  // A sprint's bar is its clock: the question count has no end to measure against.
+  const progress = sprint ? 1 - remaining(session.timer, session.limitMs!, now) / session.limitMs! : session.cursor / session.items.length;
 
   return (
     <div className={styles.screen}>
@@ -125,11 +128,9 @@ export function DrillScreen() {
           Pause
         </button>
         <div className={styles.progress}>
-          <span className="tabular">
-            {session.cursor + 1} / {session.items.length}
-          </span>
+          <span className="tabular">{sprint ? `${session.cursor} answered` : `${session.cursor + 1} / ${session.items.length}`}</span>
           <div className={styles.bar} aria-hidden="true">
-            <div className={styles.fill} style={{ width: `${(session.cursor / session.items.length) * 100}%` }} />
+            <div className={styles.fill} style={{ width: `${progress * 100}%` }} />
           </div>
         </div>
         <span className={`${styles.timer} tabular ${low ? styles.low : ''}`} aria-label={timeText ? `Time left ${timeText}` : 'Untimed'}>
@@ -155,7 +156,12 @@ export function DrillScreen() {
 
       <footer className={styles.footer}>
         {confirmingEnd ? (
-          <EndConfirm message="End this drill? Unanswered questions count as not reached." endLabel="End drill" onKeep={() => setConfirmingEnd(false)} onEnd={endEarly} />
+          <EndConfirm
+            message={sprint ? 'End this sprint? Your score counts what you’ve answered.' : 'End this drill? Unanswered questions count as not reached.'}
+            endLabel={sprint ? 'End sprint' : 'End drill'}
+            onKeep={() => setConfirmingEnd(false)}
+            onEnd={endEarly}
+          />
         ) : (
           <>
         {item.mode === 'typed' ? (
@@ -170,7 +176,7 @@ export function DrillScreen() {
           />
         )}
             <button type="button" className={styles.end} onClick={() => setConfirmingEnd(true)}>
-              End drill
+              {sprint ? 'End sprint' : 'End drill'}
             </button>
           </>
         )}

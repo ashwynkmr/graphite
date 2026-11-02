@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { answerQuant, currentSession, expectNoVerdict, signIn, table, type SessionRow } from './helpers';
+import { answerQuant, answerSprint, currentSession, expectNoVerdict, signIn, table, type SessionRow } from './helpers';
 
 test('a Quick drill scores exactly what was answered, then retries only the misses', async ({ page }) => {
   await signIn(page);
@@ -105,4 +105,88 @@ test('fractions are stacked, and their lines stay on the card’s ruled spacing'
     return Math.abs(lines - Math.round(lines));
   });
   expect(lineHeight).toBeLessThan(0.05);
+});
+
+test('a sprint stops at time-up and counts only what was answered', async ({ page }) => {
+  await page.clock.install();
+  await signIn(page);
+  await page.getByRole('link', { name: 'Quant' }).click();
+  await page.getByRole('radio', { name: 'Sprint' }).click();
+  await page.getByRole('radio', { name: '2 min' }).click();
+  await page.getByRole('button', { name: 'Start 2-minute sprint' }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  await expect(page.locator('body')).toContainText('0 answered');
+  const session = await currentSession(page);
+  expect(session.limitMs).toBe(120_000);
+  const lined = session.items.length;
+  expect(lined).toBe(50);
+
+  for (let i = 0; i < 3; i++) {
+    await answerSprint(page, i, i < 2);
+    await expect(page.locator('body')).toContainText(`${i + 1} answered`);
+    await expectNoVerdict(page);
+  }
+
+  await page.clock.runFor(121_000);
+  await expect(page).toHaveURL(/results/);
+  await expect(page.locator('body')).toContainText('of 3');
+  await expect(page.locator('body')).toContainText('2-minute sprint');
+  const done = (await table<SessionRow>(page, 'sessions')).find((s) => s.id === session.id)!;
+  expect(done.score).toEqual({ correct: 2, total: 3 });
+  expect(done.items).toHaveLength(3);
+  expect(await table(page, 'mistakes')).toHaveLength(1);
+});
+
+test('a remembered sprint never turns a Quick drill into one', async ({ page }) => {
+  await signIn(page);
+  await page.getByRole('link', { name: 'Quant' }).click();
+  await page.getByRole('radio', { name: 'Sprint' }).click();
+  await page.getByRole('button', { name: /Start .*sprint/ }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  await page.getByRole('button', { name: 'End sprint' }).click();
+  await page.getByRole('button', { name: 'End sprint' }).click();
+  await expect(page).toHaveURL(/results/);
+  await expect(page.locator('body')).toContainText('Nothing answered');
+  await page.getByRole('link', { name: 'Done' }).click();
+  await page.getByRole('button', { name: 'Quick drill' }).click();
+  await expect(page.locator('body')).toContainText('1 / 20');
+});
+
+test('Adaptive is chosen in place of levels, and each topic remembers its own setup', async ({ page }) => {
+  await signIn(page);
+  await page.getByRole('link', { name: 'Quant' }).click();
+  const adaptive = page.getByRole('button', { name: 'Adaptive', exact: true });
+  const hard = page.getByRole('button', { name: 'Hard', exact: true });
+
+  // Fractions alone, on Adaptive: a drill served at Medium, where every new topic starts.
+  await page.getByRole('button', { name: 'Fractions', exact: true }).click();
+  await adaptive.click();
+  await expect(adaptive).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('button', { name: 'Medium', exact: true })).toHaveAttribute('aria-pressed', 'false');
+  await page.getByRole('button', { name: /Start 20 questions/ }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  const session = await currentSession(page);
+  expect(session.settings?.adaptive).toBe(true);
+  expect(session.items.every((i) => (i.ref as { id: string }).id.includes('-m-'))).toBe(true);
+  await page.getByRole('button', { name: 'Pause and go home' }).click();
+  await page.getByRole('button', { name: 'Discard' }).click();
+
+  // Another topic gets a different setup; Fractions comes back as it was.
+  await page.getByRole('link', { name: 'Quant' }).click();
+  await page.getByRole('button', { name: 'Fractions', exact: true }).click();
+  await page.getByRole('button', { name: 'Mixed: give me anything' }).click();
+  await page.getByRole('button', { name: 'Percents', exact: true }).click();
+  await hard.click();
+  await expect(adaptive).toHaveAttribute('aria-pressed', 'false');
+  await page.getByRole('radio', { name: 'Choices' }).click();
+  await page.getByRole('button', { name: /Start 20 questions/ }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  await page.getByRole('button', { name: 'Pause and go home' }).click();
+  await page.getByRole('button', { name: 'Discard' }).click();
+
+  await page.getByRole('link', { name: 'Quant' }).click();
+  await page.getByRole('button', { name: 'Percents', exact: true }).click();
+  await page.getByRole('button', { name: 'Fractions', exact: true }).click();
+  await expect(adaptive).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('radio', { name: 'Mix' })).toHaveAttribute('aria-checked', 'true');
 });

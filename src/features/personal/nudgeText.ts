@@ -17,7 +17,7 @@ export function nudgeText(n: Nudge): string {
 
 export interface ReminderFacts {
   name: string | null;
-  paused: { type: 'quant' | 'vocab'; cursor: number; total: number } | null;
+  paused: { type: 'quant' | 'vocab'; cursor: number; total: number; sprint?: boolean } | null;
   nudge: Nudge | null;
   studiedToday: boolean;
   streak: number;
@@ -32,6 +32,7 @@ const AWAY_AFTER_DAYS = 2;
 /** The reminder's message, written on the phone from the phone's own data. Whatever woke it, this says what matters most now. */
 export function reminderText({ name, paused, nudge, studiedToday, streak, daysAway, hour }: ReminderFacts): string {
   const who = name ? `, ${name}` : '';
+  if (paused?.sprint) return 'You left a sprint with time on the clock. Pick it up?';
   if (paused) return `You left ${paused.type === 'vocab' ? 'a vocab session' : 'a drill'} at ${paused.cursor} of ${paused.total}. Pick it up?`;
   if (!studiedToday && streak >= STREAK_WORTH_SAVING && hour >= STREAK_WARNING_HOUR) return `Your ${streak}-day streak ends at midnight. A quick drill saves it.`;
   if (daysAway >= AWAY_AFTER_DAYS) return `${daysAway} days away${who}. ${nudge ? nudgeText(nudge) : 'A short session gets you going again.'}`;

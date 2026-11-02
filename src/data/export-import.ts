@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import { toDay } from '../engine/dates';
 import { db, SCHEMA_VERSION, TABLES, type GraphiteDB, type TableName } from './db';
+import { clearAdaptiveLevels } from './repo/meta';
 
 export interface Backup {
   app: 'graphite';
@@ -73,8 +74,9 @@ const PROGRESS_TABLES = TABLES.filter((t) => t !== 'meta');
 
 /** Settings → Reset progress: clears all study data, stars included. Keeps the name and settings. */
 export async function resetProgress(d: GraphiteDB = db): Promise<void> {
-  await d.transaction('rw', PROGRESS_TABLES.map((t) => d.table(t)), async () => {
+  await d.transaction('rw', TABLES.map((t) => d.table(t)), async () => {
     for (const t of PROGRESS_TABLES) await d.table(t).clear();
+    await clearAdaptiveLevels(d);
   });
 }
 

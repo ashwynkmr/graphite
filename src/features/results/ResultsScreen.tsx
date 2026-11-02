@@ -108,7 +108,7 @@ export function ResultsScreen() {
     navigate(`/quant/session/${s.id}`);
   };
 
-  const kind = session.origin.kind === 'retry' ? 'Retry' : session.origin.kind === 'mistakes' ? 'My mistakes' : 'Quant drill';
+  const kind = session.origin.kind === 'retry' ? 'Retry' : session.origin.kind === 'mistakes' ? 'My mistakes' : session.settings.timer === 'sprint' ? `${session.settings.sprintMinutes}-minute sprint` : 'Quant drill';
 
   return (
     <main className={styles.page}>
@@ -144,6 +144,11 @@ export function ResultsScreen() {
             {[slow && `${slow} slow but right`, careless && `${careless} fast but wrong (careless?)`, notReached && `${notReached} not reached`].filter(Boolean).join(' · ')}
           </p>
         )}
+        {session.levelChanges?.map((c) => (
+          <p key={c.topic} className={styles.flags}>
+            {TOPIC_LABEL[c.topic]} moves {c.to > c.from ? 'up' : 'down'} to {DIFFICULTY_LABEL[c.to]} next time.
+          </p>
+        ))}
       </section>
 
       <div className={styles.actions}>
@@ -153,7 +158,7 @@ export function ResultsScreen() {
           </Button>
         )}
         <Button block variant="secondary" onClick={again}>
-          New drill, same settings
+          {session.settings.timer === 'sprint' && session.origin.kind === 'drill' ? 'New sprint' : 'New drill, same settings'}
         </Button>
         <ShareButton card={quantShare(kind, results)} day={session.day} />
       </div>

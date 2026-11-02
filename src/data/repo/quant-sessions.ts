@@ -5,13 +5,20 @@ import { elapsed, itemMs, nextItem, pause, startClock } from '../../engine/sessi
 import { mistakeChange } from '../../engine/sessions/mistakes';
 import type { PlannedItem } from '../../engine/sessions/quant-builder';
 import { refId, type PlayableQuestion } from '../../engine/sessions/questions';
+import { nextLevel, START_LEVEL } from '../../engine/sessions/adaptive';
 import { flagsFor, statusOf } from '../../engine/stats/quant-results';
-import { db, type AnySession, type GraphiteDB, type QuantAttemptRow, type QuantSettings, type SessionRow } from '../db';
+import { db, type AnySession, type GraphiteDB, type LevelChange, type QuantAttemptRow, type QuantSettings, type SessionRow } from '../db';
+import { getAdaptiveLevels, setAdaptiveLevels } from './meta';
 
 export const STALE_AFTER_MS = 24 * 60 * 60 * 1000;
 
 export function newSessionId(): string {
   return crypto.randomUUID();
+}
+
+function limitFor(settings: QuantSettings, items: number): number | null {
+  if (settings.timer === 'sprint') return settings.sprintMinutes * 60_000;
+  return settings.timer === 'per-set' ? settings.secondsPerQuestion * items * 1000 : null;
 }
 
 export async function createQuantSession(
@@ -32,7 +39,7 @@ export async function createQuantSession(
     answers: [],
     cursor: 0,
     timer: startClock(now),
-    limitMs: args.settings.timer === 'per-set' ? args.settings.secondsPerQuestion * args.items.length * 1000 : null,
+    limitMs: limitFor(args.settings, args.items.length),
   };
   await d.sessions.add(session);
   return session;
@@ -88,6 +95,7 @@ async function logAttempt(
     correct,
     ms,
     flags,
+    underTarget: correct && ms < question.targetSec * 1000,
   });
   if (status !== 'not-reached') await d.seen.put({ questionId: id, lastSeenDay: session.day });
   const existing = await d.mistakes.get(['quant', id]);
@@ -119,9 +127,37 @@ export async function recordAnswer(
   return next;
 }
 
+/** After an Adaptive drill: moves each of its topics by that topic's answers in Adaptive drills at its current level. */
+async function moveLevels(d: GraphiteDB, session: SessionRow): Promise<LevelChange[]> {
+  const levels = await getAdaptiveLevels(d);
+  const adaptiveIds = new Set(
+    (await d.sessions.where('type').equals('quant').toArray()).filter((s) => s.type === 'quant' && s.settings.adaptive && s.origin.kind === 'drill').map((s) => s.id),
+  );
+  const played = await d.quantAttempts.where('sessionId').equals(session.id).toArray();
+  const changes: LevelChange[] = [];
+  for (const topic of new Set(played.map((a) => a.topic))) {
+    const current = levels[topic] ?? { level: START_LEVEL, sinceAttemptId: 0 };
+    const rows = (await d.quantAttempts.where('topic').equals(topic).sortBy('id')).filter(
+      (a) => adaptiveIds.has(a.sessionId) && a.id! > current.sinceAttemptId && a.difficulty === current.level && !a.flags.includes('not-reached'),
+    );
+    const level = nextLevel(
+      current.level,
+      rows.map((a) => ({ correct: a.correct, underTarget: a.underTarget === true })),
+    );
+    if (level !== current.level) {
+      // Answers at the old level say nothing about this one.
+      levels[topic] = { level, sinceAttemptId: rows[rows.length - 1]!.id! };
+      changes.push({ topic, from: current.level, to: level });
+    }
+  }
+  if (changes.length) await setAdaptiveLevels(levels, d);
+  return changes;
+}
+
 /**
  * Ends the session: items never answered are logged as not reached (and go to the mistake log),
- * the score is stored, and the clock stops.
+ * the score is stored, and the clock stops. A sprint counts only what was answered: its other
+ * questions were never meant to be reached.
  */
 export async function finishSession(
   session: SessionRow,
@@ -131,18 +167,27 @@ export async function finishSession(
   d: GraphiteDB = db,
 ): Promise<SessionRow> {
   const correct = session.answers.filter((a, i) => statusOf(questions[i]!, a.value) === 'correct').length;
+  const items = session.settings.timer === 'sprint' ? session.items.slice(0, session.answers.length) : session.items;
   const done: SessionRow = {
     ...session,
+    items,
     status: 'finished',
     finishedAt: now,
     endedBy,
     timer: { ...pause(session.timer, now), elapsedMs: elapsed(session.timer, now) },
-    score: { correct, total: session.items.length },
+    score: { correct, total: items.length },
   };
-  await d.transaction('rw', [d.sessions, d.quantAttempts, d.seen, d.mistakes], async () => {
+  await d.transaction('rw', [d.sessions, d.quantAttempts, d.seen, d.mistakes, d.meta], async () => {
     await d.sessions.put(done);
-    for (let i = session.answers.length; i < session.items.length; i++) {
+    for (let i = session.answers.length; i < items.length; i++) {
       await logAttempt(d, done, i, questions[i]!, undefined, 0);
+    }
+    if (done.settings.adaptive && done.origin.kind === 'drill') {
+      const changes = await moveLevels(d, done);
+      if (changes.length) {
+        done.levelChanges = changes;
+        await d.sessions.put(done);
+      }
     }
   });
   return done;

@@ -38,6 +38,7 @@ export function homeLine(p: Profile | null, day: string, daysLeft: number | null
 export function resultsLine(p: Profile | null, correct: number, total: number, seed: number): string {
   const acc = total ? correct / total : 0;
   const n = name(p);
+  if (!total) return `Nothing answered this time, ${n}. The clock is yours whenever you’re ready.`;
   const bands: string[][] = [
     [`${n}, ${correct} of ${total}. That’s the pace.`, `Clean work, ${n}. Keep that rhythm.`, `${correct} of ${total}. You’re ready for harder ones, ${n}.`],
     [`Solid, ${n}. Review the misses and they’ll stick.`, `${correct} of ${total}, ${n}. Close. The review below will get you there.`],

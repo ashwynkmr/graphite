@@ -4,7 +4,7 @@ import { IconSettings } from '../../app/icons';
 import { requestPersistence } from '../../app/storage';
 import { useAsync } from '../../app/useAsync';
 import type { AnySession } from '../../data/db';
-import { getSettings } from '../../data/repo/meta';
+import { fixedLength, getSettings } from '../../data/repo/meta';
 import { discardSession, getResumable } from '../../data/repo/quant-sessions';
 import { loadHome } from '../../data/repo/stats';
 import { daysBetween, daysToExam, toDay, type Day } from '../../engine/dates';
@@ -79,7 +79,7 @@ export function HomeScreen() {
   const drill = async (patch: Partial<NonNullable<typeof settings>['quant']>) => {
     if (!settings) return;
     setStarting(true);
-    const s = await startDrill({ ...settings.quant, topics: 'mixed', length: 20, answerMode: 'mix', ...patch }, false);
+    const s = await startDrill({ ...fixedLength(settings.quant, 20), topics: 'mixed', answerMode: 'mix', ...patch }, false);
     navigate(`/quant/session/${s.id}`);
   };
 
@@ -118,7 +118,7 @@ export function HomeScreen() {
           <div>
             <p className={styles.resumeTitle}>{resumable.type === 'vocab' ? 'Vocab session in progress' : 'Drill in progress'}</p>
             <p className={styles.resumeMeta}>
-              {resumable.cursor} of {resumable.items.length} {resumable.type === 'vocab' ? 'cards done' : 'answered · clock paused'}
+              {resumable.type === 'quant' && resumable.settings.timer === 'sprint' ? `${resumable.cursor} answered · clock paused` : `${resumable.cursor} of ${resumable.items.length} ${resumable.type === 'vocab' ? 'cards done' : 'answered · clock paused'}`}
             </p>
           </div>
           <div className={styles.resumeActions}>

@@ -17,6 +17,7 @@ describe('reminderText', () => {
     const nudge = { kind: 'due', count: 3 } as const;
     expect(reminderText({ ...base, nudge, paused: { type: 'quant', cursor: 12, total: 20 } })).toBe('You left a drill at 12 of 20. Pick it up?');
     expect(reminderText({ ...base, nudge, paused: { type: 'vocab', cursor: 4, total: 50 } })).toBe('You left a vocab session at 4 of 50. Pick it up?');
+    expect(reminderText({ ...base, nudge, paused: { type: 'quant', cursor: 3, total: 125, sprint: true } })).toBe('You left a sprint with time on the clock. Pick it up?');
     expect(reminderText({ ...base, nudge })).toBe('3 words are due today.');
   });
 

@@ -5,7 +5,7 @@ import type { Day } from '../engine/dates';
 import type { Difficulty, Topic } from '../engine/generators/types';
 import type { Box, Grade } from '../engine/scheduling/leitner';
 import type { Clock } from '../engine/sessions/clock';
-import type { PlannedItem } from '../engine/sessions/quant-builder';
+import type { PlannedItem, SprintMinutes } from '../engine/sessions/quant-builder';
 import type { VocabDeck, VocabItem, VocabMode } from '../engine/sessions/vocab-builder';
 
 export const SCHEMA_VERSION = 1;
@@ -19,10 +19,20 @@ export interface QuantSettings {
   topics: Topic[] | 'mixed';
   /** One or more levels, mixed together in the drill. */
   difficulties: Difficulty[];
+  /** Each topic at its own level, in place of `difficulties` (0043). */
+  adaptive: boolean;
   length: number;
   answerMode: 'typed' | 'mcq' | 'mix';
-  timer: 'per-set' | 'untimed';
+  timer: 'per-set' | 'sprint' | 'untimed';
   secondsPerQuestion: number;
+  sprintMinutes: SprintMinutes;
+}
+
+/** A topic's Adaptive level changing because of this session. */
+export interface LevelChange {
+  topic: Topic;
+  from: Difficulty;
+  to: Difficulty;
 }
 
 /** What the user has entered for the current item; `null` = skipped, undefined = not reached. */
@@ -48,10 +58,11 @@ export interface SessionRow {
   answers: ItemAnswer[];
   cursor: number;
   timer: Clock;
-  /** Per-set time limit in ms; null when untimed. */
+  /** Time limit in ms for a timed set or sprint; null when untimed. */
   limitMs: number | null;
   endedBy?: 'completed' | 'timeout' | 'ended-early';
   score?: { correct: number; total: number };
+  levelChanges?: LevelChange[];
 }
 
 export interface VocabSettings {
@@ -93,6 +104,8 @@ export interface QuantAttemptRow {
   correct: boolean;
   ms: number;
   flags: ('slow' | 'careless' | 'not-reached' | 'skipped')[];
+  /** Correct within the question's target time. Missing on attempts from before Adaptive. */
+  underTarget?: boolean;
 }
 
 export interface WordStateRow {
