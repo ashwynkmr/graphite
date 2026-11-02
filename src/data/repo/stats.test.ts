@@ -4,7 +4,7 @@ import { startClock } from '../../engine/sessions/clock';
 import { GraphiteDB, type QuantAttemptRow, type SessionRow } from '../db';
 import { DEFAULT_QUANT } from './meta';
 import { loadMistakeLog } from './mistakes';
-import { loadHome, loadProgress } from './stats';
+import { loadHome, loadProgress, loadResultsNudge } from './stats';
 
 const TODAY = '2026-11-10';
 let n = 0;
@@ -108,5 +108,21 @@ describe('loadMistakeLog', () => {
     expect(log.quant[0]!.miss?.answer).toBe('second');
     expect(log.quant[1]!.miss).toBeUndefined();
     expect(log.words[0]!.miss?.answer).toBe('review');
+  });
+});
+
+describe('loadResultsNudge', () => {
+  it('puts a paused session ahead of everything else', async () => {
+    await d.sessions.add(session('paused', TODAY, { status: 'active', startedAt: Date.now(), cursor: 3 }));
+    const { paused, nudge } = await loadResultsNudge(TODAY, 12, d);
+    expect(paused?.id).toBe('paused');
+    expect(nudge).toBeNull();
+  });
+
+  it('otherwise gives the usual suggestion, and never the evening prompt after studying', async () => {
+    await d.sessions.add(session('done', TODAY));
+    expect(await loadResultsNudge(TODAY, 20, d)).toEqual({ paused: null, nudge: null });
+    await d.wordStates.add({ wordId: 'laconic', box: 1, dueDay: TODAY, seen: 1, correct: 0, lastResult: 'review', starred: 0, round: 1, firstSeenDay: TODAY });
+    expect((await loadResultsNudge(TODAY, 20, d)).nudge).toEqual({ kind: 'due', count: 1 });
   });
 });

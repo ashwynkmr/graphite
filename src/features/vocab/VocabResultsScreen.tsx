@@ -10,6 +10,7 @@ import { scoreVocab, type VocabResults, type VocabScoredItem } from '../../engin
 import { Button } from '../../ui/controls';
 import { ReportProblem } from '../../ui/ReportProblem';
 import { vocabResultsLine } from '../personal/messages';
+import { ResultsNudge } from '../personal/NudgeCard';
 import { useProfile } from '../personal/ProfileContext';
 import { duration } from '../quant/display';
 import r from '../results/ResultsScreen.module.css';
@@ -187,6 +188,8 @@ export function VocabResultsScreen() {
         </Button>
         {results.total + results.flashcards > 0 && <ShareButton card={vocabShare(kind, results)} day={session.day} />}
       </div>
+
+      <ResultsNudge />
 
       <section className={r.review}>
         <div className={r.reviewHead}>

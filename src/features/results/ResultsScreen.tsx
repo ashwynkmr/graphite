@@ -10,6 +10,7 @@ import { Button } from '../../ui/controls';
 import { MathText } from '../../ui/MathText';
 import { ReportProblem } from '../../ui/ReportProblem';
 import { resultsLine } from '../personal/messages';
+import { ResultsNudge } from '../personal/NudgeCard';
 import { useProfile } from '../personal/ProfileContext';
 import { DIFFICULTY_LABEL, duration, showValue, sprintName, TOPIC_LABEL } from '../quant/display';
 import { startDrill, startRetry } from '../quant/startDrill';
@@ -162,6 +163,8 @@ export function ResultsScreen() {
         </Button>
         <ShareButton card={quantShare(kind, results)} day={session.day} />
       </div>
+
+      <ResultsNudge />
 
       <Breakdown title="By topic" rows={(Object.entries(results.byTopic) as [Topic, Tally][]).map(([k, t]) => [TOPIC_LABEL[k], t])} />
       <Breakdown title="By difficulty" rows={(Object.entries(results.byDifficulty) as [string, Tally][]).map(([k, t]) => [DIFFICULTY_LABEL[Number(k) as Difficulty], t])} />

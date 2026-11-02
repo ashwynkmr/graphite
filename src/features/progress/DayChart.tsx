@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type PointerEvent } from 'react';
 import type { Day } from '../../engine/dates';
 import { shortDay } from '../share/summary';
 import styles from './DayChart.module.css';
@@ -30,6 +30,13 @@ export function DayChart({ title, days, kind, max, ticks, tickText }: { title: s
   const x = (i: number) => PLOT_LEFT + step * (i + 0.5);
   const y = (v: number) => PLOT_BOTTOM - (v / max) * (PLOT_BOTTOM - PLOT_TOP);
   const shownAt = shown ? days.indexOf(shown) : -1;
+
+  // Under a finger the line jumps from day to day, never between them.
+  const pickAt = (e: PointerEvent<HTMLDivElement>) => {
+    const box = e.currentTarget.getBoundingClientRect();
+    const i = Math.floor(((e.clientX - box.left) / box.width) * days.length);
+    setPicked(days[Math.max(0, Math.min(days.length - 1, i))]!.day);
+  };
 
   // A line joins neighbouring days only; a gap in study stays a gap.
   const segments: string[] = [];
@@ -72,7 +79,17 @@ export function DayChart({ title, days, kind, max, ticks, tickText }: { title: s
             {shortDay(days[days.length - 1]!.day)}
           </text>
         </svg>
-        <div className={styles.targets} style={{ left: `${(PLOT_LEFT / W) * 100}%`, gridTemplateColumns: `repeat(${days.length}, 1fr)` }}>
+        <div
+          className={styles.targets}
+          style={{ left: `${(PLOT_LEFT / W) * 100}%`, gridTemplateColumns: `repeat(${days.length}, 1fr)` }}
+          onPointerDown={(e) => {
+            e.currentTarget.setPointerCapture(e.pointerId);
+            pickAt(e);
+          }}
+          onPointerMove={(e) => {
+            if (e.currentTarget.hasPointerCapture(e.pointerId)) pickAt(e);
+          }}
+        >
           {days.map((d) => (
             <button key={d.day} type="button" className={styles.target} aria-label={`${title}, ${shortDay(d.day)}: ${d.text}`} aria-pressed={shown?.day === d.day} onClick={() => setPicked(d.day)} />
           ))}

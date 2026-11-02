@@ -188,3 +188,60 @@ test('the mistake log filters by topic, and Drill my mistakes follows the filter
   // Ratios questions have their own ids; none came through the filter.
   expect(items.every((i) => !(i.ref as { id: string }).id.startsWith('ra-'))).toBe(true);
 });
+
+test('dragging across a chart moves its line from day to day', async ({ page }) => {
+  await signIn(page);
+  await page.goto('./#/progress');
+  const chart = page.locator('figure').first();
+  const box = (await chart.locator('button').first().locator('..').boundingBox())!;
+  const column = box.width / 14;
+  const reading = chart.locator('figcaption span').last();
+  const y = box.y + box.height / 2;
+  await page.mouse.move(box.x + column * 2.5, y);
+  await page.mouse.down();
+  await expect(reading).toContainText('no answers');
+  const first = await reading.innerText();
+  const cross = chart.locator('svg line').last();
+  const startX = Number(await cross.getAttribute('x1'));
+  // Most of a column isn't enough; the line waits for the next day.
+  await page.mouse.move(box.x + column * 2.9, y);
+  await expect(reading).toHaveText(first);
+  expect(Number(await cross.getAttribute('x1'))).toBe(startX);
+  await page.mouse.move(box.x + column * 3.1, y);
+  await expect(reading).not.toHaveText(first);
+  const moved = Number(await cross.getAttribute('x1')) - startX;
+  expect(moved).toBeCloseTo((343 - 34) / 14, 3);
+  await page.mouse.up();
+});
+
+test('after a drill, Results suggests the weak topic, and a paused session comes first', async ({ page }) => {
+  await signIn(page);
+  await page.goto('./#/quant');
+  await page.getByRole('button', { name: 'Percents', exact: true }).click();
+  await page.getByRole('button', { name: /Start 20 questions/ }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  for (let i = 0; i < 20; i++) {
+    await answerQuant(page, i < 5);
+    if (i < 19) await expect(page.locator('body')).not.toContainText('weakest');
+  }
+  await expect(page).toHaveURL(/results/);
+  await expect(page.locator('body')).toContainText('Percents was your weakest last time (25%). Do 20 more?');
+
+  await page.getByRole('button', { name: 'Start', exact: true }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  await answerQuant(page, true);
+  await expect(page.locator('body')).toContainText('2 / 20');
+  await page.getByRole('button', { name: 'Pause and go home' }).click();
+
+  // A second session finishes while that one waits.
+  await page.goto('./#/quant');
+  await page.getByRole('button', { name: /Start \d+ questions/ }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  await page.getByRole('button', { name: 'End drill' }).click();
+  await page.getByRole('alertdialog').getByRole('button', { name: /End/ }).click();
+  await expect(page).toHaveURL(/results/);
+  await expect(page.locator('body')).toContainText('You left a drill at 1 of 20. Pick it up?');
+  await page.getByRole('button', { name: 'Resume' }).click();
+  await expect(page.locator('body')).toContainText('2 / 20');
+});
+

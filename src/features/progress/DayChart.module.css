@@ -70,6 +70,8 @@
   inset: 0 0 0 auto;
   display: grid;
   right: 0;
+  /* Sideways drags pick a day; up and down still scroll the page. */
+  touch-action: pan-y;
 }
 
 .target {

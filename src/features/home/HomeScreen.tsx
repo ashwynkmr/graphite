@@ -12,6 +12,7 @@ import type { Nudge } from '../../engine/stats/nudge';
 import type { GoalRow } from '../../engine/stats/progress';
 import { Button } from '../../ui/controls';
 import { greeting, homeLine } from '../personal/messages';
+import { followNudge, NudgeCard } from '../personal/NudgeCard';
 import { nudgeText } from '../personal/nudgeText';
 import { useProfile } from '../personal/ProfileContext';
 import { duration } from '../quant/display';
@@ -92,11 +93,9 @@ export function HomeScreen() {
     navigate(s ? `/vocab/session/${s.id}` : '/vocab');
   };
 
-  const followNudge = (n: Nudge) => {
-    if (n.kind === 'weak') return drill({ topics: [n.topic] });
-    if (n.kind === 'due') return vocab('today');
-    if (n.kind === 'slow') return drill({ topics: [n.topic], timer: 'per-set' });
-    return drill({ length: 5 });
+  const startNudge = async (n: Nudge) => {
+    setStarting(true);
+    navigate(await followNudge(n));
   };
 
   const exportDaysAgo = home?.lastExportAt ? Math.floor((now.getTime() - home.lastExportAt) / DAY_MS) : null;
@@ -197,14 +196,7 @@ export function HomeScreen() {
         </section>
       )}
 
-      {home?.nudge && !resumable && (
-        <div className={styles.nudge}>
-          <p className={styles.nudgeText}>{nudgeText(home.nudge)}</p>
-          <Button variant="secondary" onClick={() => followNudge(home.nudge!)} disabled={!settings || starting}>
-            Start
-          </Button>
-        </div>
-      )}
+      {home?.nudge && !resumable && <NudgeCard text={nudgeText(home.nudge)} action="Start" disabled={!settings || starting} onAction={() => startNudge(home.nudge!)} />}
 
       {home?.last && <LastSession session={home.last} today={today} />}
 
