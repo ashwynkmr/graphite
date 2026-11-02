@@ -1,10 +1,13 @@
 # Changelog
 
-User-facing changes, newest first. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow the milestones (`v0.1.0` quant live, `v0.2.0` vocab live, `v1.0.0` Phase 1 complete).
+User-facing changes, newest first. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow the milestones (`v0.1.0` quant live, `v0.2.0` vocab live, `v1.0.0` Phase 1 complete, `v2.0.0` Phase 2 complete).
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-11-01 · Phase 2
+
 ### Added
+- A one-time What's New screen after updating, and a What's New entry in Settings.
 - Sprint: 30 seconds to 15 minutes on a dial, answering as many questions as you can.
 - Adaptive difficulty: each topic moves up or down with your results, and Results tell you when one does.
 - Picking one topic brings back the setup you last used for it.

@@ -26,6 +26,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-11-01 | P2-2: Vocab | Staging | [2026-11-01-P2-2](2026-11-01-P2-2.md) |
 | 2026-11-01 | P2-3: Progress | Staging and in chat | [2026-11-01-P2-3](2026-11-01-P2-3.md) |
 | 2026-11-01 | P2-4: Nudges | Staging | [2026-11-01-P2-4](2026-11-01-P2-4.md) |
+| 2026-11-01 | P2-5: Launch | Staging | [2026-11-01-P2-5](2026-11-01-P2-5.md) |
 
 ## Tracker
 
@@ -53,7 +54,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-20 | Quant | Difficulty multi-select still doesn't work | Root cause: ambiguous control + stale build; toggle chips and update bar on every tab | Done | |
 | FB-21 | Process | A3 approved; update logs, commit and push | Committed, pushed, tagged v0.1.0 | Done | |
 | FB-22 | Settings | Option to reset account and progress | Reset progress and Reset everything in Settings | Done | [0034](../decisions/0034-mistake-drills-and-reset-scope.md) |
-| FB-23 | Personal | Reminders about paused drills and practice, based on performance ("more fractions, you were weak last time") | Home suggestion and usage-based push reminders; end-of-Results nudges in checkpoint 4 | Built | [0037](../decisions/0037-push-reminders-with-on-device-text.md) |
+| FB-23 | Personal | Reminders about paused drills and practice, based on performance ("more fractions, you were weak last time") | Home suggestion and usage-based push reminders; end-of-Results nudges in checkpoint 4 | Done | [0037](../decisions/0037-push-reminders-with-on-device-text.md) |
 | FB-24 | Personal | Cute notes from Ashwyn for the second user, only for her names | Shipped in Phase 1 | Done | [0041](../decisions/0041-personal-notes-sealed-in-the-app.md) |
 | FB-25 | Home | Home seems blank; make it better | Streak, today's tally, suggestion, last session | Done | [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md) |
 | FB-26 | Quant | Question count as a rotating dial, 5 to 40 in steps of 5 | Swipe dial with snap and tilt | Done | [0022](../decisions/0022-question-count-dial.md) |
@@ -124,7 +125,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-91 | Process | "Tests are passing": the real-phone launch checklist | Step 11 closed | Done | |
 | FB-92 | Reminders | Answer the nightly question inside the notification, without opening the app | Not possible on iPhones for web apps; rewording offered, and Ashwyn kept it as is | No change | [0041](../decisions/0041-personal-notes-sealed-in-the-app.md) |
 | FB-93 | Process | "Finish, commit and push phase 1" | Retro, docs and `v1.0.0` | Done | [Retro](../retros/milestone-c-retro.md) |
-| FB-94 | Process | Build Phase 2; keep committing; nothing live until it ends; tell users what's new at launch | `phase-2` branch; What's New screen planned | Planned | [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) |
+| FB-94 | Process | Build Phase 2; keep committing; nothing live until it ends; tell users what's new at launch | `phase-2` branch; What's New screen built | Done | [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md), [0048](../decisions/0048-whats-new-screen.md) |
 | FB-95 | Process | "Your pick for both questions. Use best practices." | Branch and What's New screen | Done | [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) |
 | FB-96 | Quant | At time-up, count a picked option; don't count an unpicked one | Done, in sprints and timed sets | Done | [0043](../decisions/0043-sprint-adaptive-and-topic-memory.md) |
 | FB-97 | Progress | No need to see each topic's level before starting | Level shows in the Progress topic table | Done | [0046](../decisions/0046-progress-dashboard.md) |
@@ -136,5 +137,6 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-103 | Quant | Sprint time should be a dial, from 30 seconds in 30-second steps up to 15 minutes | Built as asked | Done | [0045](../decisions/0045-sprint-time-dial-and-search-layout.md) |
 | FB-104 | Process | Search and the sprint dial: "Yes" | Moved on to checkpoint 3 | Done | |
 | FB-105 | Vocab | Bold the word in the flashcard's sentence | Bold on the card's back and in Browse, never in a quiz | Done | |
-| FB-106 | Progress | The chart's day line should move in steps when dragged | Dragging moves it from day to day | Built | [0046](../decisions/0046-progress-dashboard.md) |
+| FB-106 | Progress | The chart's day line should move in steps when dragged | Dragging moves it from day to day | Done | [0046](../decisions/0046-progress-dashboard.md) |
 | FB-107 | Process | Checkpoint 3: "Rest is all good" | Moved on to checkpoint 4 | Done | |
+| FB-108 | Process | Checkpoint 4: "Everything works great" | Moved on to the launch checkpoint | Done | |

@@ -4,18 +4,17 @@ Running log of what's built, what's live and known issues. Newest first.
 
 ## Live now
 
-`v1.0.0` (Phase 1 complete) at https://ashwynkmr.github.io/graphite/: name prompt, a full Home, and quant drills from 1,500 questions with topic and difficulty pickers; results with review, Retry wrong ones and Report a problem. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. The mistake log with Drill my mistakes, Progress totals, Share, and Settings with goals, theme, backup and two-level reset. Optional reminders and personal notes for the second user. Installable and offline.
+`v2.0.0` (Phase 2 complete) at https://ashwynkmr.github.io/graphite/: everything below, plus Sprint, Adaptive, per-topic setups, Browse and search, Round 2, memory aids, a full Progress dashboard, history share, mistake filters, nudges on Results and a What's New screen. From Phase 1: name prompt, a full Home, and quant drills from 1,500 questions with topic and difficulty pickers; results with review, Retry wrong ones and Report a problem. Vocab practice with all 1,500 words (swipe flashcards, multiple choice, fill the blank, Sentence Equivalence), results grouped by Missed, Unsure and Got right, and a redo round. The mistake log with Drill my mistakes, Progress totals, Share, and Settings with goals, theme, backup and two-level reset. Optional reminders and personal notes for the second user. Installable and offline.
 
 ## Next up (handoff)
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** Phase 1 is live as `v1.0.0` (Nov 1). Phase 2 is being built on the `phase-2` branch and goes live all at once ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). Study started Nov 1; exam Nov 24.
-- **Next step:** Ashwyn's review of Phase 2 checkpoint 4 (study nudges on Results). Then 5 Launch: What's New screen, checks, docs, release.
+- **Where we are:** Phase 2 is complete and shipped as `v2.0.0` (Nov 1). Study started Nov 1; exam Nov 24.
+- **Next step:** none planned. Anything further waits for Ashwyn: real results may show which topics need more templates.
 - **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
-- **Also planned (PRD v0.6, Nov 1):** study nudges in Phase 2. Usage-based push reminders are built ([0037](decisions/0037-push-reminders-with-on-device-text.md)), and notes for the second user moved up and shipped ([0041](decisions/0041-personal-notes-sealed-in-the-app.md)).
-- **How we work:** commit to `phase-2` once checks pass, and never push Phase 2 to `main` until Ashwyn approves the launch. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-107). Next decision number: 0048. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
-- **Open items:** reminders and notes on Android, including the answer buttons; a reminder run going over Cloudflare's 10 ms limit and retrying; the Android install button not yet tried; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
+- **How we work:** for new work, branch from `main`, commit once checks pass, and never push to `main` until Ashwyn approves the launch ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-108). Next decision number: 0049. Each release needs a new `RELEASE` and list in `WhatsNewScreen.tsx`. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
+- **Open items:** Round 2 on a real phone; reminders and notes on Android, including the answer buttons; a reminder run going over Cloudflare's 10 ms limit and retrying; the Android install button not yet tried; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
 
@@ -34,6 +33,9 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 11 | Launch pass: run-throughs, Report a problem, screenshots | Done; real-phone checklist passed; `v1.0.0` | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Phase 2 complete, `v2.0.0`
+- What's New screen built ([0048](decisions/0048-whats-new-screen.md)). An install of the live build, with saved progress and a paused drill, updated to this one in Chromium: the screen showed once, the data and paused drill held, and the new features opened. Feedback FB-108.
 
 ### 2026-11-01: Phase 2, checkpoint 4
 - Study nudges added under the Results buttons, a paused session first ([0047](decisions/0047-nudges-on-results.md)). Chart lines now step by day when dragged. Not live. Feedback FB-106 and FB-107.

@@ -64,3 +64,4 @@ Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Pro
 | [0045](0045-sprint-time-dial-and-search-layout.md) | Sprint time is a dial, and search results sit right under the bar | 2026-11-01 | Accepted | Phase 2 | Design |
 | [0046](0046-progress-dashboard.md) | How the Progress dashboard reads | 2026-11-01 | Accepted | Phase 2 | Design |
 | [0047](0047-nudges-on-results.md) | Study nudges sit under the Results buttons | 2026-11-01 | Accepted | Phase 2 | Product |
+| [0048](0048-whats-new-screen.md) | New features are announced on a one-time screen after the update | 2026-11-01 | Accepted | Phase 2 | Product |
