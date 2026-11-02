@@ -6,6 +6,7 @@ import { getSettings, updateSettings, type Settings } from '../../data/repo/meta
 import { Button, Field, Segmented } from '../../ui/controls';
 import { Screen } from '../../ui/Screen';
 import { useProfile } from '../personal/ProfileContext';
+import { useTutorial } from '../tutorial/Tutorial';
 import { BackupSection } from './BackupSection';
 import { InstallSection } from './InstallSection';
 import { ReminderSection } from './ReminderSection';
@@ -42,6 +43,7 @@ function GoalField({ label, value, onSave }: { label: string; value: number; onS
 }
 
 export function SettingsScreen() {
+  const startTutorial = useTutorial((t) => t.start);
   const { profile, save } = useProfile();
   const [name, setName] = useState('');
   const [saved, setSaved] = useState(false);
@@ -153,6 +155,9 @@ export function SettingsScreen() {
       <Link to="/whats-new" className={styles.whatsNew}>
         What’s new
       </Link>
+      <button type="button" className={styles.whatsNew} onClick={startTutorial}>
+        Take the quick tour
+      </button>
 
       <ReminderSection />
       <InstallSection />

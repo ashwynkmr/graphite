@@ -1,11 +1,11 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import styles from './controls.module.css';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'quiet'; block?: boolean };
 
-export function Button({ variant = 'primary', block, className, ...rest }: ButtonProps) {
-  return <button type="button" className={[styles.button, styles[variant], block ? styles.block : '', className ?? ''].join(' ')} {...rest} />;
-}
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button({ variant = 'primary', block, className, ...rest }, ref) {
+  return <button ref={ref} type="button" className={[styles.button, styles[variant], block ? styles.block : '', className ?? ''].join(' ')} {...rest} />;
+});
 
 export function Chip({ selected, children, onClick }: { selected: boolean; children: ReactNode; onClick: () => void }) {
   return (

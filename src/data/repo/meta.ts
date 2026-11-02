@@ -116,6 +116,15 @@ export async function setWhatsNewSeen(release: string, d: GraphiteDB = db): Prom
   await put('whatsNewSeen', release, d);
 }
 
+/** Set on the name prompt and cleared once the tutorial is finished or skipped: nobody who had the app before it is owed one. */
+export async function getTutorialOwed(d: GraphiteDB = db): Promise<boolean> {
+  return get<boolean>('tutorialOwed', false, d);
+}
+
+export async function setTutorialOwed(owed: boolean, d: GraphiteDB = db): Promise<void> {
+  await put('tutorialOwed', owed, d);
+}
+
 const ROUND_KEY = 'vocabRound';
 const ROUND_DECLINED_KEY = 'vocabRoundDeclined';
 

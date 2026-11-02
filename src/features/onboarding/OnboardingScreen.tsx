@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { setWhatsNewSeen } from '../../data/repo/meta';
+import { setTutorialOwed, setWhatsNewSeen } from '../../data/repo/meta';
 import { Button } from '../../ui/controls';
 import { Wordmark } from '../../ui/Wordmark';
 import { useProfile } from '../personal/ProfileContext';
@@ -23,8 +23,8 @@ export function OnboardingScreen() {
           className={styles.form}
           onSubmit={(e) => {
             e.preventDefault();
-            // Everything is new to a new user: no news owed, now or next time.
-            if (ready) void setWhatsNewSeen(RELEASE).then(() => save({ name }));
+            // Everything is new to a new user: no news owed, now or next time, but a quick tour is.
+            if (ready) void Promise.all([setWhatsNewSeen(RELEASE), setTutorialOwed(true)]).then(() => save({ name }));
           }}
         >
           <label className={styles.label} htmlFor="name">

@@ -60,11 +60,12 @@ export async function expectNoVerdict(page: Page): Promise<void> {
   await expect(page.locator('body')).not.toContainText(/\b(correct|incorrect|right!|wrong!|well done|try again)\b/i);
 }
 
-/** The first run: name prompt, then Home. */
+/** The first run: name prompt, past the quick tour, then Home. */
 export async function signIn(page: Page, name = 'Test'): Promise<void> {
   await page.goto('./');
   await page.getByPlaceholder('Your name').fill(name);
   await page.getByRole('button', { name: /start studying/i }).click();
+  await page.getByRole('button', { name: 'Skip' }).click();
   await expect(page.getByRole('heading', { level: 1 })).toContainText(name);
 }
 

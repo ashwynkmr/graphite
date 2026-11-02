@@ -80,6 +80,11 @@
   display: inline-flex;
   align-items: center;
   min-height: var(--tap);
+  padding: 0;
+  background: none;
+  border: 0;
   color: var(--ink);
+  font: inherit;
   font-weight: 600;
+  text-decoration: underline;
 }

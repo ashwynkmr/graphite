@@ -18,6 +18,7 @@ export function TabBar() {
           key={to}
           to={to}
           end={end}
+          data-tab={to}
           className={({ isActive }) => (isActive ? `${styles.tab} ${styles.active}` : styles.tab)}
         >
           <Icon />

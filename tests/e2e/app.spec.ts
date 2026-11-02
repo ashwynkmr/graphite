@@ -302,3 +302,56 @@ test('What’s New waits while a session is open', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'What’s new' })).toBeVisible();
 });
 
+
+test('A new user gets the quick tour once, it writes no study data, and it replays from Settings', async ({ page }) => {
+  await page.goto('./');
+  await page.getByPlaceholder('Your name').fill('Test');
+  await page.getByRole('button', { name: /start studying/i }).click();
+  const tour = page.getByRole('dialog', { name: 'Quick tour' });
+  await expect(tour).toContainText('1 of 5');
+  // Everything underneath waits while the tour is open.
+  await expect(page.getByRole('link', { name: 'Quant' }).click({ timeout: 500 })).rejects.toThrow();
+  for (const [step, path] of [['Quant', /quant/], ['Vocab', /vocab/], ['Mistakes', /mistakes/], ['Progress', /progress/]] as const) {
+    await tour.getByRole('button', { name: 'Next' }).click();
+    await expect(tour.getByRole('heading', { name: step })).toBeVisible();
+    await expect(page).toHaveURL(path);
+    const box = (await tour.locator('div').last().boundingBox())!;
+    expect(box.x).toBeGreaterThanOrEqual(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
+  await tour.getByRole('button', { name: 'Start studying' }).click();
+  await expect(tour).toBeHidden();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
+  expect(await table(page, 'sessions')).toHaveLength(0);
+
+  await page.reload();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
+  await expect(tour).toBeHidden();
+
+  await page.goto('./#/settings');
+  await page.getByRole('button', { name: 'Take the quick tour' }).click();
+  await expect(tour).toContainText('1 of 5');
+  await page.keyboard.press('Escape');
+  await expect(tour).toBeHidden();
+});
+
+test('Someone who had the app before the tour never gets it on their own', async ({ page }) => {
+  await signIn(page);
+  await page.evaluate(
+    () =>
+      new Promise<void>((done) => {
+        const open = indexedDB.open('graphite');
+        open.onsuccess = () => {
+          const tx = open.result.transaction('meta', 'readwrite');
+          tx.objectStore('meta').delete('tutorialOwed');
+          tx.oncomplete = () => {
+            open.result.close();
+            done();
+          };
+        };
+      }),
+  );
+  await page.reload();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
+  await expect(page.getByRole('dialog', { name: 'Quick tour' })).toBeHidden();
+});

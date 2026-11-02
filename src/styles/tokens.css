@@ -18,6 +18,7 @@
   --on-ink: #fbf8f2;
   --good: #3b6a47;
   --bad: #9a3a30;
+  --scrim: rgba(42, 42, 45, 0.38);
 
   /* Type */
   --font-serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
@@ -86,6 +87,7 @@
     --on-ink: #151516;
     --good: #8cbf97;
     --bad: #e3958b;
+    --scrim: rgba(0, 0, 0, 0.45);
     color-scheme: dark;
   }
 }
@@ -103,6 +105,7 @@
   --on-ink: #151516;
   --good: #8cbf97;
   --bad: #e3958b;
+  --scrim: rgba(0, 0, 0, 0.45);
   color-scheme: dark;
 }
 
