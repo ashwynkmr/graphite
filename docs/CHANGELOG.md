@@ -11,9 +11,13 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 - Browse and search all 1,500 words by word, synonym or meaning, and filter by frequency, stage or star.
 - Round 2: once you've seen every word, go through them all again, weakest first.
 - Memory aids for 231 of the hardest words, on the flashcard's back and in Browse.
+- Progress: 14-day accuracy and speed trends for all topics or one, your weakest topics, each topic's level, words per stage and new words a day.
+- Share a 7- or 14-day summary of your studying from Progress.
+- Filter the mistake log by topic, or by how a word was missed. Drill my mistakes follows the filter.
 
 ### Changed
 - When time runs out on a timed set or sprint, an option you've picked counts as your answer.
+- A word is bold in its example sentence on flashcards and in Browse.
 
 ## [1.0.0] - 2026-11-01 · Milestone C: Phase 1 complete
 

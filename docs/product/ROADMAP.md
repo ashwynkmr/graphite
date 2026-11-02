@@ -17,13 +17,11 @@ Built in three milestones so studying can start before all of Phase 1 is done ([
 In progress on the `phase-2` branch since Nov 1, and launched all at once when done ([0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)).
 
 - Checkpoint 1, built and reviewed: Sprint mode, Adaptive difficulty, per-topic defaults ([0043](../decisions/0043-sprint-adaptive-and-topic-memory.md))
-- Checkpoint 2, built and in review: Round 2, Browse and search, mnemonics for the hardest words ([0044](../decisions/0044-round-2-browse-and-memory-aids.md))
+- Checkpoint 2, built and reviewed: Round 2, Browse and search, mnemonics for the hardest words ([0044](../decisions/0044-round-2-browse-and-memory-aids.md))
+- Checkpoint 3, built and in review: full dashboard, history share, mistake-log filters ([0046](../decisions/0046-progress-dashboard.md))
 
 Still to build or finish:
 
-- Full dashboard: 14-day trends, weakest topics, words per box
-- Share 7- or 14-day history
-- Mistake-log filters
 - In-app study nudges from the user's own results (weak topic, slow topic, due words, paused drill)
 - A one-time What's New screen at launch
 

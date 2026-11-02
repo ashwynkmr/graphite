@@ -11,10 +11,10 @@ Running log of what's built, what's live and known issues. Newest first.
 Read this and `CLAUDE.md` first when starting a new session.
 
 - **Where we are:** Phase 1 is live as `v1.0.0` (Nov 1). Phase 2 is being built on the `phase-2` branch and goes live all at once ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). Study started Nov 1; exam Nov 24.
-- **Next step:** Ashwyn's review of Phase 2 checkpoint 2 (Browse and search, Round 2, memory aids). Then 3 Progress: trends, weakest topics, words per box, mistake-log filters, history share; 4 Study nudges; 5 Launch: What's New screen, checks, docs, release.
+- **Next step:** Ashwyn's review of Phase 2 checkpoint 3 (dashboard, mistake filters, history share). Then 4 Study nudges; 5 Launch: What's New screen, checks, docs, release.
 - **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
 - **Also planned (PRD v0.6, Nov 1):** study nudges in Phase 2. Usage-based push reminders are built ([0037](decisions/0037-push-reminders-with-on-device-text.md)), and notes for the second user moved up and shipped ([0041](decisions/0041-personal-notes-sealed-in-the-app.md)).
-- **How we work:** commit to `phase-2` once checks pass, and never push Phase 2 to `main` until Ashwyn approves the launch. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-103). Next decision number: 0046. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
+- **How we work:** commit to `phase-2` once checks pass, and never push Phase 2 to `main` until Ashwyn approves the launch. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-105). Next decision number: 0047. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
 - **Open items:** reminders and notes on Android, including the answer buttons; a reminder run going over Cloudflare's 10 ms limit and retrying; the Android install button not yet tried; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -34,6 +34,9 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 11 | Launch pass: run-throughs, Report a problem, screenshots | Done; real-phone checklist passed; `v1.0.0` | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Phase 2, checkpoint 3
+- Dashboard, mistake-log filters and a 7- or 14-day share card built ([0046](decisions/0046-progress-dashboard.md)). Not live. Checked in Chromium with seeded data; not yet on a real phone. Feedback FB-104 and FB-105.
 
 ### 2026-11-01: Phase 2, checkpoint 2
 - Browse and search, Round 2 and 231 memory aids built ([0044](decisions/0044-round-2-browse-and-memory-aids.md)). Not live.

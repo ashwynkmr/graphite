@@ -24,6 +24,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-11-01 | C6: Phase 1 launch | On iPhone and in chat | [2026-11-01-C6](2026-11-01-C6.md) |
 | 2026-11-01 | P2-1: Phase 2 start and quant | In chat, then staging | [2026-11-01-P2-1](2026-11-01-P2-1.md) |
 | 2026-11-01 | P2-2: Vocab | Staging | [2026-11-01-P2-2](2026-11-01-P2-2.md) |
+| 2026-11-01 | P2-3: Progress | Staging and in chat | [2026-11-01-P2-3](2026-11-01-P2-3.md) |
 
 ## Tracker
 
@@ -125,10 +126,12 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-94 | Process | Build Phase 2; keep committing; nothing live until it ends; tell users what's new at launch | `phase-2` branch; What's New screen planned | Planned | [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) |
 | FB-95 | Process | "Your pick for both questions. Use best practices." | Branch and What's New screen | Done | [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) |
 | FB-96 | Quant | At time-up, count a picked option; don't count an unpicked one | Done, in sprints and timed sets | Done | [0043](../decisions/0043-sprint-adaptive-and-topic-memory.md) |
-| FB-97 | Progress | No need to see each topic's level before starting | Level goes on Progress in checkpoint 3 | Planned | |
+| FB-97 | Progress | No need to see each topic's level before starting | Level shows in the Progress topic table | Done | [0046](../decisions/0046-progress-dashboard.md) |
 | FB-98 | Design | "Fractions look nice now" | Seen on a real phone | Done | [0040](../decisions/0040-stacked-fractions.md) |
 | FB-99 | Process | Checkpoint 1: "All good" | Moved on to checkpoint 2 | Done | |
 | FB-100 | Vocab | Memory aids: "It's okay" | Kept | No change | [0044](../decisions/0044-round-2-browse-and-memory-aids.md) |
 | FB-101 | Vocab | Memory aid shown right away on the card's back: "Fine" | Kept | No change | [0044](../decisions/0044-round-2-browse-and-memory-aids.md) |
-| FB-102 | Vocab | A searched word only shows in the search bar; it should show separately underneath | Results sit right under the bar, and the best match opens with the word large | Built | [0045](../decisions/0045-sprint-time-dial-and-search-layout.md) |
-| FB-103 | Quant | Sprint time should be a dial, from 30 seconds in 30-second steps up to 15 minutes | Built as asked | Built | [0045](../decisions/0045-sprint-time-dial-and-search-layout.md) |
+| FB-102 | Vocab | A searched word only shows in the search bar; it should show separately underneath | Results sit right under the bar, and the best match opens with the word large | Done | [0045](../decisions/0045-sprint-time-dial-and-search-layout.md) |
+| FB-103 | Quant | Sprint time should be a dial, from 30 seconds in 30-second steps up to 15 minutes | Built as asked | Done | [0045](../decisions/0045-sprint-time-dial-and-search-layout.md) |
+| FB-104 | Process | Search and the sprint dial: "Yes" | Moved on to checkpoint 3 | Done | |
+| FB-105 | Vocab | Bold the word in the flashcard's sentence | Bold on the card's back and in Browse, never in a quiz | Built | |
