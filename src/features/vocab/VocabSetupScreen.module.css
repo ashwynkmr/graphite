@@ -4,6 +4,14 @@
   gap: var(--space-3);
 }
 
+.browse {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--ink);
+  font-weight: 600;
+}
+
 .note {
   font-family: var(--font-serif);
   font-style: italic;

@@ -70,6 +70,8 @@ export interface VocabSettings {
   modes: VocabMode[];
   deck: VocabDeck;
   length: number;
+  /** On a session from the Round deck: the round its answers count towards. */
+  round?: number;
 }
 
 /** A vocab session. Untimed; the clock only records time per card. */

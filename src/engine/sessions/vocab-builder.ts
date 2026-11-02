@@ -18,7 +18,7 @@ export function choosableModes(modes: readonly VocabMode[]): PracticeMode[] {
   return kept.length ? kept : ['flashcard'];
 }
 
-export type VocabDeck = 'today' | 'new' | 'starred';
+export type VocabDeck = 'today' | 'new' | 'starred' | 'round';
 /** Multiple choice asks one of three ways: word → meaning, meaning → word, or fill the blank. */
 export type McqKind = 'meaning' | 'word' | 'blank';
 export type ItemKind = 'flashcard' | 'typein' | 'equiv' | McqKind;
@@ -79,16 +79,46 @@ export function introducedOn(states: States, today: Day): number {
   return n;
 }
 
+const roundOf = (s: WordSchedule | undefined) => s?.round ?? 1;
+
+export interface RoundStatus {
+  /** The round under way. Round 1 is the first pass through the deck. */
+  current: number;
+  /** Words still to go in the current round (none during round 1: new words handle that). */
+  left: number;
+  /** The next round to offer, once every word has been seen and the current round is done. */
+  offer: number | null;
+}
+
+export function roundStatus(words: readonly Word[], states: States, current: number): RoundStatus {
+  const left = current > 1 ? words.filter((w) => roundOf(states.get(w.id)) < current).length : 0;
+  const allSeen = words.length > 0 && words.every((w) => !isNew(states.get(w.id)));
+  return { current, left, offer: allSeen && left === 0 ? current + 1 : null };
+}
+
+/** A round's order, weakest first: starred, then box 1 up to retired, then rank. */
+function roundWords(words: readonly Word[], states: States, round: number): Word[] {
+  return words
+    .filter((w) => roundOf(states.get(w.id)) < round)
+    .sort((a, b) => {
+      const sa = states.get(a.id);
+      const sb = states.get(b.id);
+      return Number(Boolean(sb?.starred)) - Number(Boolean(sa?.starred)) || (sa?.box ?? 0) - (sb?.box ?? 0) || a.rank - b.rank;
+    });
+}
+
 /**
  * The session queue, as word ids. Today: due words first, then new words in rank order up to
- * the daily cap. New: only new words. Starred: starred words, weakest box first.
- * `words` must be in rank order.
+ * the daily cap. New: only new words. Starred: starred words, weakest box first. Round: the words
+ * still to go in `round`, weakest first. `words` must be in rank order.
  */
-export function buildVocabQueue(args: { words: readonly Word[]; states: States; deck: VocabDeck; length: number; today: Day; newLeft: number }): string[] {
+export function buildVocabQueue(args: { words: readonly Word[]; states: States; deck: VocabDeck; length: number; today: Day; newLeft: number; round?: number }): string[] {
   const { words, states, deck, length, today, newLeft } = args;
   const fresh = () => words.filter((w) => isNew(states.get(w.id))).slice(0, Math.max(0, newLeft));
   let picked: Word[];
-  if (deck === 'starred') {
+  if (deck === 'round') {
+    picked = roundWords(words, states, args.round ?? 1);
+  } else if (deck === 'starred') {
     picked = words.filter((w) => states.get(w.id)?.starred).sort((a, b) => (states.get(a.id)!.box - states.get(b.id)!.box) || a.rank - b.rank);
   } else if (deck === 'new') {
     picked = fresh();

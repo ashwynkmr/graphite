@@ -38,6 +38,8 @@ export function checkWords(words: readonly Word[], ranked: readonly RankedRef[])
     if (!new RegExp(`\\b${form}\\b`, 'i').test(w.example)) fail(w.id, `example doesn't contain "${w.exampleForm}" as a word`);
     if (!/^[A-Z"']/.test(w.example) || !/[.!?]["']?$/.test(w.example)) fail(w.id, 'example should be one full sentence');
 
+    if (w.mnemonic !== undefined && !/^[A-Z"].*[.!?]$/.test(w.mnemonic)) fail(w.id, 'mnemonic should be one full sentence');
+
     const syn = w.synonyms.map((s) => s.toLowerCase());
     if (new Set(syn).size !== syn.length) fail(w.id, 'repeated synonym');
     if (syn.some((s) => s === w.id)) fail(w.id, 'synonym is the headword');

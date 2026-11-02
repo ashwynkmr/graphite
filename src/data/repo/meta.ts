@@ -107,9 +107,30 @@ export async function setAdaptiveLevels(levels: AdaptiveLevels, d: GraphiteDB = 
   await put(ADAPTIVE_KEY, levels, d);
 }
 
-/** Levels come from study data, so Reset progress clears them. */
-export async function clearAdaptiveLevels(d: GraphiteDB = db): Promise<void> {
-  await d.meta.delete(ADAPTIVE_KEY);
+const ROUND_KEY = 'vocabRound';
+const ROUND_DECLINED_KEY = 'vocabRoundDeclined';
+
+/** The vocab round under way; 1 is the first pass through the deck. */
+export async function getVocabRound(d: GraphiteDB = db): Promise<number> {
+  return get<number>(ROUND_KEY, 1, d);
+}
+
+export async function setVocabRound(round: number, d: GraphiteDB = db): Promise<void> {
+  await put(ROUND_KEY, round, d);
+}
+
+/** The round Home was last told "Not now" about, so it doesn't ask again. */
+export async function getRoundDeclined(d: GraphiteDB = db): Promise<number> {
+  return get<number>(ROUND_DECLINED_KEY, 0, d);
+}
+
+export async function setRoundDeclined(round: number, d: GraphiteDB = db): Promise<void> {
+  await put(ROUND_DECLINED_KEY, round, d);
+}
+
+/** Levels and rounds come from study data, so Reset progress clears them. */
+export async function clearStudyMeta(d: GraphiteDB = db): Promise<void> {
+  await d.meta.bulkDelete([ADAPTIVE_KEY, ROUND_KEY, ROUND_DECLINED_KEY]);
 }
 
 export const DEFAULT_REMINDER_TIME = '19:00';

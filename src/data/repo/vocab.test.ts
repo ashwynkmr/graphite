@@ -81,3 +81,24 @@ describe('vocab sessions on disk', () => {
     expect((await loadWordStates(d)).get('cogent')?.starred).toBe(false);
   });
 });
+
+describe('rounds on disk', () => {
+  it('marks a word as done in the round its session belongs to, and only then', async () => {
+    const ids = ['audacious', 'malleable'];
+    let inRound = await createVocabSession({ settings: { ...DEFAULT_VOCAB, modes: ['flashcard'], deck: 'round', round: 2 }, items: planVocabItems(ids, ['flashcard'], byId, 3), seed: 3, now: NOW }, d);
+    inRound = await recordVocabAnswer(inRound, byId.get('audacious')!, 'know', NOW + 1000, d);
+    const plain = await session('flashcard', ['malleable']);
+    await recordVocabAnswer(plain, byId.get('malleable')!, 'know', NOW + 2000, d);
+    const states = await loadWordStates(d);
+    expect(states.get('audacious')!.round).toBe(2);
+    expect(states.get('malleable')!.round).toBe(1);
+  });
+});
+
+describe('memory aids', () => {
+  it('cover about 200 of the hardest words, each short enough for a card', () => {
+    const aids = words.filter((w) => w.mnemonic);
+    expect(aids.length).toBeGreaterThanOrEqual(200);
+    for (const w of aids) expect(w.mnemonic!.length).toBeLessThanOrEqual(90);
+  });
+});

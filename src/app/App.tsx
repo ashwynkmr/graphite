@@ -8,6 +8,7 @@ import { HomeScreen } from '../features/home/HomeScreen';
 import { QuantSetupScreen } from '../features/quant/QuantSetupScreen';
 import { DrillScreen } from '../features/quant/DrillScreen';
 import { ResultsScreen } from '../features/results/ResultsScreen';
+import { BrowseScreen } from '../features/vocab/BrowseScreen';
 import { VocabSetupScreen } from '../features/vocab/VocabSetupScreen';
 import { VocabSessionScreen } from '../features/vocab/VocabSessionScreen';
 import { VocabResultsScreen } from '../features/vocab/VocabResultsScreen';
@@ -28,6 +29,7 @@ function Routed() {
         <Route index element={<HomeScreen />} />
         <Route path="quant" element={<QuantSetupScreen />} />
         <Route path="vocab" element={<VocabSetupScreen />} />
+        <Route path="vocab/browse" element={<BrowseScreen />} />
         <Route path="mistakes" element={<MistakesScreen />} />
         <Route path="progress" element={<ProgressScreen />} />
         <Route path="settings" element={<SettingsScreen />} />

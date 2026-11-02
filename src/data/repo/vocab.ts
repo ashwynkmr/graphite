@@ -100,7 +100,8 @@ export async function recordVocabAnswer(
     });
     const stored = await d.wordStates.get(word.id);
     const { schedule } = applyGrade(stored ? toSchedule(stored) : newSchedule(word.id), grade, session.day);
-    await d.wordStates.put(toRow(schedule));
+    const round = session.settings.round;
+    await d.wordStates.put(toRow(round ? { ...schedule, round } : schedule));
     // Unsure is neither right nor wrong: the mistake log is left alone.
     if (isPassing(grade) || isFailing(grade)) {
       const existing = await d.mistakes.get(['word', word.id]);

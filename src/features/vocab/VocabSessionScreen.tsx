@@ -59,6 +59,7 @@ function CardBack({ word }: { word: Word }) {
       <span className={styles.meaning}>{sentence(word.meaning)}</span>
       <span className={styles.example}>{word.example}</span>
       <span className={styles.synonyms}>{word.synonyms.join(' · ')}</span>
+      {word.mnemonic && <span className={styles.mnemonic}>{word.mnemonic}</span>}
     </div>
   );
 }

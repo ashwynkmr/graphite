@@ -3,7 +3,7 @@ import type { Word } from '../../content/schema';
 import { newSchedule, type WordSchedule } from '../scheduling/leitner';
 import { scoreVocab } from '../stats/vocab-results';
 import wordsJson from '../../../content/words.json';
-import { blankOutEquiv, buildPracticeQueue, choosableModes, equivAnswer, equivChoices, VOCAB_MODES, blankOut, buildVocabQueue, CHOICES, deckCounts, distractors, gradeVocab, inflected, introducedOn, planVocabItems } from './vocab-builder';
+import { blankOutEquiv, buildPracticeQueue, choosableModes, equivAnswer, equivChoices, VOCAB_MODES, blankOut, buildVocabQueue, CHOICES, deckCounts, distractors, gradeVocab, inflected, introducedOn, planVocabItems, roundStatus } from './vocab-builder';
 
 const TODAY = '2026-11-02';
 
@@ -228,5 +228,41 @@ describe('scoreVocab', () => {
       [false, false, false, false, true],
     );
     expect(r).toMatchObject({ total: 2, correct: 1, flashcards: 2, marks: { know: 1, unsure: 0, review: 1 }, totalMs: 8000, avgMs: 1600 });
+  });
+});
+
+describe('rounds', () => {
+  const seenAll = (patch: (id: string) => Partial<WordSchedule> = () => ({})) => new Map(words.map((w) => state(w.id, { box: 2, ...patch(w.id) })));
+  const queue = (states: Map<string, WordSchedule>, round: number, length = 12) => buildVocabQueue({ words, states, deck: 'round', length, today: TODAY, newLeft: 0, round });
+
+  it('offers Round 2 only once every word has been seen', () => {
+    expect(roundStatus(words, new Map(), 1).offer).toBeNull();
+    const oneLeft = seenAll();
+    oneLeft.set('wa', { ...newSchedule('wa') });
+    expect(roundStatus(words, oneLeft, 1).offer).toBeNull();
+    expect(roundStatus(words, seenAll(), 1)).toEqual({ current: 1, left: 0, offer: 2 });
+  });
+
+  it('goes weakest first: starred, then box 1 up to retired', () => {
+    const states = seenAll((id) => (id === 'wd' ? { box: 5 } : id === 'wc' ? { box: 1 } : id === 'wf' ? { box: 5, starred: true } : { box: 3 }));
+    const q = queue(states, 2);
+    expect(q[0]).toBe('wf');
+    expect(q[1]).toBe('wc');
+    expect(q[q.length - 1]).toBe('wd');
+    expect(new Set(q).size).toBe(12);
+  });
+
+  it('counts down as words are answered, then offers the next round', () => {
+    const halfway = seenAll((id) => (id < 'wg' ? { round: 2 } : {}));
+    expect(roundStatus(words, halfway, 2)).toEqual({ current: 2, left: 6, offer: null });
+    expect(queue(halfway, 2).every((id) => id >= 'wg')).toBe(true);
+    const done = seenAll(() => ({ round: 2 }));
+    expect(roundStatus(words, done, 2)).toEqual({ current: 2, left: 0, offer: 3 });
+    expect(queue(done, 2)).toEqual([]);
+  });
+
+  it('leaves the other decks as they were', () => {
+    const states = seenAll(() => ({ dueDay: '2026-12-01' }));
+    expect(buildVocabQueue({ words, states, deck: 'today', length: 12, today: TODAY, newLeft: 5 })).toEqual([]);
   });
 });

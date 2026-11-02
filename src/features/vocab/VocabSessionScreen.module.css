@@ -75,6 +75,11 @@
   color: var(--graphite-soft);
 }
 
+.mnemonic {
+  margin-top: 28px;
+  font-size: var(--text-sm);
+}
+
 .quizCard {
   display: flex;
   flex-direction: column;

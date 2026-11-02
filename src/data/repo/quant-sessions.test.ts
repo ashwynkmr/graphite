@@ -4,7 +4,7 @@ import bankJson from '../../../content/questions.json';
 import { buildQuantItems } from '../../engine/sessions/quant-builder';
 import { refId, resolveQuestion, type BankQuestion } from '../../engine/sessions/questions';
 import { GraphiteDB } from '../db';
-import { DEFAULT_QUANT, getAdaptiveLevels, setAdaptiveLevels } from './meta';
+import { DEFAULT_QUANT, getAdaptiveLevels, getVocabRound, setAdaptiveLevels, setVocabRound } from './meta';
 import { resetProgress } from '../export-import';
 import { createQuantSession, finishSession, getResumable, getSession, recordAnswer, STALE_AFTER_MS } from './quant-sessions';
 
@@ -147,9 +147,11 @@ describe('Adaptive levels', () => {
     expect((await drill(4, 4)).levelChanges).toBeUndefined();
   });
 
-  it('Reset progress clears the levels', async () => {
+  it('Reset progress clears the levels and the vocab round', async () => {
     await drill(10, 8);
+    await setVocabRound(3, d);
     await resetProgress(d);
     expect(await getAdaptiveLevels(d)).toEqual({});
+    expect(await getVocabRound(d)).toBe(1);
   });
 });

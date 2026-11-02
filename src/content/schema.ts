@@ -42,7 +42,7 @@ export const WordSchema = z
     /** A deck word that gives `example` the same meaning, for sentence equivalence. Hand-checked per sentence. */
     equivalent: z.string().min(1).optional(),
     variants: z.array(z.string().min(1)).optional(),
-    mnemonic: z.string().min(1).optional(),
+    mnemonic: z.string().min(1).max(90).optional(),
     tier: z.union([z.literal(1), z.literal(2), z.literal(3)]),
     rank: z.number().int().min(1).max(1500),
     confusables: z.array(z.string().min(1)).length(3),

@@ -4,7 +4,7 @@ import { IconSettings } from '../../app/icons';
 import { requestPersistence } from '../../app/storage';
 import { useAsync } from '../../app/useAsync';
 import type { AnySession } from '../../data/db';
-import { fixedLength, getSettings } from '../../data/repo/meta';
+import { fixedLength, getSettings, setRoundDeclined } from '../../data/repo/meta';
 import { discardSession, getResumable } from '../../data/repo/quant-sessions';
 import { loadHome } from '../../data/repo/stats';
 import { daysBetween, daysToExam, toDay, type Day } from '../../engine/dates';
@@ -16,7 +16,7 @@ import { nudgeText } from '../personal/nudgeText';
 import { useProfile } from '../personal/ProfileContext';
 import { duration } from '../quant/display';
 import { startDrill } from '../quant/startDrill';
-import { startVocab } from '../vocab/startVocab';
+import { roundToOffer, startVocab } from '../vocab/startVocab';
 import styles from './HomeScreen.module.css';
 import { Tally } from './Tally';
 
@@ -69,6 +69,7 @@ export function HomeScreen() {
   const { data: resumable, reload: reloadResumable } = useAsync(() => getResumable());
   const { data: home } = useAsync(() => loadHome(today, now.getHours()));
   const [starting, setStarting] = useState(false);
+  const { data: offeredRound, reload: reloadRound } = useAsync(roundToOffer);
 
   const days = settings ? daysToExam(today, settings.examDay) : null;
 
@@ -112,6 +113,35 @@ export function HomeScreen() {
           <IconSettings />
         </Link>
       </header>
+
+      {offeredRound && !resumable && (
+        <div className={styles.resume}>
+          <div>
+            <p className={styles.resumeTitle}>You've seen every word. Start Round {offeredRound}?</p>
+            <p className={styles.resumeMeta}>All 1,500 again, weakest first.</p>
+          </div>
+          <div className={styles.resumeActions}>
+            <Button
+              variant="quiet"
+              onClick={async () => {
+                await setRoundDeclined(offeredRound);
+                reloadRound();
+              }}
+            >
+              Not now
+            </Button>
+            <Button
+              onClick={async () => {
+                if (!settings) return;
+                const s = await startVocab({ ...settings.vocab, deck: 'round' });
+                if (s) navigate(`/vocab/session/${s.id}`);
+              }}
+            >
+              Start Round {offeredRound}
+            </Button>
+          </div>
+        </div>
+      )}
 
       {resumable && (
         <div className={styles.resume}>
