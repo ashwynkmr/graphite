@@ -11,9 +11,9 @@ Running log of what's built, what's live and known issues. Newest first.
 Read this and `CLAUDE.md` first when starting a new session.
 
 - **Where we are:** `v2.0.0` is live. Phase 3 is under way on the `phase-3` branch: the question bank and a quick tour ([0049](decisions/0049-phase-3-is-the-question-bank-and-a-tour.md)). Study started Nov 1; exam Nov 24.
-- **Next step:** Ashwyn reviews checkpoint 2. Then Quantitative Comparison and the harder Sentence Equivalence bank.
+- **Next step:** Ashwyn reviews checkpoint 3 and picks a Comparison layout. Then the harder Sentence Equivalence bank.
 - **When adding quant templates:** mark them `extra` in a live topic, and don't change an existing template's use of random numbers, or question IDs change under saved progress. Compare the rebuilt bank's old questions with the live one each time.
-- **How we work:** branch from `main`, commit once checks pass, and never push to `main` until Ashwyn approves the launch ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). One launch, a few days after Phase 3 is finished. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-113). Next decision number: 0053. Each release needs a new `RELEASE` and list in `WhatsNewScreen.tsx`. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
+- **How we work:** branch from `main`, commit once checks pass, and never push to `main` until Ashwyn approves the launch ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). One launch, a few days after Phase 3 is finished. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-114). Next decision number: 0054. Each release needs a new `RELEASE` and list in `WhatsNewScreen.tsx`. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
 - **Open items:** Round 2 on a real phone; reminders and notes on Android, including the answer buttons; a reminder run going over Cloudflare's 10 ms limit and retrying; the Android install button not yet tried; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -33,6 +33,11 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 11 | Launch pass: run-throughs, Report a problem, screenshots | Done; real-phone checklist passed; `v1.0.0` | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Phase 3, checkpoint 3
+- A Comparison topic with 239 questions across 9 templates, in exam order, bringing the bank to 3,215 ([0053](decisions/0053-comparison-questions-computed-from-test-values.md)). The 1,500 live questions kept their IDs, answers and options. Not live. Feedback FB-114.
+- A unit test retried every variable question on thousands of random values. Reading samples caught trivial fractions such as 12/12, and "x = −100" as an example. "Cannot be determined" was 13% of the topic, too rare to practise, so it was raised to about 21%. A browser test caught a question too wordy for its column.
+- `npm run test:e2e` builds first; running Playwright alone tests the last build.
 
 ### 2026-11-01: Phase 3, checkpoint 2
 - 34 more templates: 18 across the first nine topics and 16 across the new five. The bank is 2,976 questions, and the offline download about 2.3 MB against the 3 MB limit. The 1,500 live questions kept their IDs, answers and options. Not live. Feedback FB-113.

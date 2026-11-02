@@ -31,8 +31,8 @@ Scope set by Ashwyn ([0049](../decisions/0049-phase-3-is-the-question-bank-and-a
 | Checkpoint | What | Status |
 | --- | --- | --- |
 | 1. First look | 15 templates in five new subjects (600 questions), about 20 samples, the quick tour | Done; approved |
-| 2. Variety and explanations | 34 more templates (2,976 questions), 231 better explanations, Submit always in reach | Awaiting review |
-| 3. Quantitative Comparison | A new question format, with its own set | Not started |
+| 2. Variety and explanations | 34 more templates (2,976 questions), 231 better explanations, Submit always in reach | Done; approved |
+| 3. Quantitative Comparison | A new topic of 239 questions, with layout options side by side (bank at 3,215) | Awaiting review |
 | 4. Sentence Equivalence | About 300 harder, original sentences | Not started |
 | Launch | Date set by Ashwyn once the phase is finished | Not started |
 

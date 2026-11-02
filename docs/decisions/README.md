@@ -69,3 +69,4 @@ Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Pro
 | [0050](0050-quick-tour-spotlights-each-tab.md) | The first-time tour spotlights each tab on the real screen | 2026-11-01 | Accepted | Phase 3 | Design |
 | [0051](0051-five-new-quant-subjects.md) | Five new quant subjects join the nine topics | 2026-11-01 | Accepted | Phase 3 | Content |
 | [0052](0052-drill-screen-fits-one-screen.md) | The drill screen fits one screen, so Submit is always in reach | 2026-11-01 | Accepted | Phase 3 | Design |
+| [0053](0053-comparison-questions-computed-from-test-values.md) | Comparison answers are computed by trying values, and stored as codes | 2026-11-01 | Accepted | Phase 3 | Content |
