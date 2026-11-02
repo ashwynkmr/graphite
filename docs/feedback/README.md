@@ -27,6 +27,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | 2026-11-01 | P2-3: Progress | Staging and in chat | [2026-11-01-P2-3](2026-11-01-P2-3.md) |
 | 2026-11-01 | P2-4: Nudges | Staging | [2026-11-01-P2-4](2026-11-01-P2-4.md) |
 | 2026-11-01 | P2-5: Launch | Staging | [2026-11-01-P2-5](2026-11-01-P2-5.md) |
+| 2026-11-01 | Phase 3 plan | Scope and tour sketches, in chat | [2026-11-01-P3-plan](2026-11-01-P3-plan.md) |
 
 ## Tracker
 
@@ -141,3 +142,6 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-107 | Process | Checkpoint 3: "Rest is all good" | Moved on to checkpoint 4 | Done | |
 | FB-108 | Process | Checkpoint 4: "Everything works great" | Moved on to the launch checkpoint | Done | |
 | FB-109 | Process | "Launch it and record everything on my repo" | `v2.0.0` launched; README, decisions, feedback and retros brought up to date | Done | [Retro](../retros/phase-2-retro.md) |
+| FB-110 | Quant, vocab | Phase 3 should only expand and improve the question bank | Scope cut to the bank; first new subjects built | Built | [0049](../decisions/0049-phase-3-is-the-question-bank-and-a-tour.md), [0051](../decisions/0051-five-new-quant-subjects.md) |
+| FB-111 | Onboarding | A minimal guided tutorial for a first-time user | Spotlight tour built | Built | [0050](../decisions/0050-quick-tour-spotlights-each-tab.md) |
+| FB-112 | Process | Launch a few days after the phase is done; the second user stays on the Phase 2 build | One launch planned; date to be set | Planned | [0049](../decisions/0049-phase-3-is-the-question-bank-and-a-tour.md) |

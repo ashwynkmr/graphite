@@ -1,6 +1,6 @@
 # Graphite — Product Requirements (PRD)
 
-Nov 1, 2026 · @Ashwyn · Draft v0.17 (v0.17: nudges sit under the Results buttons, [0047](../decisions/0047-nudges-on-results.md); v0.16: how the Progress dashboard reads, [0046](../decisions/0046-progress-dashboard.md); v0.15: sprint time on a dial, [0045](../decisions/0045-sprint-time-dial-and-search-layout.md); v0.14: how Round 2, Browse and memory aids work, [0044](../decisions/0044-round-2-browse-and-memory-aids.md); v0.13: how Sprint, Adaptive and per-topic defaults work, [0043](../decisions/0043-sprint-adaptive-and-topic-memory.md); v0.12: stacked fractions, [0040](../decisions/0040-stacked-fractions.md); v0.11: reminder service on Cloudflare, [0038](../decisions/0038-reminder-service-on-cloudflare.md); v0.10: opt-in usage-based push reminders, [0037](../decisions/0037-push-reminders-with-on-device-text.md); v0.9: reminders stay inside the app, since superseded; v0.8: Home layout and suggestion rules as built, [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md), [0033](../decisions/0033-suggestion-rules-reach-back-and-thresholds.md), mistake drills and reset scope, [0034](../decisions/0034-mistake-drills-and-reset-scope.md); v0.7: Type-in removed, Sentence Equivalence added, [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md); v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
+Nov 1, 2026 · @Ashwyn · Draft v0.18 (v0.18: Phase 3 is the question bank and a quick tour, [0049](../decisions/0049-phase-3-is-the-question-bank-and-a-tour.md), [0050](../decisions/0050-quick-tour-spotlights-each-tab.md), [0051](../decisions/0051-five-new-quant-subjects.md); v0.17: nudges sit under the Results buttons, [0047](../decisions/0047-nudges-on-results.md); v0.16: how the Progress dashboard reads, [0046](../decisions/0046-progress-dashboard.md); v0.15: sprint time on a dial, [0045](../decisions/0045-sprint-time-dial-and-search-layout.md); v0.14: how Round 2, Browse and memory aids work, [0044](../decisions/0044-round-2-browse-and-memory-aids.md); v0.13: how Sprint, Adaptive and per-topic defaults work, [0043](../decisions/0043-sprint-adaptive-and-topic-memory.md); v0.12: stacked fractions, [0040](../decisions/0040-stacked-fractions.md); v0.11: reminder service on Cloudflare, [0038](../decisions/0038-reminder-service-on-cloudflare.md); v0.10: opt-in usage-based push reminders, [0037](../decisions/0037-push-reminders-with-on-device-text.md); v0.9: reminders stay inside the app, since superseded; v0.8: Home layout and suggestion rules as built, [0032](../decisions/0032-home-desk-layout-tally-and-nudge-card.md), [0033](../decisions/0033-suggestion-rules-reach-back-and-thresholds.md), mistake drills and reset scope, [0034](../decisions/0034-mistake-drills-and-reset-scope.md); v0.7: Type-in removed, Sentence Equivalence added, [0028](../decisions/0028-remove-type-in-practice.md), [0029](../decisions/0029-sentence-equivalence-hand-checked-pairs.md); v0.6: drill length 5–40 on a dial, reset account, a fuller Home, study nudges and reminders, a personal note for the second user; v0.5: difficulty raised one level, name and encouragement added; see decisions 0017–0019)
 
 > Living document. Scope changes are recorded in the [decision log](../decisions/README.md) and [ROADMAP](ROADMAP.md); this file is updated to match and the version above bumped.
 
@@ -19,7 +19,7 @@ Graphite is a free, installable web app for two jobs: fast mental-math drills an
 
 **Non-goals**
 
-- Full GRE quant prep (geometry proofs, multi-step algebra, data interpretation sets).
+- Full GRE quant prep (geometry proofs, long multi-step algebra, data interpretation sets). Phase 3 adds subjects sized for working in the head ([0051](../decisions/0051-five-new-quant-subjects.md)).
 - Verbal sections (text completion, reading comprehension).
 - Accounts, login or sync across devices.
 - App store release.
@@ -67,7 +67,7 @@ Each story is written from the learner's side and tagged with its release phase.
 
 ## Scope and release phases
 
-Phase 1 ships everything needed to study from day one, including the mistake log. Phase 2 adds depth during the first week of use, and Phase 3 is optional after that.
+Phase 1 ships everything needed to study from day one, including the mistake log. Phase 2 adds depth during the first week of use, and Phase 3 is the question bank and a quick tour ([0049](../decisions/0049-phase-3-is-the-question-bank-and-a-tour.md)). The table's Phase 3 column is the original list; [ROADMAP](ROADMAP.md) has what's being built.
 
 | Area | Phase 1: launch (target Nov 1–2) | Phase 2: first week (by Nov 7) | Phase 3: later (optional) |
 | --- | --- | --- | --- |

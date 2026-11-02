@@ -24,14 +24,25 @@ Built in three milestones so studying can start before all of Phase 1 is done ([
 
 Left out until real results show a need: more templates for weak topics.
 
-## Phase 3: later (optional)
+## Phase 3: the question bank and a quick tour
 
-Quantitative comparison and data-interpretation questions, audio pronunciation, score predictor, compare with a friend (needs a free backend), Android APK.
+Scope set by Ashwyn ([0049](../decisions/0049-phase-3-is-the-question-bank-and-a-tour.md)). Built on the `phase-3` branch, with one launch a few days after it's finished. Until then the second user stays on live `v2.0.0`.
+
+| Checkpoint | What | Status |
+| --- | --- | --- |
+| 1. First look | 15 templates in five new subjects (600 questions), about 20 samples, the quick tour | Awaiting review |
+| 2. New subjects | The rest of the new templates, more wording variety, better explanations | Not started |
+| 3. Quantitative Comparison | A new question format, with its own set | Not started |
+| 4. Sentence Equivalence | About 300 harder, original sentences | Not started |
+| Launch | Date set by Ashwyn once the phase is finished | Not started |
+
+Dropped: audio pronunciation, score predictor, compare with a friend, Android APK. Not chosen: data-interpretation questions.
 
 ## What moved
 
 | Date | Change | Why | Record |
 | --- | --- | --- | --- |
+| 2026-11-01 | Phase 3 cut to the question bank and a quick tour; one launch after it's finished | Owner request | [0049](../decisions/0049-phase-3-is-the-question-bank-and-a-tour.md) |
 | 2026-11-01 | Phase 2 pieces during the first week → one launch at the end | Owner request | [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) |
 | 2026-11-01 | Personal notes for the second user moved from Phase 2 into Phase 1 | Owner request | [0041](../decisions/0041-personal-notes-sealed-in-the-app.md) |
 | 2026-11-01 | Reminder service moved from Northflank to Cloudflare | Northflank security incident | [0038](../decisions/0038-reminder-service-on-cloudflare.md) |

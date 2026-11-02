@@ -65,3 +65,6 @@ Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Pro
 | [0046](0046-progress-dashboard.md) | How the Progress dashboard reads | 2026-11-01 | Accepted | Phase 2 | Design |
 | [0047](0047-nudges-on-results.md) | Study nudges sit under the Results buttons | 2026-11-01 | Accepted | Phase 2 | Product |
 | [0048](0048-whats-new-screen.md) | New features are announced on a one-time screen after the update | 2026-11-01 | Accepted | Phase 2 | Product |
+| [0049](0049-phase-3-is-the-question-bank-and-a-tour.md) | Phase 3 is the question bank and a quick tour, launched once | 2026-11-01 | Accepted | Phase 3 | Scope |
+| [0050](0050-quick-tour-spotlights-each-tab.md) | The first-time tour spotlights each tab on the real screen | 2026-11-01 | Accepted | Phase 3 | Design |
+| [0051](0051-five-new-quant-subjects.md) | Five new quant subjects join the nine topics | 2026-11-01 | Accepted | Phase 3 | Content |

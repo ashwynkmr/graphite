@@ -10,10 +10,10 @@ Running log of what's built, what's live and known issues. Newest first.
 
 Read this and `CLAUDE.md` first when starting a new session.
 
-- **Where we are:** Phase 2 is complete and shipped as `v2.0.0` (Nov 1). Study started Nov 1; exam Nov 24.
-- **Next step:** none planned. Anything further waits for Ashwyn: real results may show which topics need more templates.
-- **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
-- **How we work:** for new work, branch from `main`, commit once checks pass, and never push to `main` until Ashwyn approves the launch ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-109). Next decision number: 0049. Each release needs a new `RELEASE` and list in `WhatsNewScreen.tsx`. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
+- **Where we are:** `v2.0.0` is live. Phase 3 is under way on the `phase-3` branch: the question bank and a quick tour ([0049](decisions/0049-phase-3-is-the-question-bank-and-a-tour.md)). Study started Nov 1; exam Nov 24.
+- **Next step:** Ashwyn reviews checkpoint 1. Then the rest of the new templates, better explanations, Quantitative Comparison and the harder Sentence Equivalence bank.
+- **When adding quant templates:** don't change an existing template's use of random numbers, or lower the share of existing templates in a topic, or question IDs change under saved progress. Compare the rebuilt bank's old questions with the live one each time.
+- **How we work:** branch from `main`, commit once checks pass, and never push to `main` until Ashwyn approves the launch ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). One launch, a few days after Phase 3 is finished. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-112). Next decision number: 0052. Each release needs a new `RELEASE` and list in `WhatsNewScreen.tsx`. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
 - **Open items:** Round 2 on a real phone; reminders and notes on Android, including the answer buttons; a reminder run going over Cloudflare's 10 ms limit and retrying; the Android install button not yet tried; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -33,6 +33,12 @@ Read this and `CLAUDE.md` first when starting a new session.
 | 11 | Launch pass: run-throughs, Report a problem, screenshots | Done; real-phone checklist passed; `v1.0.0` | 2026-11-01 |
 
 ## Notes
+
+### 2026-11-01: Phase 3, checkpoint 1
+- Five new topics with 15 templates and 600 questions: Number properties, Statistics, Probability, Algebra and Geometry ([0051](decisions/0051-five-new-quant-subjects.md)). The rebuild left all 1,500 existing questions unchanged. Not live.
+- A five-stop quick tour for first-time users, replayable from Settings ([0050](decisions/0050-quick-tour-spotlights-each-tab.md)). Feedback FB-110 to FB-112.
+- Unit tests rework the new answers by brute force. Reading samples still caught what tests couldn't: a broken sentence, "+ -6" in an explanation, Easy triangles with big numbers and a hard question where one light added nothing.
+- Checked in Chromium at 375 × 664, in light and dark. Not yet on a real phone. A long question with the keypad needs a scroll to reach Submit at that height.
 
 ### 2026-11-01: Phase 2 complete, `v2.0.0`
 - What's New screen built ([0048](decisions/0048-whats-new-screen.md)). An install of the live build, with saved progress and a paused drill, updated to this one in Chromium: the screen showed once, the data and paused drill held, and the new features opened. Feedback FB-108.

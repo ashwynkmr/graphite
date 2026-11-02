@@ -4,7 +4,7 @@ Nov 1, 2026 · @Ashwyn · v1.1
 
 > Living document. Technical changes are recorded in the [decision log](../decisions/README.md); this file is updated to match. The build order actually followed is in [ROADMAP](ROADMAP.md) (see decision [0014](../decisions/0014-quant-drill-before-handwritten-problems.md)).
 
-Companion to the Graphite PRD. Written for Phase 1, with notes where Phase 2 needed room. How Phase 2 was built is in decisions [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) to [0048](../decisions/0048-whats-new-screen.md).
+Companion to the Graphite PRD. Written for Phase 1, with notes where Phase 2 needed room. How Phase 2 was built is in decisions [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) to [0048](../decisions/0048-whats-new-screen.md), and Phase 3 in [0049](../decisions/0049-phase-3-is-the-question-bank-and-a-tour.md) onward.
 
 ## Summary
 

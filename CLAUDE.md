@@ -6,8 +6,8 @@ Graphite is a free, offline-first GRE prep PWA (mental-math drills + GRE vocab) 
 
 - Read `docs/product/PRD.md` (what) and `docs/product/TRD.md` (how) before starting a step.
 - If the PRD and TRD conflict, follow the TRD and flag it. The owner's instructions override both.
-- Build one step at a time and stop at each checkpoint. Phase 2 is done pending launch; Phase 3 only when the owner says so.
-- **Review gate ([0042](docs/decisions/0042-phase-2-on-a-branch-commit-as-we-go.md), replacing [0016](docs/decisions/0016-review-gate-staging-before-commit.md)):** Phase 2 work goes on the `phase-2` branch, committed and pushed there once its checks pass. At each checkpoint, serve the production build on an HTTPS staging tunnel (`npm run staging`), summarise, and wait for the owner's review. Never merge or push to `main` for Phase 2 until the owner approves the launch; every push to `main` deploys live.
+- Build one step at a time and stop at each checkpoint. Phase 2 is live as `v2.0.0`; Phase 3 is under way (scope in [0049](docs/decisions/0049-phase-3-is-the-question-bank-and-a-tour.md)).
+- **Review gate ([0042](docs/decisions/0042-phase-2-on-a-branch-commit-as-we-go.md), replacing [0016](docs/decisions/0016-review-gate-staging-before-commit.md)):** New work goes on its own branch (now `phase-3`), committed and pushed there once its checks pass. At each checkpoint, serve the production build on an HTTPS staging tunnel (`npm run staging`), summarise, and wait for the owner's review. Never merge or push to `main` until the owner approves the launch; every push to `main` deploys live.
 - Current status lives in `docs/PROGRESS.md`. Plan and phase status live in `docs/product/ROADMAP.md`.
 
 ## Non-negotiables
@@ -39,7 +39,7 @@ Minimal, elegant, study-desk: warm paper background, graphite text, one ink-blue
 - Every meaningful product or technical choice gets a decision record in `docs/decisions/NNNN-short-title.md` (template in `docs/decisions/README.md`), 150–300 words, and a row in the index.
 - When a decision changes, never edit history: mark the old record **Superseded by NNNN** and write a new one explaining what was learned.
 - At each checkpoint, ask the owner 3–5 short questions and record the answers in `docs/feedback/YYYY-MM-DD-<checkpoint>.md` (what was tested, feedback in their words, what changed and what deliberately didn't). Give every item an ID (FB-NN) and track it in the table in `docs/feedback/README.md` until it's Done or No change.
-- At the end of each milestone: update `docs/CHANGELOG.md`, `docs/product/ROADMAP.md`, `docs/PROGRESS.md`, write a retro in `docs/retros/`, tag a release (`v0.1.0` A, `v0.2.0` B, `v1.0.0` Phase 1, `v2.0.0` Phase 2) and publish a GitHub Release.
+- At the end of each milestone: update `docs/CHANGELOG.md`, `docs/product/ROADMAP.md`, `docs/PROGRESS.md`, write a retro in `docs/retros/`, tag a release (`v0.1.0` A, `v0.2.0` B, `v1.0.0` Phase 1, `v2.0.0` Phase 2, next `v3.0.0` Phase 3) and publish a GitHub Release.
 - Keep `README.md` current after every milestone.
 - **Never invent feedback, quotes, users, metrics or results.** Unknown means "not yet known" or a target.
 - Specific over generic. No buzzwords. Decision records under 300 words, retros under 500.
