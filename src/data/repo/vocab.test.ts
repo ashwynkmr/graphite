@@ -85,8 +85,8 @@ describe('vocab sessions on disk', () => {
 describe('rounds on disk', () => {
   it('marks a word as done in the round its session belongs to, and only then', async () => {
     const ids = ['audacious', 'malleable'];
-    let inRound = await createVocabSession({ settings: { ...DEFAULT_VOCAB, modes: ['flashcard'], deck: 'round', round: 2 }, items: planVocabItems(ids, ['flashcard'], byId, 3), seed: 3, now: NOW }, d);
-    inRound = await recordVocabAnswer(inRound, byId.get('audacious')!, 'know', NOW + 1000, d);
+    const inRound = await createVocabSession({ settings: { ...DEFAULT_VOCAB, modes: ['flashcard'], deck: 'round', round: 2 }, items: planVocabItems(ids, ['flashcard'], byId, 3), seed: 3, now: NOW }, d);
+    await recordVocabAnswer(inRound, byId.get('audacious')!, 'know', NOW + 1000, d);
     const plain = await session('flashcard', ['malleable']);
     await recordVocabAnswer(plain, byId.get('malleable')!, 'know', NOW + 2000, d);
     const states = await loadWordStates(d);
