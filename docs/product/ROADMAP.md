@@ -16,7 +16,7 @@ Built in three milestones so studying can start before all of Phase 1 is done ([
 
 In progress on the `phase-2` branch since Nov 1, and launched all at once when done ([0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)).
 
-- Checkpoint 1, built and in review: Sprint mode, Adaptive difficulty, per-topic defaults ([0043](../decisions/0043-sprint-adaptive-and-topic-memory.md))
+- Checkpoint 1, built and reviewed: Sprint mode, Adaptive difficulty, per-topic defaults ([0043](../decisions/0043-sprint-adaptive-and-topic-memory.md))
 
 Still to build or finish:
 

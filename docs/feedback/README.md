@@ -123,3 +123,7 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-93 | Process | "Finish, commit and push phase 1" | Retro, docs and `v1.0.0` | Done | [Retro](../retros/milestone-c-retro.md) |
 | FB-94 | Process | Build Phase 2; keep committing; nothing live until it ends; tell users what's new at launch | `phase-2` branch; What's New screen planned | Planned | [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) |
 | FB-95 | Process | "Your pick for both questions. Use best practices." | Branch and What's New screen | Done | [0042](../decisions/0042-phase-2-on-a-branch-commit-as-we-go.md) |
+| FB-96 | Quant | At time-up, count a picked option; don't count an unpicked one | Done, in sprints and timed sets | Done | [0043](../decisions/0043-sprint-adaptive-and-topic-memory.md) |
+| FB-97 | Progress | No need to see each topic's level before starting | Level goes on Progress in checkpoint 3 | Planned | |
+| FB-98 | Design | "Fractions look nice now" | Seen on a real phone | Done | [0040](../decisions/0040-stacked-fractions.md) |
+| FB-99 | Process | Checkpoint 1: "All good" | Moved on to checkpoint 2 | Done | |

@@ -11,10 +11,10 @@ Running log of what's built, what's live and known issues. Newest first.
 Read this and `CLAUDE.md` first when starting a new session.
 
 - **Where we are:** Phase 1 is live as `v1.0.0` (Nov 1). Phase 2 is being built on the `phase-2` branch and goes live all at once ([0042](decisions/0042-phase-2-on-a-branch-commit-as-we-go.md)). Study started Nov 1; exam Nov 24.
-- **Next step:** Ashwyn's review of Phase 2 checkpoint 1 (Sprint, Adaptive, per-topic defaults). Then 2 Vocab: Browse and search, Round 2, mnemonics; 3 Progress: trends, weakest topics, words per box, mistake-log filters, history share; 4 Study nudges; 5 Launch: What's New screen, checks, docs, release.
+- **Next step:** Phase 2 checkpoint 2 Vocab: Browse and search, Round 2, mnemonics. Then 3 Progress: trends, weakest topics, words per box, mistake-log filters, history share; 4 Study nudges; 5 Launch: What's New screen, checks, docs, release.
 - **Later, if wanted:** a harder Sentence Equivalence bank with exam-style sentences and decoy pairs ([0029](decisions/0029-sentence-equivalence-hand-checked-pairs.md)).
 - **Also planned (PRD v0.6, Nov 1):** study nudges in Phase 2. Usage-based push reminders are built ([0037](decisions/0037-push-reminders-with-on-device-text.md)), and notes for the second user moved up and shipped ([0041](decisions/0041-personal-notes-sealed-in-the-app.md)).
-- **How we work:** commit to `phase-2` once checks pass, and never push Phase 2 to `main` until Ashwyn approves the launch. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-95). Next decision number: 0044. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
+- **How we work:** commit to `phase-2` once checks pass, and never push Phase 2 to `main` until Ashwyn approves the launch. At each checkpoint run `npm run staging` (new tunnel URL each time; the app is under `/graphite/`), summarise and ask 3–5 questions. Log feedback as FB-NN (last used: FB-99). Next decision number: 0044. Test builds of the notes use `VITE_NOTE_EVERY_MINUTES` and must never be the live build.
 - **Open items:** reminders and notes on Android, including the answer buttons; a reminder run going over Cloudflare's 10 ms limit and retrying; the Android install button not yet tried; test screens at about 664 px tall as well as 812; if a phone keeps the old icon after re-adding, rename the icon files to bust caches (needs approval).
 
 ## Steps
@@ -36,7 +36,7 @@ Read this and `CLAUDE.md` first when starting a new session.
 ## Notes
 
 ### 2026-11-01: Phase 2, checkpoint 1
-- Sprint, Adaptive and per-topic defaults built ([0043](decisions/0043-sprint-adaptive-and-topic-memory.md)). Not live. Feedback FB-94 and FB-95.
+- Sprint, Adaptive and per-topic setups built and reviewed on Ashwyn's phone ([0043](decisions/0043-sprint-adaptive-and-topic-memory.md)). Not live. Feedback FB-94 to FB-99.
 - A sprint's questions that were never reached are dropped, so they can't flood the mistake log. Retries, mistake drills and Quick drill are never sprints, even if the last setup was.
 
 ### 2026-11-01: Phase 1 complete, `v1.0.0`

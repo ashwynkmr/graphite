@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { answerQuant, answerSprint, currentSession, expectNoVerdict, signIn, table, type SessionRow } from './helpers';
+import { answerQuant, answerSprint, currentSession, pickSprint, expectNoVerdict, signIn, table, type SessionRow } from './helpers';
 
 test('a Quick drill scores exactly what was answered, then retries only the misses', async ({ page }) => {
   await signIn(page);
@@ -190,3 +190,36 @@ test('Adaptive is chosen in place of levels, and each topic remembers its own se
   await expect(adaptive).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByRole('radio', { name: 'Mix' })).toHaveAttribute('aria-checked', 'true');
 });
+
+test('at time-up a picked option counts as answered, and an unpicked question does not', async ({ page }) => {
+  await page.clock.install();
+  await signIn(page);
+  await page.getByRole('link', { name: 'Quant' }).click();
+  await page.getByRole('radio', { name: 'Sprint' }).click();
+  await page.getByRole('radio', { name: '2 min' }).click();
+  await page.getByRole('radio', { name: 'Choices' }).click();
+  await page.getByRole('button', { name: 'Start 2-minute sprint' }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  const session = await currentSession(page);
+
+  await answerSprint(page, 0, true);
+  await expect(page.locator('body')).toContainText('1 answered');
+  // Picked, never submitted.
+  await pickSprint(page, 1, true);
+  await page.clock.runFor(121_000);
+  await expect(page).toHaveURL(/results/);
+  let done = (await table<SessionRow>(page, 'sessions')).find((s) => s.id === session.id)!;
+  expect(done.score).toEqual({ correct: 2, total: 2 });
+
+  // Nothing picked: the question on screen doesn't count.
+  await page.getByRole('button', { name: 'New sprint' }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  const next = await currentSession(page);
+  await answerSprint(page, 0, true);
+  await expect(page.locator('body')).toContainText('1 answered');
+  await page.clock.runFor(121_000);
+  await expect(page).toHaveURL(/results/);
+  done = (await table<SessionRow>(page, 'sessions')).find((s) => s.id === next.id)!;
+  expect(done.score).toEqual({ correct: 1, total: 1 });
+});
+

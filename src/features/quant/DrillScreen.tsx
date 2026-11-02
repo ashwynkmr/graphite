@@ -25,6 +25,8 @@ export function DrillScreen() {
   const busy = useRef(false);
   const sessionRef = useRef<SessionRow | null>(null);
   sessionRef.current = session;
+  const choiceRef = useRef<string | null>(null);
+  choiceRef.current = choice;
 
   // Load, and resume the clock.
   useEffect(() => {
@@ -71,6 +73,15 @@ export function DrillScreen() {
     [questions, navigate],
   );
 
+  // At time-up a picked option counts as answered, as on the exam. Half-typed numbers don't (0043).
+  const finishOnTime = useCallback(
+    async (s: SessionRow) => {
+      const picked = choiceRef.current;
+      await finish(picked ? await recordAnswer(s, questions[s.cursor]!, picked) : s, 'timeout');
+    },
+    [questions, finish],
+  );
+
   // Redraw the clock; end a timed set at zero.
   useEffect(() => {
     let raf = 0;
@@ -80,14 +91,14 @@ export function DrillScreen() {
       const s = sessionRef.current;
       if (s && s.limitMs !== null && !busy.current && remaining(s.timer, s.limitMs, t) <= 0) {
         busy.current = true;
-        void finish(s, 'timeout');
+        void finishOnTime(s);
         return;
       }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [finish]);
+  }, [finishOnTime]);
 
   const submit = async (value: string | null) => {
     const s = sessionRef.current;
