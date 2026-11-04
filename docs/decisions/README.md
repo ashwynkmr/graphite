@@ -72,3 +72,4 @@ Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Pro
 | [0053](0053-comparison-questions-computed-from-test-values.md) | Comparison answers are computed by trying values, and stored as codes | 2026-11-01 | Accepted | Phase 3 | Content |
 | [0054](0054-comparison-questions-use-two-columns.md) | Comparison questions use two columns | 2026-11-01 | Accepted | Phase 3 | Design |
 | [0055](0055-exam-style-sentence-equivalence-bank.md) | An exam-style Sentence Equivalence bank, read by hand | 2026-11-01 | Accepted | Phase 3 | Content |
+| [0056](0056-share-card-rows-are-rulers-weakest-first.md) | Share card rows are rulers, weakest topic first | 2026-11-03 | Accepted | Post-launch | Design |

@@ -4,6 +4,13 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+### Changed
+- Share cards show each row as a ruler, with the count and percentage in numbers, in place of the row of slashes.
+- Quant share cards list topics from weakest to strongest.
+
+### Fixed
+- Quant share cards left out topics after the first 4, so the rows didn't add up to the score. Every topic now gets a row, up to 7, then "Other topics".
+
 ## [3.0.0] - 2026-11-01 · Phase 3
 
 ### Added
