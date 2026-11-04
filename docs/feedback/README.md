@@ -156,7 +156,9 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-118 | Vocab | Sample Sentence Equivalence sentences: "level and fairness are okay, you can go ahead" | 294 sentences written and launched; not yet confirmed on a phone | Done | [0055](../decisions/0055-exam-style-sentence-equivalence-bank.md) |
 | FB-119 | Process | "Okay I wanna publish this and update all docs" | `v3.0.0` launch and docs | Done | [2026-11-01-P3-launch](2026-11-01-P3-launch.md) |
 | FB-120 | Onboarding | "I wanna send another 'whats new' along with the update" | What's New rewritten for `v3.0.0` | Done | [0048](../decisions/0048-whats-new-screen.md) |
-| FB-121 | Share | Share card "getting populated wrong": rows added up to 4 of 5 | Every topic gets a row; rows add up to the score | Built (awaiting review) | [0056](../decisions/0056-share-card-rows-are-rulers-weakest-first.md) |
-| FB-122 | Share | Slash design isn't clear: "replace it with something intuitive" | Slashes replaced; count and percentage on every row | Built (awaiting review) | [0056](../decisions/0056-share-card-rows-are-rulers-weakest-first.md) |
-| FB-123 | Share | Rows should run "weakest to strongest" | Quant rows sorted weakest first | Built (awaiting review) | [0056](../decisions/0056-share-card-rows-are-rulers-weakest-first.md) |
-| FB-124 | Share | More fun, classroom options; then "Ruler please" | Ruler rows on quant, vocab and history cards | Built (awaiting review) | [0056](../decisions/0056-share-card-rows-are-rulers-weakest-first.md) |
+| FB-121 | Share | Share card "getting populated wrong": rows added up to 4 of 5 | Every topic gets a row; rows add up to the score | Done | [0056](../decisions/0056-share-card-rows-are-rulers-weakest-first.md) |
+| FB-122 | Share | Slash design isn't clear: "replace it with something intuitive" | Slashes replaced; count and percentage on every row | Done | [0056](../decisions/0056-share-card-rows-are-rulers-weakest-first.md) |
+| FB-123 | Share | Rows should run "weakest to strongest" | Quant rows sorted weakest first | Done | [0056](../decisions/0056-share-card-rows-are-rulers-weakest-first.md) |
+| FB-124 | Share | More fun, classroom options; then "Ruler please" | Ruler rows on quant, vocab and history cards | Done | [0056](../decisions/0056-share-card-rows-are-rulers-weakest-first.md) |
+| FB-125 | Results | Results screen "By topic" should match the card: "Yea" | Rulers on the results screen, topics weakest first | Done | [0056](../decisions/0056-share-card-rows-are-rulers-weakest-first.md) |
+| FB-126 | Process | "Let's push it live when done" | Pushed to `main`; no new What's New | Done | [2026-11-03-share-card](2026-11-03-share-card.md) |

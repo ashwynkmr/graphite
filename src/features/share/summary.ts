@@ -1,7 +1,7 @@
 // What a share says, as plain data: the image card and the text summary are both drawn from this.
 // The user's name and individual answers stay off it.
 import type { Topic } from '../../engine/generators/types';
-import type { QuantResults } from '../../engine/stats/quant-results';
+import { weakestFirst, type QuantResults, type Tally } from '../../engine/stats/quant-results';
 import type { StudyHistory } from '../../engine/stats/trends';
 import type { VocabResults } from '../../engine/stats/vocab-results';
 import { duration, TOPIC_LABEL } from '../quant/display';
@@ -34,13 +34,11 @@ const percent = (correct: number, total: number) => (total ? Math.round((correct
  * rows always add up to the score, and the folded row is last because it holds the strongest topics.
  */
 function topicRows(byTopic: QuantResults['byTopic']): ShareRow[] {
-  const topics = (Object.entries(byTopic) as [Topic, { correct: number; total: number }][])
-    .sort(([a, x], [b, y]) => x.correct / x.total - y.correct / y.total || y.total - x.total || TOPIC_LABEL[a].localeCompare(TOPIC_LABEL[b]));
-  const row = (label: string, x: { correct: number; total: number }): ShareRow => ({ label, count: `${x.correct}/${x.total}`, share: x.correct / x.total });
-  if (topics.length <= MAX_TOPIC_ROWS) return topics.map(([t, x]) => row(TOPIC_LABEL[t], x));
-  const kept = topics.slice(0, MAX_TOPIC_ROWS - 1);
+  const topics = weakestFirst((Object.entries(byTopic) as [Topic, Tally][]).map(([t, x]) => [TOPIC_LABEL[t], x]));
+  const row = ([label, x]: [string, Tally]): ShareRow => ({ label, count: `${x.correct}/${x.total}`, share: x.correct / x.total });
+  if (topics.length <= MAX_TOPIC_ROWS) return topics.map(row);
   const rest = topics.slice(MAX_TOPIC_ROWS - 1).reduce((sum, [, x]) => ({ correct: sum.correct + x.correct, total: sum.total + x.total }), { correct: 0, total: 0 });
-  return [...kept.map(([t, x]) => row(TOPIC_LABEL[t], x)), row('Other topics', rest)];
+  return [...topics.slice(0, MAX_TOPIC_ROWS - 1).map(row), row(['Other topics', rest])];
 }
 
 export function quantShare(kind: string, r: QuantResults): ShareCard {

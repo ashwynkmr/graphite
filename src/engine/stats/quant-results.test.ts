@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { PlayableQuestion } from '../sessions/questions';
-import { flagsFor, scoreQuant, statusOf } from './quant-results';
+import { flagsFor, scoreQuant, statusOf, weakestFirst } from './quant-results';
 
 const q = (over: Partial<PlayableQuestion> = {}): PlayableQuestion => ({
   id: 'x',
@@ -57,5 +57,18 @@ describe('scoreQuant', () => {
     expect(r.byMode).toEqual({ typed: { correct: 1, total: 2 }, mcq: { correct: 0, total: 2 } });
     expect(r.items.map((i) => i.status)).toEqual(['correct', 'wrong', 'skipped', 'not-reached']);
     expect(r.items[1]!.flags).toEqual(['careless']);
+  });
+});
+
+describe('weakestFirst', () => {
+  it('puts the lowest score first, then more questions, then the label', () => {
+    const rows: [string, { correct: number; total: number }][] = [
+      ['Rates', { correct: 3, total: 3 }],
+      ['Money', { correct: 0, total: 1 }],
+      ['Algebra', { correct: 0, total: 3 }],
+      ['Ratios', { correct: 1, total: 2 }],
+      ['Averages', { correct: 1, total: 2 }],
+    ];
+    expect(weakestFirst(rows).map(([label]) => label)).toEqual(['Algebra', 'Money', 'Averages', 'Ratios', 'Rates']);
   });
 });

@@ -26,6 +26,20 @@ test('a Quick drill scores exactly what was answered, then retries only the miss
   expect(retry.items.map((i) => JSON.stringify(i.ref)).sort()).toEqual(session.items.slice(12).map((i) => JSON.stringify(i.ref)).sort());
 });
 
+test('the results list topics weakest first, with a ruler that fits a phone', async ({ page }) => {
+  await signIn(page);
+  await page.getByRole('button', { name: 'Quick drill' }).click();
+  await expect(page).toHaveURL(/quant\/session/);
+  for (let i = 0; i < 20; i++) await answerQuant(page, i % 2 === 0);
+  await expect(page).toHaveURL(/results/);
+
+  const section = page.locator('section').filter({ has: page.getByRole('heading', { name: 'By topic' }) });
+  const percents = (await section.locator('li > span:last-child').allInnerTexts()).map((t) => parseInt(t, 10));
+  expect(percents.length).toBeGreaterThan(1);
+  expect(percents).toEqual([...percents].sort((a, b) => a - b));
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
 test('a mistake leaves the log after two correct answers in a row, and a miss resets it', async ({ page }) => {
   await signIn(page);
   await page.getByRole('button', { name: 'Quick drill' }).click();

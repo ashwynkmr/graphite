@@ -5,7 +5,7 @@ import type { SessionRow } from '../../data/db';
 import { getSession } from '../../data/repo/quant-sessions';
 import type { Difficulty, Topic } from '../../engine/generators/types';
 import { resolveQuestion } from '../../engine/sessions/questions';
-import { scoreQuant, type QuantResults, type ScoredItem, type Tally } from '../../engine/stats/quant-results';
+import { scoreQuant, weakestFirst, type QuantResults, type ScoredItem, type Tally } from '../../engine/stats/quant-results';
 import { Button } from '../../ui/controls';
 import { MathText } from '../../ui/MathText';
 import { ReportProblem } from '../../ui/ReportProblem';
@@ -54,10 +54,11 @@ function Breakdown({ title, rows }: { title: string; rows: [string, Tally][] }) 
         {rows.map(([label, t]) => (
           <li key={label} className={styles.row}>
             <span>{label}</span>
-            <span className={styles.rowBar} aria-hidden="true">
-              <span style={{ width: `${(t.correct / t.total) * 100}%` }} />
+            <span className={styles.ruler} aria-hidden="true">
+              {t.correct > 0 && <span style={{ width: `${(t.correct / t.total) * 100}%` }} />}
             </span>
-            <span className="tabular">{pctText(t)}</span>
+            <span className={`tabular ${styles.rowCount}`}>{pctText(t)}</span>
+            <span className="tabular">{Math.round((t.correct / t.total) * 100)}%</span>
           </li>
         ))}
       </ul>
@@ -166,7 +167,7 @@ export function ResultsScreen() {
 
       <ResultsNudge />
 
-      <Breakdown title="By topic" rows={(Object.entries(results.byTopic) as [Topic, Tally][]).map(([k, t]) => [TOPIC_LABEL[k], t])} />
+      <Breakdown title="By topic" rows={weakestFirst((Object.entries(results.byTopic) as [Topic, Tally][]).map(([k, t]) => [TOPIC_LABEL[k], t]))} />
       <Breakdown title="By difficulty" rows={(Object.entries(results.byDifficulty) as [string, Tally][]).map(([k, t]) => [DIFFICULTY_LABEL[Number(k) as Difficulty], t])} />
       <Breakdown
         title="Typed vs multiple choice"

@@ -38,6 +38,11 @@ export interface QuantResults {
   byMode: Partial<Record<'typed' | 'mcq', Tally>>;
 }
 
+/** Labelled tallies, lowest score first. On a tie, the one with more questions, then by label. */
+export function weakestFirst<T extends Tally>(rows: [string, T][]): [string, T][] {
+  return [...rows].sort(([a, x], [b, y]) => x.correct / x.total - y.correct / y.total || y.total - x.total || a.localeCompare(b));
+}
+
 /** Is this answer right? MCQ answers are the chosen option's text; typed answers go through matching. */
 export function isCorrect(q: Pick<PlayableQuestion, 'answer' | 'rounding'>, answer: string | null | undefined): boolean {
   if (answer === null || answer === undefined) return false;
