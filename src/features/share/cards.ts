@@ -8,7 +8,9 @@ const PAGE = 48;
 const RULE = 64;
 const LEFT = 168;
 const RIGHT = W - 96;
-const TICKS = 10;
+const RULER_X = LEFT + 330;
+const RULER_W = RIGHT - 230 - RULER_X;
+const RULER_H = 38;
 
 const SERIF = "'Newsreader', Georgia, serif";
 const SANS = "'Inter Variable', sans-serif";
@@ -21,7 +23,7 @@ function token(name: string): string {
 }
 
 export function lightPalette() {
-  return { paper: token('paper'), raised: token('paper-raised'), graphite: token('graphite'), soft: token('graphite-soft'), rule: token('rule'), strong: token('rule-strong'), ink: token('ink') };
+  return { paper: token('paper'), raised: token('paper-raised'), graphite: token('graphite'), soft: token('graphite-soft'), rule: token('rule'), strong: token('rule-strong'), ink: token('ink'), sunk: token('paper-sunk') };
 }
 
 /** Canvas only uses a font that has already loaded, so each face on the card is asked for first. */
@@ -37,6 +39,32 @@ function spaced(ctx: CanvasRenderingContext2D, text: string, x: number, y: numbe
     at += ctx.measureText(ch).width + gap;
   }
   return at;
+}
+
+function drawRuler(ctx: CanvasRenderingContext2D, colors: ReturnType<typeof lightPalette>, top: number, share: number): void {
+  const end = RULER_X + RULER_W * share;
+  ctx.fillStyle = colors.sunk;
+  ctx.beginPath();
+  ctx.roundRect(RULER_X, top, RULER_W, RULER_H, 4);
+  ctx.fill();
+  if (share > 0) {
+    ctx.fillStyle = colors.ink;
+    ctx.globalAlpha = 0.28;
+    ctx.fillRect(RULER_X, top, RULER_W * share, RULER_H);
+    ctx.globalAlpha = 1;
+  }
+  // A mark every 10%, and a longer one at 50%.
+  ctx.fillStyle = colors.graphite;
+  for (let t = 1; t < 10; t++) ctx.fillRect(RULER_X + (RULER_W * t) / 10 - 1, top, 2, t === 5 ? 20 : 11);
+  ctx.strokeStyle = colors.strong;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.roundRect(RULER_X, top, RULER_W, RULER_H, 4);
+  ctx.stroke();
+  if (share > 0) {
+    ctx.fillStyle = colors.ink;
+    ctx.fillRect(end - 2, top - 4, 4, RULER_H + 8);
+  }
 }
 
 export async function drawCard(card: ShareCard, day: string, daysLeft: number | null): Promise<Blob> {
@@ -109,27 +137,23 @@ export async function drawCard(card: ShareCard, day: string, daysLeft: number | 
     ctx.fillText(stat.value, x, RULE * 9 - 16);
   });
 
-  // Rows of pencil ticks, one rule apart.
+  // Rows of rulers, one rule apart: each is shaded up to the row's score, with a mark where it stops.
   card.rows.forEach((row, i) => {
     const y = RULE * (11 + i) - 16;
     ctx.font = `400 36px ${SANS}`;
     ctx.fillStyle = colors.graphite;
     ctx.fillText(row.label, LEFT, y);
     ctx.textAlign = 'right';
-    ctx.font = `500 36px ${SANS}`;
-    ctx.fillText(row.value, RIGHT, y);
-    ctx.textAlign = 'left';
-    const filled = Math.round(row.share * TICKS);
-    ctx.lineWidth = 5;
-    ctx.lineCap = 'round';
-    for (let t = 0; t < TICKS; t++) {
-      const x = LEFT + 340 + t * 26;
-      ctx.strokeStyle = t < filled ? colors.ink : colors.strong;
-      ctx.beginPath();
-      ctx.moveTo(x, y - 2);
-      ctx.lineTo(x + 7, y - 34);
-      ctx.stroke();
+    if (row.count) {
+      ctx.font = `400 32px ${SANS}`;
+      ctx.fillStyle = colors.soft;
+      ctx.fillText(row.count, RIGHT - 122, y);
     }
+    ctx.font = `500 36px ${SANS}`;
+    ctx.fillStyle = colors.graphite;
+    ctx.fillText(`${Math.round(row.share * 100)}%`, RIGHT, y);
+    ctx.textAlign = 'left';
+    drawRuler(ctx, colors, y - 34, row.share);
   });
 
   // A history card's questions a day, in thin bars on the page's rules.

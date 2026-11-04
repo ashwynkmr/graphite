@@ -34,7 +34,7 @@ describe('quantShare', () => {
     expect(quantShare('Quant drill', quant()).text).toBe('Graphite · Quant drill · 18/20 (90%) · avg 21s · percents 6/6');
   });
 
-  it('keeps the 4 topics with the most questions', () => {
+  it('lists every topic, weakest first', () => {
     const card = quantShare('Quant drill', quant({
       byTopic: {
         rates: { correct: 1, total: 1 },
@@ -44,8 +44,39 @@ describe('quantShare', () => {
         averages: { correct: 3, total: 3 },
       },
     }));
-    expect(card.rows.map((r) => r.label)).toEqual(['Money', 'Ratios', 'Averages', 'Percents']);
-    expect(card.rows[0]).toEqual({ label: 'Money', value: '2/5', share: 0.4 });
+    expect(card.rows.map((r) => r.label)).toEqual(['Money', 'Percents', 'Ratios', 'Averages', 'Rates']);
+    expect(card.rows[0]).toEqual({ label: 'Money', count: '2/5', share: 0.4 });
+    expect(card.text).toContain('rates 1/1');
+  });
+
+  it('puts the topic with more questions first when two score the same', () => {
+    const card = quantShare('Quant drill', quant({
+      byTopic: { algebra: { correct: 0, total: 1 }, rates: { correct: 0, total: 3 } },
+    }));
+    expect(card.rows.map((r) => r.label)).toEqual(['Rates', 'Algebra']);
+  });
+
+  it('folds the strongest topics into one row when there are too many to fit, so the rows still add up', () => {
+    const card = quantShare('Quant drill', quant({
+      correct: 14,
+      total: 24,
+      byTopic: {
+        rates: { correct: 4, total: 6 },
+        money: { correct: 3, total: 5 },
+        ratios: { correct: 2, total: 4 },
+        percents: { correct: 1, total: 3 },
+        averages: { correct: 1, total: 2 },
+        algebra: { correct: 1, total: 1 },
+        geometry: { correct: 1, total: 1 },
+        fractions: { correct: 0, total: 1 },
+        statistics: { correct: 1, total: 1 },
+      },
+    }));
+    expect(card.rows).toHaveLength(7);
+    expect(card.rows.slice(0, 2).map((r) => r.label)).toEqual(['Fractions', 'Percents']);
+    expect(card.rows[6]).toEqual({ label: 'Other topics', count: '3/3', share: 1 });
+    const added = card.rows.reduce((sum, r) => sum + Number(r.count!.split('/')[1]), 0);
+    expect(added).toBe(24);
   });
 
   it('copes with an empty score', () => {
@@ -67,7 +98,7 @@ describe('vocabShare', () => {
     const card = vocabShare('Flashcards', vocab({ flashcards: 40, marks: { know: 30, unsure: 6, review: 4 } }));
     expect(card.score).toEqual({ value: 30, of: 'of 40 known' });
     expect(card.stats[0]).toEqual({ label: 'Cards', value: '40' });
-    expect(card.rows.map((r) => r.value)).toEqual(['30', '6', '4']);
+    expect(card.rows.map((r) => r.count)).toEqual(['30', '6', '4']);
     expect(card.text).toBe('Graphite · Flashcards · 30 of 40 known · avg 5s');
   });
 
@@ -111,7 +142,7 @@ describe('historyShare', () => {
       { label: 'Study days', value: '5 of 7' },
     ]);
     expect(card.bars?.values).toHaveLength(7);
-    expect(card.rows[0]).toEqual({ label: 'Fractions', value: '60%', share: 0.6 });
+    expect(card.rows[0]).toEqual({ label: 'Fractions', share: 0.6 });
     expect(card.text).toBe('Graphite · Last 7 days · 120 questions (80%) · avg 22s · 400 new words · 5 of 7 days studied · to work on: fractions 60%');
   });
 

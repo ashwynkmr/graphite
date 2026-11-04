@@ -8,8 +8,9 @@ import { duration, TOPIC_LABEL } from '../quant/display';
 
 export interface ShareRow {
   label: string;
-  value: string;
-  /** How much of the row's ticks to fill, 0 to 1. */
+  /** The count behind the percentage, such as 3/4. A row with no count shows only its percentage. */
+  count?: string;
+  /** How much of the whole this row is, 0 to 1. */
   share: number;
 }
 
@@ -24,14 +25,27 @@ export interface ShareCard {
   text: string;
 }
 
-const TOP_TOPICS = 4;
+/** As many topic rows as fit on the card. A session with more folds the strongest into one row. */
+const MAX_TOPIC_ROWS = 7;
 const percent = (correct: number, total: number) => (total ? Math.round((correct / total) * 100) : 0);
 
+/**
+ * Weakest topic first; on a tie, the one with more questions. Every question lands in a row, so the
+ * rows always add up to the score, and the folded row is last because it holds the strongest topics.
+ */
+function topicRows(byTopic: QuantResults['byTopic']): ShareRow[] {
+  const topics = (Object.entries(byTopic) as [Topic, { correct: number; total: number }][])
+    .sort(([a, x], [b, y]) => x.correct / x.total - y.correct / y.total || y.total - x.total || TOPIC_LABEL[a].localeCompare(TOPIC_LABEL[b]));
+  const row = (label: string, x: { correct: number; total: number }): ShareRow => ({ label, count: `${x.correct}/${x.total}`, share: x.correct / x.total });
+  if (topics.length <= MAX_TOPIC_ROWS) return topics.map(([t, x]) => row(TOPIC_LABEL[t], x));
+  const kept = topics.slice(0, MAX_TOPIC_ROWS - 1);
+  const rest = topics.slice(MAX_TOPIC_ROWS - 1).reduce((sum, [, x]) => ({ correct: sum.correct + x.correct, total: sum.total + x.total }), { correct: 0, total: 0 });
+  return [...kept.map(([t, x]) => row(TOPIC_LABEL[t], x)), row('Other topics', rest)];
+}
+
 export function quantShare(kind: string, r: QuantResults): ShareCard {
-  const topics = (Object.entries(r.byTopic) as [Topic, { correct: number; total: number }][])
-    .sort(([a, x], [b, y]) => y.total - x.total || TOPIC_LABEL[a].localeCompare(TOPIC_LABEL[b]))
-    .slice(0, TOP_TOPICS);
-  const topicText = topics.map(([t, x]) => `${TOPIC_LABEL[t].toLowerCase()} ${x.correct}/${x.total}`).join(', ');
+  const rows = topicRows(r.byTopic);
+  const topicText = rows.map((x) => `${x.label.toLowerCase()} ${x.count}`).join(', ');
   return {
     kind,
     score: { value: r.correct, of: `of ${r.total}` },
@@ -40,7 +54,7 @@ export function quantShare(kind: string, r: QuantResults): ShareCard {
       { label: 'Total time', value: duration(r.totalMs) },
       { label: 'Per question', value: duration(r.avgMs) },
     ],
-    rows: topics.map(([t, x]) => ({ label: TOPIC_LABEL[t], value: `${x.correct}/${x.total}`, share: x.correct / x.total })),
+    rows,
     text: ['Graphite', kind, `${r.correct}/${r.total} (${percent(r.correct, r.total)}%)`, `avg ${duration(r.avgMs)}`, topicText].filter(Boolean).join(' · '),
   };
 }
@@ -50,9 +64,9 @@ export function vocabShare(kind: string, r: VocabResults): ShareCard {
   const known = `${r.marks.know} of ${cards} known`;
   const rows: ShareRow[] = cards
     ? [
-        { label: 'Know it', value: String(r.marks.know), share: r.marks.know / cards },
-        { label: 'Unsure', value: String(r.marks.unsure), share: r.marks.unsure / cards },
-        { label: 'Review', value: String(r.marks.review), share: r.marks.review / cards },
+        { label: 'Know it', count: String(r.marks.know), share: r.marks.know / cards },
+        { label: 'Unsure', count: String(r.marks.unsure), share: r.marks.unsure / cards },
+        { label: 'Review', count: String(r.marks.review), share: r.marks.review / cards },
       ]
     : [];
   const quiz = r.total > 0;
@@ -82,7 +96,7 @@ export function historyShare(h: StudyHistory): ShareCard {
       { label: 'New words', value: String(h.newWords) },
       { label: 'Study days', value: `${h.studyDays} of ${h.days}` },
     ],
-    rows: h.weakest.map((t) => ({ label: TOPIC_LABEL[t.topic], value: `${Math.round(t.accuracy * 100)}%`, share: t.accuracy })),
+    rows: h.weakest.map((t) => ({ label: TOPIC_LABEL[t.topic], share: t.accuracy })),
     bars: { label: 'Questions a day', values: h.perDay },
     text: ['Graphite', kind, `${h.answered} questions${h.answered ? ` (${accuracy})` : ''}`, h.avgMs !== null && `avg ${duration(h.avgMs)}`, `${h.newWords} new words`, `${h.studyDays} of ${h.days} days studied`, weakest && `to work on: ${weakest}`].filter(Boolean).join(' · '),
   };
