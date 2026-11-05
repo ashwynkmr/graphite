@@ -163,8 +163,9 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-124 | Share | More fun, classroom options; then "Ruler please" | Ruler rows on quant, vocab and history cards | Done | [0056](../decisions/0056-share-card-rows-are-rulers-weakest-first.md) |
 | FB-125 | Results | Results screen "By topic" should match the card: "Yea" | Rulers on the results screen, topics weakest first | Done | [0056](../decisions/0056-share-card-rows-are-rulers-weakest-first.md) |
 | FB-126 | Process | "Let's push it live when done" | Pushed to `main`; no new What's New | Done | [2026-11-03-share-card](2026-11-03-share-card.md) |
-| FB-127 | Share | Progress share should be "insightful" and "easy to understand" | Report card | Built (awaiting review) | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
-| FB-128 | Share | Mix of report card and on pace, "two clean sections for quant and verbal" | Countdown on top, then two sections | Built (awaiting review) | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
-| FB-129 | Share | Side by side, with "up from X% last week" | Two columns; wording changed | Built (awaiting review) | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
-| FB-130 | Share | Circled accuracy "doesn't feel nice"; wanted something more maths or study oriented | Tried seven other designs | Built (awaiting review) | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
-| FB-131 | Share | Number line, with a clearer arrow and % on its numbers | Built as asked | Built (awaiting review) | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
+| FB-127 | Share | Progress share should be "insightful" and "easy to understand" | Report card | Done | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
+| FB-128 | Share | Mix of report card and on pace, "two clean sections for quant and verbal" | Countdown on top, then two sections | Done | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
+| FB-129 | Share | Side by side, with "up from X% last week" | Two columns; wording changed | Done | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
+| FB-130 | Share | Circled accuracy "doesn't feel nice"; wanted something more maths or study oriented | Tried seven other designs | Done | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
+| FB-131 | Share | Number line, with a clearer arrow and % on its numbers | Built as asked | Done | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
+| FB-132 | Process | "Go live" | Pushed to `main`; no new What's New | Done | [2026-11-05-progress-share](2026-11-05-progress-share.md) |
