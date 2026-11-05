@@ -73,3 +73,4 @@ Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Pro
 | [0054](0054-comparison-questions-use-two-columns.md) | Comparison questions use two columns | 2026-11-01 | Accepted | Phase 3 | Design |
 | [0055](0055-exam-style-sentence-equivalence-bank.md) | An exam-style Sentence Equivalence bank, read by hand | 2026-11-01 | Accepted | Phase 3 | Content |
 | [0056](0056-share-card-rows-are-rulers-weakest-first.md) | Share card rows are rulers, weakest topic first | 2026-11-03 | Accepted | Post-launch | Design |
+| [0057](0057-progress-share-is-a-report-card.md) | The Progress share is a report card, split into Quant and Verbal | 2026-11-05 | Accepted | Post-launch | Design |

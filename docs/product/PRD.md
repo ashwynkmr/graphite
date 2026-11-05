@@ -236,7 +236,7 @@ Progress stays private on the device, but the user can choose to share it.
 
 - A Share button on every results screen and on the dashboard.
 - **Share a session:** a clean image card (score, accuracy, time, topics, date) plus a short text summary.
-- **Share history:** a card with the last 7 or 14 days: questions answered, accuracy trend, words learned, streak.
+- **Share history:** a report card for the last 7 or 14 days, split into Quant and Verbal, with the GRE countdown and days studied ([0057](../decisions/0057-progress-share-is-a-report-card.md)).
 - Uses the phone's own share sheet (WhatsApp, iMessage, email, and so on). On a laptop, it copies the text and downloads the image.
 - No server involved and nothing is uploaded until the user picks where to send it.
 

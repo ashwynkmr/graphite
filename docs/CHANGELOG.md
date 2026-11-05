@@ -4,6 +4,9 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+### Changed
+- The Progress share is now a report card: the GRE countdown and days studied on top, then Quant and Verbal side by side, with a short note worked out from the numbers. The copied text follows the same split.
+
 ## 2026-11-04 · Share cards and results (after `v3.0.0`)
 
 ### Changed

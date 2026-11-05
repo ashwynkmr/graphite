@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Topic } from '../generators/types';
 import { newSchedule, type Box, type WordSchedule } from '../scheduling/leitner';
-import { dailyQuant, lastDays, newWordsPerDay, studyHistory, topicStats, wordStages, type TrendAttempt } from './trends';
+import { dailyQuant, lastDays, newWordsPerDay, studyHistory, topicStats, wordsNeededPerDay, wordStages, type TrendAttempt } from './trends';
 
 const TODAY = '2026-11-14';
 
@@ -76,6 +76,50 @@ describe('studyHistory', () => {
   });
 
   it('holds up with nothing studied', () => {
-    expect(studyHistory([], [], [], TODAY, 14)).toMatchObject({ answered: 0, avgMs: null, studyDays: 0, weakest: [] });
+    expect(studyHistory([], [], [], TODAY, 14)).toMatchObject({ answered: 0, avgMs: null, previous: null, wordsPerDay: 0, studyDays: 0, weakest: [], best: null });
+  });
+
+  it('compares with the same number of days just before', () => {
+    const h = studyHistory([...many('percents', TODAY, 8, 2), ...many('percents', '2026-11-07', 6, 4)], [], [], TODAY, 7);
+    expect(h.previous).toEqual({ answered: 10, correct: 6, avgMs: 10_000 });
+  });
+
+  it('does not compare against too few answers', () => {
+    const h = studyHistory([...many('percents', TODAY, 8, 2), ...many('percents', '2026-11-07', 3, 6)], [], [], TODAY, 7);
+    expect(h.previous).toBeNull();
+  });
+
+  it('marks each day in the window as studied or not', () => {
+    const h = studyHistory([], [], ['2026-11-13', TODAY, '2026-11-01'], TODAY, 7);
+    expect(h.calendar).toHaveLength(7);
+    expect(h.calendar[0]).toEqual({ day: '2026-11-08', studied: false });
+    expect(h.calendar.slice(-2).map((d) => d.studied)).toEqual([true, true]);
+  });
+
+  it('averages new words over the days since studying began', () => {
+    const words = [word('a', 1, TODAY), word('b', 1, TODAY), word('c', 1, '2026-11-13'), word('d', 1, '2026-11-13')];
+    expect(studyHistory([], words, ['2026-11-13', TODAY], TODAY, 7).wordsPerDay).toBe(2);
+    expect(studyHistory([], words, ['2026-11-01', TODAY], TODAY, 7).wordsPerDay).toBe(1);
+  });
+
+  it('picks the strongest topic with enough answers, and never the weakest as well', () => {
+    const h = studyHistory([...many('percents', TODAY, 6, 4), ...many('rates', TODAY, 9, 1), ...many('money', TODAY, 3, 0)], [], [], TODAY, 7);
+    expect(h.best?.topic).toBe('rates');
+    expect(studyHistory(many('percents', TODAY, 6, 4), [], [], TODAY, 7).best).toBeNull();
+  });
+});
+
+describe('wordsNeededPerDay', () => {
+  it('rounds up, so the deck is seen in time', () => {
+    expect(wordsNeededPerDay(620, 1500, 19)).toBe(47);
+  });
+
+  it('needs none once every word is seen', () => {
+    expect(wordsNeededPerDay(1500, 1500, 19)).toBe(0);
+  });
+
+  it('has nothing to plan on exam day or after it', () => {
+    expect(wordsNeededPerDay(620, 1500, 0)).toBeNull();
+    expect(wordsNeededPerDay(620, 1500, null)).toBeNull();
   });
 });

@@ -1,5 +1,5 @@
 // The Progress dashboard's numbers, from attempts and word states (US-14). Pure, computed on demand.
-import { addDays, type Day } from '../dates';
+import { addDays, daysBetween, type Day } from '../dates';
 import type { Topic } from '../generators/types';
 import type { WordSchedule } from '../scheduling/leitner';
 import { BOX_GROUPS, boxGroup, type BoxGroup } from '../sessions/word-browse';
@@ -107,26 +107,55 @@ export interface StudyHistory {
   answered: number;
   correct: number;
   avgMs: number | null;
+  /** The same number of days just before these. Null with too few answers to compare fairly. */
+  previous: { answered: number; correct: number; avgMs: number } | null;
   newWords: number;
+  /** New words a day, counting only days since studying began. */
+  wordsPerDay: number;
   studyDays: number;
+  /** Each day in the window, oldest first, and whether it had a finished session. */
+  calendar: { day: Day; studied: boolean }[];
   perDay: number[];
   weakest: TopicStat[];
+  /** The strongest topic with enough answers, unless it is also the weakest. */
+  best: TopicStat | null;
 }
+
+const pointTotals = (points: readonly DayPoint[]) => {
+  const answered = points.reduce((sum, p) => sum + p.answered, 0);
+  const totalMs = points.reduce((sum, p) => sum + (p.avgMs ?? 0) * p.answered, 0);
+  return { answered, correct: points.reduce((sum, p) => sum + p.correct, 0), avgMs: answered ? totalMs / answered : null };
+};
 
 /** What a 7- or 14-day share says. `studiedDays` are the days with a finished session. */
 export function studyHistory(attempts: readonly TrendAttempt[], states: Iterable<WordSchedule>, studiedDays: readonly Day[], today: Day, days: number): StudyHistory {
-  const points = dailyQuant(attempts, today, days);
-  const answered = points.reduce((sum, p) => sum + p.answered, 0);
-  const totalMs = points.reduce((sum, p) => sum + (p.avgMs ?? 0) * p.answered, 0);
-  const window = new Set(lastDays(today, days));
+  const points = dailyQuant(attempts, today, days * 2);
+  const now = pointTotals(points.slice(days));
+  const before = pointTotals(points.slice(0, days));
+  const window = lastDays(today, days);
+  const studied = new Set(studiedDays);
+  const newWords = newWordsPerDay(states, today, days).reduce((sum, d) => sum + d.count, 0);
+  const firstDay = [...studied].sort()[0];
+  const activeDays = firstDay ? Math.min(days, Math.max(1, daysBetween(firstDay, today) + 1)) : days;
+  const topics = topicStats(attempts, today, days);
+  const weakest = topics.filter((t) => t.weakest);
+  const strongest = topics.filter((t) => t.answered >= WEAKEST_MIN_ANSWERS).sort((a, b) => b.accuracy - a.accuracy || b.answered - a.answered)[0];
   return {
     days,
-    answered,
-    correct: points.reduce((sum, p) => sum + p.correct, 0),
-    avgMs: answered ? totalMs / answered : null,
-    newWords: newWordsPerDay(states, today, days).reduce((sum, d) => sum + d.count, 0),
-    studyDays: new Set(studiedDays.filter((d) => window.has(d))).size,
-    perDay: points.map((p) => p.answered),
-    weakest: topicStats(attempts, today, days).filter((t) => t.weakest),
+    ...now,
+    previous: before.answered >= WEAKEST_MIN_ANSWERS ? { answered: before.answered, correct: before.correct, avgMs: before.avgMs! } : null,
+    newWords,
+    wordsPerDay: Math.round(newWords / activeDays),
+    studyDays: window.filter((d) => studied.has(d)).length,
+    calendar: window.map((day) => ({ day, studied: studied.has(day) })),
+    perDay: points.slice(days).map((p) => p.answered),
+    weakest,
+    best: strongest && strongest.topic !== weakest[0]?.topic ? strongest : null,
   };
+}
+
+/** New words a day needed to see the whole deck by the exam. Null with no days left to plan. */
+export function wordsNeededPerDay(seen: number, deck: number, daysLeft: number | null): number | null {
+  if (daysLeft === null || daysLeft === 0) return null;
+  return Math.ceil(Math.max(0, deck - seen) / daysLeft);
 }

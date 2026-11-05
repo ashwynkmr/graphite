@@ -130,26 +130,81 @@ describe('lightPalette', () => {
 });
 
 describe('historyShare', () => {
-  const history = { days: 7, answered: 120, correct: 96, avgMs: 22_000, newWords: 400, studyDays: 5, perDay: [10, 0, 20, 30, 0, 30, 30], weakest: [{ topic: 'fractions' as const, answered: 20, accuracy: 0.6, avgMs: 30_000, weakest: true }] };
+  const topic = (name: 'fractions' | 'rates', accuracy: number) => ({ topic: name, answered: 20, accuracy, avgMs: 30_000, weakest: name === 'fractions' });
+  const history = {
+    days: 7,
+    answered: 186,
+    correct: 145,
+    avgMs: 24_000,
+    previous: { answered: 100, correct: 69, avgMs: 31_000 },
+    newWords: 301,
+    wordsPerDay: 43,
+    studyDays: 6,
+    calendar: ['2026-10-30', '2026-10-31', '2026-11-01', '2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05'].map((day, i) => ({ day, studied: i !== 3 })),
+    perDay: [10, 0, 20, 30, 0, 30, 30],
+    weakest: [topic('fractions', 0.58)],
+    best: topic('rates', 0.92),
+  };
+  const words = { seen: 620, known: 210, deck: 1500 };
 
-  it('sums up the days, with one bar a day', () => {
-    const card = historyShare(history);
-    expect(card.kind).toBe('Last 7 days');
-    expect(card.score).toEqual({ value: 120, of: 'questions' });
-    expect(card.stats).toEqual([
-      { label: 'Accuracy', value: '80%' },
-      { label: 'New words', value: '400' },
-      { label: 'Study days', value: '5 of 7' },
+  it('splits the report into Quant and Verbal', () => {
+    const card = historyShare(history, words, 19);
+    expect(card.kind).toBe('Report card · Last 7 days');
+    expect(card.studied).toBe('Studied 6 of 7 days');
+    expect(card.calendar.map((d) => d.letter).join('')).toBe('FSSMTWT');
+    expect(card.quant.line).toBe('Up from 69% last week');
+    expect(card.quant.rows).toEqual([
+      { label: 'Questions', value: '186, at 24s each' },
+      { label: 'Best topic', value: 'Rates, 92%' },
+      { label: 'Needs work', value: 'Fractions, 58%' },
     ]);
-    expect(card.bars?.values).toHaveLength(7);
-    expect(card.rows[0]).toEqual({ label: 'Fractions', share: 0.6 });
-    expect(card.text).toBe('Graphite · Last 7 days · 120 questions (80%) · avg 22s · 400 new words · 5 of 7 days studied · to work on: fractions 60%');
+    expect(card.verbal.rows).toEqual([
+      { label: 'Learning', value: '43 a day' },
+      { label: 'Needed for the GRE', value: '47 a day' },
+      { label: 'Know well', value: '210 words' },
+    ]);
   });
 
-  it('reads sensibly with no questions', () => {
-    const card = historyShare({ ...history, answered: 0, correct: 0, avgMs: null, weakest: [] });
-    expect(card.stats[0]!.value).toBe('—');
-    expect(card.text).toBe('Graphite · Last 7 days · 0 questions · 400 new words · 5 of 7 days studied');
+  it('works out the note from the numbers', () => {
+    expect(historyShare(history, words, 19).note).toBe('More right, and faster. Fractions next, and 4 more words a day.');
+    expect(historyShare({ ...history, wordsPerDay: 50 }, words, 19).note).toBe('More right, and faster. Fractions next. Words on pace.');
+    expect(historyShare({ ...history, previous: { answered: 100, correct: 90, avgMs: 24_000 }, weakest: [] }, words, 19).note).toBe('Fewer right than before. 4 more words a day.');
+  });
+
+  it('writes the summary line', () => {
+    expect(historyShare(history, words, 19).text).toBe('Graphite · Last 7 days · 19 days to the GRE · studied 6 of 7 days · Quant 145/186 (78%), up from 69% last week, avg 24s · best rates 92% · needs work fractions 58% · Verbal 620 of 1,500 words seen, 210 known well · learning 43 a day, needs 47');
+  });
+
+  it('says nothing about change without an earlier period', () => {
+    const card = historyShare({ ...history, previous: null }, words, 19);
+    expect(card.quant.line).toBe('Got right');
+    expect(card.quant.previous).toBeNull();
+    expect(card.note).toBe('Fractions next, and 4 more words a day.');
+  });
+
+  it('reads sensibly with no questions and too few answers', () => {
+    const card = historyShare({ ...history, answered: 0, correct: 0, avgMs: null, previous: null, weakest: [], best: null, wordsPerDay: 0 }, { seen: 0, known: 0, deck: 1500 }, 19);
+    expect(card.quant.accuracy).toBeNull();
+    expect(card.quant.line).toBe('No questions yet');
+    expect(card.quant.rows.map((r) => r.value)).toEqual(['0', 'Not enough yet', 'Not enough yet']);
+    expect(card.text).toContain('Quant: no questions yet');
+  });
+
+  it('drops the pace once the exam has passed, and on exam day', () => {
+    for (const daysLeft of [null, 0]) {
+      const card = historyShare(history, words, daysLeft);
+      expect(card.verbal.rows.map((r) => r.label)).toEqual(['Learning', 'Know well']);
+      expect(card.note).toBe('More right, and faster. Fractions next.');
+    }
+  });
+
+  it('says when every word has been seen', () => {
+    const card = historyShare(history, { seen: 1500, known: 900, deck: 1500 }, 5);
+    expect(card.verbal.rows[1]).toEqual({ label: 'Needed for the GRE', value: 'All words seen' });
+  });
+
+  it('compares 14 days without calling it last week', () => {
+    expect(historyShare({ ...history, days: 14 }, words, 19).quant.line).toBe('Up from 69% before');
   });
 });
 

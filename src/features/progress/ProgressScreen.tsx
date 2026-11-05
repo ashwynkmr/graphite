@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 import { useAsync } from '../../app/useAsync';
 import { loadWords } from '../../content/words';
+import { getSettings } from '../../data/repo/meta';
 import { loadProgress } from '../../data/repo/stats';
-import { toDay } from '../../engine/dates';
+import { daysToExam, toDay } from '../../engine/dates';
 import { TOPICS, type Topic } from '../../engine/generators/types';
 import { BOX_GROUPS, type BoxGroup } from '../../engine/sessions/word-browse';
 import { dailyQuant, newWordsPerDay, studyHistory, topicStats, wordStages } from '../../engine/stats/trends';
@@ -16,8 +17,8 @@ import styles from './ProgressScreen.module.css';
 
 async function load() {
   const today = toDay(new Date());
-  const [progress, book] = await Promise.all([loadProgress(today), loadWords()]);
-  return { ...progress, deck: book.words.length, today };
+  const [progress, book, settings] = await Promise.all([loadProgress(today), loadWords(), getSettings()]);
+  return { ...progress, deck: book.words.length, today, daysLeft: daysToExam(today, settings.examDay) };
 }
 
 function Row({ label, value }: { label: string; value: string }) {
@@ -202,7 +203,7 @@ export function ProgressScreen() {
               ]}
             />
           </Field>
-          <ShareButton card={historyShare(history)} day={today} />
+          <ShareButton card={historyShare(history, { seen: words.seen, known: words.known, deck }, data.daysLeft)} day={today} />
         </section>
       )}
     </Screen>
