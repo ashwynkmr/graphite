@@ -5,7 +5,7 @@ import { setInSession, syncReminder } from './reminders';
 import { UpdateScreen } from './UpdateScreen';
 import { useAsync } from './useAsync';
 import { useUpdatePrompt } from './useUpdatePrompt';
-import { getProfile, getWhatsNewSeen, setWhatsNewSeen } from '../data/repo/meta';
+import { getProfile, getReminderAsked, getWhatsNewSeen, setReminderAsked, setWhatsNewSeen } from '../data/repo/meta';
 import { HomeScreen } from '../features/home/HomeScreen';
 import { QuantSetupScreen } from '../features/quant/QuantSetupScreen';
 import { DrillScreen } from '../features/quant/DrillScreen';
@@ -20,11 +20,18 @@ import { SettingsScreen } from '../features/settings/SettingsScreen';
 import { OnboardingScreen } from '../features/onboarding/OnboardingScreen';
 import { NotesCheckScreen } from '../features/personal/NotesCheckScreen';
 import { ProfileProvider, useProfile } from '../features/personal/ProfileContext';
+import { remindersOff, ReminderScreen } from '../features/reminders/ReminderScreen';
 import { RELEASE, WhatsNewScreen } from '../features/whatsnew/WhatsNewScreen';
 
 async function owesWhatsNew(): Promise<boolean> {
   const [profile, seen] = await Promise.all([getProfile(), getWhatsNewSeen()]);
   return profile !== null && seen !== RELEASE;
+}
+
+/** The reminder offer shows once, after any What's New, to someone who has the app and no reminders (0059). */
+async function owesReminderOffer(): Promise<boolean> {
+  const [profile, asked] = await Promise.all([getProfile(), getReminderAsked()]);
+  return profile !== null && !asked && (await remindersOff());
 }
 
 /** Settings' copy of the screen. */
@@ -33,11 +40,19 @@ function WhatsNewPage() {
   return <WhatsNewScreen doneLabel="Back to Settings" onDone={() => navigate('/settings', { replace: true })} />;
 }
 
+/** Home's card opens this on iPhone, for the Home Screen steps. */
+function ReminderPage() {
+  const navigate = useNavigate();
+  return <ReminderScreen doneLabel="Back to Home" onDone={() => navigate('/', { replace: true })} />;
+}
+
 function Routed() {
   const { profile, loaded } = useProfile();
   // Asked once as the app starts: only someone who had the app before this release is owed the news.
   const { data: owed } = useAsync(owesWhatsNew);
   const [dismissed, setDismissed] = useState(false);
+  const { data: offerOwed } = useAsync(owesReminderOffer);
+  const [offered, setOffered] = useState(false);
   const { pathname } = useLocation();
   if (!loaded) return null;
   if (!profile) return <OnboardingScreen />;
@@ -50,6 +65,17 @@ function Routed() {
         onDone={() => {
           setDismissed(true);
           void setWhatsNewSeen(RELEASE);
+        }}
+      />
+    );
+  }
+  if (offerOwed && !offered && !busy) {
+    return (
+      <ReminderScreen
+        doneLabel="Back to studying"
+        onDone={() => {
+          setOffered(true);
+          void setReminderAsked();
         }}
       />
     );
@@ -68,6 +94,7 @@ function Routed() {
       {/* Full-screen: no tab bar */}
       <Route path="notes-check" element={<NotesCheckScreen />} />
       <Route path="whats-new" element={<WhatsNewPage />} />
+      <Route path="reminders" element={<ReminderPage />} />
       <Route path="quant/session/:id" element={<DrillScreen />} />
       <Route path="results/:id" element={<ResultsScreen />} />
       <Route path="vocab/session/:id" element={<VocabSessionScreen />} />

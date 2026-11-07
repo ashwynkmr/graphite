@@ -70,6 +70,28 @@ export async function signIn(page: Page, name = 'Test'): Promise<void> {
   await page.getByRole('button', { name: /start studying/i }).click();
   await page.getByRole('button', { name: 'Skip' }).click();
   await expect(page.getByRole('heading', { level: 1 })).toContainText(name);
+  // As someone who has already answered the reminder offer, so a reload lands where the test expects (0059).
+  await setMeta(page, { reminderAsked: true, reminderCardHiddenUntil: '2999-01-01' });
+}
+
+/** Writes keys straight into the app's settings table. */
+export function setMeta(page: Page, values: Record<string, unknown>): Promise<void> {
+  return page.evaluate(
+    (entries) =>
+      new Promise<void>((done, fail) => {
+        const open = indexedDB.open('graphite');
+        open.onerror = () => fail(open.error);
+        open.onsuccess = () => {
+          const tx = open.result.transaction('meta', 'readwrite');
+          for (const [key, value] of entries) tx.objectStore('meta').put({ key, value });
+          tx.oncomplete = () => {
+            open.result.close();
+            done();
+          };
+        };
+      }),
+    Object.entries(values),
+  );
 }
 
 const KEY: Record<string, string> = { '-': 'minus', '/': 'fraction slash', '.': 'decimal point' };

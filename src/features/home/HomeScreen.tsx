@@ -17,6 +17,7 @@ import { nudgeText } from '../personal/nudgeText';
 import { useProfile } from '../personal/ProfileContext';
 import { duration } from '../quant/display';
 import { startDrill } from '../quant/startDrill';
+import { ReminderCard } from '../reminders/ReminderCard';
 import { roundToOffer, startVocab } from '../vocab/startVocab';
 import styles from './HomeScreen.module.css';
 import { Tally } from './Tally';
@@ -112,6 +113,8 @@ export function HomeScreen() {
           <IconSettings />
         </Link>
       </header>
+
+      <ReminderCard />
 
       {offeredRound && !resumable && (
         <div className={styles.resume}>

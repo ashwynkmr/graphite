@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { answerQuant, currentSession, signIn, table, waitForServiceWorker } from './helpers';
+import { answerQuant, currentSession, setMeta, signIn, table, waitForServiceWorker } from './helpers';
 
 test('after the first visit, drills and vocab work with no network', async ({ page, context }) => {
   await signIn(page);
@@ -274,7 +274,7 @@ test('What’s New shows once after an update, never to a new user, and stays in
   await forgetWhatsNew(page);
   await page.reload();
   await expect(page.getByRole('heading', { name: 'What’s new' })).toBeVisible();
-  await expect(page.locator('body')).toContainText('Harder Sentence Equivalence');
+  await expect(page.locator('body')).toContainText('Pick a difficulty');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.getByRole('button', { name: 'Back to studying' }).click();
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
@@ -324,7 +324,9 @@ test('A new user gets the quick tour once, it writes no study data, and it repla
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
   expect(await table(page, 'sessions')).toHaveLength(0);
 
+  // The next time the app opens, the reminder offer comes before Home, and the tour doesn't return.
   await page.reload();
+  await page.getByRole('button', { name: 'Not now' }).click();
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
   await expect(tour).toBeHidden();
 
@@ -354,4 +356,28 @@ test('Someone who had the app before the tour never gets it on their own', async
   await page.reload();
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
   await expect(page.getByRole('dialog', { name: 'Quick tour' })).toBeHidden();
+});
+
+test('the reminder offer shows once after What’s New, and Home keeps a card until Not now', async ({ page }) => {
+  await signIn(page);
+  await forgetWhatsNew(page);
+  await setMeta(page, { reminderAsked: false, reminderCardHiddenUntil: null });
+  await page.reload();
+  await page.getByRole('button', { name: 'Back to studying' }).click();
+  await expect(page.getByRole('heading', { name: 'Keep your streak going' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Turn on reminders' })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.getByRole('button', { name: 'Not now' }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
+
+  await expect(page.locator('body')).toContainText('Reminders are off');
+  await page.getByRole('button', { name: 'Turn on', exact: true }).click();
+  await expect(page.getByRole('alert')).toBeVisible();
+  await page.getByRole('button', { name: 'Not now' }).click();
+  await expect(page.locator('body')).not.toContainText('Reminders are off');
+
+  await page.reload();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Test');
+  await expect(page.getByRole('heading', { name: 'Keep your streak going' })).toBeHidden();
+  await expect(page.locator('body')).not.toContainText('Reminders are off');
 });

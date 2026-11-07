@@ -3,29 +3,24 @@ import { Wordmark } from '../../ui/Wordmark';
 import styles from './WhatsNewScreen.module.css';
 
 /** Changes each release, and shows once to anyone who had the app before it (0048). */
-export const RELEASE = '3.0.0';
+export const RELEASE = '3.1.0';
 
 const GROUPS: { title: string; items: { name: string; what: string }[] }[] = [
   {
-    title: 'Quant',
-    items: [
-      { name: 'Twice the questions', what: 'More than 3,200 now, up from 1,500. Your progress carries over.' },
-      { name: 'Five new subjects', what: 'Algebra, geometry, number properties, statistics and probability.' },
-      { name: 'Comparison', what: 'Quantity A against Quantity B, in the exam’s format and order. Find it under Topics.' },
-      { name: 'Clearer explanations', what: '231 questions have a better explanation on Results.' },
-      { name: 'Submit in reach', what: 'Long questions now fit, with Submit always on screen.' },
-    ],
-  },
-  {
     title: 'Vocab',
     items: [
-      { name: 'Harder Sentence Equivalence', what: '294 longer, exam-style sentences. Watch for two words that match each other but don’t fit.' },
-      { name: 'See the sentence again', what: 'Results now show the sentence, so you can see why a pair was right.' },
+      { name: 'Pick a difficulty', what: 'Easy, Medium, Hard or Adaptive for Choices, Fill the blank and Sentence equivalence. Find it under Vocab, once one of those is on.' },
+      { name: 'Hard is exam-style', what: '“Closest in meaning?” questions, and new exam sentences with trap words.' },
+      { name: 'Adaptive', what: 'Words you know well are asked harder, new ones easier.' },
     ],
   },
   {
-    title: 'Getting around',
-    items: [{ name: 'Quick tour', what: 'A short walk through each tab. Find it in Settings.' }],
+    title: 'Results and sharing',
+    items: [
+      { name: 'Rulers', what: 'Each row shows how much you got right as a ruler, with the count and percentage beside it.' },
+      { name: 'Weakest first', what: 'Topics run from weakest to strongest, on results and share cards.' },
+      { name: 'A Progress report card', what: 'Share from Progress for your countdown, then Quant and Verbal side by side.' },
+    ],
   },
 ];
 

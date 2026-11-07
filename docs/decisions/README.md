@@ -75,3 +75,4 @@ Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Pro
 | [0056](0056-share-card-rows-are-rulers-weakest-first.md) | Share card rows are rulers, weakest topic first | 2026-11-03 | Accepted | Post-launch | Design |
 | [0057](0057-progress-share-is-a-report-card.md) | The Progress share is a report card, split into Quant and Verbal | 2026-11-05 | Accepted | Post-launch | Design |
 | [0058](0058-vocab-difficulty-levels.md) | Vocab quiz cards get Easy, Medium, Hard and Adaptive | 2026-11-07 | Accepted | Post-launch | Product |
+| [0059](0059-reminder-offer-screen-and-home-card.md) | Reminders are offered on their own screen, then kept on Home | 2026-11-07 | Accepted | Post-launch | Product |

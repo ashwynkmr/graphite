@@ -163,6 +163,24 @@ export async function setReminderTime(time: string, d: GraphiteDB = db): Promise
   await put('reminderTime', time, d);
 }
 
+/** Whether the one-time screen offering reminders has been shown on this device (0059). */
+export async function getReminderAsked(d: GraphiteDB = db): Promise<boolean> {
+  return get<boolean>('reminderAsked', false, d);
+}
+
+export async function setReminderAsked(d: GraphiteDB = db): Promise<void> {
+  await put('reminderAsked', true, d);
+}
+
+/** Home's reminder card stays hidden before this day, after Not now. */
+export async function getReminderCardHiddenUntil(d: GraphiteDB = db): Promise<Day | null> {
+  return get<Day | null>('reminderCardHiddenUntil', null, d);
+}
+
+export async function setReminderCardHiddenUntil(day: Day, d: GraphiteDB = db): Promise<void> {
+  await put('reminderCardHiddenUntil', day, d);
+}
+
 /** Whether a user the personal notes open for wants them. On by default; theirs to turn off. */
 export async function getNotesOn(d: GraphiteDB = db): Promise<boolean> {
   return get<boolean>('notesOn', true, d);
