@@ -59,16 +59,6 @@ export function ReminderScreen({ onDone, doneLabel }: { onDone: () => void; done
 
       {on ? (
         <p className={styles.text}>You’ll get a nudge around {spokenTime(time)}. Change the time or turn them off in Settings.</p>
-      ) : support === 'needs-install' ? (
-        <>
-          <p className={styles.text}>On iPhone, reminders work once Graphite is on your Home Screen.</p>
-          <ol className={styles.steps}>
-            <li>Back up first: Settings, then Export. The Home Screen app starts empty.</li>
-            <li>In Safari, tap Share, then Add to Home Screen.</li>
-            <li>Open Graphite from your Home Screen and import your backup in Settings.</li>
-            <li>Turn on reminders there.</li>
-          </ol>
-        </>
       ) : (
         <>
           <ul className={styles.points}>
@@ -76,9 +66,21 @@ export function ReminderScreen({ onDone, doneLabel }: { onDone: () => void; done
             <li>Quiet once you’ve studied that day</li>
             <li>At most 2 a day</li>
           </ul>
-          <Field label="Your usual study time">
-            <input className={`${styles.input} tabular`} type="time" value={time} onChange={(e) => e.target.value && setTime(e.target.value)} />
-          </Field>
+          {support === 'ok' ? (
+            <Field label="Your usual study time">
+              <input className={`${styles.input} tabular`} type="time" value={time} onChange={(e) => e.target.value && setTime(e.target.value)} />
+            </Field>
+          ) : (
+            <>
+              <p className={styles.text}>One step first: add Graphite to your Home Screen.</p>
+              <ol className={styles.steps}>
+                <li>Back up first: Settings, then Export. The Home Screen app starts empty.</li>
+                <li>In Safari, tap Share, then Add to Home Screen.</li>
+                <li>Open Graphite from your Home Screen and import your backup in Settings.</li>
+                <li>Turn on reminders there.</li>
+              </ol>
+            </>
+          )}
           {problem && (
             <p className={styles.problem} role="alert">
               {problem}

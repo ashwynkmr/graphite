@@ -23,6 +23,7 @@ export function ReminderCard() {
   const [busy, setBusy] = useState(false);
   const [problem, setProblem] = useState('');
   if (!data) return null;
+  // On iPhone in Safari there is nothing to turn on yet; the screen shows the Home Screen steps.
   const iphone = reminderSupport() === 'needs-install';
 
   const turnOn = async () => {
@@ -39,7 +40,7 @@ export function ReminderCard() {
     <div className={styles.card}>
       <div>
         <p className={styles.title}>Reminders are off</p>
-        <p className={styles.meta}>{iphone ? 'Add Graphite to your Home Screen to get a nudge each day.' : `Get a nudge at ${spokenTime(data.time)}, quiet once you’ve studied.`}</p>
+        <p className={styles.meta}>Get a nudge at {spokenTime(data.time)}, quiet once you’ve studied.</p>
         {problem && (
           <p className={styles.meta} role="alert">
             {problem}
@@ -57,7 +58,7 @@ export function ReminderCard() {
           Not now
         </Button>
         <Button onClick={turnOn} disabled={busy}>
-          {busy ? 'One moment…' : iphone ? 'Show me how' : 'Turn on'}
+          {busy ? 'One moment…' : 'Turn on'}
         </Button>
       </div>
     </div>

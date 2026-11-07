@@ -174,3 +174,4 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-135 | Vocab | Include Adaptive | Each word asked by how well it is known | In review | [0058](../decisions/0058-vocab-difficulty-levels.md) |
 | FB-136 | Reminders | An update summary, and a well-advertised reminder to turn notifications on: "It's essential" | What's New `3.1.0`, then a reminder offer | In review | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |
 | FB-137 | Reminders | Own screen plus a Home card | Built as chosen | In review | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |
+| FB-138 | Reminders | Reminder ad should be generic, for Android and iOS | Same wording everywhere; iPhone steps only after Turn on | In review | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |

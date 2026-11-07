@@ -14,7 +14,7 @@ Ashwyn chose its own screen plus a Home card (FB-137).
 
 - **The screen** shows once, after What's New, to anyone who has the app and no reminders, and never during a session. It says what reminders do, takes the usual study time, and turns them on from one tap. Not now dismisses it for good.
 - **The Home card** sits at the top of Home while reminders are off. Turn on asks for permission straight from the tap. Not now hides it for 3 days.
-- **On iPhone in Safari**, where reminders can't work yet, both lead to the Home Screen steps, with a backup first, since the Home Screen app starts with empty storage.
+- **The wording is the same on every phone.** Where reminders can't work yet (iPhone in Safari), Turn on opens the screen, which then shows the Home Screen steps, with a backup first, since the Home Screen app starts with empty storage.
 
 What's New moves to release `3.1.0`, listing vocab difficulty, rulers, weakest first and the Progress report card. No release tag: these stay small updates.
 

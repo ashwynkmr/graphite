@@ -11,6 +11,7 @@ Lightly tidied for spelling, as Ashwyn asked for answers to be cleaned up for th
 | --- | --- |
 | FB-136 | "I also need an update summary screen, and a reminder (well advertised) to turn the notifications on. Get the users to somehow get there. It's essential." |
 | FB-137 | Of three options, chose "Own screen + Home card". |
+| FB-138 | "The notification ad should be generic so it applies to both Android and iOS" (about the Safari sentence). |
 
 ## What changed because of it
 
@@ -18,6 +19,7 @@ Lightly tidied for spelling, as Ashwyn asked for answers to be cleaned up for th
 | --- | --- | --- |
 | FB-136 | What's New for release `3.1.0`, and a reminder offer after it. | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |
 | FB-137 | A one-time reminder screen, and a Home card while reminders are off. | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |
+| FB-138 | The card and screen say the same on every phone; the Home Screen steps show only where needed, after Turn on. | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |
 
 ## What deliberately didn't change
 - The Settings section for reminders.
