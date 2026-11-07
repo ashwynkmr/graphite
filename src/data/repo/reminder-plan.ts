@@ -1,6 +1,6 @@
 // Works out the wake-up times from what's on this device, and what the message should say.
 import { daysBetween, toDay } from '../../engine/dates';
-import { openNotes, type SealedNotes } from '../../content/sealed-notes';
+import { openNoteSets, type NoteSet, type SealedNotes } from '../../content/sealed-notes';
 import sealedNotes from '../../content/notes.sealed.json';
 import { mergePlan, planNoteTimes, planWakeTimes, quietFor, SESSION_QUIET_MS } from '../../engine/scheduling/reminder-plan';
 import { streaks } from '../../engine/stats/progress';
@@ -11,13 +11,13 @@ import { getResumable } from './quant-sessions';
 const REVIEW_PAUSED_MINUTES = Number(import.meta.env.VITE_PAUSED_NUDGE_MINUTES);
 const REVIEW_NOTE_MINUTES = Number(import.meta.env.VITE_NOTE_EVERY_MINUTES);
 
-const opened = new Map<string, Promise<string[] | null>>();
+const opened = new Map<string, Promise<NoteSet | null>>();
 
 /** The personal notes this user's name opens, or null. Slow on purpose, so remembered per name. */
-export async function notesForProfile(d: GraphiteDB = db): Promise<string[] | null> {
+export async function notesForProfile(d: GraphiteDB = db): Promise<NoteSet | null> {
   const name = (await getProfile(d))?.name;
   if (!name) return null;
-  if (!opened.has(name)) opened.set(name, openNotes(sealedNotes as SealedNotes, name));
+  if (!opened.has(name)) opened.set(name, openNoteSets(sealedNotes as SealedNotes[], name));
   return opened.get(name)!;
 }
 

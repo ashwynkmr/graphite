@@ -64,7 +64,7 @@ export function ReminderSection() {
           >
             {busy ? 'One moment…' : on ? 'Turn off reminders' : 'Turn on reminders'}
           </Button>
-          {on && notes?.eligible && <p className={styles.hint}>Ashwyn sends you a note every 2 hours from 9 am to 7 pm, and asks each night at 9 pm whether you still want them.</p>}
+          {on && notes?.eligible && <p className={styles.hint}>{notes.from} sends you a note every 2 hours from 9 am to 7 pm, and asks each night at 9 pm whether you still want them.</p>}
           <p className={styles.hint}>Reminders follow how you study: quiet once you’ve studied that day, a nudge for a paused drill or a streak about to end, and fewer if you’ve been away. At most 2 a day.</p>
           <p className={styles.hint}>A small server keeps your phone’s push address and the times to wake it, which can show when you study. Your results stay on this device, and your phone writes each message itself.</p>
           {note && (

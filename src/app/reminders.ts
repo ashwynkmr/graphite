@@ -104,8 +104,10 @@ export async function syncReminder(keepalive = false): Promise<void> {
   }
 }
 
-export async function noteState(): Promise<{ eligible: boolean }> {
-  return { eligible: (await notesForProfile()) !== null };
+/** Whether this user's name opens notes, and who they're from. */
+export async function noteState(): Promise<{ eligible: boolean; from: string | null }> {
+  const set = await notesForProfile();
+  return { eligible: set !== null, from: set?.from ?? null };
 }
 
 export async function changeNotes(on: boolean): Promise<void> {

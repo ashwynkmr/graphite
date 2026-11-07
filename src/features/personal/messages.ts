@@ -2,8 +2,13 @@
 // short and about studying. Shown on Home and Results only, never during a session.
 import type { Profile } from '../../data/repo/meta';
 
+/** The name as it reads in a sentence: a trailing full stop is part of how the name is saved, not of the name. */
+export function plainName(name: string | null | undefined): string | null {
+  return name?.replace(/\.+$/, '').trim() || null;
+}
+
 function name(p: Profile | null): string {
-  return p?.name || 'there';
+  return plainName(p?.name) ?? 'there';
 }
 
 /** Stable pick for the day, so Home doesn't change line on every visit. */

@@ -76,3 +76,4 @@ Date · Status (Accepted / Superseded by NNNN / Revisited) · Phase · Type (Pro
 | [0057](0057-progress-share-is-a-report-card.md) | The Progress share is a report card, split into Quant and Verbal | 2026-11-05 | Accepted | Post-launch | Design |
 | [0058](0058-vocab-difficulty-levels.md) | Vocab quiz cards get Easy, Medium, Hard and Adaptive | 2026-11-07 | Accepted | Post-launch | Product |
 | [0059](0059-reminder-offer-screen-and-home-card.md) | Reminders are offered on their own screen, then kept on Home | 2026-11-07 | Accepted | Post-launch | Product |
+| [0060](0060-notes-sealed-per-person-with-their-sender.md) | Notes are sealed per person, each with its own sender | 2026-11-07 | Accepted | Post-launch | Product |

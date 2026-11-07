@@ -4,10 +4,13 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+## 2026-11-07 · Vocab difficulty and reminders (after `v3.0.0`)
+
 ### Added
 - Vocab difficulty: Easy, Medium, Hard or Adaptive for Choices, Fill the blank and Sentence equivalence. Hard asks "Closest in meaning?" and uses exam-style sentences with trap words; Adaptive asks each word by how well you know it. Flashcards are unchanged.
 - Vocab results show "By difficulty", and the vocab share card lists quiz cards by difficulty.
 - A What's New screen for the updates since `v3.0.0`.
+- Personal notes can now be sealed for more than one person, each with their own sender.
 - A one-time screen offering reminders, and a card at the top of Home while they're off. Where a phone needs Graphite on its Home Screen first (iPhone in Safari), Turn on shows the steps.
 
 ## 2026-11-05 · Progress report card (after `v3.0.0`)

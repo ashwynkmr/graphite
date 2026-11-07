@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { nudgeText, reminderText } from './nudgeText';
+import { greeting, plainName } from './messages';
 
 const base = { name: 'Sam', paused: null, nudge: null, studiedToday: false, streak: 0, daysAway: 0, hour: 12 };
 
@@ -42,5 +43,15 @@ describe('reminderText', () => {
 
   it('still puts a paused session first', () => {
     expect(reminderText({ ...base, streak: 5, hour: 21, daysAway: 4, paused: { type: 'quant', cursor: 1, total: 20 } })).toBe('You left a drill at 1 of 20. Pick it up?');
+  });
+});
+
+describe('plainName', () => {
+  it('drops a trailing full stop, so the greeting never ends in two', () => {
+    expect(plainName('Ashwyn.')).toBe('Ashwyn');
+    expect(plainName('Ashwyn')).toBe('Ashwyn');
+    expect(plainName('  ')).toBeNull();
+    expect(plainName(null)).toBeNull();
+    expect(greeting({ name: 'Ashwyn.' }, 9)).toBe('Good morning, Ashwyn.');
   });
 });

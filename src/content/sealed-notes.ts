@@ -8,6 +8,12 @@ interface Sealed {
   data: string;
 }
 
+/** One person's notes, and who they're from, since each set has its own sender. */
+export interface NoteSet {
+  from: string;
+  notes: string[];
+}
+
 export interface SealedNotes {
   notes: Sealed;
   /** The notes' key, wrapped once per name. */
@@ -38,7 +44,7 @@ function unseal(key: CryptoKey, sealed: Sealed): Promise<ArrayBuffer> {
   return crypto.subtle.decrypt({ name: 'AES-GCM', iv: fromBase64(sealed.iv) }, key, fromBase64(sealed.data));
 }
 
-export async function sealNotes(notes: readonly string[], names: readonly string[]): Promise<SealedNotes> {
+export async function sealNotes(set: NoteSet, names: readonly string[]): Promise<SealedNotes> {
   const raw = crypto.getRandomValues(new Uint8Array(32));
   const notesKey = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['encrypt']);
   const keys = [];
@@ -46,19 +52,28 @@ export async function sealNotes(notes: readonly string[], names: readonly string
     const salt = crypto.getRandomValues(new Uint8Array(16));
     keys.push({ salt: toBase64(salt), ...(await seal(await nameKey(name, salt), raw)) });
   }
-  return { notes: await seal(notesKey, encoder.encode(JSON.stringify(notes))), keys };
+  return { notes: await seal(notesKey, encoder.encode(JSON.stringify(set))), keys };
 }
 
 /** The notes, or null if this name doesn't open them. */
-export async function openNotes(sealed: SealedNotes, name: string): Promise<string[] | null> {
+export async function openNotes(sealed: SealedNotes, name: string): Promise<NoteSet | null> {
   for (const entry of sealed.keys) {
     try {
       const raw = await unseal(await nameKey(name, fromBase64(entry.salt)), entry);
       const notesKey = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
-      return JSON.parse(toText(await unseal(notesKey, sealed.notes))) as string[];
+      return JSON.parse(toText(await unseal(notesKey, sealed.notes))) as NoteSet;
     } catch {
       // Not this name's key; try the next.
     }
+  }
+  return null;
+}
+
+/** The first set that opens for this name. A name opens at most one set. */
+export async function openNoteSets(sets: readonly SealedNotes[], name: string): Promise<NoteSet | null> {
+  for (const sealed of sets) {
+    const opened = await openNotes(sealed, name);
+    if (opened) return opened;
   }
   return null;
 }

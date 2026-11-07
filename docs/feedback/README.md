@@ -169,9 +169,11 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-130 | Share | Circled accuracy "doesn't feel nice"; wanted something more maths or study oriented | Tried seven other designs | Done | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
 | FB-131 | Share | Number line, with a clearer arrow and % on its numbers | Built as asked | Done | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
 | FB-132 | Process | "Go live" | Pushed to `main`; no new What's New | Done | [2026-11-05-progress-share](2026-11-05-progress-share.md) |
-| FB-133 | Vocab | Hard questions for practice types other than flashcards, shown in results and share cards | Difficulty picker, "By difficulty" on results, share rows by difficulty | In review | [0058](../decisions/0058-vocab-difficulty-levels.md) |
-| FB-134 | Vocab | Hard should be exam-style | "Closest in meaning?" and exam-style sentences with traps | In review | [0058](../decisions/0058-vocab-difficulty-levels.md) |
-| FB-135 | Vocab | Include Adaptive | Each word asked by how well it is known | In review | [0058](../decisions/0058-vocab-difficulty-levels.md) |
-| FB-136 | Reminders | An update summary, and a well-advertised reminder to turn notifications on: "It's essential" | What's New `3.1.0`, then a reminder offer | In review | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |
-| FB-137 | Reminders | Own screen plus a Home card | Built as chosen | In review | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |
-| FB-138 | Reminders | Reminder ad should be generic, for Android and iOS | Same wording everywhere; iPhone steps only after Turn on | In review | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |
+| FB-133 | Vocab | Hard questions for practice types other than flashcards, shown in results and share cards | Difficulty picker, "By difficulty" on results, share rows by difficulty | Done | [0058](../decisions/0058-vocab-difficulty-levels.md) |
+| FB-134 | Vocab | Hard should be exam-style | "Closest in meaning?" and exam-style sentences with traps | Done | [0058](../decisions/0058-vocab-difficulty-levels.md) |
+| FB-135 | Vocab | Include Adaptive | Each word asked by how well it is known | Done | [0058](../decisions/0058-vocab-difficulty-levels.md) |
+| FB-136 | Reminders | An update summary, and a well-advertised reminder to turn notifications on: "It's essential" | What's New `3.1.0`, then a reminder offer | Done | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |
+| FB-137 | Reminders | Own screen plus a Home card | Built as chosen | Done | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |
+| FB-138 | Reminders | Reminder ad should be generic, for Android and iOS | Same wording everywhere; iPhone steps only after Turn on | Done | [0059](../decisions/0059-reminder-offer-screen-and-home-card.md) |
+| FB-139 | Notes | The owner gets the same notes from the second user, same rules | Notes sealed per person with their own sender | Done | [0060](../decisions/0060-notes-sealed-per-person-with-their-sender.md) |
+| FB-140 | Notes | The owner's notes open for "Ashwyn." (with a full stop), then go live | Built as asked; launched | Done | [0060](../decisions/0060-notes-sealed-per-person-with-their-sender.md) |
