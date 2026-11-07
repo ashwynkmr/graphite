@@ -70,6 +70,10 @@ export interface VocabSettings {
   modes: VocabMode[];
   deck: VocabDeck;
   length: number;
+  /** How hard quiz cards are asked: one or more levels mixed, unless adaptive. Flashcards are the same at every level. */
+  difficulties: Difficulty[];
+  /** Each word asked by how well it is known, instead of the chosen levels. */
+  adaptive: boolean;
   /** On a session from the Round deck: the round its answers count towards. */
   round?: number;
 }

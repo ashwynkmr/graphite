@@ -3,10 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAsync } from '../../app/useAsync';
 import type { VocabSettings } from '../../data/db';
 import { DEFAULT_VOCAB, getSettings } from '../../data/repo/meta';
+import type { Difficulty } from '../../engine/generators/types';
 import { VOCAB_MODES, type PracticeMode, type VocabDeck } from '../../engine/sessions/vocab-builder';
 import { Button, Field, Segmented, ToggleGroup } from '../../ui/controls';
 import { Dial } from '../../ui/Dial';
 import { Screen } from '../../ui/Screen';
+import { difficultiesLabel, DIFFICULTY_LABEL } from '../quant/display';
 import { startVocab, vocabOverview } from './startVocab';
 import styles from './VocabSetupScreen.module.css';
 
@@ -22,6 +24,20 @@ const MODE_HINT: Record<PracticeMode, string> = {
   equiv: 'Pick the two words that mean the same here',
 };
 
+const ADAPTIVE = 'adaptive';
+type DifficultyChoice = Difficulty | typeof ADAPTIVE;
+
+const LEVEL_HINT: Record<Difficulty, string> = {
+  1: 'Wrong options are easy to rule out',
+  2: 'Wrong options include look-alikes',
+  3: 'Exam-style: synonyms, new sentences, traps',
+};
+
+function difficultyHint(s: VocabSettings): string {
+  if (s.adaptive) return 'Harder as you get to know each word';
+  return s.difficulties.length > 1 ? `${difficultiesLabel(s.difficulties)}, mixed` : LEVEL_HINT[s.difficulties[0] ?? 2];
+}
+
 export function VocabSetupScreen() {
   const navigate = useNavigate();
   const [s, setS] = useState<VocabSettings>(DEFAULT_VOCAB);
@@ -33,6 +49,11 @@ export function VocabSetupScreen() {
   }, []);
 
   const set = (patch: Partial<VocabSettings>) => setS((prev) => ({ ...prev, ...patch }));
+  const chooseDifficulty = (chosen: DifficultyChoice[]) => {
+    if (chosen.includes(ADAPTIVE) && !s.adaptive) return set({ adaptive: true });
+    const levels = chosen.filter((c): c is Difficulty => c !== ADAPTIVE);
+    set(levels.length ? { adaptive: false, difficulties: levels } : { adaptive: false });
+  };
   const c = overview?.counts;
   const round = overview?.round;
   // Round 2 onward appears once the first pass is done; a round on offer starts when this deck is used.
@@ -63,6 +84,18 @@ export function VocabSetupScreen() {
         <Field label="Practice" hint={s.modes.length === 1 ? MODE_HINT[s.modes[0] as PracticeMode] : 'Mixed card by card'}>
           <ToggleGroup label="Practice" columns={2} value={s.modes} onChange={(modes) => set({ modes })} options={VOCAB_MODES.map((m) => ({ value: m, label: MODE_LABEL[m] }))} />
         </Field>
+
+        {s.modes.some((m) => m !== 'flashcard') && (
+          <Field label="Difficulty" hint={difficultyHint(s)}>
+            <ToggleGroup<DifficultyChoice>
+              label="Difficulty"
+              columns={2}
+              value={s.adaptive ? [ADAPTIVE] : s.difficulties}
+              onChange={chooseDifficulty}
+              options={[...([1, 2, 3] as const).map((d) => ({ value: d, label: DIFFICULTY_LABEL[d] })), { value: ADAPTIVE, label: 'Adaptive' }]}
+            />
+          </Field>
+        )}
 
         <Field label="Deck" hint={deckHint}>
           <Segmented

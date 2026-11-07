@@ -12,7 +12,10 @@ import { ReportProblem } from '../../ui/ReportProblem';
 import { vocabResultsLine } from '../personal/messages';
 import { ResultsNudge } from '../personal/NudgeCard';
 import { useProfile } from '../personal/ProfileContext';
-import { duration } from '../quant/display';
+import type { Difficulty } from '../../engine/generators/types';
+import type { Tally } from '../../engine/stats/quant-results';
+import { difficultiesLabel, DIFFICULTY_LABEL, duration } from '../quant/display';
+import { Breakdown } from '../results/ResultsScreen';
 import r from '../results/ResultsScreen.module.css';
 import { ShareButton } from '../share/ShareButton';
 import { vocabShare } from '../share/summary';
@@ -25,6 +28,14 @@ const MODE_LABEL: Record<VocabMode, string> = { flashcard: 'Flashcards', mcq: 'M
 /** Practice types of a session; sessions saved before the multi-select stored a single `mode`. */
 function modesOf(s: VocabSessionRow): VocabMode[] {
   return s.settings.modes ?? [(s.settings as { mode?: VocabMode }).mode ?? 'flashcard'];
+}
+
+/** The session's practice types, then how hard its quiz cards were asked when it recorded that: 'Fill the blank · Hard'. */
+function kindOf(s: VocabSessionRow): string {
+  const modes = modesOf(s);
+  const label = modes.length > 1 ? 'Mixed practice' : MODE_LABEL[modes[0]!];
+  if (!s.items.some((it) => it.level)) return label;
+  return `${label} · ${s.settings.adaptive ? 'Adaptive' : difficultiesLabel(s.settings.difficulties)}`;
 }
 
 function Mark({ grade }: { grade: VocabScoredItem['grade'] }) {
@@ -81,7 +92,7 @@ export function VocabResultsScreen() {
         scoreVocab(
           s.answers.map((a, i) => {
             const item = s.items[i]!;
-            return { index: i, wordId: item.wordId, grade: gradeVocab(item, book.byId.get(item.wordId)!, a.value), flashcard: item.kind === 'flashcard', ms: a.ms, answer: a.value };
+            return { index: i, wordId: item.wordId, grade: gradeVocab(item, book.byId.get(item.wordId)!, a.value), flashcard: item.kind === 'flashcard', ms: a.ms, answer: a.value, level: item.level };
           }),
           s.items.map((it) => Boolean(it.requeued)),
         ),
@@ -117,7 +128,7 @@ export function VocabResultsScreen() {
     else navigate('/vocab');
   };
 
-  const kind = modes.length > 1 ? 'Mixed practice' : MODE_LABEL[modes[0]!];
+  const kind = kindOf(session);
 
   return (
     <main className={r.page}>
@@ -191,6 +202,8 @@ export function VocabResultsScreen() {
 
       <ResultsNudge />
 
+      <Breakdown title="By difficulty" rows={(Object.entries(results.byLevel) as [string, Tally][]).map(([k, t]) => [DIFFICULTY_LABEL[Number(k) as Difficulty], t])} />
+
       <section className={r.review}>
         <div className={r.reviewHead}>
           <h3 className={r.h3}>Words</h3>
@@ -204,7 +217,7 @@ export function VocabResultsScreen() {
               {g.items.map((it) => {
                 const w = words.get(it.wordId)!;
                 const showYours = !it.flashcard && !isPassing(it.grade);
-                const { partner, sentence: asked, sentenceId } = session.items[it.index]!;
+                const { kind: asking, partner, sentence: asked, sentenceId } = session.items[it.index]!;
                 return (
                   <li key={it.index} className={r.item}>
                     <Mark grade={it.grade} />
@@ -214,7 +227,8 @@ export function VocabResultsScreen() {
                       </p>
                       <p className={r.note}>{sentence(w.meaning)}</p>
                       {asked && <p className={r.note}>{asked}</p>}
-                      {partner && <p className={r.note}>Pairs with {partner} in that sentence.</p>}
+                      {partner && asking === 'synonym' && <p className={r.note}>Closest in meaning: {partner}.</p>}
+                      {partner && asking === 'equiv' && <p className={r.note}>Pairs with {partner} in that sentence.</p>}
                       {showYours && <p className={r.ans}>{it.answer === null ? 'Skipped' : <span className={r.yours}>{it.answer.split('|').join(', ')}</span>}</p>}
                       {it.grade === 'slip' && <p className={r.ans}>Typed “{it.answer}”, a spelling slip</p>}
                       <ReportProblem id={sentenceId ?? w.id} />

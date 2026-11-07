@@ -4,6 +4,10 @@ User-facing changes, newest first. Format follows [Keep a Changelog](https://kee
 
 ## [Unreleased]
 
+### Added
+- Vocab difficulty: Easy, Medium, Hard or Adaptive for Choices, Fill the blank and Sentence equivalence. Hard asks "Closest in meaning?" and uses exam-style sentences with trap words; Adaptive asks each word by how well you know it. Flashcards are unchanged.
+- Vocab results show "By difficulty", and the vocab share card lists quiz cards by difficulty.
+
 ## 2026-11-05 · Progress report card (after `v3.0.0`)
 
 ### Changed

@@ -280,7 +280,20 @@ describe('scoreVocab', () => {
       ],
       [false, false, false, false, true],
     );
-    expect(r).toMatchObject({ total: 2, correct: 1, flashcards: 2, marks: { know: 1, unsure: 0, review: 1 }, totalMs: 8000, avgMs: 1600 });
+    expect(r).toMatchObject({ total: 2, correct: 1, flashcards: 2, marks: { know: 1, unsure: 0, review: 1 }, byLevel: {}, totalMs: 8000, avgMs: 1600 });
+  });
+
+  it('tallies quiz cards by level', () => {
+    const r = scoreVocab(
+      [
+        { index: 0, wordId: 'a', grade: 'know', flashcard: true, ms: 1000, answer: 'know' },
+        { index: 1, wordId: 'b', grade: 'correct', flashcard: false, ms: 1000, answer: 'b', level: 3 },
+        { index: 2, wordId: 'c', grade: 'wrong', flashcard: false, ms: 1000, answer: 'x', level: 3 },
+        { index: 3, wordId: 'd', grade: 'correct', flashcard: false, ms: 1000, answer: 'd', level: 1 },
+      ],
+      [false, false, false, false],
+    );
+    expect(r.byLevel).toEqual({ 1: { correct: 1, total: 1 }, 3: { correct: 1, total: 2 } });
   });
 });
 

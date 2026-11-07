@@ -39,7 +39,7 @@ export function fixedLength(settings: QuantSettings, length: number): QuantSetti
   return { ...settings, length, timer: settings.timer === 'sprint' ? 'per-set' : settings.timer };
 }
 
-export const DEFAULT_VOCAB: VocabSettings = { modes: ['flashcard'], deck: 'today', length: 50 };
+export const DEFAULT_VOCAB: VocabSettings = { modes: ['flashcard'], deck: 'today', length: 50, difficulties: [2], adaptive: false };
 
 /** Fills defaults, and upgrades settings saved before practice types became a multi-select or type-in went. */
 export function normalizeVocab(stored: Partial<VocabSettings> | undefined): VocabSettings {
@@ -48,6 +48,7 @@ export function normalizeVocab(stored: Partial<VocabSettings> | undefined): Voca
   if (legacy && !stored?.modes?.length) vocab.modes = [legacy];
   delete (vocab as { mode?: unknown }).mode;
   vocab.modes = choosableModes(vocab.modes);
+  if (!vocab.difficulties?.length) vocab.difficulties = [2];
   return vocab;
 }
 

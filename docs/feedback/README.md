@@ -169,3 +169,6 @@ Ashwyn tests every checkpoint on a staging site before anything is committed ([0
 | FB-130 | Share | Circled accuracy "doesn't feel nice"; wanted something more maths or study oriented | Tried seven other designs | Done | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
 | FB-131 | Share | Number line, with a clearer arrow and % on its numbers | Built as asked | Done | [0057](../decisions/0057-progress-share-is-a-report-card.md) |
 | FB-132 | Process | "Go live" | Pushed to `main`; no new What's New | Done | [2026-11-05-progress-share](2026-11-05-progress-share.md) |
+| FB-133 | Vocab | Hard questions for practice types other than flashcards, shown in results and share cards | Difficulty picker, "By difficulty" on results, share rows by difficulty | In review | [0058](../decisions/0058-vocab-difficulty-levels.md) |
+| FB-134 | Vocab | Hard should be exam-style | "Closest in meaning?" and exam-style sentences with traps | In review | [0058](../decisions/0058-vocab-difficulty-levels.md) |
+| FB-135 | Vocab | Include Adaptive | Each word asked by how well it is known | In review | [0058](../decisions/0058-vocab-difficulty-levels.md) |

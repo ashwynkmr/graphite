@@ -5,7 +5,7 @@ import { wordMistakes } from '../../data/repo/mistakes';
 import { createVocabSession, loadWordStates } from '../../data/repo/vocab';
 import { toDay } from '../../engine/dates';
 import { mulberry32 } from '../../engine/rng';
-import { buildPracticeQueue, choosableModes, deckCounts, indexEquivSentences, introducedOn, planVocabItems, roundStatus, type DeckCounts, type EquivIndex, type VocabMode, type RoundStatus } from '../../engine/sessions/vocab-builder';
+import { buildPracticeQueue, choosableModes, deckCounts, indexEquivSentences, introducedOn, planLevels, planVocabItems, roundStatus, type DeckCounts, type EquivIndex, type RoundStatus } from '../../engine/sessions/vocab-builder';
 
 const DECK_SIZE = 1500;
 
@@ -13,9 +13,10 @@ function freshSeed(): number {
   return Math.floor(Math.random() * 2 ** 31);
 }
 
-/** The exam-style sentences, when the session asks sentence equivalence at all. */
-async function sentencesFor(modes: readonly VocabMode[]): Promise<EquivIndex | undefined> {
-  return modes.includes('equiv') ? indexEquivSentences(await loadEquivSentences()) : undefined;
+/** The exam-style sentences, when the session asks sentence equivalence, or fill the blank at a level that can be Hard. */
+async function sentencesFor(s: VocabSettings): Promise<EquivIndex | undefined> {
+  const hardBlanks = s.modes.includes('blank') && (s.adaptive || s.difficulties.includes(3));
+  return s.modes.includes('equiv') || hardBlanks ? indexEquivSentences(await loadEquivSentences()) : undefined;
 }
 
 export interface VocabOverview {
@@ -56,12 +57,13 @@ export async function startVocab(chosen: VocabSettings): Promise<VocabSessionRow
     // Starting the deck when a round is on offer is what starts that round.
     if (status.offer) await setVocabRound(status.offer);
   }
-  const sentences = await sentencesFor(settings.modes);
+  const sentences = await sentencesFor(settings);
   const ids = buildPracticeQueue({ words: book.words, states, deck: settings.deck, length: settings.length, today, newLeft, round }, settings.modes, sentences);
   await updateSettings({ vocab: settings });
   if (!ids.length) return null;
   const seed = freshSeed();
-  return createVocabSession({ settings: round ? { ...settings, round } : settings, items: planVocabItems(ids, settings.modes, book.byId, seed, sentences), seed });
+  const items = planVocabItems(ids, settings.modes, book.byId, seed, sentences, planLevels(ids, settings, states, seed));
+  return createVocabSession({ settings: round ? { ...settings, round } : settings, items, seed });
 }
 
 /**
@@ -79,11 +81,12 @@ export async function redoVocab(wordIds: readonly string[], base: VocabSettings)
 
 /** Drill my mistakes: the oldest logged words, up to the usual session length, in the usual practice types; only `refIds` when the log is filtered. */
 export async function startMistakeVocab(refIds?: readonly string[]): Promise<VocabSessionRow | null> {
-  const [book, logged, all] = await Promise.all([loadWords(), wordMistakes(), getSettings()]);
+  const [book, logged, all, states] = await Promise.all([loadWords(), wordMistakes(), getSettings(), loadWordStates()]);
   const mistakes = refIds ? logged.filter((m) => refIds.includes(m.refId)) : logged;
   const ids = [...mistakes].sort((a, b) => a.addedAt - b.addedAt).map((m) => m.refId).filter((id) => book.byId.has(id)).slice(0, all.vocab.length);
   if (!ids.length) return null;
   const seed = freshSeed();
   const settings: VocabSettings = { ...all.vocab, length: ids.length, deck: all.vocab.deck === 'round' ? 'today' : all.vocab.deck };
-  return createVocabSession({ settings, items: planVocabItems(ids, settings.modes, book.byId, seed, await sentencesFor(settings.modes)), seed });
+  const items = planVocabItems(ids, settings.modes, book.byId, seed, await sentencesFor(settings), planLevels(ids, settings, states, seed));
+  return createVocabSession({ settings, items, seed });
 }

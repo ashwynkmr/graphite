@@ -45,7 +45,7 @@ function Mark({ status }: { status: ScoredItem['status'] }) {
   );
 }
 
-function Breakdown({ title, rows }: { title: string; rows: [string, Tally][] }) {
+export function Breakdown({ title, rows }: { title: string; rows: [string, Tally][] }) {
   if (!rows.length) return null;
   return (
     <section className={styles.breakdown}>

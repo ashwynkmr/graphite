@@ -60,6 +60,7 @@ const ATTEMPT_MODE: Record<VocabItem['kind'], WordAttemptRow['mode']> = {
   meaning: 'mcq',
   word: 'mcq',
   blank: 'mcq',
+  synonym: 'mcq',
 };
 
 /**

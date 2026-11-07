@@ -24,6 +24,7 @@ const vocab = (over: Partial<VocabResults> = {}): VocabResults => ({
   flashcards: 0,
   slips: 0,
   marks: { know: 0, unsure: 0, review: 0 },
+  byLevel: {},
   totalMs: 200_000,
   avgMs: 5_000,
   ...over,
@@ -107,6 +108,21 @@ describe('vocabShare', () => {
     expect(card.score.value).toBe(8);
     expect(card.rows).toHaveLength(3);
     expect(card.text).toBe('Graphite · Mixed practice · 8/10 (80%) · avg 5s · flashcards 5 of 10 known');
+  });
+
+  it('lists quiz cards by level, adding up to the score', () => {
+    const card = vocabShare('Mixed practice · Easy + Hard', vocab({ total: 10, correct: 7, flashcards: 4, marks: { know: 4, unsure: 0, review: 0 }, byLevel: { 1: { correct: 4, total: 4 }, 3: { correct: 3, total: 6 } } }));
+    expect(card.rows).toEqual([
+      { label: 'Easy', count: '4/4', share: 1 },
+      { label: 'Hard', count: '3/6', share: 0.5 },
+    ]);
+    expect(card.text).toBe('Graphite · Mixed practice · Easy + Hard · 7/10 (70%) · avg 5s · easy 4/4, hard 3/6 · flashcards 4 of 4 known');
+  });
+
+  it('shows one level as one row, without repeating it in the text', () => {
+    const card = vocabShare('Fill the blank · Hard', vocab({ total: 5, correct: 2, byLevel: { 3: { correct: 2, total: 5 } } }));
+    expect(card.rows).toEqual([{ label: 'Hard', count: '2/5', share: 0.4 }]);
+    expect(card.text).toBe('Graphite · Fill the blank · Hard · 2/5 (40%) · avg 5s');
   });
 });
 

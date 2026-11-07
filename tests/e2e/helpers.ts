@@ -15,6 +15,9 @@ export interface SessionItem {
   choices?: string[];
   kind?: string;
   wordId?: string;
+  partner?: string;
+  sentence?: string;
+  level?: 1 | 2 | 3;
 }
 
 export interface SessionRow {

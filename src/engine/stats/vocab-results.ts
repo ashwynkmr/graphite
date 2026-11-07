@@ -1,7 +1,9 @@
 // Results for a finished vocab session. Quiz cards are scored; flashcards are tallied by mark
 // (a session can mix both).
+import type { Difficulty } from '../generators/types';
 import type { Grade } from '../scheduling/leitner';
 import { isPassing } from '../scheduling/leitner';
+import type { Tally } from './quant-results';
 
 export interface VocabScoredItem {
   index: number;
@@ -12,6 +14,8 @@ export interface VocabScoredItem {
   ms: number;
   /** What the user chose or typed (quizzes); null when skipped. */
   answer: string | null;
+  /** How hard the quiz card was asked; missing on flashcards and older sessions. */
+  level?: Difficulty;
 }
 
 export interface VocabResults {
@@ -23,6 +27,8 @@ export interface VocabResults {
   flashcards: number;
   slips: number;
   marks: { know: number; unsure: number; review: number };
+  /** Quiz cards by level, for sessions that recorded one. */
+  byLevel: Partial<Record<Difficulty, Tally>>;
   totalMs: number;
   avgMs: number;
 }
@@ -31,6 +37,13 @@ export function scoreVocab(items: readonly VocabScoredItem[], requeued: readonly
   const first = items.filter((_, i) => !requeued[i]);
   const quiz = first.filter((i) => !i.flashcard);
   const totalMs = items.reduce((t, i) => t + i.ms, 0);
+  const byLevel: VocabResults['byLevel'] = {};
+  for (const i of quiz) {
+    if (!i.level) continue;
+    const t = (byLevel[i.level] ??= { correct: 0, total: 0 });
+    t.total++;
+    if (isPassing(i.grade)) t.correct++;
+  }
   return {
     items: [...items],
     total: quiz.length,
@@ -42,6 +55,7 @@ export function scoreVocab(items: readonly VocabScoredItem[], requeued: readonly
       unsure: first.filter((i) => i.grade === 'unsure').length,
       review: first.filter((i) => i.grade === 'review').length,
     },
+    byLevel,
     totalMs,
     avgMs: items.length ? Math.round(totalMs / items.length) : 0,
   };

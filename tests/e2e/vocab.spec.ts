@@ -32,6 +32,47 @@ test('missed quiz words stay hidden until results, then reach the mistake log', 
   await expect(page.locator('body')).toContainText('Words (3)');
 });
 
+test('Hard asks exam-style questions, marks them only on results, and shows the level there', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 664 });
+  await signIn(page);
+  await page.goto('./#/vocab');
+  await expect(page.getByRole('group', { name: 'Difficulty' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Choices', exact: true }).click();
+  await page.getByRole('button', { name: 'Fill the blank', exact: true }).click();
+  await page.getByRole('button', { name: 'Flashcards', exact: true }).click();
+  await page.getByRole('button', { name: 'Hard', exact: true }).click();
+  await page.getByRole('button', { name: 'Medium', exact: true }).click();
+  await expect(page.locator('body')).toContainText('Exam-style: synonyms, new sentences, traps');
+  await page.getByRole('button', { name: /^Start \d+/ }).click();
+  await expect(page).toHaveURL(/vocab\/session/);
+  const planned = (await currentSession(page)).items;
+  expect(planned.some((it) => it.kind === 'blank' && it.sentence)).toBe(true);
+  expect(planned.some((it) => it.kind === 'synonym')).toBe(true);
+
+  const asked: string[] = [];
+  for (let i = 0; i < 6; i++) {
+    const session = await currentSession(page);
+    const item = session.items[session.cursor]!;
+    expect(item.level).toBe(3);
+    asked.push(item.kind!);
+    if (item.kind === 'synonym') await expect(page.locator('body')).toContainText('Closest in meaning?');
+    if (item.sentence) await expect(page.locator('body')).toContainText(item.sentence);
+    const right = item.choices!.indexOf(item.kind === 'synonym' ? item.partner! : item.wordId!);
+    await page.getByRole('radio').nth(right).click();
+    await page.getByRole('button', { name: 'Submit' }).click();
+    await expect(page.locator('body')).toContainText(`${i + 2} / `);
+    await expectNoVerdict(page);
+  }
+  expect(asked.every((k) => k === 'synonym' || k === 'word' || k === 'blank')).toBe(true);
+  await page.getByRole('button', { name: 'End session' }).click();
+  await page.getByRole('alertdialog').getByRole('button', { name: /End/ }).click();
+  await expect(page).toHaveURL(/vocab\/results/);
+  await expect(page.locator('header')).toContainText('Mixed practice · Hard');
+  await expect(page.locator('body')).toContainText('By difficulty');
+  await expect(page.locator('body')).toContainText('6/6');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
+});
+
 test('an exam-style sentence fits a short phone, keeps its verdict for results and shows there', async ({ page }) => {
   const bank = JSON.parse(readFileSync(resolve(import.meta.dirname, '../../content/equiv-sentences.json'), 'utf8')) as { id: string; sentence: string; answer: [string, string]; decoy: [string, string]; others: [string, string] }[];
   const longest = bank.reduce((a, b) => (b.sentence.length > a.sentence.length ? b : a));

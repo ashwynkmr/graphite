@@ -78,6 +78,15 @@ function QuizPrompt({ item, word }: { item: VocabItem; word: Word }) {
       </>
     );
   }
+  if (item.kind === 'synonym') {
+    return (
+      <>
+        <p className={styles.ask}>Closest in meaning?</p>
+        <p className={styles.word}>{word.word}</p>
+        <p className={styles.pos}>{word.pos}</p>
+      </>
+    );
+  }
   if (item.kind === 'word') {
     return (
       <>
@@ -90,8 +99,8 @@ function QuizPrompt({ item, word }: { item: VocabItem; word: Word }) {
     return (
       <>
         <p className={styles.ask}>Which word fits?</p>
-        <p className={styles.prompt}>{blankOut(word)}</p>
-        {inflected(word) && <p className={styles.formNote}>Options are in their base form.</p>}
+        <p className={styles.prompt}>{item.sentence ?? blankOut(word)}</p>
+        {!item.sentence && inflected(word) && <p className={styles.formNote}>Options are in their base form.</p>}
       </>
     );
   }
@@ -299,7 +308,7 @@ export function VocabSessionScreen() {
           </>
         )}
 
-        {(item.kind === 'meaning' || item.kind === 'word' || item.kind === 'blank') && (
+        {(item.kind === 'meaning' || item.kind === 'word' || item.kind === 'blank' || item.kind === 'synonym') && (
           <ChoiceList
             key={session.cursor}
             long={item.kind === 'meaning'}

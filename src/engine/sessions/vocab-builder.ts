@@ -2,8 +2,9 @@
 // how each is asked, and how an answer is graded. Pure: callers pass words, states and the day.
 import type { EquivSentence, Word } from '../../content/schema';
 import type { Day } from '../dates';
+import type { Difficulty } from '../generators/types';
 import { matchWord } from '../matching/word-answer';
-import { mulberry32 } from '../rng';
+import { mulberry32, type Rng } from '../rng';
 import { isDue, type Grade, type WordSchedule } from '../scheduling/leitner';
 
 /** Practice types; a session can mix several. `mcq` asks word → meaning or meaning → word. `equiv` is sentence equivalence. */
@@ -19,8 +20,8 @@ export function choosableModes(modes: readonly VocabMode[]): PracticeMode[] {
 }
 
 export type VocabDeck = 'today' | 'new' | 'starred' | 'round';
-/** Multiple choice asks one of three ways: word → meaning, meaning → word, or fill the blank. */
-export type McqKind = 'meaning' | 'word' | 'blank';
+/** Multiple choice asks one of four ways: word → meaning, meaning → word, fill the blank, or closest in meaning (hard). */
+export type McqKind = 'meaning' | 'word' | 'blank' | 'synonym';
 export type ItemKind = 'flashcard' | 'typein' | 'equiv' | McqKind;
 
 export interface VocabItem {
@@ -28,13 +29,15 @@ export interface VocabItem {
   kind: ItemKind;
   /** Word ids, already shuffled; for multiple choice and sentence equivalence. */
   choices?: string[];
-  /** Sentence equivalence: the word that pairs with `wordId`. */
+  /** Sentence equivalence: the word that pairs with `wordId`. Closest in meaning: the right answer. */
   partner?: string;
-  /** Sentence equivalence from the exam-style bank: its id and text. Without these the word's own example is asked. */
+  /** An exam-style bank sentence (sentence equivalence, or fill the blank on Hard): its id and text. Without these the word's own example is asked. */
   sentenceId?: string;
   sentence?: string;
   /** A flashcard marked Review, shown again at the end of the same session (once). */
   requeued?: boolean;
+  /** How hard a quiz card was asked. Missing on flashcards and on sessions from before vocab difficulty. */
+  level?: Difficulty;
 }
 
 export const CHOICES = 5;
@@ -207,38 +210,135 @@ export function indexEquivSentences(sentences: readonly EquivSentence[]): EquivI
   return index;
 }
 
+/** How hard a session asks: one or more levels dealt across the cards, or each word by how well it is known. */
+export interface LevelChoice {
+  difficulties: readonly Difficulty[];
+  adaptive: boolean;
+}
+
+/** Adaptive: new and missed words (box 0–1) are asked easy, words getting there (2–3) medium, words known well (4–5) hard. */
+export function adaptiveLevel(s: WordSchedule | undefined): Difficulty {
+  const box = s?.box ?? 0;
+  return box <= 1 ? 1 : box <= 3 ? 2 : 3;
+}
+
+/** One level per word: each word's own level when adaptive, otherwise the chosen levels dealt evenly in a shuffled order. */
+export function planLevels(ids: readonly string[], choice: LevelChoice, states: States, seed: number): Difficulty[] {
+  if (choice.adaptive) return ids.map((id) => adaptiveLevel(states.get(id)));
+  const levels = choice.difficulties.length ? choice.difficulties : ([2] as const);
+  return mulberry32(seed - 1).shuffle(ids.map((_, i) => levels[i % levels.length]!));
+}
+
+/** Words that share a listed synonym mean nearly the same, so neither can be a wrong option for the other. */
+function close(a: Word, b: Word): boolean {
+  return linked(a, b) || a.synonyms.some((x) => b.synonyms.includes(x));
+}
+
+/**
+ * Wrong options for an easy question: words of another part of speech, so the wording or the grammar
+ * rules them out. None is linked to the words in `keep`.
+ */
+export function plainDistractors(w: Word, keep: readonly Word[], pool: ReadonlyMap<string, Word>, count: number, seed: number): string[] {
+  const out: string[] = [];
+  for (const o of mulberry32(seed).shuffle([...pool.values()])) {
+    if (out.length === count) break;
+    if (o.pos !== w.pos && !keep.some((k) => k.id === o.id || close(k, o))) out.push(o.id);
+  }
+  return out;
+}
+
+/** Deck words of the same part of speech that mean the same as `w`, listed by either word. Closest in meaning asks for one. */
+export function deckSynonyms(w: Word, pool: ReadonlyMap<string, Word>): string[] {
+  const ids = new Set(w.synonyms.filter((id) => pool.get(id)?.pos === w.pos));
+  for (const o of pool.values()) if (o.pos === w.pos && o.synonyms.includes(w.id)) ids.add(o.id);
+  ids.delete(w.id);
+  return [...ids].sort();
+}
+
+/**
+ * Four wrong options for closest in meaning: the word's look-alikes and opposites first, then the
+ * answer's, then words of the same part of speech and tier, then any of the same part of speech. None
+ * is close in meaning to the word or the answer, so only the answer is right.
+ */
+export function synonymDistractors(w: Word, answer: Word, pool: ReadonlyMap<string, Word>, seed: number): string[] {
+  const rng = mulberry32(seed);
+  const out: string[] = [];
+  const add = (o: Word | undefined) => {
+    if (!o || out.length === CHOICES - 1 || o.id === w.id || o.id === answer.id || out.includes(o.id) || close(o, w) || close(o, answer)) return;
+    out.push(o.id);
+  };
+  for (const id of w.confusables) add(pool.get(id));
+  for (const id of rng.shuffle([...answer.confusables])) add(pool.get(id));
+  const others = rng.shuffle([...pool.values()]);
+  for (const o of others) if (o.pos === w.pos && o.tier === w.tier) add(o);
+  for (const o of others) if (o.pos === w.pos) add(o);
+  return out;
+}
+
 /**
  * How each word is asked. The chosen practice types are spread evenly over the session (dealt in turn,
  * then shuffled), so two types give about half each. Choice order is shuffled with the seed. Sentence
  * equivalence uses a bank sentence when the word has one still unused this session, since its partner
  * could otherwise meet the same sentence, then the word's own example and partner.
+ *
+ * `levels` (one per word) sets how hard each quiz card is. Medium, or no levels, is the original way.
+ * Easy asks word → meaning and takes wrong options from other parts of speech, and sentence equivalence
+ * uses the word's own example first. Hard asks closest in meaning when the word has a deck synonym, and
+ * fill the blank uses an unused bank sentence, whose decoys tempt.
  */
-export function planVocabItems(ids: readonly string[], modes: readonly VocabMode[], pool: ReadonlyMap<string, Word>, seed: number, sentences?: EquivIndex): VocabItem[] {
+export function planVocabItems(ids: readonly string[], modes: readonly VocabMode[], pool: ReadonlyMap<string, Word>, seed: number, sentences?: EquivIndex, levels?: readonly Difficulty[]): VocabItem[] {
   const rng = mulberry32(seed);
   const chosen = modes.length ? modes : (['flashcard'] as const);
   const dealt = rng.shuffle(ids.map((_, i) => chosen[i % chosen.length]!));
   const used = new Set<string>();
-  return ids.map((wordId, i) => {
+  /** A bank sentence for the word that this session hasn't asked yet. */
+  const bankSentence = (wordId: string, itemRng: Rng): EquivSentence | undefined => {
+    const unused = (sentences?.get(wordId) ?? []).filter((s) => !used.has(s.id));
+    if (!unused.length) return undefined;
+    const s = itemRng.pick(unused);
+    used.add(s.id);
+    return s;
+  };
+  return ids.map((wordId, i): VocabItem => {
     const w = pool.get(wordId);
     const partner = w?.equivalent ? pool.get(w.equivalent) : undefined;
+    const level = levels?.[i];
+    const tag = level ? { level } : {};
+    const itemSeed = seed + i + 1;
     let mode = dealt[i]!;
     if (mode === 'equiv') {
-      const unused = (sentences?.get(wordId) ?? []).filter((s) => !used.has(s.id));
-      if (unused.length) {
-        const itemRng = mulberry32(seed + i + 1);
-        const s = itemRng.pick(unused);
-        used.add(s.id);
-        return { wordId, kind: 'equiv', partner: s.answer.find((id) => id !== wordId)!, sentenceId: s.id, sentence: s.sentence, choices: itemRng.shuffle([...s.answer, ...s.decoy, ...s.others]) };
+      const itemRng = mulberry32(itemSeed);
+      if (level === 1 && w && partner) return { wordId, kind: 'equiv', partner: partner.id, choices: itemRng.shuffle([wordId, partner.id, ...plainDistractors(w, [w, partner], pool, EQUIV_CHOICES - 2, itemSeed)]), ...tag };
+      const s = bankSentence(wordId, itemRng);
+      if (s) {
+        const pair = s.answer.find((id) => id !== wordId)!;
+        const wrong = level === 1 && w ? plainDistractors(w, s.answer.map((id) => pool.get(id)!).filter(Boolean), pool, EQUIV_CHOICES - 2, itemSeed) : [...s.decoy, ...s.others];
+        return { wordId, kind: 'equiv', partner: pair, sentenceId: s.id, sentence: s.sentence, choices: itemRng.shuffle([...s.answer, ...wrong]), ...tag };
       }
-      if (w && partner) return { wordId, kind: 'equiv', partner: partner.id, choices: equivChoices(w, partner, pool, seed + i + 1) };
+      if (w && partner) return { wordId, kind: 'equiv', partner: partner.id, choices: equivChoices(w, partner, pool, itemSeed), ...tag };
       // No partner for this word: ask it another chosen way.
       mode = chosen.find((m) => m !== 'equiv') ?? 'blank';
     }
     if (mode === 'flashcard' || mode === 'typein') return { wordId, kind: mode };
     if (!w) throw new Error(`No entry for ${wordId}`);
-    const kind: McqKind = mode === 'blank' ? 'blank' : rng.pick(['meaning', 'word'] as const);
-    const choices = rng.shuffle([wordId, ...distractors(w, kind, pool, seed + i + 1)]);
-    return { wordId, kind, choices };
+    if (level === 1) {
+      const kind: McqKind = mode === 'blank' ? 'blank' : 'meaning';
+      return { wordId, kind, choices: rng.shuffle([wordId, ...plainDistractors(w, [w], pool, CHOICES - 1, itemSeed)]), ...tag };
+    }
+    if (level === 3 && mode === 'blank') {
+      const s = bankSentence(wordId, mulberry32(itemSeed));
+      if (s) return { wordId, kind: 'blank', sentenceId: s.id, sentence: s.sentence, choices: rng.shuffle([wordId, ...s.decoy, ...s.others]), ...tag };
+    }
+    if (level === 3 && mode === 'mcq') {
+      const synonyms = deckSynonyms(w, pool);
+      if (synonyms.length) {
+        const answer = pool.get(mulberry32(itemSeed).pick(synonyms))!;
+        return { wordId, kind: 'synonym', partner: answer.id, choices: rng.shuffle([answer.id, ...synonymDistractors(w, answer, pool, itemSeed)]), ...tag };
+      }
+    }
+    const kind: McqKind = mode === 'blank' ? 'blank' : level === 3 ? 'word' : rng.pick(['meaning', 'word'] as const);
+    const choices = rng.shuffle([wordId, ...distractors(w, kind, pool, itemSeed)]);
+    return { wordId, kind, choices, ...tag };
   });
 }
 
@@ -255,7 +355,7 @@ export function blankOutEquiv(w: Word): string {
 
 /**
  * The Leitner grade for one answer. Flashcard values are the marks themselves; multiple choice is
- * the chosen word id; sentence equivalence is both chosen ids, and only the exact pair counts, as on
+ * the chosen word id (closest in meaning is right on its answer, not the word); sentence equivalence is both chosen ids, and only the exact pair counts, as on
  * the exam; type-in is the typed text. A skip (null) counts as wrong.
  */
 export function gradeVocab(item: VocabItem, w: Word, value: string | null): Grade {
@@ -265,6 +365,7 @@ export function gradeVocab(item: VocabItem, w: Word, value: string | null): Grad
     const r = matchWord(value, w);
     return r === 'correct' ? 'correct' : r === 'slip' ? 'slip' : 'wrong';
   }
+  if (item.kind === 'synonym') return value === item.partner ? 'correct' : 'wrong';
   if (item.kind === 'equiv') {
     const chosen = new Set(value.split('|'));
     return chosen.size === 2 && chosen.has(w.id) && chosen.has(item.partner!) ? 'correct' : 'wrong';

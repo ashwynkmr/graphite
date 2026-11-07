@@ -52,7 +52,7 @@ Each story is written from the learner's side and tagged with its release phase.
 | US-04 | Answer by typing or by picking from five options | Keypad accepts digits, decimal point, minus and fraction slash; equivalent forms marked correct; MCQ shows A–E | 1 |
 | US-05 | See my score and analysis only when the session ends | No right/wrong shown mid-session; results show score, accuracy, time, topic and difficulty breakdown, slow/careless flags, per-question review with explanation | 1 |
 | US-06 | Retry only what I got wrong | Retry wrong ones starts a new session with exactly the wrong and skipped questions | 1 |
-| US-07 | Learn 200 new words a day in the mode I choose | Vocab setup offers Flashcards, Choices, Fill the blank, Sentence equivalence; daily new-word cap defaults to 200 | 1 |
+| US-07 | Learn 200 new words a day in the mode I choose | Vocab setup offers Flashcards, Choices, Fill the blank, Sentence equivalence, and Easy, Medium, Hard or Adaptive for the quiz types ([0058](../decisions/0058-vocab-difficulty-levels.md)); daily new-word cap defaults to 200 | 1 |
 | US-08 | Mark words I struggle with so they come back | Know it / Unsure / Review on flashcards; star any word; due words surface by Leitner schedule | 1 |
 | US-09 | Have every mistake collected in one place | Wrong quant answers and missed words appear in the mistake log automatically; Drill my mistakes builds a session from it; an item leaves after 2 correct answers in a row | 1 |
 | US-10 | Know how many days are left and what to do today | Home shows days to Nov 24 and today's plan (due words, new words, quant target) with progress | 1 |

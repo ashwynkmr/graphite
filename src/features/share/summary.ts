@@ -4,7 +4,8 @@ import type { Topic } from '../../engine/generators/types';
 import { weakestFirst, type QuantResults, type Tally } from '../../engine/stats/quant-results';
 import { wordsNeededPerDay, type StudyHistory } from '../../engine/stats/trends';
 import type { VocabResults } from '../../engine/stats/vocab-results';
-import { duration, TOPIC_LABEL } from '../quant/display';
+import type { Difficulty } from '../../engine/generators/types';
+import { DIFFICULTY_LABEL, duration, TOPIC_LABEL } from '../quant/display';
 
 export interface ShareRow {
   label: string;
@@ -79,17 +80,25 @@ export function quantShare(kind: string, r: QuantResults): ResultCard {
   };
 }
 
+/**
+ * Quiz cards score the session when there are any, so their rows are by level (Easy, Medium, Hard) and
+ * add up to the score. Flashcard marks fill the rows otherwise, and on sessions from before levels.
+ */
 export function vocabShare(kind: string, r: VocabResults): ResultCard {
   const cards = r.flashcards;
   const known = `${r.marks.know} of ${cards} known`;
-  const rows: ShareRow[] = cards
+  const levels = (Object.entries(r.byLevel) as [string, Tally][]).map(([k, x]): ShareRow => ({ label: DIFFICULTY_LABEL[Number(k) as Difficulty], count: `${x.correct}/${x.total}`, share: x.correct / x.total }));
+  const quiz = r.total > 0;
+  const rows: ShareRow[] = quiz && levels.length
+    ? levels
+    : cards
     ? [
         { label: 'Know it', count: String(r.marks.know), share: r.marks.know / cards },
         { label: 'Unsure', count: String(r.marks.unsure), share: r.marks.unsure / cards },
         { label: 'Review', count: String(r.marks.review), share: r.marks.review / cards },
       ]
     : [];
-  const quiz = r.total > 0;
+  const levelText = levels.length > 1 ? levels.map((x) => `${x.label.toLowerCase()} ${x.count}`).join(', ') : '';
   return {
     kind,
     score: quiz ? { value: r.correct, of: `of ${r.total}` } : { value: r.marks.know, of: `of ${cards} known` },
@@ -99,7 +108,7 @@ export function vocabShare(kind: string, r: VocabResults): ResultCard {
       { label: 'Per card', value: duration(r.avgMs) },
     ],
     rows,
-    text: ['Graphite', kind, quiz ? `${r.correct}/${r.total} (${percent(r.correct, r.total)}%)` : known, `avg ${duration(r.avgMs)}`, quiz && cards ? `flashcards ${known}` : ''].filter(Boolean).join(' · '),
+    text: ['Graphite', kind, quiz ? `${r.correct}/${r.total} (${percent(r.correct, r.total)}%)` : known, `avg ${duration(r.avgMs)}`, levelText, quiz && cards ? `flashcards ${known}` : ''].filter(Boolean).join(' · '),
   };
 }
 

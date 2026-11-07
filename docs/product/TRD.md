@@ -281,6 +281,7 @@ All of this lives in `src/engine/` as pure functions with no React or storage im
 - Session length 25, 50 (default) or 100 cards.
 - Order: due words first (box 1–4 with due day today or earlier, lowest box first), then new words in rank order until the daily cap (default 200 new words per local day) is reached.
 - MCQ distractors: the word's confusables first, then random words of the same part of speech and tier.
+- Vocab levels ([0058](../decisions/0058-vocab-difficulty-levels.md)): Medium is the rule above. Easy asks word → meaning with wrong options from other parts of speech. Hard asks closest in meaning (a deck synonym; wrong options not close in meaning to the word or the answer) and fills the blank in an unused exam-style sentence with its decoys. Adaptive takes the level from the word's box (0–1 Easy, 2–3 Medium, 4–5 Hard).
 - Rounds ([0044](../decisions/0044-round-2-browse-and-memory-aids.md)): when every word has been seen, Home offers Round 2. It's a separate deck: `meta` holds the current round, each answer sets that word's `round`, and the queue is the words still to go, ordered starred, box 1, box 2 … box 5.
 
 **Mistake log (`mistakes.ts`)**
@@ -362,7 +363,7 @@ Five tabs, one task per screen, built from a small set of shared components and 
 | `#/` | Home: countdown, today's plan, Quick drill, Continue vocab, resume and update banners | 1 |
 | `#/quant` | Quant setup | 1 |
 | `#/quant/session/:id` | Drill (full-screen, tab bar hidden) | 1 |
-| `#/vocab` | Vocab setup: mode, deck, length | 1 |
+| `#/vocab` | Vocab setup: mode, difficulty, deck, length | 1 |
 | `#/vocab/session/:id` | Flashcard / MCQ / fill-the-blank / Sentence Equivalence session (full-screen) | 1 |
 | `#/results/:id` | Results for either session type, with Share | 1 |
 | `#/mistakes` | Mistake log and Drill my mistakes | 1 |
